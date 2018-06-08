@@ -1,0 +1,5 @@
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <ng-container *ngFor="let resource of resources">
+        <app-resource-card [resource]="resource"></app-resource-card>
+    </ng-container>
+</div>
