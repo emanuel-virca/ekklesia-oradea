@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { Resource } from '../resource.model';
+import { LoaderService } from '../../shared/loader/loader.service';
 
 @Component({
     selector: 'app-resources-list',
@@ -16,7 +17,7 @@ export class ResourcesListComponent implements OnInit {
     loading = false;
     thereIsMore = true;
 
-    constructor(private db: AngularFirestore) { }
+    constructor(private db: AngularFirestore, private loaderService: LoaderService) { }
 
     ngOnInit() {
         this.getNextResources();
@@ -30,6 +31,7 @@ export class ResourcesListComponent implements OnInit {
 
     private getNextResources() {
         this.loading = true;
+        this.loaderService.show();
 
         const queryRef = this.db.collection<Resource>('resources', ref => {
             if (this.lastVisible) {
@@ -41,11 +43,12 @@ export class ResourcesListComponent implements OnInit {
             (items: Resource[]) => {
                 this.resources = this.resources.concat(items);
                 this.lastVisible = items[items.length - 1];
-                this.loading = false;
                 if (items.length < this.pageSize) {
                     this.thereIsMore = false;
                 }
+                this.loading = false;
+                this.loaderService.hide();
             },
-            err => this.loading = false);
+            err => { this.loading = false; this.loaderService.hide(); });
     }
 }
