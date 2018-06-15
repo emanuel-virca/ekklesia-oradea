@@ -1,15 +1,15 @@
 <mat-card class="resource-card">
     <mat-card-header>
-        <img mat-card-avatar class="example-header-image" [src]="resource.author.avatar">
+        <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar">
         <mat-card-title>{{resource.title}}</mat-card-title>
-        <mat-card-subtitle>{{resource.author.firstName}}&nbsp;{{resource.author.lastName}}</mat-card-subtitle>
+        <mat-card-subtitle>{{resource.author?.firstName}}&nbsp;{{resource.author?.lastName}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="resource.imageSrc" alt="Photo of a Shiba Inu">
     <mat-card-content>
         <p>
             {{resource.description}}
         </p>
-        <p>{{resource.dateTime.toDate() | date}}</p>
+        <p>{{resource.dateTime?.toDate() | date}}</p>
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-icon-button>
