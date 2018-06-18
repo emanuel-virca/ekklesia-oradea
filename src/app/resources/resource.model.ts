@@ -1,6 +1,6 @@
 export class Resource {
     title: string;
-    dateTime: Date;
+    dateTime: any;
     description: string;
     hearthisId: number;
     imageSrc: string;
@@ -15,7 +15,7 @@ export const enum ResourceType {
 }
 
 export class Author {
-    firtName: string;
+    firstName: string;
     lastName: string;
     avatar: string;
 }
