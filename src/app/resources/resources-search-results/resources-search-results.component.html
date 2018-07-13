@@ -1,0 +1,12 @@
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  <mat-list>
+    <mat-list-item *ngFor="let item of searchResults">
+      <img matListAvatar src="http://downloadicons.net/sites/default/files/audio-wave-icon-61276.png" alt="...">
+      <h3 matLine> {{item.name}} </h3>
+      <p matLine>
+        <span>This is a message </span>
+        <span class="demo-2"> This is a message content </span>
+      </p>
+    </mat-list-item>
+  </mat-list>
+</div>
