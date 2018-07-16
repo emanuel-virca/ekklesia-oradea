@@ -8,13 +8,15 @@ import { SearchService } from './services/search.service';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
 import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MaterialModule
+        MaterialModule,
+        RouterModule,
     ],
     declarations: [
         LoaderComponent,
