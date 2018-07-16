@@ -27,7 +27,7 @@
         "algoliasearch": "^3.28.0",
         "angularfire2": "^5.0.0-rc.10",
         "core-js": "^2.5.4",
-        "firebase": "^5.0.4",
+        "firebase": "^5.2.0",
         "ngx-infinite-scroll": "^6.0.0",
         "ngx-masonry": "^1.1.2",
         "rxjs": "^6.0.0",
