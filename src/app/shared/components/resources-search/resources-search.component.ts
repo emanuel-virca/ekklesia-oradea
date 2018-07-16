@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-import { SearchService } from '../../shared/services/search.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { ResourceSearchResult } from '../../shared/models/resource-search-result.model';
 import { Router } from '@angular/router';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger  } from '@angular/material';
+
+import { ResourceSearchResult } from './resource-search-result.model';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 export class ResourcesSearchComponent implements OnInit {
     searchCtrl: FormControl;
     searchResults: Array<ResourceSearchResult>;
+    showAutocompletePanel: boolean;
+
+    @ViewChild('matAutocompleteTrigger', { read: MatAutocompleteTrigger }) matAutocompleteTrigger: MatAutocompleteTrigger;
 
     constructor(private searchService: SearchService, private router: Router) {
         this.searchCtrl = new FormControl();
@@ -32,6 +35,7 @@ export class ResourcesSearchComponent implements OnInit {
     }
 
     search() {
+        this.matAutocompleteTrigger.closePanel();
         this.router.navigate(['../resources/results', { search_query: this.searchCtrl.value }]);
     }
 }

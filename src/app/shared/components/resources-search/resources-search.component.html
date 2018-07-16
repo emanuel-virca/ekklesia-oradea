@@ -1,0 +1,10 @@
+<form class="search-form">
+  <mat-form-field>
+    <input matInput aria-label="Search Resources" #matAutocompleteTrigger [matAutocomplete]="auto" [formControl]="searchCtrl" (keydown.enter)="search()">    
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event)" showPanel="">
+      <mat-option *ngFor="let searchResult of searchResults" [value]="searchResult.name">        
+        <span>{{ searchResult.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>  
+</form>

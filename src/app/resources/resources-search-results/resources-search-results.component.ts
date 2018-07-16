@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SearchService } from '../../shared/services/search.service';
-import { ResourceSearchResult } from '../../shared/models/resource-search-result.model';
 import { LoaderService } from '../../shared/loader/loader.service';
+import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
 
 @Component({
   selector: 'app-resources-search-results',
@@ -12,7 +12,7 @@ import { LoaderService } from '../../shared/loader/loader.service';
 })
 export class ResourcesSearchResultsComponent implements OnInit {
 
-  searchResults: Array<ResourceSearchResult> = new Array<ResourceSearchResult>();
+  searchResults = new Array<ResourceSearchResult>();
   currentPage = 0;
   pageSize = 50;
   loading = false;

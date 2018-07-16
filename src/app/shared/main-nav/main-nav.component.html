@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="!showSearch">
+  <a href="/">Ekklesia</a>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="onStartSearch()">
+    <mat-icon aria-label="Search">search</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-toolbar class="search-nav" *ngIf="showSearch">
+  <app-resources-search class="search-form"></app-resources-search>
+  <button mat-icon-button (click)="onStopSearch()">
+    <mat-icon aria-label="Clear">clear</mat-icon>
+  </button>
+</mat-toolbar>
