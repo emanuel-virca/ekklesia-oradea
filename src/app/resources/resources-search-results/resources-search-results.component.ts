@@ -12,7 +12,7 @@ import { ResourceSearchResult } from '../../shared/components/resources-search/r
 })
 export class ResourcesSearchResultsComponent implements OnInit {
 
-  searchResults = new Array<ResourceSearchResult>();
+  searchResults: Array<ResourceSearchResult>;
   currentPage = 0;
   pageSize = 50;
   loading = false;
@@ -20,11 +20,15 @@ export class ResourcesSearchResultsComponent implements OnInit {
   searchQuery = '';
 
   constructor(private searchService: SearchService, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.searchQuery = this.route.snapshot.paramMap.get('search_query');
+    this.route.paramMap.subscribe((x) => {
+      this.initSearch();
+      this.searchQuery = x.get('search_query');
+      this.getNextResultsAsync();
+    });
   }
 
   ngOnInit() {
-    this.getNextResultsAsync();
+
   }
 
   async getNextResultsAsync() {
@@ -52,5 +56,13 @@ export class ResourcesSearchResultsComponent implements OnInit {
     if (!this.loading && this.thereIsMore) {
       this.getNextResultsAsync();
     }
+  }
+
+  private initSearch() {
+    this.thereIsMore = true;
+    this.currentPage = 0;
+    this.loading = false;
+    this.searchResults = new Array<ResourceSearchResult>();
+    // TODO cancel current search
   }
 }
