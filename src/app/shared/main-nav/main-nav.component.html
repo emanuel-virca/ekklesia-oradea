@@ -1,5 +1,7 @@
 <mat-toolbar *ngIf="!showSearch">
-  <a href="/">Ekklesia</a>
+  <a routerLink="/">
+    <img class="logo" src="../../../assets/logo-blue.png"/> 
+  </a>
   <span class="example-spacer"></span>
   <button mat-icon-button (click)="onStartSearch()">
     <mat-icon aria-label="Search">search</mat-icon>
