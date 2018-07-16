@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        PageNotFoundComponent
     ],
     imports: [
         BrowserModule,
