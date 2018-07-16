@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoaderService } from './loader/loader.service';
@@ -8,7 +9,7 @@ import { SearchService } from './services/search.service';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
 import { MaterialModule } from '../material/material.module';
-import { RouterModule } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { RouterModule } from '@angular/router';
     providers: [
         LoaderService,
         SearchService,
+        AuthenticationService,
     ]
 })
 export class SharedModule { }
