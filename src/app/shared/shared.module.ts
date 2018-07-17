@@ -10,6 +10,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
 import { MaterialModule } from '../material/material.module';
 import { AuthenticationService } from './services/authentication.service';
+import { PermissionsService } from './services/permissions.service';
+import { CanLoadAdmin } from './route-guards/can-load-admin.service';
 
 @NgModule({
     imports: [
@@ -33,7 +35,9 @@ import { AuthenticationService } from './services/authentication.service';
     providers: [
         LoaderService,
         SearchService,
+        PermissionsService,
         AuthenticationService,
+        CanLoadAdmin,
     ]
 })
 export class SharedModule { }
