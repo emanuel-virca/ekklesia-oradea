@@ -9,6 +9,10 @@ const routes: Routes = [
         loadChildren: './resources/resources.module#ResourcesModule',
     },
     {
+        path: 'admin',
+        loadChildren: './admin/admin.module#AdminModule'
+    },
+    {
         path: '',
         redirectTo: '/resources',
         pathMatch: 'full'
