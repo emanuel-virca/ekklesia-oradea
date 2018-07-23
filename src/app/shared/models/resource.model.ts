@@ -1,4 +1,5 @@
 import { SelectOption } from './select-option';
+import { Author } from './author.model';
 
 
 export class Resource {
@@ -8,8 +9,7 @@ export class Resource {
     hearthisId?: number;
     imageSrc?: string;
     type: ResourceType;
-    // TODO optimize the doc beeing get from db 
-    author: any;
+    author?: Author;
 }
 
 export const enum ResourceType {

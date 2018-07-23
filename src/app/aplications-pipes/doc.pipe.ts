@@ -9,8 +9,9 @@ export class DocPipe implements PipeTransform {
 
   constructor(private db: AngularFirestore) {}
 
-  transform(value: any): Observable<any> {
-    return this.db.doc(value.path).valueChanges();
+  transform<T>(value: any): Observable<T> {
+    // TODO any easyer????
+    return this.db.doc<T>(value.path).valueChanges();
   }
 
 }
