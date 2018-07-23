@@ -48,6 +48,19 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.authService.signOut();
   }
 
+  getInitials(displayName): string {
+    if (!displayName) { return ''; }
+
+    const names = displayName.split(' ');
+    let initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+      initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+
+    return initials;
+  }
+
   // TODO imitate material search style at https://material.io/tools/icons/?style=baseline
 
 }

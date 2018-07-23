@@ -3,26 +3,27 @@
     <img class="logo" src="../../../assets/logo-blue.png" />
   </a>
   <span class="example-spacer"></span>
-  <span>Search</span>
   <button mat-icon-button (click)="onStartSearch()">
     <mat-icon aria-label="Search">search</mat-icon>
   </button>
   <span class="separator"></span>
   <ng-container *ngIf="user | async as user; else showLogin">
-    <span>Hello {{ user.displayName }}</span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['admin']">
-            <mat-icon>settings</mat-icon>
-            <span>Admin</span>
-          </button>
+    <button mat-mini-fab [matMenuTriggerFor]="usermenu">{{ getInitials(user.displayName) }}</button>
+    <mat-menu #usermenu="matMenu">
       <button mat-menu-item (click)="signOut()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
       </button>
     </mat-menu>
+    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['admin']">
+        <mat-icon>settings</mat-icon>
+        <span>Admin</span>
+      </button>
+    </mat-menu> -->
   </ng-container>
   <ng-template #showLogin>
     <span class="signin" mat-button (click)="signIn()">
