@@ -8,6 +8,7 @@ import { ResourcesListComponent } from './resources-list/resources-list.componen
 import { ResourceCardComponent } from './resource-card/resource-card.component';
 import { ResourcesSearchResultsComponent } from './resources-search-results/resources-search-results.component';
 import { MaterialModule } from '../material/material.module';
+import { ApplicationPipesModule } from '../aplications-pipes/application-pipes.module';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { MaterialModule } from '../material/material.module';
         InfiniteScrollModule,
         NgxMasonryModule,
         MaterialModule,
-        CommonModule
+        CommonModule,
+        ApplicationPipesModule,
     ],
     declarations: [
         ResourcesListComponent,

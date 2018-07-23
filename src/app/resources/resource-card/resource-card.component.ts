@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Resource } from '../resource.model';
+import { Resource } from '../../shared/models/resource.model';
 
 @Component({
     selector: 'app-resource-card',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { Resource } from '../resource.model';
+import { Resource } from '../../shared/models/resource.model';
 import { LoaderService } from '../../shared/loader/loader.service';
 
 @Component({
