@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Resource, ResourceTypeSelect } from '../../../shared/models/resource.model';
 import { SelectOption } from '../../../shared/models/select-option';
 import { Author } from '../../../shared/models/author.model';
-import { ResourceService } from '../../../shared/services/resource.service';
-import { AuthorService } from '../../../shared/services/author.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { ResourceService } from '../../../shared/services/resource/resource.service';
+import { AuthorService } from '../../../shared/services/author/author.service';
+
 
 @Component({
   selector: 'app-create-resource',

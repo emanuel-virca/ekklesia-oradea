@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { LoaderService } from './loader/loader.service';
-import { LoaderComponent } from './loader/loader.component';
-import { SearchService } from './services/search.service';
-import { MainNavComponent } from './main-nav/main-nav.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
 import { MaterialModule } from '../material/material.module';
-import { AuthenticationService } from './services/authentication.service';
-import { PermissionsService } from './services/permissions.service';
 import { CanLoadAdmin } from './route-guards/can-load-admin.service';
+import { AuthorService } from './services/author/author.service';
+import { ResourceService } from './services/resource/resource.service';
+import { DocPipe } from './pipes/doc/doc.pipe';
 
 @NgModule({
     imports: [
@@ -25,19 +24,23 @@ import { CanLoadAdmin } from './route-guards/can-load-admin.service';
         LoaderComponent,
         MainNavComponent,
         ResourcesSearchComponent,
+        DocPipe,
     ],
     exports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
         MaterialModule,
         LoaderComponent,
         MainNavComponent,
         ResourcesSearchComponent,
+        DocPipe,
     ],
     providers: [
-        LoaderService,
-        SearchService,
-        PermissionsService,
-        AuthenticationService,
         CanLoadAdmin,
+        AuthorService,
+        ResourceService,
     ]
 })
 export class SharedModule { }

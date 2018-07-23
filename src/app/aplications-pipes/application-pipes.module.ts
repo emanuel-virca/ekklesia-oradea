@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocPipe } from './doc.pipe';
+import { DocPipe } from '../shared/pipes/doc/doc.pipe';
 
 @NgModule({
   imports: [

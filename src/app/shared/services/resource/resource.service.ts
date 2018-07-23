@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { OrderByDirection } from '@google-cloud/firestore';
 
-import { LoaderService } from '../loader/loader.service';
-import { Resource } from '../models/resource.model';
+import { LoaderService } from '../../../core/services/loader/loader.service';
+import { Resource } from '../../models/resource.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class ResourceService {
     this.loaderService.hide();
   }
 
-  query(pageSize: number, lastVisible?: Resource, orderBy?: OrderByDirection): Observable<Resource[]> {
+  query(pageSize: number, lastVisible?: Resource, orderBy?: firebase.firestore.OrderByDirection): Observable<Resource[]> {
     return this.db.collection<Resource>('resources', ref => {
       if (lastVisible) {
         if (orderBy) {

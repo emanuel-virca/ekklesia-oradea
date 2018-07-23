@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 
-import { SearchService } from '../services/search.service';
-import { SearchState } from '../services/search-state';
-import { AuthenticationService } from '../services/authentication.service';
+import { SearchService } from '../../../core/services/search/search.service';
+import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
+import { SearchState } from '../../../core/models/search-state';
+
 
 @Component({
   selector: 'app-main-nav',

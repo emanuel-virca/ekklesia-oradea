@@ -3,8 +3,8 @@ import { CanLoad, Route } from '@angular/router';
 import { Observable, pipe } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { PermissionsService } from '../services/permissions.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { PermissionsService } from '../../core/services/permissions/permissions.service';
+import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 
 
 @Injectable({

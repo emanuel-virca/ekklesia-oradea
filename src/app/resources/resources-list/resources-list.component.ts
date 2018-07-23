@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Resource } from '../../shared/models/resource.model';
-import { LoaderService } from '../../shared/loader/loader.service';
-import { ResourceService } from '../../shared/services/resource.service';
+import { LoaderService } from '../../core/services/loader/loader.service';
+import { ResourceService } from '../../shared/services/resource/resource.service';
 
 @Component({
     selector: 'app-resources-list',

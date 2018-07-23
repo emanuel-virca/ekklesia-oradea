@@ -3,8 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LoaderService } from '../loader/loader.service';
-import { Author } from '../models/author.model';
+import { LoaderService } from '../../../core/services/loader/loader.service';
+import { Author } from '../../models/author.model';
 
 @Injectable({
   providedIn: 'root'

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import * as algoliasearchProxy from 'algoliasearch';
 import { Subject } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
-import { ResourceSearchResult } from '../components/resources-search/resource-search-result.model';
-import { SearchState } from './search-state';
+import { environment } from '../../../../environments/environment';
+import { ResourceSearchResult } from '../../../shared/components/resources-search/resource-search-result.model';
+import { SearchState } from '../../models/search-state';
 
 @Injectable({
   providedIn: 'root'

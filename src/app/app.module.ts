@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         AngularFirestoreModule,
         AngularFireAuthModule,
         BrowserAnimationsModule,
-        SharedModule
+        SharedModule,
+        CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]
