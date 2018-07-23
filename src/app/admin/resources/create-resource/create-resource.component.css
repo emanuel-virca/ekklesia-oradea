@@ -1,0 +1,5 @@
+.form-horrizontal {
+    display: flex;
+    flex-direction: column;
+  }
+ 
