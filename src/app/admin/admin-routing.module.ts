@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateResourceComponent } from './resources/create-resource/create-resource.component';
+import { CreateResourceComponent } from './resources/components/create-resource/create-resource.component';
 import { ResourcesListComponent } from './resources/components/resources-list/resources-list.component';
 
 const routes: Routes = [
