@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { mapItemWithId, mapArrayWithId } from '../../rxjs/pipes';
 
 import { LoaderService } from '../../../core/services/loader/loader.service';
 import { Resource } from '../../models/resource.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,14 @@ export class ResourceService {
           return ref.limit(pageSize);
         }
       }
-    }).valueChanges();
+    }).snapshotChanges().pipe(mapArrayWithId);
+  }
+
+  get(resourceId: string): Observable<Resource> {
+    return this.itemsCollection.doc<Resource>(resourceId).snapshotChanges().pipe(mapItemWithId);
+  }
+
+  async updateAsync(resourceId: string, resource: Resource): Promise<void> {
+    await this.itemsCollection.doc(resourceId).update(resource);
   }
 }

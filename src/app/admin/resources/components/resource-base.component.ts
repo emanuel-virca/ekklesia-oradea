@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,10 +35,14 @@ export class ResourceBaseComponent implements OnInit {
         }));
     }
 
+    public hardResetForm() {
+        this.resetForm();
+        this.resourceForm.reset();
+    }
+
     public resetForm() {
         this.resourceForm.markAsUntouched();
         this.resourceForm.markAsPristine();
-        this.resourceForm.reset();
     }
 
     get title() { return this.resourceForm.controls.title; }

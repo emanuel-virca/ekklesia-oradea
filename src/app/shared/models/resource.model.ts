@@ -1,15 +1,17 @@
 import { SelectOption } from './select-option';
 import { Author } from './author.model';
+import { DocumentReference } from 'angularfire2/firestore';
 
 
 export class Resource {
+    id?: string;
     title: string;
     dateTime: any;
     description?: string;
     hearthisId?: number;
     imageSrc?: string;
     type: ResourceType;
-    author?: Author;
+    author: DocumentReference;
 }
 
 export const enum ResourceType {

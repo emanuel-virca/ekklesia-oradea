@@ -42,7 +42,7 @@ export class CreateResourceComponent extends ResourceBaseComponent implements On
       // TODO create notification service
       this.snackBar.open('Data sucessfully saved', null, { duration: 5000, });
 
-      this.resetForm();
+      this.hardResetForm();
 
     } catch (e) {
       this.snackBar.open('An error occured while savind data!', null, { duration: 5000, });
