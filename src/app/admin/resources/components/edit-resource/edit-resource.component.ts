@@ -50,6 +50,7 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
 
   async save() {
     const resource: Resource = {
+      id: this.resource.id,
       title: this.resourceForm.controls.title.value,
       type: this.resourceForm.controls.resourceType.value,
       hearthisId: this.resourceForm.controls.hearthisId.value,
@@ -60,7 +61,7 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
     };
 
     try {
-      await this.resourceService.updateAsync(this.resource.id, resource);
+      await this.resourceService.updateAsync(resource);
 
       // TODO create notification service
       this.snackBar.open('Data sucessfully saved', null, { duration: 5000, });

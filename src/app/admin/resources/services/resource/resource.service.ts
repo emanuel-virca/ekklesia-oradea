@@ -42,8 +42,10 @@ export class ResourceService {
     return resource;
   }
 
-  public async updateAsync(resourceId: string, resource: Resource): Promise<void> {
-    await this.itemsCollection.doc(resourceId).update(resource);
+  public async updateAsync(resource: Resource): Promise<void> {
+    await this.itemsCollection.doc(resource.id).update(resource);
+
+    await this.resourceSearchService.updateAsync(resource);
   }
 
   public get(resourceId: string): Observable<Resource> {
