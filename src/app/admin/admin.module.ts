@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { ResourcesListComponent } from './resources/components/resources-list/resources-list.component';
 import { CreateResourceComponent } from './resources/components/create-resource/create-resource.component';
 import { EditResourceComponent } from './resources/components/edit-resource/edit-resource.component';
+import { ResourceSearchService } from './resources/services/resource-search/resource-search.service';
 
 @NgModule({
   imports: [
@@ -14,7 +15,10 @@ import { EditResourceComponent } from './resources/components/edit-resource/edit
   declarations: [
     CreateResourceComponent,
     ResourcesListComponent,
-    EditResourceComponent,
+    EditResourceComponent
+  ],
+  providers: [
+    ResourceSearchService,
   ]
 })
 export class AdminModule { }

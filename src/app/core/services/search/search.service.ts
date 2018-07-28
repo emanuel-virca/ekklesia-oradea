@@ -18,7 +18,7 @@ export class SearchService {
 
   constructor() {
     const client = algoliasearchProxy(environment.algolia.applicationId, environment.algolia.apiKey);
-    this.algoliaIndex = client.initIndex('getstarted_actors');
+    this.algoliaIndex = client.initIndex(environment.algolia.resourceIndex);
   }
 
   public searchResourcesAsync(search: string, pageNo: number, pageSize: number): Promise<ResourceSearchResult[]> {

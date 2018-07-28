@@ -5,6 +5,7 @@ import { mapItemWithId, mapArrayWithId } from '../../rxjs/pipes';
 
 import { LoaderService } from '../../../core/services/loader/loader.service';
 import { Resource } from '../../models/resource.model';
+import { ResourceSearchService } from '../../../admin/resources/services/resource-search.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,31 @@ export class ResourceService {
 
   itemsCollection: AngularFirestoreCollection<any>;
 
-  constructor(private db: AngularFirestore, private loaderService: LoaderService) {
+  constructor(
+    private db: AngularFirestore,
+    private loaderService: LoaderService,
+    private resourceSearchService: ResourceSearchService,
+  ) {
     this.itemsCollection = this.db.collection<any>('resources');
   }
 
-  async createAsync(resource: Resource) {
+  async createAsync(resource: Resource): Promise<Resource> {
     this.loaderService.show();
 
     try {
-      await this.itemsCollection.add(resource);
+      const resourceDocumnetReference = await this.itemsCollection.add(resource);
+
+      resource.id = resourceDocumnetReference.id;
+
+      await this.resourceSearchService.addAsync(resource);
+
     } catch (e) {
       console.log(e);
     }
 
     this.loaderService.hide();
+
+    return resource;
   }
 
   query(pageSize: number, lastVisible?: Resource, orderBy?: firebase.firestore.OrderByDirection): Observable<Resource[]> {
