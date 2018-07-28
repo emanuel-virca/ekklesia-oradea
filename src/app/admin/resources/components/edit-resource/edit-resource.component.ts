@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { DocumentReference } from 'angularfire2/firestore';
 
 import { ResourceBaseComponent } from '../resource-base.component';
 import { AuthorService } from '../../../../shared/services/author/author.service';
 import { Resource } from '../../../../shared/models/resource.model';
-import { ResourceService } from '../../../../shared/services/resource/resource.service';
-import { DocumentReference } from 'angularfire2/firestore';
+import { ResourceService } from '../../services/resource/resource.service';
 
 
 @Component({

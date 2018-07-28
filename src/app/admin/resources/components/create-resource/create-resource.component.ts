@@ -3,8 +3,8 @@ import { MatSnackBar } from '@angular/material';
 
 import { ResourceBaseComponent } from '../resource-base.component';
 import { AuthorService } from '../../../../shared/services/author/author.service';
-import { ResourceService } from '../../../../shared/services/resource/resource.service';
 import { Resource } from '../../../../shared/models/resource.model';
+import { ResourceService } from '../../services/resource/resource.service';
 
 @Component({
   selector: 'app-create-resource',

@@ -6,6 +6,7 @@ import { ResourcesListComponent } from './resources/components/resources-list/re
 import { CreateResourceComponent } from './resources/components/create-resource/create-resource.component';
 import { EditResourceComponent } from './resources/components/edit-resource/edit-resource.component';
 import { ResourceSearchService } from './resources/services/resource-search/resource-search.service';
+import { ResourceService } from './resources/services/resource/resource.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ResourceSearchService } from './resources/services/resource-search/reso
     EditResourceComponent
   ],
   providers: [
+    ResourceService,
     ResourceSearchService,
   ]
 })

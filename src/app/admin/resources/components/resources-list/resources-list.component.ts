@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+
 import { Resource } from '../../../../shared/models/resource.model';
-import { ResourceService } from '../../../../shared/services/resource/resource.service';
+import { ResourceService } from '../../services/resource/resource.service';
 
 @Component({
   selector: 'app-resources-list',

@@ -3,9 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { mapItemWithId, mapArrayWithId } from '../../rxjs/pipes';
 
-import { LoaderService } from '../../../core/services/loader/loader.service';
 import { Resource } from '../../models/resource.model';
-import { ResourceSearchService } from '../../../admin/resources/services/resource-search.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,33 +13,12 @@ export class ResourceService {
   itemsCollection: AngularFirestoreCollection<any>;
 
   constructor(
-    private db: AngularFirestore,
-    private loaderService: LoaderService,
-    private resourceSearchService: ResourceSearchService,
+    private db: AngularFirestore
   ) {
     this.itemsCollection = this.db.collection<any>('resources');
   }
 
-  async createAsync(resource: Resource): Promise<Resource> {
-    this.loaderService.show();
-
-    try {
-      const resourceDocumnetReference = await this.itemsCollection.add(resource);
-
-      resource.id = resourceDocumnetReference.id;
-
-      await this.resourceSearchService.addAsync(resource);
-
-    } catch (e) {
-      console.log(e);
-    }
-
-    this.loaderService.hide();
-
-    return resource;
-  }
-
-  query(pageSize: number, lastVisible?: Resource, orderBy?: firebase.firestore.OrderByDirection): Observable<Resource[]> {
+  public query(pageSize: number, lastVisible?: Resource, orderBy?: firebase.firestore.OrderByDirection): Observable<Resource[]> {
     return this.db.collection<Resource>('resources', ref => {
       if (lastVisible) {
         if (orderBy) {
@@ -59,11 +36,7 @@ export class ResourceService {
     }).snapshotChanges().pipe(mapArrayWithId);
   }
 
-  get(resourceId: string): Observable<Resource> {
+  public get(resourceId: string): Observable<Resource> {
     return this.itemsCollection.doc<Resource>(resourceId).snapshotChanges().pipe(mapItemWithId);
-  }
-
-  async updateAsync(resourceId: string, resource: Resource): Promise<void> {
-    await this.itemsCollection.doc(resourceId).update(resource);
   }
 }
