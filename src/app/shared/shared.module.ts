@@ -11,6 +11,7 @@ import { CanLoadAdmin } from './route-guards/can-load-admin.service';
 import { AuthorService } from './services/author/author.service';
 import { ResourceService } from './services/resource/resource.service';
 import { DocPipe } from './pipes/doc/doc.pipe';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { DocPipe } from './pipes/doc/doc.pipe';
         MainNavComponent,
         ResourcesSearchComponent,
         DocPipe,
+        ImageUploaderComponent,
     ],
     exports: [
         CommonModule,
