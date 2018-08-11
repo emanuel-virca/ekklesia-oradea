@@ -23,4 +23,12 @@ export class ResourcesListComponent implements OnInit {
   getResources() {
     this.resourceService.query(9999).subscribe(data => this.dataSource.data = data);
   }
+
+  public async deleteAsync(resourceId) {
+    const r = confirm('You shure!');
+
+    if (r !== true) { return; }
+
+    await this.resourceService.deleteAsync(resourceId);
+  }
 }

@@ -48,6 +48,10 @@ export class ResourceService {
     await this.resourceSearchService.updateAsync(resource);
   }
 
+  public async deleteAsync(resourceId: string): Promise<void> {
+    await this.itemsCollection.doc(resourceId).delete();
+  }
+
   public get(resourceId: string): Observable<Resource> {
     return this.itemsCollection.doc<Resource>(resourceId).snapshotChanges().pipe(mapItemWithId);
   }

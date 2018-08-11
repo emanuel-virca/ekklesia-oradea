@@ -44,6 +44,9 @@
             <button mat-icon-button [routerLink]="['/admin/edit-resource',element.id]">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
+            <button mat-icon-button (click)="deleteAsync(element.id)">
+              <mat-icon aria-label="Clear">clear</mat-icon>
+            </button>
           </td>
         </ng-container>
     
