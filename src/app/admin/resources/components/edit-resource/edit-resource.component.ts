@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { DocumentReference } from 'angularfire2/firestore';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 import { ResourceBaseComponent } from '../resource-base.component';
 import { AuthorService } from '../../../../shared/services/author/author.service';
@@ -19,11 +20,12 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
 
   constructor(
     authorService: AuthorService,
+    afStorage: AngularFireStorage,
     private resourceService: ResourceService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {
-    super(authorService);
+    super(authorService, afStorage);
   }
 
   ngOnInit() {
