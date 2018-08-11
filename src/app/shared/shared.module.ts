@@ -38,6 +38,7 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
         MainNavComponent,
         ResourcesSearchComponent,
         DocPipe,
+        ImageUploaderComponent,
     ],
     providers: [
         CanLoadAdmin,

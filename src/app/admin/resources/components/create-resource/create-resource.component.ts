@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { AngularFireStorage } from 'angularfire2/storage';
 
 import { ResourceBaseComponent } from '../resource-base.component';
 import { AuthorService } from '../../../../shared/services/author/author.service';
@@ -16,11 +15,10 @@ export class CreateResourceComponent extends ResourceBaseComponent implements On
 
   constructor(
     authorService: AuthorService,
-    afStorage: AngularFireStorage,
     private resourceService: ResourceService,
     public snackBar: MatSnackBar,
   ) {
-    super(authorService, afStorage);
+    super(authorService);
   }
 
   ngOnInit() {
