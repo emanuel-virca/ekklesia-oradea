@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'create-resource', component: CreateResourceComponent },
   { path: 'edit-resource/:id', component: EditResourceComponent },
   { path: 'list-resources', component: ResourcesListComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'create-resource' },
+  { path: '', pathMatch: 'full', redirectTo: 'list-resources' },
 ];
 
 @NgModule({
