@@ -12,6 +12,7 @@ import { AuthorService } from './services/author/author.service';
 import { ResourceService } from './services/resource/resource.service';
 import { DocPipe } from './pipes/doc/doc.pipe';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
         ResourcesSearchComponent,
         DocPipe,
         ImageUploaderComponent,
+        ConfirmModalComponent,
     ],
     exports: [
         CommonModule,
@@ -39,11 +41,15 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
         ResourcesSearchComponent,
         DocPipe,
         ImageUploaderComponent,
+        ConfirmModalComponent,
     ],
     providers: [
         CanLoadAdmin,
         AuthorService,
         ResourceService,
+    ],
+    entryComponents: [
+        ConfirmModalComponent,
     ]
 })
 export class SharedModule { }
