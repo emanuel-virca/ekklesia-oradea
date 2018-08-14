@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 
-import { Resource } from '../resource.model';
-import { LoaderService } from '../../shared/loader/loader.service';
+import { Resource } from '../../shared/models/resource.model';
+import { LoaderService } from '../../core/services/loader/loader.service';
+import { ResourceService } from '../../shared/services/resource/resource.service';
 
 @Component({
     selector: 'app-resources-list',
@@ -17,7 +17,7 @@ export class ResourcesListComponent implements OnInit {
     loading = false;
     thereIsMore = true;
 
-    constructor(private db: AngularFirestore, private loaderService: LoaderService) { }
+    constructor(private resourceService: ResourceService, private loaderService: LoaderService) { }
 
     ngOnInit() {
         this.getNextResources();
@@ -30,16 +30,11 @@ export class ResourcesListComponent implements OnInit {
     }
 
     private getNextResources() {
+        // TODO move loader
         this.loading = true;
         this.loaderService.show();
 
-        const queryRef = this.db.collection<Resource>('resources', ref => {
-            if (this.lastVisible) {
-                return ref.orderBy('dateTime', 'desc').startAfter(this.lastVisible.dateTime).limit(this.pageSize);
-            } else {
-                return ref.orderBy('dateTime', 'desc').limit(this.pageSize);
-            }
-        }).valueChanges().subscribe(
+        this.resourceService.query(this.pageSize, this.lastVisible, 'desc').subscribe(
             (items: Resource[]) => {
                 this.resources = this.resources.concat(items);
                 this.lastVisible = items[items.length - 1];
@@ -49,6 +44,7 @@ export class ResourcesListComponent implements OnInit {
                 this.loading = false;
                 this.loaderService.hide();
             },
-            err => { this.loading = false; this.loaderService.hide(); });
+            err => { this.loading = false; this.loaderService.hide(); }
+        );
     }
 }

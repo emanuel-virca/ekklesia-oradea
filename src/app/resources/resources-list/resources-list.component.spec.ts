@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ResourcesListComponent } from './resources-list.component';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { LoaderService } from '../../shared/loader/loader.service';
+import { LoaderService } from '../../core/services/loader/loader.service';
 import { AngularFireModule } from 'angularfire2';
 
 describe('ResourcesListComponent', () => {

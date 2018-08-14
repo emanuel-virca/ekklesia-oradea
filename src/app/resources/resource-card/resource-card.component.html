@@ -1,8 +1,8 @@
 <mat-card class="resource-card">
-    <mat-card-header>
-        <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar">
-        <mat-card-title>{{resource.title}}</mat-card-title>
-        <mat-card-subtitle>{{resource.author?.firstName}}&nbsp;{{resource.author?.lastName}}</mat-card-subtitle>
+    <mat-card-header *ngIf="(resource.author | doc | async) as author">
+        <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
+        <mat-card-title>{{ resource.title }}</mat-card-title>
+        <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="resource.imageSrc" alt="Photo of a Shiba Inu">
     <mat-card-content>

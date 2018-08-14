@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SearchService } from '../../shared/services/search.service';
-import { LoaderService } from '../../shared/loader/loader.service';
+import { SearchService } from '../../core/services/search/search.service';
+import { LoaderService } from '../../core/services/loader/loader.service';
 import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
 
 @Component({

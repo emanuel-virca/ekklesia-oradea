@@ -15,6 +15,8 @@ export const environment = {
     algolia: {
         applicationId: '<your-application-id>',
         apiKey: '<your-api-key>',
+        adminApiKey: '<your-admin-api-key>',
+        resourceIndex: 'resources',
     }
 };
 
