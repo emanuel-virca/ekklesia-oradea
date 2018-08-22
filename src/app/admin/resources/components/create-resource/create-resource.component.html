@@ -25,6 +25,9 @@
       <input matInput placeholder="Hearthis Id" formControlName="hearthisId">
     </mat-form-field>
     <mat-form-field>
+      <input matInput placeholder="Download Url" type="url" formControlName="downloadUrl">
+    </mat-form-field>
+    <mat-form-field>
       <mat-select placeholder="Type" formControlName="resourceType" required>
         <mat-option *ngFor="let option of resourceTypes" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
@@ -35,7 +38,7 @@
     </mat-form-field>
 
     <div *ngIf="!imageSrc.value">
-      <input type="file" (change)="upload($event)" accept=".png,.jpg" />     
+      <input type="file" (change)="upload($event)" accept=".png,.jpg" />
       <mat-progress-bar *ngIf="showImageLoader" [color]="primary" [mode]="determinate" [value]="imageUploadPercent | async " [bufferValue]="1"></mat-progress-bar>
     </div>
     <div *ngIf="imageSrc.value">
@@ -43,7 +46,7 @@
       <button type="button" mat-icon-button (click)="deleteImage()">
         <mat-icon>close</mat-icon>
       </button>
-    </div>   
+    </div>
     <br>
     <button mat-icon-button (click)="save()" [disabled]="!resourceForm.valid">
       <mat-icon>save</mat-icon> Save

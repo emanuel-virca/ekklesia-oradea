@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1>Resources</h1>  
+  <h1>Resources</h1>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
@@ -41,6 +41,9 @@
           <button mat-icon-button (click)="confirmDelete(element)">
             <mat-icon aria-label="Clear">clear</mat-icon>
           </button>
+          <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
+            <mat-icon aria-label="Download">get_app</mat-icon>
+          </a>
         </td>
       </ng-container>
 
