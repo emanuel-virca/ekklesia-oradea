@@ -1,0 +1,55 @@
+.infobits, .functions {
+    display: none!important;
+}
+
+.headline .roof {
+    display: none!important;
+}
+
+.headline > br {
+    display: none!important;
+}
+
+ul.playlist li .headline {
+    top: 10px;
+}
+
+ul.playlist#embed_playlist li .time,  ul.playlist#embed_playlist li .timing{
+    top: 14px!important;
+    margin-top: 0px;
+}
+
+.img_container canvas.waveform {
+    display: block !important;
+    height: 40px!important;
+    top: 31px!important;
+    /* padding-left: 50px!important; */
+}
+
+.fullwidth .playlist#embed_playlist > li .controls {
+    height: 70px!important;
+    top: 20px!important;
+    display: block!important;
+}
+
+ul.playlist#embed_playlist li .controls .statusbar {
+    position: relative;
+    height: 70px!important;
+    background-color: transparent!important;
+    background: transparent!important;
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+
+ul.playlist#embed_playlist li .controls .statusbar .position {
+    background-color: transparent!important;
+    background: transparent!important;
+}
+
+ul.playlist#embed_playlist li .controls {
+    /* padding-left:50px; */
+}
+
+ul.playlist#embed_playlist li .player-link {
+    /* top:4px; */
+}
