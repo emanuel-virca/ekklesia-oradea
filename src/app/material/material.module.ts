@@ -1,6 +1,32 @@
 import { NgModule } from '@angular/core';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+
+import {
+    MdcAppBarModule,
+    MdcButtonModule,
+    MdcCardModule,
+    MdcCheckboxModule,
+    MdcDialogModule,
+    MdcDrawerModule,
+    MdcElevationModule,
+    MdcFabModule,
+    MdcFormFieldModule,
+    MdcIconModule,
+    MdcLinearProgressModule,
+    MdcListModule,
+    MdcMenuModule,
+    MdcRadioModule,
+    MdcRippleModule,
+    MdcSelectModule,
+    MdcSliderModule,
+    MdcSnackbarModule,
+    MdcSwitchModule,
+    MdcTextFieldModule,
+    MdcThemeModule,
+    MdcTypographyModule,
+} from '@angular-mdc/web';
+
 import {
     MatAutocompleteModule,
     MatBadgeModule,
@@ -78,6 +104,29 @@ import {
         MatToolbarModule,
         MatTooltipModule,
         MatTreeModule,
+
+        MdcAppBarModule,
+        MdcButtonModule,
+        MdcCardModule,
+        MdcCheckboxModule,
+        MdcDialogModule,
+        MdcDrawerModule,
+        MdcElevationModule,
+        MdcFabModule,
+        MdcFormFieldModule,
+        MdcIconModule,
+        MdcLinearProgressModule,
+        MdcListModule,
+        MdcMenuModule,
+        MdcRadioModule,
+        MdcRippleModule,
+        MdcSelectModule,
+        MdcSliderModule,
+        MdcSnackbarModule,
+        MdcSwitchModule,
+        MdcTextFieldModule,
+        MdcThemeModule,
+        MdcTypographyModule,
     ]
 })
 export class MaterialModule { }

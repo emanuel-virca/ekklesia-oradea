@@ -4,7 +4,7 @@
         <mat-card-title>{{ resource.title }}</mat-card-title>
         <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="resource.imageSrc" alt="Photo of a Shiba Inu">
+    <img *ngIf="resource.imageSrc" mat-card-image [src]="resource.imageSrc" alt="">
     <mat-card-content>
         <p>
             {{resource.description}}

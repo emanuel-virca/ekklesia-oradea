@@ -1,39 +1,23 @@
-<mat-toolbar *ngIf="!showSearch">
-  <a routerLink="/">
-    <img class="logo" src="../../../assets/logo-blue.png" />
-  </a>
-  <span class="example-spacer"></span>
-  <button mat-icon-button (click)="onStartSearch()">
-    <mat-icon aria-label="Search">search</mat-icon>
-  </button>
-  <span class="separator"></span>
-  <ng-container *ngIf="user | async as user; else showLogin">
-    <button mat-mini-fab [matMenuTriggerFor]="usermenu">{{ getInitials(user.displayName) }}</button>
-    <mat-menu #usermenu="matMenu">
-      <button mat-menu-item (click)="signOut()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['admin']">
-        <mat-icon>settings</mat-icon>
-        <span>Admin</span>
-      </button>
-    </mat-menu> -->
-  </ng-container>
-  <ng-template #showLogin>
-    <span class="signin" mat-button (click)="signIn()">
-      Sign In
-    </span>
-  </ng-template>
-</mat-toolbar>
-<mat-toolbar class="search-nav" *ngIf="showSearch">
-  <app-resources-search class="search-form"></app-resources-search>
-  <button mat-icon-button (click)="onStopSearch()">
-    <mat-icon aria-label="Clear">clear</mat-icon>
-  </button>
-</mat-toolbar>
+<mdc-app-bar #demoappbar [fixedAdjustElement]="mainContent">
+  <mdc-app-bar-row *ngIf="!showSearch">
+    <mdc-app-bar-section align="start" title="Ekklesia"></mdc-app-bar-section>
+    <mdc-app-bar-section align="end">
+      <mdc-icon mdcAppBarNavIcon (click)="onStartSearch()">search</mdc-icon>
+      <mdc-menu-anchor #demoanchor *ngIf="user | async as user; else showLogin">
+        <button mdc-fab mini label="{{ getInitials(user.displayName) }}" (click)="usermenu.open()"></button>
+        <mdc-menu #usermenu [anchor]="demoanchor">
+          <mdc-menu-item id="0" (click)="signOut()">Logout</mdc-menu-item>
+        </mdc-menu>
+      </mdc-menu-anchor>
+      <ng-template #showLogin>
+        <mdc-icon mdcAppBarNavIcon (click)="signIn()">person</mdc-icon>
+      </ng-template>
+    </mdc-app-bar-section>
+  </mdc-app-bar-row>
+  <mdc-app-bar-row *ngIf="showSearch">
+    <mdc-app-bar-section>
+      <app-resources-search class="search-form"></app-resources-search>    
+      <mdc-icon mdcAppBarNavIcon (click)="onStopSearch()">clear</mdc-icon>
+    </mdc-app-bar-section>
+  </mdc-app-bar-row>
+</mdc-app-bar>
