@@ -13,6 +13,8 @@ import { ResourceService } from './services/resource/resource.service';
 import { DocPipe } from './pipes/doc/doc.pipe';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
+import { HearthisPlayerComponent } from './components/hearthis-player/hearthis-player.component';
 
 @NgModule({
     imports: [
@@ -29,6 +31,8 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
         DocPipe,
         ImageUploaderComponent,
         ConfirmModalComponent,
+        NavBottomComponent,
+        HearthisPlayerComponent,
     ],
     exports: [
         CommonModule,
@@ -42,6 +46,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
         DocPipe,
         ImageUploaderComponent,
         ConfirmModalComponent,
+        NavBottomComponent,
     ],
     providers: [
         CanLoadAdmin,
