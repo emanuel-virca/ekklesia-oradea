@@ -19,10 +19,10 @@
             <mat-icon aria-label="share">share</mat-icon>
         </button>
         <div fxFlex></div>
-        <button mat-icon-button>
+        <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
             <mat-icon aria-label="download">get_app</mat-icon>
-        </button>
-        <button mat-icon-button (click)="play()">
+        </a>
+        <button mat-icon-button (click)="play()" [disabled]="!resource.hearthisId">
             <mat-icon aria-label="listen">play_arrow</mat-icon>
         </button>
     </mat-card-actions>
