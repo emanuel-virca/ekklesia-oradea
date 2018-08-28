@@ -38,4 +38,8 @@ export class AuthorService {
 
     return author;
   }
+
+  public async deleteAsync(authorId: string): Promise<void> {
+    await this.itemsCollection.doc(authorId).delete();
+  }
 }
