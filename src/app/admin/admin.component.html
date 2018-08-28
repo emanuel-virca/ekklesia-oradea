@@ -1,5 +1,11 @@
-<ul>
-  <li><a [routerLink]="['resources']">Resources</a></li>
-</ul>
-
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened [fixedInViewport]="true">
+    <div style="height: 80px"></div>
+    <a mat-button [matMenuTriggerFor]="appMenu" [routerLink]="['resources']">
+      <mat-icon aria-label="Resources">perm_media</mat-icon> Resources
+    </a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
