@@ -21,8 +21,8 @@ export class FileService {
     return await fileRef.delete();
   }
 
-  public async uploadAsync(file): Promise<string> {
-    const filePath = '/resources/' + Guid.MakeNew().ToString();
+  public async uploadAsync(folder: string, file: any): Promise<string> {
+    const filePath = '/' + folder + '/' + Guid.MakeNew().ToString();
     const fileRef = this.afStorage.ref(filePath);
 
     return await this.afStorage.upload(filePath, file).then(() => {

@@ -22,6 +22,8 @@ export class ResourceBaseComponent implements OnInit {
         author: new FormControl(),
     });
 
+    imageUploadFolder = '/resources';
+
     constructor(
         private authorService: AuthorService,
     ) { }

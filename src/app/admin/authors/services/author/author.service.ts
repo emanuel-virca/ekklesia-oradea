@@ -24,4 +24,18 @@ export class AuthorService {
   public query(): Observable<Author[]> {
     return this.db.collection<Author>('authors').snapshotChanges().pipe(mapArrayWithId);
   }
+
+  public async createAsync(author: Author): Promise<Author> {
+    this.loaderService.show();
+
+    try {
+      await this.itemsCollection.add(author);
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.loaderService.hide();
+
+    return author;
+  }
 }
