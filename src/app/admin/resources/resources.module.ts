@@ -7,11 +7,13 @@ import { ResourcesListComponent } from './components/resources-list/resources-li
 import { EditResourceComponent } from './components/edit-resource/edit-resource.component';
 import { ResourceService } from '../../shared/services/resource/resource.service';
 import { ResourceSearchService } from './services/resource-search/resource-search.service';
+import { AdminSharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
     SharedModule,
+    AdminSharedModule,
     ResourcesRoutingModule,
   ],
   declarations: [

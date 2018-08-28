@@ -14,8 +14,6 @@
       </mat-form-field>
       <app-image-uploader [url]="avatar.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>
 
-      <button mdc-fab position='bottom-right' (click)="save()" [disabled]="!authorForm.valid">
-          <mdc-icon>save</mdc-icon>
-        </button>
+      <app-save-button (save)="save()" [formGroup]="authorForm"></app-save-button>
     </form>
   </div>

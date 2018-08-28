@@ -23,6 +23,8 @@ export class CreateAuthorComponent extends AuthorBaseComponent implements OnInit
   }
 
   async save() {
+    // if (!this.authorForm.dirty || !this.authorForm.valid) { return; }
+
     const author: Author = {
       firstName: this.authorForm.controls.firstName.value,
       lastName: this.authorForm.controls.lastName.value,
