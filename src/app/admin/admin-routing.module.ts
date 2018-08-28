@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { CreateResourceComponent } from './resources/components/create-resource/create-resource.component';
-import { ResourcesListComponent } from './resources/components/resources-list/resources-list.component';
-import { EditResourceComponent } from './resources/components/edit-resource/edit-resource.component';
+import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: 'create-resource', component: CreateResourceComponent },
-  { path: 'edit-resource/:id', component: EditResourceComponent },
-  { path: 'list-resources', component: ResourcesListComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'list-resources' },
+  {
+    path: '',
+    component: AdminComponent,
+    children: [
+      { path: 'resources', loadChildren: 'src/app/admin/resources/resources.module#AdminResourcesModule' },
+    ]
+  }
 ];
 
 @NgModule({
