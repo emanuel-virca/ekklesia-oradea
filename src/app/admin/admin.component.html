@@ -1,16 +1,21 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened [fixedInViewport]="true">
-    <div class="page-content">
-      <a mat-button [routerLink]="['resources']">
-        <mat-icon aria-label="Resources">perm_media</mat-icon> Resources
-      </a>
-      <br>
-      <a mat-button [routerLink]="['authors']">
-        <mat-icon aria-label="Authors">recent_actors</mat-icon> Authors&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </a>
-    </div>
-  </mat-sidenav>
-  <mat-sidenav-content>   
-      <router-outlet></router-outlet>   
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="admin__drawer admin__drawer--persistent admin-page-content">
+  <mdc-drawer drawer='permanent'>
+    <mdc-drawer-content>
+      <mdc-list-group>
+        <mdc-list>
+          <a mdc-list-item [routerLink]="['resources']">
+            <mdc-icon mdcListItemGraphic>perm_media</mdc-icon>Resources
+          </a>
+          <a mdc-list-item [routerLink]="['authors']">
+            <mdc-icon mdcListItemGraphic>recent_actors</mdc-icon>Authors
+          </a>          
+          <mdc-list-divider></mdc-list-divider>         
+        </mdc-list>
+      </mdc-list-group>
+    </mdc-drawer-content>
+  </mdc-drawer>
+
+  <div style="width: 100%">
+    <router-outlet></router-outlet>
+  </div>
+</div>

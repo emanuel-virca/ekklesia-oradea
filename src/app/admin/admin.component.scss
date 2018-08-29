@@ -5,3 +5,26 @@
 .page-content {
     padding-top: 64px;
 }
+
+// .demo-drawer--custom {
+//     @include mdc-drawer-ink-color(#fff);
+//   }
+.admin__drawer {
+    // border: 1px solid rgba(0, 0, 0, 0.1);
+    // overflow-x: auto;
+    // &--row {
+    //   display: flex;
+    //   flex-direction: row;
+    // }
+    // &--column {
+    //   display: flex;
+    //   flex-direction: column;
+    // }
+    // &--temporary {
+    //   position: relative;
+    //   height: 55vh;
+    // }
+    &--persistent {
+        display: flex;
+    }
+}
