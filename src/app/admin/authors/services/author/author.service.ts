@@ -39,6 +39,12 @@ export class AuthorService {
     return author;
   }
 
+  public async updateAsync(author: Author): Promise<void> {
+    await this.itemsCollection.doc(author.id).update(author);
+
+    // TODO update author in search resources
+  }
+
   public async deleteAsync(authorId: string): Promise<void> {
     await this.itemsCollection.doc(authorId).delete();
   }

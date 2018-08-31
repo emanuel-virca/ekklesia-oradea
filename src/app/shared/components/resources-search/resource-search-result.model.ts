@@ -6,6 +6,7 @@ export class ResourceSearchResult {
     name: string;
     type: ResourceType;
     author: {
+        id: string,
         firstName: string,
         lastName: string;
     };
