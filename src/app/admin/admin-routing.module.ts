@@ -9,6 +9,7 @@ const routes: Routes = [
     children: [
       { path: 'resources', loadChildren: 'src/app/admin/resources/resources.module#AdminResourcesModule' },
       { path: 'authors', loadChildren: 'src/app/admin/authors/authors.module#AuthorsModule' },
+      { path: '', pathMatch: 'full', redirectTo: 'resources'}
     ]
   }
 ];
