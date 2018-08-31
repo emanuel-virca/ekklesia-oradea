@@ -47,12 +47,14 @@ export class ResourceSearchService {
     const authorDocumentSnapshot = await resource.author.get();
 
     const author = authorDocumentSnapshot.data() as Author;
+    author.id = authorDocumentSnapshot.id;
 
     return {
       id: resource.id,
       name: resource.title,
       type: resource.type,
       author: {
+        id: author.id,
         firstName: author.firstName,
         lastName: author.lastName,
       }

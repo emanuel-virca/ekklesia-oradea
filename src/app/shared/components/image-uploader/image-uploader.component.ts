@@ -14,6 +14,7 @@ export class ImageUploaderComponent implements OnInit {
   @Output() urlChanged = new EventEmitter<string>();
 
   @Input() url: string;
+  @Input() folder = 'common';
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -25,6 +26,12 @@ export class ImageUploaderComponent implements OnInit {
 
   public async deleteAsync() {
     if (!this.url) { return; }
+
+    if (!this.isFirebaseStorageFile()) {
+      this.url = null;
+      this.urlChanged.emit(this.url);
+      return;
+    }
 
     try {
       const fileRef = this.afStorage.storage.refFromURL(this.url);
@@ -42,7 +49,7 @@ export class ImageUploaderComponent implements OnInit {
     const file = event.target.files[0];
 
     try {
-      this.url = await this.fileService.uploadAsync(file);
+      this.url = await this.fileService.uploadAsync(this.folder, file);
       this.urlChanged.emit(this.url);
     } catch (ex) {
       console.log(ex);
@@ -50,5 +57,9 @@ export class ImageUploaderComponent implements OnInit {
       this.uploading = false;
     }
 
+  }
+
+  private isFirebaseStorageFile(): boolean {
+    return this.url && this.url.startsWith('https://firebasestorage.googleapis.com');
   }
 }

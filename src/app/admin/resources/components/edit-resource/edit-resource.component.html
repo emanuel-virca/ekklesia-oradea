@@ -36,10 +36,8 @@
     <mat-form-field>
       <input matInput type="url" placeholder="Image Url" formControlName="imageSrc">
     </mat-form-field>
-    <app-image-uploader [url]="imageSrc.value" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>
-    <br>
-    <button mat-icon-button (click)="save()" [disabled]="!resourceForm.dirty || !resourceForm.valid">
-      <mat-icon>save</mat-icon> Save
-    </button>
+    <app-image-uploader [url]="imageSrc.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>
+    
+    <app-save-button (save)="save()" [formGroup]="resourceForm"></app-save-button>
   </form>
 </div>

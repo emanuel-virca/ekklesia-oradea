@@ -1,0 +1,21 @@
+<div class="admin__drawer admin__drawer--persistent admin-page-content">
+  <mdc-drawer drawer='permanent'>
+    <mdc-drawer-content>
+      <mdc-list-group>
+        <mdc-list>
+          <a mdc-list-item [routerLink]="['resources']">
+            <mdc-icon mdcListItemGraphic>perm_media</mdc-icon>Resources
+          </a>
+          <a mdc-list-item [routerLink]="['authors']">
+            <mdc-icon mdcListItemGraphic>people</mdc-icon>Authors
+          </a>          
+          <mdc-list-divider></mdc-list-divider>         
+        </mdc-list>
+      </mdc-list-group>
+    </mdc-drawer-content>
+  </mdc-drawer>
+
+  <div style="width: 100%">
+    <router-outlet></router-outlet>
+  </div>
+</div>
