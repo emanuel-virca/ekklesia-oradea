@@ -27,6 +27,12 @@ export class ImageUploaderComponent implements OnInit {
   public async deleteAsync() {
     if (!this.url) { return; }
 
+    if (!this.isFirebaseStorageFile()) {
+      this.url = null;
+      this.urlChanged.emit(this.url);
+      return;
+    }
+
     try {
       const fileRef = this.afStorage.storage.refFromURL(this.url);
       await fileRef.delete();
@@ -51,5 +57,9 @@ export class ImageUploaderComponent implements OnInit {
       this.uploading = false;
     }
 
+  }
+
+  private isFirebaseStorageFile(): boolean {
+    return this.url && this.url.startsWith('https://firebasestorage.googleapis.com');
   }
 }
