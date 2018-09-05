@@ -1,6 +1,6 @@
 <mdc-app-bar #demoappbar [fixedAdjustElement]="mainContent">
   <mdc-app-bar-row *ngIf="!showSearch">
-    <mdc-app-bar-section align="start" title="Ekklesia"></mdc-app-bar-section>
+    <mdc-app-bar-section align="start" title="Ekklesia" routerLink="/"></mdc-app-bar-section>
     <mdc-app-bar-section align="end">
       <mdc-icon mdcAppBarNavIcon (click)="onStartSearch()">search</mdc-icon>
       <mdc-menu-anchor #demoanchor *ngIf="user | async as user; else showLogin">
