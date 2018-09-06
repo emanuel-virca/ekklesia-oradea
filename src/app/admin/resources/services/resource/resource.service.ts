@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Resource } from '../../../../shared/models/resource.model';
 import { mapItemWithId, mapArrayWithId } from '../../../../shared/rxjs/pipes';
 import { LoaderService } from '../../../../core/services/loader/loader.service';
-import { ResourceSearchService } from '../resource-search/resource-search.service';
 
 
 @Injectable({
@@ -18,7 +17,6 @@ export class ResourceService {
   constructor(
     private db: AngularFirestore,
     private loaderService: LoaderService,
-    private resourceSearchService: ResourceSearchService,
   ) {
     this.itemsCollection = this.db.collection<any>('resources');
   }
@@ -31,8 +29,6 @@ export class ResourceService {
 
       resource.id = resourceDocumnetReference.id;
 
-      await this.resourceSearchService.addAsync(resource);
-
     } catch (e) {
       console.log(e);
     }
@@ -44,8 +40,6 @@ export class ResourceService {
 
   public async updateAsync(resource: Resource): Promise<void> {
     await this.itemsCollection.doc(resource.id).update(resource);
-
-    await this.resourceSearchService.updateAsync(resource);
   }
 
   public async deleteAsync(resourceId: string): Promise<void> {

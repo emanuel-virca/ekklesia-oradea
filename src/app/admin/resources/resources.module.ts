@@ -6,7 +6,6 @@ import { CreateResourceComponent } from './components/create-resource/create-res
 import { ResourcesListComponent } from './components/resources-list/resources-list.component';
 import { EditResourceComponent } from './components/edit-resource/edit-resource.component';
 import { ResourceService } from '../../shared/services/resource/resource.service';
-import { ResourceSearchService } from './services/resource-search/resource-search.service';
 import { AdminSharedModule } from '../shared/shared.module';
 
 
@@ -23,7 +22,6 @@ import { AdminSharedModule } from '../shared/shared.module';
   ],
   providers: [
     ResourceService,
-    ResourceSearchService,
   ]
 })
 export class AdminResourcesModule { }
