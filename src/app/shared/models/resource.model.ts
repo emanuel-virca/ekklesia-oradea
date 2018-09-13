@@ -13,6 +13,8 @@ export class Resource {
     imageSrc?: string;
     type: ResourceType;
     author: DocumentReference;
+    height?: number;
+    width?: number;
 }
 
 export const enum ResourceType {

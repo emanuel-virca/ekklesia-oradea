@@ -1,10 +1,15 @@
-<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-    <ngx-masonry [options]="{ transitionDuration: '0.8s', horizontalOrder: true, columnWidth: '.masonry-item-sizer', percentPosition: true, itemSelector: '.masonry-item'}"
-        [useImagesLoaded]="true">
-        <div class="masonry-item-sizer"></div>
+<!-- this grid is used as a placeholder for beeing able to compute masonry item width -->
+<div class="mdc-layout-grid grid-sizer">
+    <div class="mdc-layout-grid__inner">
+        <div #masonryItemSizer class="masonry-item-sizer mdc-layout-grid__cell mdc-layout-grid__cell--span-2-desktop mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-4-phone"></div>
+    </div>
+</div>
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" *ngIf="cardWidth" class="mdc-layout-grid">
+    <ngx-masonry [options]="{ transitionDuration: '0.8s', horizontalOrder: true, columnWidth: '.masonry-item', gutter:'.gutter-sizer', percentPosition: true, itemSelector: '.masonry-item'}"
+        [useImagesLoaded]="false">
         <div class="gutter-sizer"></div>
-        <ngxMasonryItem class="masonry-item" *ngFor="let resource of resources">
-            <app-resource-card [resource]="resource"></app-resource-card>
+        <ngxMasonryItem [style.width.px]="cardWidth" class="masonry-item" *ngFor="let resource of resources">
+            <app-resource-card [resource]="resource" [width]="cardWidth"></app-resource-card>
         </ngxMasonryItem>
     </ngx-masonry>
 </div>
