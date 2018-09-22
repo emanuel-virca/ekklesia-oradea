@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
 import { AuthorService } from 'src/app/admin/authors/services/author/author.service';
@@ -12,6 +12,8 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 })
 export class AuthorsListComponent implements OnInit {
 
+  @ViewChild(MatSort) sort: MatSort;
+
   displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 
@@ -22,6 +24,7 @@ export class AuthorsListComponent implements OnInit {
 
   ngOnInit() {
     this.getAuthors();
+    this.dataSource.sort = this.sort;
   }
 
   getAuthors() {

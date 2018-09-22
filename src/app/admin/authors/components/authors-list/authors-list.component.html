@@ -1,51 +1,49 @@
 <div class="container-fluid">
   <h1>Authors</h1>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
-      </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+    </ng-container>
 
-      <!-- Author Column -->
-      <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef> Avatar </th>
-        <td mat-cell *matCellDef="let element">
-          <img class="avatar" [src]="element?.avatar">
-        </td>
-      </ng-container>
+    <!-- Author Column -->
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef> Avatar </th>
+      <td mat-cell *matCellDef="let element">
+        <img class="avatar" [src]="element?.avatar">
+      </td>
+    </ng-container>
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef> First Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-      </ng-container>
+    <!-- Title Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
 
-      <!-- DateTime Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef> Last Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-      </ng-container>
+    <!-- DateTime Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
 
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button [routerLink]="[element.id]">
-            <mat-icon aria-label="Edit">edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="confirmDelete(element)">
-            <mat-icon aria-label="Clear">clear</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [routerLink]="[element.id]">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="confirmDelete(element)">
+          <mat-icon aria-label="Clear">clear</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
   <button mdc-fab position='bottom-right' [routerLink]="['create']">
     <mdc-icon>add</mdc-icon>
   </button>

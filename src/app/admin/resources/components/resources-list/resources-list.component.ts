@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
-import { Resource } from '../../../../shared/models/resource.model';
-import { ResourceService } from '../../services/resource/resource.service';
-import { ConfirmModalComponent } from '../../../../shared/components/confirm-modal/confirm-modal.component';
+import { ResourceService } from 'src/app/admin/resources/services/resource/resource.service';
+import { Resource } from 'src/app/shared/models/resource.model';
+import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+
 
 @Component({
   selector: 'app-resources-list',
@@ -11,6 +12,8 @@ import { ConfirmModalComponent } from '../../../../shared/components/confirm-mod
   styleUrls: ['./resources-list.component.css']
 })
 export class ResourcesListComponent implements OnInit {
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private resourceService: ResourceService,
@@ -22,10 +25,11 @@ export class ResourcesListComponent implements OnInit {
 
   ngOnInit() {
     this.getResources();
+    this.dataSource.sort = this.sort;
   }
 
   getResources() {
-    this.resourceService.query(9999).subscribe(data => this.dataSource.data = data);
+    this.resourceService.query(9999, null, 'desc').subscribe(data => this.dataSource.data = data);
   }
 
   public async deleteAsync(resourceId) {
