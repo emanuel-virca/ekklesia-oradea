@@ -3,7 +3,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
 import {
-    MdcAppBarModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
@@ -23,7 +22,7 @@ import {
     MdcSnackbarModule,
     MdcSwitchModule,
     MdcTextFieldModule,
-    MdcThemeModule,
+    MdcTopAppBarModule,
     MdcTypographyModule,
 } from '@angular-mdc/web';
 
@@ -105,7 +104,6 @@ import {
         MatTooltipModule,
         MatTreeModule,
 
-        MdcAppBarModule,
         MdcButtonModule,
         MdcCardModule,
         MdcCheckboxModule,
@@ -125,7 +123,7 @@ import {
         MdcSnackbarModule,
         MdcSwitchModule,
         MdcTextFieldModule,
-        MdcThemeModule,
+        MdcTopAppBarModule,
         MdcTypographyModule,
     ]
 })

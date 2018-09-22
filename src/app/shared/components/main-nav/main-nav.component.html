@@ -1,23 +1,25 @@
-<mdc-app-bar #demoappbar [fixedAdjustElement]="mainContent">
-  <mdc-app-bar-row *ngIf="!showSearch">
-    <mdc-app-bar-section align="start" title="Ekklesia" routerLink="/"></mdc-app-bar-section>
-    <mdc-app-bar-section align="end">
-      <mdc-icon mdcAppBarNavIcon (click)="onStartSearch()">search</mdc-icon>
-      <mdc-menu-anchor #demoanchor *ngIf="user | async as user; else showLogin">
+<mdc-top-app-bar #demoappbar [fixedAdjustElement]="mainContent">
+  <mdc-top-app-bar-row *ngIf="!showSearch">
+    <mdc-top-app-bar-section align="start" title="Ekklesia" routerLink="/"></mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
+      <mdc-icon mdcTopAppBarNavIcon (click)="onStartSearch()">search</mdc-icon>
+      <div mdcMenuSurfaceAnchor #demoanchor *ngIf="user | async as user; else showLogin">
         <button mdc-fab mini label="{{ getInitials(user.displayName) }}" (click)="usermenu.open()"></button>
         <mdc-menu #usermenu [anchor]="demoanchor">
-          <mdc-menu-item id="0" (click)="signOut()">Logout</mdc-menu-item>
+          <mdc-list>
+            <mdc-list-item (click)="signOut()">Logout</mdc-list-item>
+          </mdc-list>
         </mdc-menu>
-      </mdc-menu-anchor>
+      </div>
       <ng-template #showLogin>
-        <mdc-icon mdcAppBarNavIcon (click)="signIn()">person</mdc-icon>
+        <mdc-icon mdcTopAppBarNavIcon (click)="signIn()">person</mdc-icon>
       </ng-template>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-  <mdc-app-bar-row *ngIf="showSearch">
-    <mdc-app-bar-section>
-      <app-resources-search class="search-form"></app-resources-search>    
-      <mdc-icon mdcAppBarNavIcon (click)="onStopSearch()">clear</mdc-icon>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-</mdc-app-bar>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+  <mdc-top-app-bar-row *ngIf="showSearch">
+    <mdc-top-app-bar-section>
+      <app-resources-search class="search-form"></app-resources-search>
+      <mdc-icon mdcTopAppBarNavIcon (click)="onStopSearch()">clear</mdc-icon>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>

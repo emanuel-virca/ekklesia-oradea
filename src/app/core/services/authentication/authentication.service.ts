@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
+import {auth} from 'firebase/app';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   doGoogleSignIn() {
     return new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.GoogleAuthProvider();
+      const provider = new auth.GoogleAuthProvider();
       provider.addScope('profile');
       provider.addScope('email');
       this.afAuth.auth.signInWithPopup(provider)

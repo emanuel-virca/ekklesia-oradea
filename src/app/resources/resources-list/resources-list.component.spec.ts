@@ -3,9 +3,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ResourcesListComponent } from './resources-list.component';
 import { BehaviorSubject } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { LoaderService } from '../../core/services/loader/loader.service';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 
 describe('ResourcesListComponent', () => {
     let component: ResourcesListComponent;
@@ -33,7 +33,7 @@ describe('ResourcesListComponent', () => {
     // });
 
     const FirestoreStub = {
-        //TODO https://github.com/angular/angularfire2/blob/master/src/firestore/collection/collection.spec.ts
+        //TODO https://github.com/angular/@angular/fire/blob/master/src/firestore/collection/collection.spec.ts
 
         //collection<T>(ref: CollectionReference, queryFn?: QueryFn): AngularFirestoreCollection<T>;
         // collection: (name: string, ref: Function) => ({

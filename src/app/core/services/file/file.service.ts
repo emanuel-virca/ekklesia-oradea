@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 import { Guid } from '../../typescript-utilities/guid';
-import { finalize } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { Resource } from '../../../../shared/models/resource.model';
-import { mapItemWithId, mapArrayWithId } from '../../../../shared/rxjs/pipes';
-import { LoaderService } from '../../../../core/services/loader/loader.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { Resource } from 'src/app/shared/models/resource.model';
+import { mapItemWithId, mapArrayWithId } from 'src/app/shared/rxjs/pipes';
 
 
 @Injectable({

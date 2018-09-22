@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LoaderService } from '../../../core/services/loader/loader.service';
 import { Author } from '../../models/author.model';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class AuthorService {
 
   private itemsCollection: AngularFirestoreCollection<Author>;
 
-  constructor(private db: AngularFirestore, private loaderService: LoaderService) {
+  constructor(private db: AngularFirestore) {
     this.itemsCollection = this.db.collection<Author>('authors');
   }
 

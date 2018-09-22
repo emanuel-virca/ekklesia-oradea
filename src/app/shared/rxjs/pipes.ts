@@ -1,4 +1,4 @@
-import { DocumentSnapshot, Action, DocumentChangeAction } from 'angularfire2/firestore';
+import { DocumentSnapshot, Action, DocumentChangeAction } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 export const mapItemWithId = map((a: Action<DocumentSnapshot<any>>) => {

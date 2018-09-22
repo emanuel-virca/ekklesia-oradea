@@ -1,7 +1,6 @@
-import { SelectOption } from './select-option';
-import { Author } from './author.model';
-import { DocumentReference } from 'angularfire2/firestore';
+import { DocumentReference } from '@angular/fire/firestore';
 
+import { SelectOption } from './select-option';
 
 export class Resource {
     id?: string;
