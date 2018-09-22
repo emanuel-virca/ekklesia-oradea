@@ -1,0 +1,137 @@
+$gutterSizeDesktop: 24px;
+$gutterSizePhone: 16px;
+$gridMarginDesktop: 24px;
+$gridMarginPhone: 16px;
+.gutter-sizer {
+    width: $gutterSizeDesktop;
+}
+
+.masonry-grid {
+    margin: $gridMarginDesktop;
+}
+
+@mixin calc($prop, $val) {
+    @each $pre in -webkit-,
+    -moz-,
+    -o- {
+        #{$prop}: $pre+calc(#{$val});
+    }
+    #{$prop}: calc(#{$val});
+}
+
+@mixin masonryGrid($columns, $gridMargin: $gridMarginDesktop, $gutterSize: $gutterSizeDesktop) {
+    .gutter-sizer {
+        width: $gutterSize
+    }
+    .masonry-grid {
+        margin: $gridMargin;
+    }
+    @include masonryItem($columns, $gutterSize)
+}
+
+@mixin masonryItem($columns, $gutterSize: $gutterSizeDesktop) {
+    $itemWidth: percentage(1 / $columns);
+    $gutterPlaceholder: ($columns - 1) * $gutterSize / $columns;
+    .masonry-item,
+    .masonry-item-sizer {
+        margin-bottom: $gutterSize;
+        @include calc(width, "#{$itemWidth} - #{$gutterPlaceholder}");
+    }
+}
+
+/* XSmall */
+
+@media (max-width: 599px) {
+    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);   
+}
+
+/* Small */
+
+@media (min-width: 600px) and (max-width: 959px) {
+    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);
+}
+
+/* Medium */
+
+@media (min-width: 960px) and (max-width: 1279px) {
+    @include masonryGrid(4);
+}
+
+/* Large */
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+    @include masonryGrid(5);
+}
+
+/* XLarge */
+
+@media (min-width: 1920px) {
+    @include masonryGrid(6);
+}
+
+/* Handset */
+
+@media (max-width: 599px) and (orientation: portrait) {
+    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);
+
+}
+
+@media (max-width: 959px) and (orientation: landscape) {
+    @include masonryGrid(2);
+}
+
+/* Tablet */
+
+@media (min-width: 600px) and (max-width: 839px) and (orientation: portrait) {
+    @include masonryGrid(2, $gridMarginPhone, $gutterSizePhone);
+}
+
+@media (min-width: 960px) and (max-width: 1279px) and (orientation: landscape) {
+    @include masonryGrid(3)
+}
+
+/* Web */
+
+@media (min-width: 840px) and (orientation: portrait) {
+    @include masonryGrid(3)
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+    @include masonryGrid(5)
+}
+
+/* HandsetPortrait  */
+
+@media (max-width: 599px) and (orientation: portrait) {
+    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);
+}
+
+/* TabletPortrait  */
+
+@media (min-width: 600px) and (max-width: 839px) and (orientation: portrait) {
+    @include masonryGrid(2, $gridMarginPhone, $gutterSizePhone);
+}
+
+/* WebPortrait  */
+
+@media (min-width: 840px) and (orientation: portrait) {
+    @include masonryGrid(3);
+}
+
+/* HandsetLandscape  */
+
+@media (max-width: 959px) and (orientation: landscape) {
+    @include masonryGrid(2, $gridMarginPhone, $gutterSizePhone);
+}
+
+/* TabletLandscape  */
+
+@media (min-width: 960px) and (max-width: 1279px) and (orientation: landscape) {
+    @include masonryGrid(3)
+}
+
+/* WebLandscape  */
+
+@media (min-width: 1280px) and (orientation: landscape) {
+    @include masonryGrid(5)
+}

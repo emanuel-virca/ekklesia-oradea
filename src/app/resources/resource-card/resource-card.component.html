@@ -4,10 +4,8 @@
         <mat-card-title>{{ resource.title }}</mat-card-title>
         <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-subtitle>
     </mat-card-header>
-    <div class="mat-card-image" #card [style.height.px]="computeHeight(width)">
-        <div class="placeholder">
-            <img *ngIf="resource.imageSrc" [src]="resource.imageSrc" alt="">
-        </div>
+    <div class="mat-card-image" *ngIf="resource.imageSrc" [style.height.px]="computeHeight(width)">        
+        <img [src]="resource.imageSrc" alt="">
     </div>
     <mat-card-content>
         <p>
