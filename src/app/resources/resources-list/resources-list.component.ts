@@ -15,7 +15,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
 
     resources: Resource[] = new Array<Resource>();
     lastVisible: Resource;
-    pageSize = 10;
+    pageSize = 20;
     loading = false;
     thereIsMore = true;
     cardWidth: number;
