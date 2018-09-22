@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 })
 export class AuthorsListComponent implements OnInit {
 
-  displayedColumns: string[] = ['avatar', 'firstName', 'lastName', 'actions'];
+  displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 
   constructor(

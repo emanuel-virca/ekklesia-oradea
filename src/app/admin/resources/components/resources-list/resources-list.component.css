@@ -6,3 +6,7 @@ table {
     width: 120px;
     text-align: center;
 }
+
+.mat-column-position {
+    width: 60px;   
+}
