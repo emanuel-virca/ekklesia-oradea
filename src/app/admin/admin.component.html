@@ -1,21 +1,13 @@
-<div class="admin__drawer admin__drawer--persistent admin-page-content">
-  <mdc-drawer drawer='permanent'>
-    <mdc-drawer-content>
-      <mdc-list-group>
-        <mdc-list>
-          <a mdc-list-item [routerLink]="['resources']">
-            <mdc-icon mdcListItemGraphic>perm_media</mdc-icon>Resources
-          </a>
-          <a mdc-list-item [routerLink]="['authors']">
-            <mdc-icon mdcListItemGraphic>people</mdc-icon>Authors
-          </a>          
-          <mdc-list-divider></mdc-list-divider>         
-        </mdc-list>
-      </mdc-list-group>
-    </mdc-drawer-content>
-  </mdc-drawer>
-
-  <div style="width: 100%">
+<mat-drawer-container fullscreen autosize>
+  <mat-drawer mode="side" opened class="side-menu">
+    <a [routerLink]="['resources']" mat-button class="menu-button" routerLinkActive="mat-accent">
+      <mat-icon aria-label="" class="menu-icon">perm_media</mat-icon>Resources
+    </a>    
+    <a [routerLink]="['authors']" mat-button class="menu-button" routerLinkActive="mat-accent">
+      <mat-icon aria-label="" class="menu-icon">people</mat-icon> Authors
+    </a>
+  </mat-drawer>
+  <mat-drawer-content>
     <router-outlet></router-outlet>
-  </div>
-</div>
+  </mat-drawer-content>
+</mat-drawer-container>
