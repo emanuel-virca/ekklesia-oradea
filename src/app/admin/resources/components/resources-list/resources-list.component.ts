@@ -9,7 +9,7 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 @Component({
   selector: 'app-resources-list',
   templateUrl: './resources-list.component.html',
-  styleUrls: ['./resources-list.component.css']
+  styleUrls: ['./resources-list.component.scss']
 })
 export class ResourcesListComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class ResourcesListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  getResources() {
+  public getResources() {
     this.resourceService.query(9999, null, 'desc').subscribe(data => this.dataSource.data = data);
   }
 
@@ -36,7 +36,7 @@ export class ResourcesListComponent implements OnInit {
     await this.resourceService.deleteAsync(resourceId);
   }
 
-  confirmDelete(resource: Resource): void {
+  public confirmDelete(resource: Resource): void {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: { title: 'Are you shure you want to delete the following resource?', message: resource.title }
     });
@@ -44,5 +44,9 @@ export class ResourcesListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.deleteAsync(resource.id); }
     });
+  }
+
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

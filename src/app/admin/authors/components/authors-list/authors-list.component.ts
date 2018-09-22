@@ -27,7 +27,7 @@ export class AuthorsListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  getAuthors() {
+  public getAuthors() {
     this.authorService.query().subscribe(data => this.dataSource.data = data);
   }
 
@@ -35,7 +35,7 @@ export class AuthorsListComponent implements OnInit {
     await this.authorService.deleteAsync(authorId);
   }
 
-  confirmDelete(author: Author): void {
+  public confirmDelete(author: Author): void {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: { title: 'Are you shure you want to delete the following author?', message: `${author.firstName} ${author.lastName}` }
     });
@@ -43,6 +43,10 @@ export class AuthorsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.deleteAsync(author.id); }
     });
+  }
+
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
