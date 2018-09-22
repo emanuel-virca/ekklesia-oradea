@@ -2,24 +2,30 @@
   <mdc-top-app-bar-row *ngIf="!showSearch">
     <mdc-top-app-bar-section align="start" title="Ekklesia" routerLink="/"></mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
-      <mdc-icon mdcTopAppBarNavIcon (click)="onStartSearch()">search</mdc-icon>
+      <button type="menu" mat-icon-button (click)="onStartSearch()">
+        <mat-icon aria-label="Search resources">search</mat-icon>
+      </button>
       <div mdcMenuSurfaceAnchor #demoanchor *ngIf="user | async as user; else showLogin">
-        <button mdc-fab mini label="{{ getInitials(user.displayName) }}" (click)="usermenu.open()"></button>
-        <mdc-menu #usermenu [anchor]="demoanchor">
-          <mdc-list>
-            <mdc-list-item (click)="signOut()">Logout</mdc-list-item>
-          </mdc-list>
-        </mdc-menu>
+        <button mat-mini-fab color="basic" aria-label="user.displayName" [matMenuTriggerFor]="profileMenu">
+          {{getInitials(user.displayName) }}
+        </button>        
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item (click)="signOut()">Logout</button>
+        </mat-menu>
       </div>
       <ng-template #showLogin>
-        <mdc-icon mdcTopAppBarNavIcon (click)="signIn()">person</mdc-icon>
+        <button type="menu" mat-icon-button (click)="signIn()">
+          <mat-icon aria-label="Login">person</mat-icon>
+        </button>
       </ng-template>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
   <mdc-top-app-bar-row *ngIf="showSearch">
     <mdc-top-app-bar-section>
       <app-resources-search class="search-form"></app-resources-search>
-      <mdc-icon mdcTopAppBarNavIcon (click)="onStopSearch()">clear</mdc-icon>
+      <button type="menu" mat-icon-button (click)="onStopSearch()">
+        <mat-icon aria-label="Search resources">clear</mat-icon>
+      </button>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
