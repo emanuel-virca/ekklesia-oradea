@@ -1,5 +1,8 @@
 .image-container {
-    position: relative
+    position: relative;
+    img {
+        max-width: 100%;
+    }
 }
 
 .delete {
