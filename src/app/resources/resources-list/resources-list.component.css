@@ -1,29 +1,12 @@
 .masonry-item,
-.masonry-item-sizer { width: 100%;  }
-
-/* // Extra small devices (portrait phones, less than 576px)
-// No media query for `xs` since this is the default in Bootstrap */
-
-/* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-    .masonry-item ,
-    .masonry-item-sizer { width: 100%;  }
- }
-
-/* // Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-    .masonry-item ,
-    .masonry-item-sizer { width: 50%;  }
+.masonry-item-sizer {
+    margin-bottom: 24px;
 }
 
-/* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .masonry-item ,
-    .masonry-item-sizer { width: 33.3%;  }
- }
+.gutter-sizer {
+    width: 24px
+}
 
-/* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .masonry-item ,
-    .masonry-item-sizer { width: 20%;  }
- }
+.grid-sizer {
+    margin-top: -60px
+}
