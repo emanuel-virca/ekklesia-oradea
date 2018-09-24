@@ -27,7 +27,7 @@ import { CoreModule } from './core/core.module';
         AngularFireStorageModule,
         BrowserAnimationsModule,
         SharedModule,
-        CoreModule
+        CoreModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
