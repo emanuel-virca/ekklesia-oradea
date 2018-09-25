@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h1>Authors</h1>
-  <mat-form-field>
-    <input matInput autocomplete="false" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <mat-form-field class="filter-field">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
