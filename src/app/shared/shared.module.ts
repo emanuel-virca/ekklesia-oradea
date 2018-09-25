@@ -17,6 +17,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
 import { HearthisPlayerComponent } from './components/hearthis-player/hearthis-player.component';
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
+import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import { MaterialCardHeaderContentLoaderComponent } from './components/material-
         NavBottomComponent,
         HearthisPlayerComponent,
         MaterialCardHeaderContentLoaderComponent,
+        MaterialListContentLoaderComponent,
     ],
     exports: [
         CommonModule,
@@ -53,6 +55,7 @@ import { MaterialCardHeaderContentLoaderComponent } from './components/material-
         NavBottomComponent,
         ContentLoaderModule,
         MaterialCardHeaderContentLoaderComponent,
+        MaterialListContentLoaderComponent,
     ],
     providers: [
         CanLoadAdmin,
