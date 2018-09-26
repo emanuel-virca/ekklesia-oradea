@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HearthisPlayerService } from './hearthis-player.service';
+import { AudioPlayerService } from './audio-player.service';
 
 describe('HearthisPlayerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HearthisPlayerService]
+      providers: [AudioPlayerService]
     });
   });
 
-  it('should be created', inject([HearthisPlayerService], (service: HearthisPlayerService) => {
+  it('should be created', inject([AudioPlayerService], (service: AudioPlayerService) => {
     expect(service).toBeTruthy();
   }));
 });

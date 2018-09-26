@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Resource } from '../../shared/models/resource.model';
-import { HearthisPlayerService } from '../../core/services/hearthis-player/hearthis-player.service';
+import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
 
 @Component({
     selector: 'app-resource-card',
@@ -16,7 +16,7 @@ export class ResourceCardComponent implements OnInit {
     @ViewChild('card') elementView: ElementRef;
 
     constructor(
-        private hearthisPlayerService: HearthisPlayerService,
+        private audioPlayerService: AudioPlayerService,
     ) {
     }
 
@@ -25,7 +25,7 @@ export class ResourceCardComponent implements OnInit {
     }
 
     public play() {
-        this.hearthisPlayerService.play(this.resource.hearthisId);
+        this.audioPlayerService.play(this.resource.id);
     }
 
     computeHeight() {

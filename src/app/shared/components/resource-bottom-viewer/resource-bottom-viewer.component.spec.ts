@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavBottomComponent } from './nav-bottom.component';
+import { ResourceBottomViewerComponent } from './resource-bottom-viewer.component';
 
 describe('NavBottomComponent', () => {
-  let component: NavBottomComponent;
-  let fixture: ComponentFixture<NavBottomComponent>;
+  let component: ResourceBottomViewerComponent;
+  let fixture: ComponentFixture<ResourceBottomViewerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavBottomComponent ]
+      declarations: [ ResourceBottomViewerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavBottomComponent);
+    fixture = TestBed.createComponent(ResourceBottomViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

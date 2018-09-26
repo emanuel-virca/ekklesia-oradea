@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PermissionsService } from './services/permissions/permissions.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { HearthisPlayerService } from './services/hearthis-player/hearthis-player.service';
+import { AudioPlayerService } from './services/audio-player/audio-player.service';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { HearthisPlayerService } from './services/hearthis-player/hearthis-playe
   providers: [
     PermissionsService,
     AuthenticationService,
-    HearthisPlayerService,
+    AudioPlayerService,
   ]
 })
 export class CoreModule { }

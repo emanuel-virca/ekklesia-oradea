@@ -13,8 +13,8 @@ import { ResourceService } from './services/resource/resource.service';
 import { DocPipe } from './pipes/doc/doc.pipe';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
-import { HearthisPlayerComponent } from './components/hearthis-player/hearthis-player.component';
+import { ResourceBottomViewerComponent } from './components/resource-bottom-viewer/resource-bottom-viewer.component';
+import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 
 @NgModule({
     imports: [
@@ -31,8 +31,8 @@ import { HearthisPlayerComponent } from './components/hearthis-player/hearthis-p
         DocPipe,
         ImageUploaderComponent,
         ConfirmModalComponent,
-        NavBottomComponent,
-        HearthisPlayerComponent,
+        ResourceBottomViewerComponent,
+        AudioPlayerComponent,
     ],
     exports: [
         CommonModule,
@@ -46,7 +46,7 @@ import { HearthisPlayerComponent } from './components/hearthis-player/hearthis-p
         DocPipe,
         ImageUploaderComponent,
         ConfirmModalComponent,
-        NavBottomComponent,
+        ResourceBottomViewerComponent,
     ],
     providers: [
         CanLoadAdmin,

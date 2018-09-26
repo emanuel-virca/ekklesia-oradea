@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HearthisPlayerComponent } from './hearthis-player.component';
+import { AudioPlayerComponent } from './audio-player.component';
 
 describe('HearthisPlayerComponent', () => {
-  let component: HearthisPlayerComponent;
-  let fixture: ComponentFixture<HearthisPlayerComponent>;
+  let component: AudioPlayerComponent;
+  let fixture: ComponentFixture<AudioPlayerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HearthisPlayerComponent ]
+      declarations: [ AudioPlayerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HearthisPlayerComponent);
+    fixture = TestBed.createComponent(AudioPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
