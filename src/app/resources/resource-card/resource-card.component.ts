@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 import { Resource } from '../../shared/models/resource.model';
 import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
@@ -6,14 +6,12 @@ import { AudioPlayerService } from '../../core/services/audio-player/audio-playe
 @Component({
     selector: 'app-resource-card',
     templateUrl: './resource-card.component.html',
-    styleUrls: ['./resource-card.component.css']
+    styleUrls: ['./resource-card.component.scss']
 })
 export class ResourceCardComponent implements OnInit {
     @Input() resource: Resource;
     @Input() width;
     height: number;
-
-    @ViewChild('card') elementView: ElementRef;
 
     constructor(
         private audioPlayerService: AudioPlayerService,

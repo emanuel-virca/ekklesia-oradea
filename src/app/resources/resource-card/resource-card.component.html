@@ -1,13 +1,15 @@
 <mat-card class="resource-card">
-    <mat-card-header *ngIf="(resource.author | doc | async) as author">
+    <mat-card-header *ngIf="(resource.author | doc | async) as author; else placeholder">
         <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
         <mat-card-title>{{ resource.title }}</mat-card-title>
         <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-subtitle>
     </mat-card-header>
-    <div class="mat-card-image" #card [style.height.px]="computeHeight(width)">
-        <div class="placeholder">
-            <img *ngIf="resource.imageSrc" [src]="resource.imageSrc" alt="">
-        </div>
+    <ng-template #placeholder>
+        <app-material-card-header-content-loader></app-material-card-header-content-loader>
+    </ng-template>
+    
+    <div class="mat-card-image" *ngIf="resource.imageSrc" [style.height.px]="computeHeight(width)">
+        <img [src]="resource.imageSrc" alt="">
     </div>
     <mat-card-content>
         <p>
@@ -31,3 +33,5 @@
         </button>
     </mat-card-actions>
 </mat-card>
+
+<!-- <facebook-content-loader></facebook-content-loader> -->

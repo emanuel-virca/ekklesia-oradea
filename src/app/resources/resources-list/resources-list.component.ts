@@ -7,7 +7,7 @@ import { ResourceService } from '../../shared/services/resource/resource.service
 @Component({
     selector: 'app-resources-list',
     templateUrl: './resources-list.component.html',
-    styleUrls: ['./resources-list.component.css']
+    styleUrls: ['./resources-list.component.scss']
 })
 export class ResourcesListComponent implements OnInit, AfterViewInit {
 
@@ -15,14 +15,15 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
 
     resources: Resource[] = new Array<Resource>();
     lastVisible: Resource;
-    pageSize = 10;
+    pageSize = 20;
     loading = false;
     thereIsMore = true;
     cardWidth: number;
+    viewInitalized = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-        this.cardWidth = this.masonryItemSizer.nativeElement.offsetWidth - 5;
+        this.cardWidth = this.getMasonryItemSize();
     }
 
     constructor(
@@ -37,7 +38,8 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.cardWidth = this.masonryItemSizer.nativeElement.offsetWidth - 5;
+        this.cardWidth = this.getMasonryItemSize();
+        setTimeout(() => this.viewInitalized = true);
     }
 
     onScroll() {
@@ -63,5 +65,10 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
             },
             err => { this.loading = false; this.loaderService.hide(); }
         );
+    }
+
+    private getMasonryItemSize(): number {
+        if (!this.masonryItemSizer) { return 0; }
+        return this.masonryItemSizer.nativeElement.getBoundingClientRect().width;
     }
 }

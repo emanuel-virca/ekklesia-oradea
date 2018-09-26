@@ -8,7 +8,7 @@ import { ResourceSearchResult } from '../../shared/components/resources-search/r
 @Component({
   selector: 'app-resources-search-results',
   templateUrl: './resources-search-results.component.html',
-  styleUrls: ['./resources-search-results.component.css']
+  styleUrls: ['./resources-search-results.component.scss']
 })
 export class ResourcesSearchResultsComponent implements OnInit {
 
@@ -56,6 +56,10 @@ export class ResourcesSearchResultsComponent implements OnInit {
     if (!this.loading && this.thereIsMore) {
       this.getNextResultsAsync();
     }
+  }
+
+  public onResourceClick(resource: ResourceSearchResult) {
+    // TODO play
   }
 
   private initSearch() {

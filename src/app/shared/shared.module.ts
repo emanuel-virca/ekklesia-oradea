@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContentLoaderModule } from '@netbasal/content-loader';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
@@ -15,6 +16,8 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ResourceBottomViewerComponent } from './components/resource-bottom-viewer/resource-bottom-viewer.component';
 import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
+import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
+import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 
 @NgModule({
     imports: [
@@ -23,6 +26,7 @@ import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/aud
         ReactiveFormsModule,
         MaterialModule,
         RouterModule,
+        ContentLoaderModule,
     ],
     declarations: [
         LoaderComponent,
@@ -33,6 +37,8 @@ import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/aud
         ConfirmModalComponent,
         ResourceBottomViewerComponent,
         AudioPlayerComponent,
+        MaterialCardHeaderContentLoaderComponent,
+        MaterialListContentLoaderComponent,
     ],
     exports: [
         CommonModule,
@@ -47,6 +53,9 @@ import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/aud
         ImageUploaderComponent,
         ConfirmModalComponent,
         ResourceBottomViewerComponent,
+        ContentLoaderModule,
+        MaterialCardHeaderContentLoaderComponent,
+        MaterialListContentLoaderComponent,
     ],
     providers: [
         CanLoadAdmin,

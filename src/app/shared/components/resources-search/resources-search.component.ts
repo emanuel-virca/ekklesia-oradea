@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger  } from '@angular/material';
 
 import { ResourceSearchResult } from './resource-search-result.model';
-import { SearchService } from '../../../core/services/search/search.service';
+import { SearchService } from 'src/app/core/services/search/search.service';
 
 
 @Component({
@@ -12,12 +12,13 @@ import { SearchService } from '../../../core/services/search/search.service';
     templateUrl: './resources-search.component.html',
     styleUrls: ['./resources-search.component.css']
 })
-export class ResourcesSearchComponent implements OnInit {
+export class ResourcesSearchComponent implements OnInit, AfterViewInit {
     searchCtrl: FormControl;
     searchResults: Array<ResourceSearchResult>;
     showAutocompletePanel: boolean;
 
     @ViewChild('matAutocompleteTrigger', { read: MatAutocompleteTrigger }) matAutocompleteTrigger: MatAutocompleteTrigger;
+    @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
     constructor(private searchService: SearchService, private router: Router) {
         this.searchCtrl = new FormControl();
@@ -27,6 +28,10 @@ export class ResourcesSearchComponent implements OnInit {
         this.searchCtrl.valueChanges.subscribe(async (x) => {
             this.searchResults = await this.searchService.searchResourcesAsync(x, 0, 100);
         });
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => this.searchInput.nativeElement.focus());
     }
 
     optionSelected($event: MatAutocompleteSelectedEvent) {
