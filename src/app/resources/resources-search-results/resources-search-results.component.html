@@ -1,10 +1,10 @@
-<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-  <mat-list>
-    <mat-list-item *ngFor="let resource of searchResults">
-      <mat-icon mat-list-icon>record_voice_over</mat-icon>
-      <h4 matLine> {{resource.name}} </h4>
-      <p matLine> by {{resource.author.firstName}} {{resource.author.lastName}} </p>
-    </mat-list-item>
-  </mat-list>
+<div class="container-fluid">
+  <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <mat-card *ngFor="let resource of searchResults" mat-ripple class="resource-result" (click)="onResourceClick(resource)">
+      <mat-card-header>
+        <mat-card-title> {{resource.name}} </mat-card-title>
+        <mat-card-subtitle> by {{resource.author.firstName}} {{resource.author.lastName}} </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>
-<app-material-list-content-loader *ngIf="loading"></app-material-list-content-loader>
