@@ -3,8 +3,7 @@ export class Resource {
     title: string;
     dateTime: any;
     description?: string;
-    hearthisId?: number;
-    downloadUrl?: string;
+    hearthisId?: string;
     imageSrc?: string;
     type: ResourceType;
     author: any; //TODO type
