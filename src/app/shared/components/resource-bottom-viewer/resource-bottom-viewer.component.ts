@@ -37,8 +37,8 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
     this.resourceService.get(resourceId).subscribe((resource: Resource) => this.audioResource = {
       title: resource.title,
       artwork: resource.imageSrc,
-      downloadUrl: `https://hearthis.at/ekklesia/${resource.hearthisId}/download`,
-      streamUrl: `https://hearthis.at/ekklesia/${resource.hearthisId}/listen`
+      downloadUrl: resource.downloadUrl,
+      streamUrl: resource.streamUrl
     });
   }
 

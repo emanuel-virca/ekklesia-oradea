@@ -36,6 +36,11 @@ export class CreateResourceComponent extends ResourceBaseComponent implements On
       author: this.resourceForm.controls.author.value
     };
 
+    if (this.resourceForm.controls.hearthisId.value) {
+      resource.downloadUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/download`;
+      resource.streamUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/listen`;
+    }
+
     try {
       await this.resourceService.createAsync(resource);
 

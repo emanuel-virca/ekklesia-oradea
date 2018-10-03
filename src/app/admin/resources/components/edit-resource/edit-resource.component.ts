@@ -60,6 +60,11 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
       author: this.resourceForm.controls.author.value
     };
 
+    if (this.resourceForm.controls.hearthisId.value) {
+      resource.downloadUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/download`;
+      resource.streamUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/listen`;
+    }
+
     try {
       await this.resourceService.updateAsync(resource);
 

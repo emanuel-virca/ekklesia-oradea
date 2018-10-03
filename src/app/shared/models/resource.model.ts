@@ -9,6 +9,7 @@ export class Resource {
     description?: string;
     hearthisId?: string;
     downloadUrl?: string;
+    streamUrl?: string;
     imageSrc?: string;
     type: ResourceType;
     author: DocumentReference;
