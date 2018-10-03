@@ -1,30 +1,79 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 
 import { Resource } from '../../models/resource.model';
+import { takeWhile } from 'rxjs/operators';
+import { interval, Subscription } from 'rxjs';
+import { AudioResource } from '../../models/audio-resource.model';
+
 
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
-  styleUrls: ['./audio-player.component.css']
+  styleUrls: ['./audio-player.component.scss']
 })
 export class AudioPlayerComponent implements OnInit, OnChanges {
+  playerState: string;
+  trackProgress = 0;
+  trackSchedulerSubscriber: Subscription;
+  audioElement: HTMLAudioElement;
 
-  audioPlayerUrl: SafeResourceUrl;
+  @ViewChild('progressbar') progressbar: ElementRef;
 
-  @Input() resource: Resource;
+  @Input() audioResource: AudioResource;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-  ) { }
+  constructor() {
+    this.createAudio();
+  }
 
   ngOnInit() {
-    if (!this.resource) { return; }
+  }
+
+  public play(): void {
+    this.audioElement.play();
+  }
+
+  public pause(): void {
+    this.playerState = 'paused';
+    this.audioElement.pause();
+    this.trackSchedulerSubscriber.unsubscribe();
+  }
+
+  public seek(event): void {
+    const percent = event.offsetX / this.progressbar.nativeElement.offsetWidth;
+    this.audioElement.currentTime = percent * this.audioElement.duration;
+    this.onProgress();
+  }
+
+  private createAudio(): void {
+    this.audioElement = new Audio();
+    this.audioElement.autoplay = true;
+
+    this.registerBindings();
+  }
+
+  private registerBindings(): void {
+    if (!this.audioElement) { return; }
+
+    this.audioElement.addEventListener('ended', () => this.onEnded());
+    this.audioElement.addEventListener('playing', () => this.onPlaying());
+  }
+
+  private onPlaying(): void {
+    this.playerState = 'playing';
+    this.trackSchedulerSubscriber = interval(1000)
+      .pipe(takeWhile(() => this.playerState === 'playing'))
+      .subscribe(() => this.onProgress());
+  }
+
+  private onProgress(): void {
+    this.trackProgress = (100 / this.audioElement.duration) * this.audioElement.currentTime;
+  }
+
+  private onEnded(): void {
+    this.playerState = 'ended';
   }
 
   ngOnChanges(): void {
-    // tslint:disable-next-line:max-line-length
-    this.audioPlayerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://hearthis.at/embed/${this.resource.hearthisId}/transparent/?hcolor=615d5c&color=b6b8b4&style=2&block_size=2&block_space=0&background=0&waveform=0&cover=1&autoplay=1&css=https://ekklesia-oradea-705d6.firebaseapp.com/assets/hearthis.css`);
+    this.audioElement.src = this.audioResource.streamUrl;
   }
-
 }

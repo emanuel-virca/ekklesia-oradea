@@ -1,1 +1,22 @@
-<iframe scrolling="no"  width="100%" height="71" [src]="audioPlayerUrl" frameborder="0" allowtransparency></iframe>
+<div class="audio-player-content">
+    <div class="audio-player-artwork">
+        <img [src]="audioResource.artwork">
+    </div>
+    <div class="audio-player-controls">
+        <div class="audio-player-header">
+            <button class="play-button" mat-icon-button (click)="play()" *ngIf="playerState!='playing'">
+                <mat-icon aria-label="Play audio">play_circle_outline</mat-icon>
+            </button>
+            <button class="play-button" mat-icon-button (click)="pause()" *ngIf="playerState=='playing'">
+                <mat-icon aria-label="Pause audio">pause_circle_outline</mat-icon>
+            </button>
+            <span class="track-info-title">{{audioResource.title}}</span>
+        </div>
+        <div class="audio-player-waveform">
+            <small class="progress-time">{{audioElement?.currentTime | secondsToTime}}</small>
+            <progress #progressbar value="{{trackProgress}}" max="100" (click)="seek($event)"></progress>
+            <!-- <mat-slider min="0" [max]="audio?.duration" step="1" [value]="trackProgress"></mat-slider> -->
+            <small class="progress-time">{{audioElement.duration | secondsToTime}}</small>
+        </div>
+    </div>
+</div>

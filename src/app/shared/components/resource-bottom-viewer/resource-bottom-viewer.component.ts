@@ -5,6 +5,8 @@ import { AudioPlayerService } from 'src/app/core/services/audio-player/audio-pla
 import { AudioPlayerState } from 'src/app/core/models/audio-player-state';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { ResourceService } from 'src/app/shared/services/resource/resource.service';
+import { AudioResource } from 'src/app/shared/models/audio-resource.model';
+
 
 @Component({
   selector: 'app-resource-bottom-viewer',
@@ -12,7 +14,7 @@ import { ResourceService } from 'src/app/shared/services/resource/resource.servi
   styleUrls: ['./resource-bottom-viewer.component.css']
 })
 export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
-  resource: Resource;
+  audioResource: AudioResource;
 
   private audioPlayerStateChanged: Subscription;
 
@@ -32,7 +34,12 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
   private getResource(resourceId) {
     if (resourceId == null) { return; }
 
-    this.resourceService.get(resourceId).subscribe((resource: Resource) => this.resource = resource);
+    this.resourceService.get(resourceId).subscribe((resource: Resource) => this.audioResource = {
+      title: resource.title,
+      artwork: resource.imageSrc,
+      downloadUrl: `https://hearthis.at/ekklesia/${resource.hearthisId}/download`,
+      streamUrl: `https://hearthis.at/ekklesia/${resource.hearthisId}/listen`
+    });
   }
 
 }
