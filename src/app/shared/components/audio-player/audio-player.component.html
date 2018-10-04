@@ -15,8 +15,7 @@
         <div class="audio-player-waveform">
             <small class="progress-time">{{audioElement?.currentTime | secondsToTime}}</small>
             <progress #progressbar value="{{trackProgress}}" max="100" (click)="seek($event)"></progress>
-            <!-- <mat-slider min="0" [max]="audio?.duration" step="1" [value]="trackProgress"></mat-slider> -->
-            <small class="progress-time">{{audioElement.duration | secondsToTime}}</small>
+            <small class="progress-time">{{audioElement?.duration | secondsToTime}}</small>
         </div>
     </div>
 </div>

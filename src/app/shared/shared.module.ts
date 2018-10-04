@@ -19,7 +19,7 @@ import { ResourceBottomViewerComponent } from './components/resource-bottom-view
 import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
-import { SecondsToTimePipe } from './pipes/seconds-to-time.pipe';
+import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
 
 @NgModule({
     imports: [

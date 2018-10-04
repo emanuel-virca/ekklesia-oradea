@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 
-import { Resource } from '../../models/resource.model';
 import { takeWhile } from 'rxjs/operators';
 import { interval, Subscription } from 'rxjs';
 import { AudioResource } from '../../models/audio-resource.model';
@@ -71,6 +70,8 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
 
   private onEnded(): void {
     this.playerState = 'ended';
+    this.audioElement.currentTime = 0;
+    this.onProgress();
   }
 
   ngOnChanges(): void {
