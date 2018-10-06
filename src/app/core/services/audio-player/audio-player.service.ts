@@ -11,9 +11,10 @@ export class AudioPlayerService {
   audioElement: HTMLAudioElement;
 
   audioResource: AudioResource = null;
-  state: string;
+  // state: string;
 
   audioPlayerSubject = new BehaviorSubject<AudioPlayerState>({ audioId: undefined, state: undefined });
+  audioResourceSubject = new BehaviorSubject<AudioResource>(null);
 
   constructor(@Optional() @SkipSelf() prior: AudioPlayerService) {
     if (prior) { return prior; }
@@ -40,35 +41,30 @@ export class AudioPlayerService {
   }
 
   private onPlaying(): void {
-    this.state = 'playing';
-    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: 'playing' });
   }
 
   private onPaused(): void {
-    this.state = 'paused';
-    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: 'paused' });
   }
 
   private onEnded(): void {
-    this.state = 'ended';
     this.audioElement.currentTime = 0;
-    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: 'ended' });
   }
 
   private onSeeking(): void {
-    this.state = 'seeking';
-    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: 'seeking' });
   }
 
   private onSeeked(): void {
-    this.state = 'seeked';
-    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: 'seeked' });
   }
 
   public play(audioResource: AudioResource) {
-    if (audioResource == null) {
-      return this.reset();
-    }
+    this.audioResourceSubject.next(audioResource);
+
+    if (audioResource == null) { return this.reset(); }
 
     if (this.audioResource && audioResource.id === this.audioResource.id) {
       return this.audioElement.play();

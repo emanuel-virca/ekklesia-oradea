@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Resource } from '../../shared/models/resource.model';
 import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
-import { ResourceViewerService } from '../../core/services/resource-viewer/resource-viewer.service';
+import { AudioResource } from '../../shared/models/audio-resource.model';
 
 @Component({
     selector: 'app-resource-card',
@@ -15,17 +15,16 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     @Input() width;
     height: number;
     playing: boolean;
-    audioPlayerStateSubscriber: Subscription;
+    audioPlayerSubscription: Subscription;
 
     constructor(
         private audioPlayerService: AudioPlayerService,
-        private resourceViewerService: ResourceViewerService,
     ) {
     }
 
     ngOnInit() {
         this.height = this.computeHeight();
-        this.audioPlayerStateSubscriber = this.audioPlayerService.audioPlayerSubject
+        this.audioPlayerSubscription = this.audioPlayerService.audioPlayerSubject
             .subscribe(audioState => this.playing = (audioState.audioId === this.resource.id && audioState.state === 'playing'));
     }
 
@@ -34,8 +33,7 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     }
 
     public play() {
-        // TODO call audioPlayerService;
-        this.resourceViewerService.show(this.resource.id, 'bottom');
+        this.audioPlayerService.play(new AudioResource(this.resource));
     }
 
     public pause() {
@@ -47,6 +45,6 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.audioPlayerStateSubscriber.unsubscribe();
+        this.audioPlayerSubscription.unsubscribe();
     }
 }

@@ -60,5 +60,6 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.trackSchedulerSubscriber.unsubscribe();
+    this.audioPlayerSubject.unsubscribe();
   }
 }

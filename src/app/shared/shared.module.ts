@@ -20,6 +20,7 @@ import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/aud
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
+import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
 
 @NgModule({
     imports: [
@@ -43,6 +44,7 @@ import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe'
         MaterialCardHeaderContentLoaderComponent,
         MaterialListContentLoaderComponent,
         SecondsToTimePipe,
+        NavBottomComponent,
     ],
     exports: [
         CommonModule,
@@ -57,6 +59,7 @@ import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe'
         ImageUploaderComponent,
         ConfirmModalComponent,
         ResourceBottomViewerComponent,
+        NavBottomComponent,
         ContentLoaderModule,
         MaterialCardHeaderContentLoaderComponent,
         MaterialListContentLoaderComponent,
