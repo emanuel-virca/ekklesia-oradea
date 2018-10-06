@@ -1,3 +1,4 @@
 export interface AudioPlayerState {
-    resourceId: string;
+    audioId: string;
+    state: string;
 }

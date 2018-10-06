@@ -7,7 +7,6 @@ import { isNumber } from 'util';
 export class SecondsToTimePipe implements PipeTransform {
 
   transform(value: number, args?: any): any {
-    console.log(value);
     if (isNaN(Number(value))) { return '--:--'; }
 
     return this.convertSecondsToTime(value);

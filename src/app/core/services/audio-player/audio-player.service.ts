@@ -7,19 +7,33 @@ import { AudioPlayerState } from '../../models/audio-player-state';
   providedIn: 'root'
 })
 export class AudioPlayerService {
-  private audioPlayerSubject = new Subject<AudioPlayerState>();
+  audioPlayerSubject = new Subject<AudioPlayerState>();
+  audioPlayerActionsSubject = new Subject<string>();
 
-  audioPlayerState = this.audioPlayerSubject.asObservable();
+  currentAudioId: string = null;
 
   constructor(@Optional() @SkipSelf() prior: AudioPlayerService) {
     if (prior) { return prior; }
   }
 
-  play(id) {
-    this.audioPlayerSubject.next(<AudioPlayerState>{ resourceId: id });
+  play(audioId: string) {
+    this.currentAudioId = audioId;
+    this.audioPlayerActionsSubject.next('play');
   }
 
-  hide() {
-    this.audioPlayerSubject.next(<AudioPlayerState>{ resourceId: null });
+  pause() {
+    this.audioPlayerActionsSubject.next('pause');
+  }
+
+  playing() {
+    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'playing', audioId: this.currentAudioId });
+  }
+
+  paused() {
+    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'paused', audioId: this.currentAudioId });
+  }
+
+  ended() {
+    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'ended', audioId: this.currentAudioId });
   }
 }

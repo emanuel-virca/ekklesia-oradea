@@ -3,6 +3,7 @@ import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@ang
 import { takeWhile } from 'rxjs/operators';
 import { interval, Subscription } from 'rxjs';
 import { AudioResource } from '../../models/audio-resource.model';
+import { AudioPlayerService } from '../../../core/services/audio-player/audio-player.service';
 
 
 @Component({
@@ -15,16 +16,24 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
   trackProgress = 0;
   trackSchedulerSubscriber: Subscription;
   audioElement: HTMLAudioElement;
+  audioPlayerStateSubscription: Subscription;
 
   @ViewChild('progressbar') progressbar: ElementRef;
 
   @Input() audioResource: AudioResource;
 
-  constructor() {
+  constructor(private audioPlayerService: AudioPlayerService) {
     this.createAudio();
   }
 
   ngOnInit() {
+    this.audioPlayerStateSubscription = this.audioPlayerService.audioPlayerActionsSubject.subscribe({ next: (action: string) => {
+      switch (action) {
+        case 'play': this.play(); break;
+        case 'pause': this.pause(); break;
+        default: break;
+      }
+    }});
   }
 
   public play(): void {
@@ -32,9 +41,7 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
   }
 
   public pause(): void {
-    this.playerState = 'paused';
     this.audioElement.pause();
-    this.trackSchedulerSubscriber.unsubscribe();
   }
 
   public seek(event): void {
@@ -55,6 +62,7 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
 
     this.audioElement.addEventListener('ended', () => this.onEnded());
     this.audioElement.addEventListener('playing', () => this.onPlaying());
+    this.audioElement.addEventListener('pause', () => this.onPaused());
   }
 
   private onPlaying(): void {
@@ -62,6 +70,13 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
     this.trackSchedulerSubscriber = interval(1000)
       .pipe(takeWhile(() => this.playerState === 'playing'))
       .subscribe(() => this.onProgress());
+    this.audioPlayerService.playing();
+  }
+
+  public onPaused(): void {
+    this.playerState = 'paused';
+    this.trackSchedulerSubscriber.unsubscribe();
+    this.audioPlayerService.paused();
   }
 
   private onProgress(): void {
@@ -70,11 +85,17 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
 
   private onEnded(): void {
     this.playerState = 'ended';
+    this.reset();
+    this.audioPlayerService.ended();
+  }
+
+  private reset() {
     this.audioElement.currentTime = 0;
     this.onProgress();
   }
 
   ngOnChanges(): void {
+    this.reset();
     this.audioElement.src = this.audioResource.streamUrl;
   }
 }

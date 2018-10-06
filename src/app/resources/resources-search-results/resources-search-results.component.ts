@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../core/services/search/search.service';
 import { LoaderService } from '../../core/services/loader/loader.service';
 import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
-import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
+import { ResourceViewerService } from '../../core/services/resource-viewer/resource-viewer.service';
 
 @Component({
   selector: 'app-resources-search-results',
@@ -24,7 +24,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
     private searchService: SearchService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
-    private audioPlayerService: AudioPlayerService
+    private resourceViewerService: ResourceViewerService,
   ) {
     this.route.paramMap.subscribe((x) => {
       this.initSearch();
@@ -65,7 +65,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
   }
 
   public onResourceClick(resource: ResourceSearchResult) {
-    this.audioPlayerService.play(resource.id);
+    this.resourceViewerService.show(resource.id, 'bottom');
   }
 
   private initSearch() {

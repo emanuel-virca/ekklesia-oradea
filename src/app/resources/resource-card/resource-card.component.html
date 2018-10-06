@@ -28,8 +28,9 @@
         <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
             <mat-icon aria-label="download">get_app</mat-icon>
         </a>
-        <button mat-icon-button (click)="play()" [disabled]="!resource.hearthisId">
-            <mat-icon aria-label="listen">play_arrow</mat-icon>
+        <button mat-icon-button (click)="togglePlay()" [disabled]="!resource.hearthisId">
+            <mat-icon aria-label="listen" *ngIf="!playing">play_arrow</mat-icon>
+            <mat-icon aria-label="pause" *ngIf="playing">pause</mat-icon>
         </button>
     </mat-card-actions>
 </mat-card>
