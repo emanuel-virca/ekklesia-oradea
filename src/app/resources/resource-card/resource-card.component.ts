@@ -34,6 +34,7 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     }
 
     public play() {
+        // TODO call audioPlayerService;
         this.resourceViewerService.show(this.resource.id, 'bottom');
     }
 

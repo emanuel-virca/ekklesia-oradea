@@ -4,12 +4,15 @@
     </div>
     <div class="audio-player-controls">
         <div class="audio-player-header">
-            <button class="play-button" mat-icon-button (click)="play()" *ngIf="playerState!='playing'">
-                <mat-icon aria-label="Play audio">play_circle_outline</mat-icon>
-            </button>
-            <button class="play-button" mat-icon-button (click)="pause()" *ngIf="playerState=='playing'">
-                <mat-icon aria-label="Pause audio">pause_circle_outline</mat-icon>
-            </button>
+            <div [ngSwitch]="audioStatus">
+                <button class="play-button" mat-icon-button (click)="pause()" *ngSwitchCase="'playing'">
+                    <mat-icon aria-label="Pause audio">pause_circle_outline</mat-icon>
+                </button>
+                <mat-progress-spinner class="seeking" mode="indeterminate" diameter="30" *ngSwitchCase="'seeking'"></mat-progress-spinner>
+                <button class="play-button" mat-icon-button (click)="play()" *ngSwitchDefault>
+                    <mat-icon aria-label="Play audio">play_circle_outline</mat-icon>
+                </button>
+            </div>
             <span class="track-info-title">{{audioResource.title}}</span>
         </div>
         <div class="audio-player-waveform">
@@ -19,3 +22,4 @@
         </div>
     </div>
 </div>
+

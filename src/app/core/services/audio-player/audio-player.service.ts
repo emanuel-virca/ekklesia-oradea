@@ -1,39 +1,94 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { AudioPlayerState } from '../../models/audio-player-state';
+import { AudioResource } from '../../../shared/models/audio-resource.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioPlayerService {
-  audioPlayerSubject = new Subject<AudioPlayerState>();
-  audioPlayerActionsSubject = new Subject<string>();
+  audioElement: HTMLAudioElement;
 
-  currentAudioId: string = null;
+  audioResource: AudioResource = null;
+  state: string;
+
+  audioPlayerSubject = new BehaviorSubject<AudioPlayerState>({ audioId: undefined, state: undefined });
 
   constructor(@Optional() @SkipSelf() prior: AudioPlayerService) {
     if (prior) { return prior; }
+
+    this.createAudio();
   }
 
-  play(audioId: string) {
-    this.currentAudioId = audioId;
-    this.audioPlayerActionsSubject.next('play');
+  private createAudio(): void {
+    this.audioElement = new Audio();
+    this.audioElement.autoplay = true;
+
+    this.registerBindings();
   }
 
-  pause() {
-    this.audioPlayerActionsSubject.next('pause');
+  private registerBindings(): void {
+    if (!this.audioElement) { return; }
+
+    this.audioElement.addEventListener('ended', () => this.onEnded());
+    this.audioElement.addEventListener('playing', () => this.onPlaying());
+    this.audioElement.addEventListener('pause', () => this.onPaused());
+    this.audioElement.addEventListener('seeking', () => this.onSeeking());
+    this.audioElement.addEventListener('seeked', () => this.onSeeked());
+    this.audioElement.addEventListener('waiting', () => this.onSeeking());
   }
 
-  playing() {
-    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'playing', audioId: this.currentAudioId });
+  private onPlaying(): void {
+    this.state = 'playing';
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
   }
 
-  paused() {
-    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'paused', audioId: this.currentAudioId });
+  private onPaused(): void {
+    this.state = 'paused';
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
   }
 
-  ended() {
-    this.audioPlayerSubject.next(<AudioPlayerState>{ state: 'ended', audioId: this.currentAudioId });
+  private onEnded(): void {
+    this.state = 'ended';
+    this.audioElement.currentTime = 0;
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+  }
+
+  private onSeeking(): void {
+    this.state = 'seeking';
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+  }
+
+  private onSeeked(): void {
+    this.state = 'seeked';
+    this.audioPlayerSubject.next({ audioId: this.audioResource.id, state: this.state });
+  }
+
+  public play(audioResource: AudioResource) {
+    if (audioResource == null) {
+      return this.reset();
+    }
+
+    if (this.audioResource && audioResource.id === this.audioResource.id) {
+      return this.audioElement.play();
+    }
+
+    this.audioResource = audioResource;
+    this.audioElement.src = audioResource.streamUrl;
+    this.audioElement.play();
+  }
+
+  public pause() {
+    this.audioElement.pause();
+  }
+
+  public seek(percent: number): void {
+    this.audioElement.currentTime = percent * this.audioElement.duration;
+  }
+
+  private reset() {
+    this.audioElement.pause();
+    this.audioElement.src = null;
   }
 }

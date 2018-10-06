@@ -30,6 +30,12 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+            .seeking{ 
+                margin: 3px;
+                ::ng-deep circle {
+                    stroke: $dark-secondary-text;
+                  }
+            }
         }
         .audio-player-waveform {
             display: flex;

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Resource, ResourceType } from 'src/app/shared/models/resource.model';
+import { Resource } from 'src/app/shared/models/resource.model';
 import { ResourceService } from 'src/app/shared/services/resource/resource.service';
 import { AudioResource } from 'src/app/shared/models/audio-resource.model';
 import { ResourceViewerService } from '../../../core/services/resource-viewer/resource-viewer.service';
@@ -38,8 +38,7 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
     if (resourceId == null) { return; }
 
     if (this.audioResource && resourceId === this.audioResource.id) {
-      this.audioPlayerService.play(this.audioResource.id);
-      return;
+      return this.audioPlayerService.play(this.audioResource);
     }
 
     this.resourceService.get(resourceId).subscribe((resource: Resource) => this.playAudioResource(resource));
@@ -54,7 +53,7 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
       streamUrl: resource.streamUrl
     };
 
-    this.audioPlayerService.play(this.audioResource.id);
+    this.audioPlayerService.play(this.audioResource);
   }
 
 }
