@@ -1,0 +1,101 @@
+@import 'mixins';
+@import 'variables';
+
+.audio-player-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 90px;
+    .audio-player-artwork {
+        margin-right: 15px;
+        img {
+            height: 56px;
+            vertical-align: baseline;
+        }
+    }
+    .audio-player-controls {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: hidden;
+        .audio-player-header {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            .track-info-title {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .seeking{ 
+                margin: 3px;
+                ::ng-deep circle {
+                    stroke: $dark-secondary-text;
+                  }
+            }
+        }
+        .audio-player-waveform {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            .progress-time {
+                width: 40px;
+                text-align: center;
+                color: $dark-secondary-text;
+            }
+            .mat-slider {
+                width: 100%;
+                height: 20px;
+                .mat-slider-wrapper {
+                    top: 9px !important;
+                }
+            }
+        }
+    }
+}
+
+/* XSmall */
+
+@media (max-width: 599px) {
+    .audio-player-content {
+        height: 60px;
+        padding-bottom: 10px;
+        .audio-player-artwork {
+            display: none;
+        }
+    }
+}
+
+:host {
+    .mat-icon-button {
+        @include mat-icon-button-size(36px);
+    }
+}
+
+progress {
+    width: 100%;
+}
+
+progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $primary;
+    color: $dark-primary-text;
+    height: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: $primary;
+    border-radius: 2px;
+    //border: 1px solid lighten(#acacac, 20%);
+    color: $dark-primary-text;
+}
+
+progress::-webkit-progress-value {
+    background-color: $dark-primary-text
+}

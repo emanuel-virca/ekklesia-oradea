@@ -7,8 +7,9 @@ export class Resource {
     title: string;
     dateTime: any;
     description?: string;
-    hearthisId?: number;
+    hearthisId?: string;
     downloadUrl?: string;
+    streamUrl?: string;
     imageSrc?: string;
     type: ResourceType;
     author: DocumentReference;

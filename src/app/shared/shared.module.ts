@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoaderModule } from '@netbasal/content-loader';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
@@ -18,6 +19,8 @@ import { ResourceBottomViewerComponent } from './components/resource-bottom-view
 import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
+import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
+import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
 
 @NgModule({
     imports: [
@@ -26,6 +29,7 @@ import { MaterialListContentLoaderComponent } from './components/material-list-c
         ReactiveFormsModule,
         MaterialModule,
         RouterModule,
+        HttpClientModule,
         ContentLoaderModule,
     ],
     declarations: [
@@ -39,6 +43,8 @@ import { MaterialListContentLoaderComponent } from './components/material-list-c
         AudioPlayerComponent,
         MaterialCardHeaderContentLoaderComponent,
         MaterialListContentLoaderComponent,
+        SecondsToTimePipe,
+        NavBottomComponent,
     ],
     exports: [
         CommonModule,
@@ -53,6 +59,7 @@ import { MaterialListContentLoaderComponent } from './components/material-list-c
         ImageUploaderComponent,
         ConfirmModalComponent,
         ResourceBottomViewerComponent,
+        NavBottomComponent,
         ContentLoaderModule,
         MaterialCardHeaderContentLoaderComponent,
         MaterialListContentLoaderComponent,

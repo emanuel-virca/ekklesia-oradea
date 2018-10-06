@@ -1,0 +1,7 @@
+<nav class="navbar fixed-bottom navbar-light bg-light">
+    <div class="container-fluid">
+      <ng-container *ngIf="currentAudioResource | async as audioResource">
+        <app-audio-player [audioResource]="audioResource" style="width: 100%"></app-audio-player>
+      </ng-container>
+    </div>
+</nav>

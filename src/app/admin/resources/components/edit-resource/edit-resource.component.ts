@@ -38,7 +38,6 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
       this.resourceForm.controls.dateTime.setValue(resource.dateTime.toDate());
       this.resourceForm.controls.description.setValue(resource.description);
       this.resourceForm.controls.hearthisId.setValue(resource.hearthisId);
-      this.resourceForm.controls.downloadUrl.setValue(resource.downloadUrl);
       this.resourceForm.controls.imageSrc.setValue(resource.imageSrc);
       this.resourceForm.controls.resourceType.setValue(resource.type);
       this.resourceForm.controls.author.setValue(resource.author);
@@ -55,12 +54,16 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
       title: this.resourceForm.controls.title.value,
       type: this.resourceForm.controls.resourceType.value,
       hearthisId: this.resourceForm.controls.hearthisId.value,
-      downloadUrl: this.resourceForm.controls.downloadUrl.value,
       imageSrc: this.resourceForm.controls.imageSrc.value,
       description: this.resourceForm.controls.description.value,
       dateTime: this.resourceForm.controls.dateTime.value,
       author: this.resourceForm.controls.author.value
     };
+
+    if (this.resourceForm.controls.hearthisId.value) {
+      resource.downloadUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/download`;
+      resource.streamUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/listen`;
+    }
 
     try {
       await this.resourceService.updateAsync(resource);

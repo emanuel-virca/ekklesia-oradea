@@ -16,7 +16,6 @@ export class ResourceBaseComponent implements OnInit {
         dateTime: new FormControl(),
         description: new FormControl(),
         hearthisId: new FormControl(),
-        downloadUrl: new FormControl(),
         imageSrc: new FormControl(),
         resourceType: new FormControl(),
         author: new FormControl(),

@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../core/services/search/search.service';
 import { LoaderService } from '../../core/services/loader/loader.service';
 import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
+import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
+import { ResourceService } from '../../shared/services/resource/resource.service';
+import { Resource } from 'src/app/shared/models/resource.model';
+import { AudioResource } from '../../shared/models/audio-resource.model';
 
 @Component({
   selector: 'app-resources-search-results',
@@ -19,7 +23,13 @@ export class ResourcesSearchResultsComponent implements OnInit {
   thereIsMore = true;
   searchQuery = '';
 
-  constructor(private searchService: SearchService, private route: ActivatedRoute, private loaderService: LoaderService) {
+  constructor(
+    private searchService: SearchService,
+    private resourceService: ResourceService,
+    private route: ActivatedRoute,
+    private loaderService: LoaderService,
+    private audioPlayerService: AudioPlayerService,
+  ) {
     this.route.paramMap.subscribe((x) => {
       this.initSearch();
       this.searchQuery = x.get('search_query');
@@ -58,8 +68,15 @@ export class ResourcesSearchResultsComponent implements OnInit {
     }
   }
 
-  public onResourceClick(resource: ResourceSearchResult) {
-    // TODO play
+  public onResourceClick(resourceSearchResult: ResourceSearchResult) {
+    if (resourceSearchResult == null) { return; }
+
+    this.resourceService.get(resourceSearchResult.id)
+      .subscribe((resource: Resource) => {
+        if (resource.streamUrl) {
+          this.audioPlayerService.play(new AudioResource(resource));
+        }
+      });
   }
 
   private initSearch() {
