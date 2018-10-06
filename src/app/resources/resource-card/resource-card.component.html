@@ -18,12 +18,12 @@
         <p>{{resource.dateTime?.toDate() | date}}</p>
     </mat-card-content>
     <mat-card-actions align="end">
-        <button mat-icon-button>
+        <!-- <button mat-icon-button>
             <mat-icon aria-label="favorite">favorite</mat-icon>
         </button>
         <button mat-icon-button>
             <mat-icon aria-label="share">share</mat-icon>
-        </button>
+        </button> -->
         <div fxFlex></div>
         <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
             <mat-icon aria-label="download">get_app</mat-icon>
