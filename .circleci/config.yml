@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-job:
     working_directory: ~/ekklesia-oradea
     docker:
       - image: circleci/node:8-browsers
@@ -16,6 +16,26 @@ jobs:
       - run: xvfb-run -a npm run test -- --watch=false --no-progress --browsers=ChromeNoSandbox
       - run: xvfb-run -a npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
       - run: cd functions && npm install
-      - run:
-             name: Deploy Dev to Firebase
-             command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+
+  deploy-job:
+    docker:
+        - image: my-image-version-tag
+      working_directory: /tmp/ekklesia-oradea
+      steps:
+        - run:
+            name: Deploy Dev to Firebase
+            command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+
+workflows:
+    version: 2
+
+    -deploy:
+      jobs:
+        - build-job
+        - deploy-job:
+            requires:
+              - build-job
+            filters:
+              branches:
+                only: master
+
