@@ -84,6 +84,11 @@
               "src/styles.css"
             ],
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/stylings"
+              ]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets"
