@@ -12,7 +12,7 @@ import { ResourceService } from '../../services/resource/resource.service';
 @Component({
   selector: 'app-edit-resource',
   templateUrl: './edit-resource.component.html',
-  styleUrls: ['./edit-resource.component.css']
+  styleUrls: ['./edit-resource.component.scss']
 })
 export class EditResourceComponent extends ResourceBaseComponent implements OnInit {
   resource: Resource;
@@ -48,6 +48,18 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
     return o1.id === o2.id;
   }
 
+  public async publish() {
+    if (!this.resource) { return; }
+
+    await this.resourceService.publishAsync(this.resource.id);
+  }
+
+  public async unpublish() {
+    if (!this.resource) { return; }
+
+    await this.resourceService.unpublishAsync(this.resource.id);
+  }
+
   async save() {
     const resource: Resource = {
       id: this.resource.id,
@@ -57,7 +69,8 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
       imageSrc: this.resourceForm.controls.imageSrc.value,
       description: this.resourceForm.controls.description.value,
       dateTime: this.resourceForm.controls.dateTime.value,
-      author: this.resourceForm.controls.author.value
+      author: this.resourceForm.controls.author.value,
+      published: this.resource.published,
     };
 
     if (this.resourceForm.controls.hearthisId.value) {

@@ -15,6 +15,7 @@ export class Resource {
     author: DocumentReference;
     height?: number;
     width?: number;
+    published: boolean;
 }
 
 export const enum ResourceType {

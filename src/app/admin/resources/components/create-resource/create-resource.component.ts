@@ -33,7 +33,8 @@ export class CreateResourceComponent extends ResourceBaseComponent implements On
       imageSrc: this.resourceForm.controls.imageSrc.value,
       description: this.resourceForm.controls.description.value,
       dateTime: this.resourceForm.controls.dateTime.value,
-      author: this.resourceForm.controls.author.value
+      author: this.resourceForm.controls.author.value,
+      published: false,
     };
 
     if (this.resourceForm.controls.hearthisId.value) {

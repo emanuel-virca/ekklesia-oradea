@@ -37,6 +37,12 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
+        <button title="publish" *ngIf="!element.published" mat-icon-button (click)="publish(element.id)">
+          <mat-icon aria-label="publish">link</mat-icon>
+        </button>
+        <button title="unpublish" *ngIf="element.published" mat-icon-button (click)="unpublish(element.id)">
+          <mat-icon aria-label="Unpublish">link_off</mat-icon>
+        </button>
         <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
           <mat-icon aria-label="Download">get_app</mat-icon>
         </a>

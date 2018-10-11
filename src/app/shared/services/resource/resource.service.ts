@@ -22,15 +22,15 @@ export class ResourceService {
     return this.db.collection<Resource>('resources', ref => {
       if (lastVisible) {
         if (orderBy) {
-          return ref.orderBy('dateTime', orderBy).startAfter(lastVisible.dateTime).limit(pageSize);
+          return ref.where('published', '==', true).orderBy('dateTime', orderBy).startAfter(lastVisible.dateTime).limit(pageSize);
         } else {
-          return ref.startAfter(lastVisible.dateTime).limit(pageSize);
+          return ref.where('published', '==', true).startAfter(lastVisible.dateTime).limit(pageSize);
         }
       } else {
         if (orderBy) {
-          return ref.orderBy('dateTime', orderBy).limit(pageSize);
+          return ref.where('published', '==', true).orderBy('dateTime', orderBy).limit(pageSize);
         } else {
-          return ref.limit(pageSize);
+          return ref.where('published', '==', true).limit(pageSize);
         }
       }
     }).snapshotChanges().pipe(mapArrayWithId);

@@ -46,6 +46,14 @@ export class ResourcesListComponent implements OnInit {
     });
   }
 
+  public async publish(resourceId) {
+    await this.resourceService.publishAsync(resourceId);
+  }
+
+  public async unpublish(resourceId) {
+    await this.resourceService.unpublishAsync(resourceId);
+  }
+
   public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
