@@ -10,21 +10,28 @@ export async function onResourceCreateAsync(snap: FirebaseFirestore.DocumentSnap
     const resource = snap.data() as Resource;
     resource.id = snap.id;
 
-    const resourceSearchService = new ResourceSearchService(algoliaConfig);
+    if (resource.published) {
+        const resourceSearchService = new ResourceSearchService(algoliaConfig);
 
-    await resourceSearchService.addAsync(resource)
+        await resourceSearchService.addAsync(resource)
+    }
 
     await computeImageDimensions(snap.ref, resource.imageSrc);
 };
 
 export async function onResourceUpdateAsync(change: functions.Change<FirebaseFirestore.DocumentSnapshot>, context: functions.EventContext, algoliaConfig: AlgoliaConfig): Promise<void> {
 
+    const previousData = change.before.data() as Resource;
     const resource = change.after.data() as Resource;
     resource.id = change.after.id;
 
     const resourceSearchService = new ResourceSearchService(algoliaConfig);
 
-    await resourceSearchService.updateAsync(resource);
+    if (!resource.published && previousData.published) {
+        await resourceSearchService.deleteAsync(resource.id);
+    } else {
+        await resourceSearchService.updateAsync(resource);
+    }
 
     if (resource.imageSrc !== change.before.data().imageSrc) {
         await computeImageDimensions(change.after.ref, resource.imageSrc)

@@ -1,0 +1,18 @@
+.resource-status {
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.resource-published {
+    color: green;
+}
+
+.resource-not-published {
+    color: red;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}

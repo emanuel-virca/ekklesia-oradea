@@ -67,4 +67,12 @@ export class ResourceService {
       }
     }).snapshotChanges().pipe(mapArrayWithId);
   }
+
+  public async publishAsync(resourceId: string) {
+    await this.itemsCollection.doc(resourceId).update({ published: true });
+  }
+
+  public async unpublishAsync(resourceId: string) {
+    await this.itemsCollection.doc(resourceId).update({ published: false });
+  }
 }

@@ -7,6 +7,7 @@ export class Resource {
     imageSrc?: string;
     type: ResourceType;
     author: any; //TODO type
+    published: boolean;
 }
 
 export const enum ResourceType {
