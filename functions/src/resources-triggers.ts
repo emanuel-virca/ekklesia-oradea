@@ -26,9 +26,14 @@ export async function onResourceUpdateAsync(change: functions.Change<FirebaseFir
     resource.id = change.after.id;
 
     const resourceSearchService = new ResourceSearchService(algoliaConfig);
-
-    if (!resource.published && previousData.published) {
+    
+    const publish = !previousData.published && resource.published;
+    const unpublish = previousData.published && !resource.published;
+   
+    if (unpublish) {
         await resourceSearchService.deleteAsync(resource.id);
+    } else if(publish) {
+        await resourceSearchService.addAsync(resource);
     } else {
         await resourceSearchService.updateAsync(resource);
     }
