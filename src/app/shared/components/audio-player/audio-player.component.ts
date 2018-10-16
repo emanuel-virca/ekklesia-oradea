@@ -1,10 +1,7 @@
-import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, OnDestroy, EventEmitter, Output, SimpleChanges } from '@angular/core';
 
-import { interval, Subscription, BehaviorSubject } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { AudioResource } from '../../models/audio-resource.model';
-import { AudioPlayerService } from '../../../core/services/audio-player/audio-player.service';
-import { AudioPlayerState } from '../../../core/models/audio-player-state';
-
 
 @Component({
   selector: 'app-audio-player',
@@ -12,54 +9,92 @@ import { AudioPlayerState } from '../../../core/models/audio-player-state';
   styleUrls: ['./audio-player.component.scss']
 })
 export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
-  audioStatus: string;
   trackProgress = 0;
   trackSchedulerSubscriber: Subscription;
   audioElement: HTMLAudioElement;
-  audioPlayerSubject: BehaviorSubject<AudioPlayerState>;
+  audioStatus: string;
 
   @ViewChild('progressbar') progressbar: ElementRef;
 
   @Input() audioResource: AudioResource;
+  @Output() statusChanged = new EventEmitter<string>();
 
-  constructor(private audioPlayerService: AudioPlayerService) {
-    this.audioPlayerSubject = this.audioPlayerService.audioPlayerSubject;
-    this.audioElement = this.audioPlayerService.audioElement;
+  constructor() {
+    this.createAudio();
   }
 
   ngOnInit() {
-    this.audioPlayerService.audioPlayerSubject.subscribe((x: AudioPlayerState) => {
-      this.audioStatus = x.state;
-    });
-
     this.trackSchedulerSubscriber = interval(1000).subscribe(() => this.onProgress());
   }
 
-  public play(): void {
-    this.audioPlayerService.play(this.audioResource);
+  private createAudio(): void {
+    this.audioElement = new Audio();
+    this.audioElement.autoplay = true;
+
+    this.registerBindings();
   }
 
-  public pause(): void {
-    this.audioPlayerService.pause();
+  private registerBindings(): void {
+    if (!this.audioElement) { return; }
+
+    this.audioElement.addEventListener('ended', () => this.onEnded());
+    this.audioElement.addEventListener('playing', () => this.onStatusChanged('playing'));
+    this.audioElement.addEventListener('pause', () => this.onStatusChanged('paused'));
+    this.audioElement.addEventListener('seeking', () => this.onStatusChanged('loading'));
+    this.audioElement.addEventListener('seeked', () => this.onStatusChanged('seeked'));
+    this.audioElement.addEventListener('waiting', () => this.onStatusChanged('loading'));
+  }
+
+  public play(): void {
+    if (this.audioResource == null) { return this.reset(); }
+
+    this.audioElement.play();
+  }
+
+  public pause() {
+    if (this.audioResource == null) { return this.reset(); }
+
+    this.audioElement.pause();
   }
 
   public seek(event): void {
+    if (this.audioResource == null) { return this.reset(); }
+
     const percent = event.offsetX / this.progressbar.nativeElement.offsetWidth;
-    this.audioPlayerService.seek(percent);
+    this.audioElement.currentTime = percent * this.audioElement.duration;
     this.onProgress();
+  }
+
+  private reset() {
+    this.audioElement.pause();
+    this.audioElement.src = null;
   }
 
   private onProgress(): void {
     this.trackProgress = (100 / this.audioElement.duration) * this.audioElement.currentTime;
   }
 
-  ngOnChanges(): void {
-    this.trackProgress = 0;
-    this.audioPlayerService.play(this.audioResource);
+  private onEnded(): void {
+    this.audioElement.currentTime = 0;
+    this.onStatusChanged('ended');
+  }
+
+  private onStatusChanged(status: string) {
+    this.audioStatus = status;
+    this.statusChanged.emit(this.audioStatus);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.audioResource.firstChange || (changes.audioResource.currentValue && changes.audioResource.previousValue &&
+      changes.audioResource.currentValue.id !== changes.audioResource.previousValue.id)) {
+      this.trackProgress = 0;
+      this.audioElement.src = this.audioResource.streamUrl;
+    }
+
+    this.audioElement.play();
   }
 
   ngOnDestroy(): void {
     this.trackSchedulerSubscriber.unsubscribe();
-    this.audioPlayerSubject.unsubscribe();
   }
 }
