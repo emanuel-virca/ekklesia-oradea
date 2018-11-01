@@ -23,6 +23,7 @@ export function authorReducer(state = intialState, action: authorActions.Actions
             return { ...state, authors: [], errorMessage: action.payload };
         }
 
+        case authorActions.SET_CURRENT_AUTHOR:
         case authorActions.LOAD_AUTHOR_SUCCESS: {
             return { ...state, currentAuthor: action.payload, errorMessage: '' };
         }
@@ -37,6 +38,14 @@ export function authorReducer(state = intialState, action: authorActions.Actions
 
         case authorActions.CREATE_AUTHOR_FAIL: {
             return { ...state, currentAuthor: null, errorMessage: action.payload };
+        }
+
+        case authorActions.UPDATE_AUTHOR_SUCCESS: {
+            return { ...state, currentAuthor: null, errorMessage: '' };
+        }
+
+        case authorActions.UPDATE_AUTHOR_FAIL: {
+            return { ...state, errorMessage: action.payload };
         }
 
         case authorActions.DELETE_AUTHOR_SUCCESS: {

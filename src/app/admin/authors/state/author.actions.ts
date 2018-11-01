@@ -38,6 +38,12 @@ export class LoadAuthorFail implements Action {
     constructor(public payload: string) { }
 }
 
+export const SET_CURRENT_AUTHOR = 'SET CURRENT AUTHOR';
+export class SetCurrentAuthor implements Action {
+    readonly type = SET_CURRENT_AUTHOR;
+    constructor(public payload: Author) { }
+}
+
 export const CREATE_AUTHOR = 'CREATE AUTHOR';
 export const CREATE_AUTHOR_SUCCESS = 'CREATE AUTHOR SUCCESS';
 export const CREATE_AUTHOR_FAIL = 'CREATE AUTHOR FAIL';
@@ -102,6 +108,7 @@ export type Actions =
     | LoadAuthor
     | LoadAuthorSuccess
     | LoadAuthorFail
+    | SetCurrentAuthor
     | CreateAuthor
     | CreateAuthorSuccess
     | CreateAuthorFail
