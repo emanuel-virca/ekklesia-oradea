@@ -21,6 +21,9 @@ import { MaterialCardHeaderContentLoaderComponent } from './components/material-
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
 import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
+import { AudioPlayerShellComponent } from './containers/audio-player-shell/audio-player-shell.component';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './stores/audio-player-store/audio-player.reducer';
 
 @NgModule({
     imports: [
@@ -31,6 +34,7 @@ import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component
         RouterModule,
         HttpClientModule,
         ContentLoaderModule,
+        StoreModule.forFeature('audioPlayer', reducer),
     ],
     declarations: [
         LoaderComponent,
@@ -45,6 +49,7 @@ import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component
         MaterialListContentLoaderComponent,
         SecondsToTimePipe,
         NavBottomComponent,
+        AudioPlayerShellComponent,
     ],
     exports: [
         CommonModule,

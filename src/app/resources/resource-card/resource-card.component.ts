@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 import { Resource } from '../../shared/models/resource.model';
-import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
 import { AudioResource } from '../../shared/models/audio-resource.model';
+
+import * as fromAudioPlayer from 'src/app/shared/stores/audio-player-store';
+import * as fromAudioPlayerActions from 'src/app/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
     selector: 'app-resource-card',
@@ -18,14 +21,15 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     audioPlayerSubscription: Subscription;
 
     constructor(
-        private audioPlayerService: AudioPlayerService,
+        private store: Store<fromAudioPlayer.AppState>
     ) {
     }
 
     ngOnInit() {
         this.height = this.computeHeight();
-        this.audioPlayerSubscription = this.audioPlayerService.audioPlayerSubject
-            .subscribe(audioState => this.playing = (audioState.audioId === this.resource.id && audioState.state === 'playing'));
+
+        this.store.pipe(select(fromAudioPlayer.getAudioPlayerState))
+            .subscribe(state => this.playing = (state.current && state.current.id === this.resource.id && state.status === 'playing'));
     }
 
     public togglePlay() {
@@ -33,11 +37,11 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     }
 
     public play() {
-        this.audioPlayerService.play(new AudioResource(this.resource));
+        this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(this.resource)));
     }
 
     public pause() {
-        this.audioPlayerService.pause();
+        this.store.dispatch(new fromAudioPlayerActions.ChangeStatus('paused'));
     }
 
     computeHeight() {

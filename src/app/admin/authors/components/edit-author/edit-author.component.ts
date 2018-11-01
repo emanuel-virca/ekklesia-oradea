@@ -1,63 +1,76 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { AuthorBaseComponent } from '../author-base.component';
 import { Author } from 'src/app/shared/models/author.model';
-import { AuthorService } from 'src/app/admin/authors/services/author/author.service';
 
 @Component({
   selector: 'app-edit-author',
   templateUrl: './edit-author.component.html',
-  styleUrls: ['./edit-author.component.scss']
+  styleUrls: ['./edit-author.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditAuthorComponent extends AuthorBaseComponent implements OnInit {
+export class EditAuthorComponent implements OnInit, OnChanges {
+  @Input() author: Author;
+  @Output() create = new EventEmitter<Author>();
+  @Output() update = new EventEmitter<Author>();
+  authorForm = new FormGroup({
+    firstName: new FormControl(),
+    lastName: new FormControl(),
+    description: new FormControl(),
+    avatar: new FormControl(),
+  });
+  imageUploadFolder = '/authors';
 
-  author: Author;
-
-  constructor(
-    private authorService: AuthorService,
-    public snackBar: MatSnackBar,
-    private route: ActivatedRoute,
-  ) {
-    super();
-  }
+  constructor() { }
 
   ngOnInit() {
-    super.ngOnInit();
-    this.route.paramMap.subscribe((params: ParamMap) => this.getResource(params.get('id')));
   }
 
-  getResource(id) {
-    this.authorService.get(id).subscribe((author: Author) => {
-      this.author = author;
-      this.authorForm.controls.firstName.setValue(author.firstName);
-      this.authorForm.controls.lastName.setValue(author.lastName);
-      this.authorForm.controls.avatar.setValue(author.avatar);
-    });
-  }
-
-  async save() {
-    if (!this.authorForm.dirty || !this.authorForm.valid) { return; }
-
-    const author: Author = {
-      id: this.author.id,
-      firstName: this.authorForm.controls.firstName.value,
-      lastName: this.authorForm.controls.lastName.value,
-      avatar: this.authorForm.controls.avatar.value,
-    };
-
-    try {
-      await this.authorService.updateAsync(author);
-
-      // TODO create notification service
-      this.snackBar.open('Data sucessfully saved', null, { duration: 5000, });
-
-      this.resetForm();
-
-    } catch (e) {
-      this.snackBar.open('An error occured while savind data!', null, { duration: 5000, });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.author) {
+      const author: any = changes.author.currentValue as Author;
+      this.displayAuthor(author);
     }
   }
 
+  displayAuthor(author: Author | null): void {
+    // Set the local product property
+    this.author = author;
+
+    if (this.author && this.authorForm) {
+      // Reset the form back to pristine
+      this.authorForm.reset();
+
+      // Update the data on the form
+      this.authorForm.patchValue({
+        firstName: this.author.firstName,
+        lastName: this.author.lastName,
+        avatar: this.author.avatar
+      });
+    }
+  }
+
+  imageSrcChanged(imageSrc) {
+    this.authorForm.markAsDirty();
+    this.authorForm.controls.avatar.setValue(imageSrc);
+  }
+
+  save() {
+    if (!this.authorForm.valid) { return; }
+
+    // Copy over all of the original author properties
+    // Then copy over the values from the form
+    // This ensures values not on the form, such as the Id, are retained
+    const author: Author = { ...this.author, ...this.authorForm.value };
+
+    if (!author.id) {
+      this.create.emit(author);
+    } else {
+      this.update.emit(author);
+    }
+  }
+
+  get firstName() { return this.authorForm.controls.firstName; }
+  get lastName() { return this.authorForm.controls.lastName; }
+  get avatar() { return this.authorForm.controls.avatar; }
 }

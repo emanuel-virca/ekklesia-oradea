@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { SearchService } from '../../core/services/search/search.service';
 import { LoaderService } from '../../core/services/loader/loader.service';
 import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
-import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
 import { ResourceService } from '../../shared/services/resource/resource.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { AudioResource } from '../../shared/models/audio-resource.model';
+import * as fromAudioPlayer from 'src/app/shared/stores/audio-player-store';
+import * as fromAudioPlayerActions from 'src/app/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-resources-search-results',
@@ -28,7 +30,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
     private resourceService: ResourceService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
-    private audioPlayerService: AudioPlayerService,
+    private store: Store<fromAudioPlayer.AppState>,
   ) {
     this.route.paramMap.subscribe((x) => {
       this.initSearch();
@@ -74,7 +76,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
     this.resourceService.get(resourceSearchResult.id)
       .subscribe((resource: Resource) => {
         if (resource.streamUrl) {
-          this.audioPlayerService.play(new AudioResource(resource));
+          this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(resource)));
         }
       });
   }

@@ -8,7 +8,7 @@
                 <button class="play-button" mat-icon-button (click)="pause()" *ngSwitchCase="'playing'">
                     <mat-icon aria-label="Pause audio">pause_circle_outline</mat-icon>
                 </button>
-                <mat-progress-spinner class="seeking" mode="indeterminate" diameter="30" *ngSwitchCase="'seeking'"></mat-progress-spinner>
+                <mat-progress-spinner class="seeking" mode="indeterminate" diameter="30" *ngSwitchCase="'loading'"></mat-progress-spinner>
                 <button class="play-button" mat-icon-button (click)="play()" *ngSwitchDefault>
                     <mat-icon aria-label="Play audio">play_circle_outline</mat-icon>
                 </button>
@@ -22,4 +22,3 @@
         </div>
     </div>
 </div>
-

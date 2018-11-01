@@ -5,6 +5,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -26,6 +29,12 @@ import { CoreModule } from './core/core.module';
         AngularFireAuthModule,
         AngularFireStorageModule,
         BrowserAnimationsModule,
+        StoreModule.forRoot({}),
+        StoreDevtoolsModule.instrument({
+            name: 'NgRx Ekklesia',
+            logOnly: environment.production,
+        }),
+        EffectsModule.forRoot([]),
         SharedModule,
         CoreModule,
     ],

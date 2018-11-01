@@ -6,7 +6,6 @@ import { ResourceService } from 'src/app/shared/services/resource/resource.servi
 import { AudioResource } from 'src/app/shared/models/audio-resource.model';
 import { ResourceViewerService } from '../../../core/services/resource-viewer/resource-viewer.service';
 import { ResourceViewerState } from '../../../core/models/resource-viewer-state';
-import { AudioPlayerService } from '../../../core/services/audio-player/audio-player.service';
 
 
 @Component({
@@ -21,7 +20,6 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
 
   constructor(
     private resourceViewerService: ResourceViewerService,
-    private audioPlayerService: AudioPlayerService,
     private resourceService: ResourceService,
   ) { }
 
@@ -37,23 +35,6 @@ export class ResourceBottomViewerComponent implements OnInit, OnDestroy {
   private getResource(resourceId) {
     if (resourceId == null) { return; }
 
-    if (this.audioResource && resourceId === this.audioResource.id) {
-      return this.audioPlayerService.play(this.audioResource);
-    }
-
-    this.resourceService.get(resourceId).subscribe((resource: Resource) => this.playAudioResource(resource));
+    this.resourceService.get(resourceId);
   }
-
-  private playAudioResource(resource: Resource) {
-    this.audioResource = {
-      id: resource.id,
-      title: resource.title,
-      artwork: resource.imageSrc,
-      downloadUrl: resource.downloadUrl,
-      streamUrl: resource.streamUrl
-    };
-
-    this.audioPlayerService.play(this.audioResource);
-  }
-
 }

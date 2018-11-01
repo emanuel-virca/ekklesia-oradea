@@ -1,52 +1,54 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, OnDestroy, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
-import { AuthorService } from 'src/app/admin/authors/services/author/author.service';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-authors-list',
   templateUrl: './authors-list.component.html',
-  styleUrls: ['./authors-list.component.scss']
+  styleUrls: ['./authors-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorsListComponent implements OnInit {
-
-  @ViewChild(MatSort) sort: MatSort;
-
+export class AuthorsListComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 
-  constructor(
-    private authorService: AuthorService,
-    public dialog: MatDialog,
-  ) { }
+  @Input() authors: Author[];
+  @Output() select = new EventEmitter<Author>();
+  @Output() delete = new EventEmitter<Author>();
+  @Output() initializeNew = new EventEmitter<void>();
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getAuthors();
     this.dataSource.sort = this.sort;
   }
 
-  public getAuthors() {
-    this.authorService.query().subscribe(data => this.dataSource.data = data);
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public async deleteAsync(authorId) {
-    await this.authorService.deleteAsync(authorId);
+  newAuthor(): void {
+    this.initializeNew.emit();
   }
 
-  public confirmDelete(author: Author): void {
+  selectAuthor(author: Author): void {
+    this.select.emit(author);
+  }
+
+  deleteAuthor(author: Author): void {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: { title: 'Are you shure you want to delete the following author?', message: `${author.firstName} ${author.lastName}` }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteAsync(author.id); }
+      if (result) { this.delete.emit(author); }
     });
   }
 
-  public applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  ngOnChanges() {
+    this.dataSource.data = this.authors;
   }
-
 }

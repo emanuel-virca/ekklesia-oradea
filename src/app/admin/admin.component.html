@@ -6,14 +6,12 @@
         <span matLine>Resources</span>
       </a>
       <a mat-list-item [routerLink]="['authors']" class="menu-button" routerLinkActive="mat-accent">
-        <mat-icon mat-list-icon>people</mat-icon> 
+        <mat-icon mat-list-icon>people</mat-icon>
         <span matLine>Authors</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="top-app-bar-margin">
-      <router-outlet></router-outlet>
-    </div>
+  <mat-sidenav-content class="top-app-bar-margin">
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
