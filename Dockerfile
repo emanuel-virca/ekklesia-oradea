@@ -22,7 +22,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 ## From 'builder' copy website to default nginx public folder
-COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/ekklesia-oradea /usr/share/nginx/html
 
 # start app
 CMD ["nginx", "-g", "daemon off;"]
