@@ -58,7 +58,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <button mdc-fab position='bottom-right' [routerLink]="['create']">
-    <mdc-icon>add</mdc-icon>
-  </button>
+  <button mdc-fab position='bottomRight' icon="add" [routerLink]="['create']"></button>
 </div>
