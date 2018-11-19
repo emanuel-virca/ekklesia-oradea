@@ -20,10 +20,21 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
     thereIsMore = true;
     cardWidth: number;
     viewInitalized = false;
+    updateMasonryLayout = false;
+    masonryOptions: any = {
+        transitionDuration: '0',
+        horizontalOrder: true,
+        columnWidth: '.masonry-item-sizer',
+        gutter: '.gutter-sizer',
+        percentPosition: true,
+        itemSelector: '.masonry-item',
+        resize: false
+    };
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
         this.cardWidth = this.getMasonryItemSize();
+        setTimeout(() => this.updateMasonryLayout = !this.updateMasonryLayout, 100);
     }
 
     constructor(
@@ -39,6 +50,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.cardWidth = this.getMasonryItemSize();
+        console.log('cardWidth', this.cardWidth);
         setTimeout(() => this.viewInitalized = true);
     }
 

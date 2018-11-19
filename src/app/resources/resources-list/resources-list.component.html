@@ -1,12 +1,12 @@
 <!-- this grid is used as a placeholder for beeing able to compute masonry item width -->
-<div class="masonry-grid grid-sizer">
+<div class="masonry-grid">
     <div #masonryItemSizer class="masonry-item-sizer"></div>
 </div>
 
-<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" *ngIf="viewInitalized"
-    class="masonry-grid">
-    <ngx-masonry [options]="{ transitionDuration: '0.8s', horizontalOrder: true, columnWidth: '.masonry-item', gutter:'.gutter-sizer', percentPosition: true, itemSelector: '.masonry-item'}"
-        [useImagesLoaded]="false">
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <ngx-masonry [options]="masonryOptions" [updateLayout]="updateMasonryLayout" [useImagesLoaded]="false" *ngIf="viewInitalized"
+        class="masonry-grid">
+        <div class="masonry-item-sizer"></div>
         <div class="gutter-sizer"></div>
         <ngxMasonryItem class="masonry-item" *ngFor="let resource of resources">
             <app-resource-card [resource]="resource" [width]="cardWidth"></app-resource-card>

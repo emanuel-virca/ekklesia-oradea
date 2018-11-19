@@ -2,12 +2,13 @@ $gutterSizeDesktop: 24px;
 $gutterSizePhone: 16px;
 $gridMarginDesktop: 24px;
 $gridMarginPhone: 16px;
+
 .gutter-sizer {
     width: $gutterSizeDesktop;
 }
 
 .masonry-grid {
-    margin: $gridMarginDesktop;
+    margin-left: $gridMarginDesktop;
 }
 
 @mixin calc($prop, $val) {
@@ -42,7 +43,7 @@ $gridMarginPhone: 16px;
 /* XSmall */
 
 @media (max-width: 599px) {
-    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);   
+    @include masonryGrid(1, $gridMarginPhone, $gutterSizePhone);
 }
 
 /* Small */
