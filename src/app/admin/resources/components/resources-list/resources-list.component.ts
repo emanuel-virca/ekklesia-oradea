@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { ResourceService } from 'src/app/admin/resources/services/resource/resource.service';
@@ -9,11 +9,13 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 @Component({
   selector: 'app-resources-list',
   templateUrl: './resources-list.component.html',
-  styleUrls: ['./resources-list.component.scss']
+  styleUrls: ['./resources-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResourcesListComponent implements OnInit {
+export class ResourcesListComponent implements OnInit, OnChanges {
 
   @ViewChild(MatSort) sort: MatSort;
+  @Input() resources: Resource[];
 
   constructor(
     private resourceService: ResourceService,
@@ -24,12 +26,7 @@ export class ResourcesListComponent implements OnInit {
   dataSource = new MatTableDataSource<Resource>();
 
   ngOnInit() {
-    this.getResources();
     this.dataSource.sort = this.sort;
-  }
-
-  public getResources() {
-    this.resourceService.query(9999, null, 'desc').subscribe(data => this.dataSource.data = data);
   }
 
   public async deleteAsync(resourceId) {
@@ -56,5 +53,9 @@ export class ResourcesListComponent implements OnInit {
 
   public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngOnChanges() {
+    this.dataSource.data = this.resources;
   }
 }
