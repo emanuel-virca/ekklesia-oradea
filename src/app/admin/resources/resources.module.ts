@@ -4,7 +4,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ResourcesRoutingModule } from './resources-routing.module';
-import { CreateResourceComponent } from './components/create-resource/create-resource.component';
 import { ResourcesListComponent } from './components/resources-list/resources-list.component';
 import { EditResourceComponent } from './components/edit-resource/edit-resource.component';
 import { ResourceService } from '../../shared/services/resource/resource.service';
@@ -24,7 +23,6 @@ import { ResourceEffects } from './state/resource.effects';
     EffectsModule.forFeature([ResourceEffects]),
   ],
   declarations: [
-    CreateResourceComponent,
     ResourcesListComponent,
     EditResourceComponent,
     ResourceShellComponent,

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
-import { ResourceService } from 'src/app/admin/resources/services/resource/resource.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
@@ -13,24 +12,23 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourcesListComponent implements OnInit, OnChanges {
-
-  @ViewChild(MatSort) sort: MatSort;
-  @Input() resources: Resource[];
-
-  constructor(
-    private resourceService: ResourceService,
-    public dialog: MatDialog,
-  ) { }
-
   displayedColumns: string[] = ['position', 'title', 'dateTime', 'author', 'actions'];
   dataSource = new MatTableDataSource<Resource>();
 
+  @ViewChild(MatSort) sort: MatSort;
+  @Input() resources: Resource[];
+  @Output() select = new EventEmitter<Resource>();
+  @Output() initializeNew = new EventEmitter();
+  @Output() publish = new EventEmitter();
+  @Output() unpublish = new EventEmitter();
+  @Output() delete = new EventEmitter();
+
+  constructor(
+    public dialog: MatDialog,
+  ) { }
+
   ngOnInit() {
     this.dataSource.sort = this.sort;
-  }
-
-  public async deleteAsync(resourceId) {
-    await this.resourceService.deleteAsync(resourceId);
   }
 
   public confirmDelete(resource: Resource): void {
@@ -39,16 +37,34 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteAsync(resource.id); }
+      if (result) { this.deleteResource(resource.id); }
     });
   }
 
-  public async publish(resourceId) {
-    await this.resourceService.publishAsync(resourceId);
+  public publishResource(resource: Resource) {
+    if (!resource) { return; }
+
+    this.publish.emit(resource.id);
   }
 
-  public async unpublish(resourceId) {
-    await this.resourceService.unpublishAsync(resourceId);
+  public unpublishResource(resource: Resource) {
+    if (!resource) { return; }
+
+    this.unpublish.emit(resource.id);
+  }
+
+  public deleteResource(resourceId: string) {
+    if (!resourceId) { return; }
+
+    this.delete.emit(resourceId);
+  }
+
+  public newResource(): void {
+    this.initializeNew.emit();
+  }
+
+  public selectResource(resource: Resource): void {
+    this.select.emit(resource);
   }
 
   public applyFilter(filterValue: string) {

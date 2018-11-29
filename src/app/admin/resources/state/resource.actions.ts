@@ -83,16 +83,60 @@ export const DELETE_RESOURCE_FAIL = 'DELETE RESOURCE FAIL';
 
 export class DeleteResource implements Action {
   readonly type = DELETE_RESOURCE;
-  constructor(public id: string) { }
+  constructor(public payload: string) { }
 }
 
 export class DeleteResourceSuccess implements Action {
   readonly type = DELETE_RESOURCE_SUCCESS;
-  constructor(public payload: any) { }
 }
 
 export class DeleteResourceFail implements Action {
   readonly type = DELETE_RESOURCE_FAIL;
+  constructor(public payload: string) { }
+}
+
+export const SET_CURRENT_RESOURCE = 'SET CURRENT RESOURCE';
+
+export class SetCurrentResource implements Action {
+  readonly type = SET_CURRENT_RESOURCE;
+  constructor(public payload: Resource) { }
+}
+
+export const PUBLISH_RESOURCE = 'PUBLISH RESOURCE';
+export const PUBLISH_RESOURCE_SUCCESS = 'PUBLISH RESOURCE SUCCESS';
+export const PUBLISH_RESOURCE_FAIL = 'PUBLISH RESOURCE FAIL';
+
+export class PublishResource implements Action {
+  readonly type = PUBLISH_RESOURCE;
+  constructor(public payload: string) { }
+}
+
+export class PublishResourceSuccess implements Action {
+  readonly type = PUBLISH_RESOURCE_SUCCESS;
+  constructor() { }
+}
+
+export class PublishResourceFail implements Action {
+  readonly type = PUBLISH_RESOURCE_FAIL;
+  constructor(public payload: string) { }
+}
+
+export const UNPUBLISH_RESOURCE = 'UNPUBLISH RESOURCE';
+export const UNPUBLISH_RESOURCE_SUCCESS = 'UNPUBLISH RESOURCE SUCCESS';
+export const UNPUBLISH_RESOURCE_FAIL = 'UNPUBLISH RESOURCE FAIL';
+
+export class UnpublishResource implements Action {
+  readonly type = UNPUBLISH_RESOURCE;
+  constructor(public payload: string) { }
+}
+
+export class UnpublishResourceSuccess implements Action {
+  readonly type = UNPUBLISH_RESOURCE_SUCCESS;
+  constructor() { }
+}
+
+export class UnpublishResourceFail implements Action {
+  readonly type = UNPUBLISH_RESOURCE_FAIL;
   constructor(public payload: string) { }
 }
 
@@ -111,4 +155,11 @@ export type Actions =
   | UpdateResourceFail
   | DeleteResource
   | DeleteResourceSuccess
-  | DeleteResourceFail;
+  | DeleteResourceFail
+  | SetCurrentResource
+  | PublishResource
+  | PublishResourceSuccess
+  | PublishResourceFail
+  | UnpublishResource
+  | UnpublishResourceSuccess
+  | UnpublishResourceFail;

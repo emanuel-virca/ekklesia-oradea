@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentReference } from '@angular/fire/firestore';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { ResourceBaseComponent } from '../resource-base.component';
 import { AuthorService } from '../../../../shared/services/author/author.service';
-import { Resource } from '../../../../shared/models/resource.model';
-import { ResourceService } from '../../services/resource/resource.service';
+import { Resource, ResourceTypeSelect } from '../../../../shared/models/resource.model';
+import { SelectOption } from 'src/app/shared/models/select-option';
+import { Author } from 'src/app/shared/models/author.model';
+import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
 
 @Component({
@@ -14,63 +17,105 @@ import { ResourceService } from '../../services/resource/resource.service';
   templateUrl: './edit-resource.component.html',
   styleUrls: ['./edit-resource.component.scss']
 })
-export class EditResourceComponent extends ResourceBaseComponent implements OnInit {
-  resource: Resource;
+export class EditResourceComponent implements OnInit, OnChanges {
+  resourceTypes = ResourceTypeSelect;
+  authors: Observable<SelectOption[]>;
+  @Input() resource: Resource;
+  @Output() create = new EventEmitter();
+  @Output() update = new EventEmitter();
+  @Output() publish = new EventEmitter();
+  @Output() unpublish = new EventEmitter();
+  @Output() delete = new EventEmitter();
+  @Output() clearSelected = new EventEmitter();
+
+  resourceForm = new FormGroup({
+    title: new FormControl(),
+    dateTime: new FormControl(),
+    description: new FormControl(),
+    hearthisId: new FormControl(),
+    imageSrc: new FormControl(),
+    resourceType: new FormControl(),
+    author: new FormControl(),
+  });
+
+  imageUploadFolder = '/resources';
 
   constructor(
-    authorService: AuthorService,
-    private resourceService: ResourceService,
-    private route: ActivatedRoute,
-    private snackBar: MatSnackBar
-  ) {
-    super(authorService);
-  }
+    private authorService: AuthorService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
-    super.ngOnInit();
-    this.route.paramMap.subscribe((params: ParamMap) => this.getResource(params.get('id')));
+    this.getAuthors();
   }
 
-  getResource(id) {
-    this.resourceService.get(id).subscribe((resource: Resource) => {
-      this.resource = resource;
-      this.resourceForm.controls.title.setValue(resource.title);
-      this.resourceForm.controls.dateTime.setValue(resource.dateTime.toDate());
-      this.resourceForm.controls.description.setValue(resource.description);
-      this.resourceForm.controls.hearthisId.setValue(resource.hearthisId);
-      this.resourceForm.controls.imageSrc.setValue(resource.imageSrc);
-      this.resourceForm.controls.resourceType.setValue(resource.type);
-      this.resourceForm.controls.author.setValue(resource.author);
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.resource) {
+      const resource: any = changes.resource.currentValue as Resource;
+      this.displayResource(resource);
+    }
   }
 
-  compareWith(o1: DocumentReference, o2: DocumentReference) {
-    return o1.id === o2.id;
+  getAuthors() {
+    this.authors = this.authorService.listWithRef().pipe(map((authors: Author[]) => {
+      return authors.map((x) => ({ text: x.firstName + ' ' + x.lastName, value: x.ref }));
+    }));
   }
 
-  public async publish() {
-    if (!this.resource) { return; }
+  displayResource(resource: Resource | null): void {
+    // Set the local product property
+    // TODO is this necessary???
+    this.resource = resource;
 
-    await this.resourceService.publishAsync(this.resource.id);
+    if (this.resource && this.resourceForm) {
+      // Reset the form back to pristine
+      this.resourceForm.reset();
+
+      // Update the data on the form
+      this.resourceForm.patchValue({
+        title: resource.title,
+        dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
+        description: resource.description,
+        hearthisId: resource.hearthisId,
+        imageSrc: resource.imageSrc,
+        resourceType: resource.type,
+        author: resource.author,
+      });
+    }
   }
 
-  public async unpublish() {
-    if (!this.resource) { return; }
+  publishResource() {
+    if (!this.resource.id) { return; }
 
-    await this.resourceService.unpublishAsync(this.resource.id);
+    this.publish.emit(this.resource.id);
   }
 
-  async save() {
+  unpublishResource() {
+    if (!this.resource.id) { return; }
+
+    this.unpublish.emit(this.resource.id);
+  }
+
+  deleteResource() {
+    if (!this.resource.id) { return; }
+
+    this.delete.emit(this.resource.id);
+  }
+
+  imageSrcChanged($event) {
+    this.resourceForm.markAsDirty();
+    this.resourceForm.controls.imageSrc.setValue($event);
+  }
+
+  save() {
+    if (!this.resourceForm.valid) { return; }
+
+    // Copy over all of the original author properties
+    // Then copy over the values from the form
+    // This ensures values not on the form, such as the Id, are retained
     const resource: Resource = {
-      id: this.resource.id,
-      title: this.resourceForm.controls.title.value,
-      type: this.resourceForm.controls.resourceType.value,
-      hearthisId: this.resourceForm.controls.hearthisId.value,
-      imageSrc: this.resourceForm.controls.imageSrc.value,
-      description: this.resourceForm.controls.description.value,
-      dateTime: this.resourceForm.controls.dateTime.value,
-      author: this.resourceForm.controls.author.value,
-      published: this.resource.published,
+      ... this.resource,
+      ...this.resourceForm.value,
     };
 
     if (this.resourceForm.controls.hearthisId.value) {
@@ -78,18 +123,34 @@ export class EditResourceComponent extends ResourceBaseComponent implements OnIn
       resource.streamUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/listen`;
     }
 
-    try {
-      await this.resourceService.updateAsync(resource);
-
-      // TODO create notification service
-      this.snackBar.open('Data sucessfully saved', null, { duration: 5000, });
-
-      this.resetForm();
-
-    } catch (e) {
-      this.snackBar.open('An error occured while savind data!', null, { duration: 5000, });
+    if (!resource.id) {
+      this.create.emit(resource);
+    } else {
+      this.update.emit(resource);
     }
-
   }
 
+  confirmDelete(): void {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: { title: 'Are you shure you want to delete the following resource?', message: this.resource.title }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { this.deleteResource(); }
+    });
+  }
+
+  clearSelectedResource(): void {
+    this.clearSelected.emit();
+  }
+
+  compareWith(o1: DocumentReference, o2: DocumentReference) {
+    return o1.id === o2.id;
+  }
+
+  get title() { return this.resourceForm.controls.title; }
+  get dateTime() { return this.resourceForm.controls.dateTime; }
+  get author() { return this.resourceForm.controls.author; }
+  get resourceType() { return this.resourceForm.controls.resourceType; }
+  get imageSrc() { return this.resourceForm.controls.imageSrc; }
 }

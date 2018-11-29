@@ -13,3 +13,5 @@ export interface AppState extends fromRoot.AppState {
 export const getResourcesFeatureState = createFeatureSelector<fromResources.ResourceState>('resources');
 
 export const getResources = createSelector(getResourcesFeatureState, state => state.resources);
+
+export const getCurrentResource = createSelector(getResourcesFeatureState, state => state.currentResource);

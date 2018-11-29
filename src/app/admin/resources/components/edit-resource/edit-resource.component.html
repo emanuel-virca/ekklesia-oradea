@@ -1,17 +1,32 @@
 <div class="container-fluid">
-  <h1>Edit Resource
-    <small *ngIf="resource.published; else resource_not_published" class="resource-status resource-published">(Published)</small>
-    <ng-template #resource_not_published>
-      <small class="resource-status resource-not-published">(Not Published)</small>
-    </ng-template>
-  </h1>
-  <div class="actions">
-    <button title="publish" *ngIf="!resource?.published" mat-icon-button (click)="publish()">
-      <mat-icon aria-label="publish">link</mat-icon>
-    </button>
-    <button title="unpublish" *ngIf="resource?.published" mat-icon-button (click)="unpublish()">
-      <mat-icon aria-label="Unpublish">link_off</mat-icon>
-    </button>
+  <div class="item-viewer--header">
+    <h2>{{resource?.id ? 'Edit': 'Add'}}
+      <small *ngIf="resource?.id && resource?.published" class="text-danger">
+        (not published)
+      </small>
+    </h2>
+    <div class="item-viewer--actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="resource?.id">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="confirmDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item (click)="publishResource()" *ngIf="!resource.published">
+          <mat-icon>visibility</mat-icon>
+          <span>Publish</span>
+        </button>
+        <button mat-menu-item (click)="unpublishResource()" *ngIf="resource.published">
+          <mat-icon>visibility_off</mat-icon>
+          <span>Unpublish</span>
+        </button>
+      </mat-menu>
+      <button mat-icon-button (click)="clearSelectedResource()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
   <form class="form-horrizontal" [formGroup]="resourceForm">
     <mat-form-field>
