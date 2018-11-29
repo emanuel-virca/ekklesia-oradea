@@ -1,5 +1,6 @@
 <mat-drawer-container hasBackdrop="false">
-  <mat-drawer class="mat-drawer--author" #drawer mode="over" opened position="end" *ngIf="currentAuthor$ | async as currentAuthor">
+  <mat-drawer class="mat-drawer--author" #drawer mode="over" [opened]="currentAuthor" disableClose position="end" *ngIf="currentAuthor$ | async as currentAuthor"
+    (keydown.escape)="clearSelectedAuthor()">
     <app-author [author]="currentAuthor" (create)="createAuthor($event)" (update)="updateAuthor($event)" (delete)="deleteAuthor($event)"
       (clearSelected)="clearSelectedAuthor()"></app-author>
   </mat-drawer>
