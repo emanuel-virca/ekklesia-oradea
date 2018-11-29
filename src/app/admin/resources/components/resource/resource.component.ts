@@ -9,7 +9,7 @@ import { AuthorService } from '../../../../shared/services/author/author.service
 import { Resource, ResourceTypeSelect } from '../../../../shared/models/resource.model';
 import { SelectOption } from 'src/app/shared/models/select-option';
 import { Author } from 'src/app/shared/models/author.model';
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.model';
 
 
 @Component({
@@ -17,16 +17,12 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.scss']
 })
-export class ResourceComponent implements OnInit, OnChanges {
+export class ResourceComponent extends ListItemEvents<Resource> implements OnInit, OnChanges {
   resourceTypes = ResourceTypeSelect;
   authors: Observable<SelectOption[]>;
   @Input() resource: Resource;
-  @Output() create = new EventEmitter();
-  @Output() update = new EventEmitter();
   @Output() publish = new EventEmitter();
   @Output() unpublish = new EventEmitter();
-  @Output() delete = new EventEmitter();
-  @Output() clearSelected = new EventEmitter();
 
   resourceForm = new FormGroup({
     title: new FormControl(),
@@ -43,7 +39,12 @@ export class ResourceComponent implements OnInit, OnChanges {
   constructor(
     private authorService: AuthorService,
     public dialog: MatDialog,
-  ) { }
+  ) {
+    super(dialog, {
+      title: 'Are you shure you want to delete the following resource?',
+      message: (resource: Resource) => resource.title
+    });
+  }
 
   ngOnInit() {
     this.getAuthors();
@@ -96,12 +97,6 @@ export class ResourceComponent implements OnInit, OnChanges {
     this.unpublish.emit(this.resource.id);
   }
 
-  deleteResource() {
-    if (!this.resource.id) { return; }
-
-    this.delete.emit(this.resource.id);
-  }
-
   imageSrcChanged($event) {
     this.resourceForm.markAsDirty();
     this.resourceForm.controls.imageSrc.setValue($event);
@@ -124,24 +119,10 @@ export class ResourceComponent implements OnInit, OnChanges {
     }
 
     if (!resource.id) {
-      this.create.emit(resource);
+      this.createItem(resource);
     } else {
-      this.update.emit(resource);
+      this.updateItem(resource);
     }
-  }
-
-  confirmDelete(): void {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { title: 'Are you shure you want to delete the following resource?', message: this.resource.title }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteResource(); }
-    });
-  }
-
-  clearSelectedResource(): void {
-    this.clearSelected.emit();
   }
 
   compareWith(o1: DocumentReference, o2: DocumentReference) {

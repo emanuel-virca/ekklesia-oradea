@@ -3,6 +3,7 @@ import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Resource } from 'src/app/shared/models/resource.model';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
 
 
 @Component({
@@ -11,21 +12,23 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
   styleUrls: ['./resources-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResourcesListComponent implements OnInit, OnChanges {
+export class ResourcesListComponent extends ListEvents<Resource> implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'title', 'dateTime', 'author', 'actions'];
   dataSource = new MatTableDataSource<Resource>();
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() resources: Resource[];
-  @Output() select = new EventEmitter<Resource>();
-  @Output() initializeNew = new EventEmitter();
   @Output() publish = new EventEmitter();
   @Output() unpublish = new EventEmitter();
-  @Output() delete = new EventEmitter();
 
   constructor(
     public dialog: MatDialog,
-  ) { }
+  ) {
+    super(dialog, {
+      title: 'Are you shure you want to delete the following resource?',
+      message: (resource: Resource) => resource.title
+    });
+  }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;

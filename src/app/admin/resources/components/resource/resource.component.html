@@ -10,7 +10,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="confirmDelete()">
+        <button mat-menu-item (click)="deleteItemWithConfirmation(resource)">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
@@ -23,7 +23,7 @@
           <span>Unpublish</span>
         </button>
       </mat-menu>
-      <button mat-icon-button (click)="clearSelectedResource()">
+      <button mat-icon-button (click)="clearSelectedItem()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
