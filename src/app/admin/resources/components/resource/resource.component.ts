@@ -13,11 +13,11 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 
 
 @Component({
-  selector: 'app-edit-resource',
-  templateUrl: './edit-resource.component.html',
-  styleUrls: ['./edit-resource.component.scss']
+  selector: 'app-resource',
+  templateUrl: './resource.component.html',
+  styleUrls: ['./resource.component.scss']
 })
-export class EditResourceComponent implements OnInit, OnChanges {
+export class ResourceComponent implements OnInit, OnChanges {
   resourceTypes = ResourceTypeSelect;
   authors: Observable<SelectOption[]>;
   @Input() resource: Resource;
