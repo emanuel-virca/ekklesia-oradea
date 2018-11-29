@@ -1,5 +1,33 @@
 <div class="container-fluid">
-  <h1>Create Resource</h1>
+  <div class="item-viewer--header">
+    <h2>{{resource?.id ? 'Edit': 'Add'}}
+      <small *ngIf="resource?.id && resource?.published" class="text-danger">
+        (not published)
+      </small>
+    </h2>
+    <div class="item-viewer--actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="resource?.id">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="confirmDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item (click)="publishResource()" *ngIf="!resource.published">
+          <mat-icon>visibility</mat-icon>
+          <span>Publish</span>
+        </button>
+        <button mat-menu-item (click)="unpublishResource()" *ngIf="resource.published">
+          <mat-icon>visibility_off</mat-icon>
+          <span>Unpublish</span>
+        </button>
+      </mat-menu>
+      <button mat-icon-button (click)="clearSelectedResource()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
   <form class="form-horrizontal" [formGroup]="resourceForm">
     <mat-form-field>
       <input matInput placeholder="Title" formControlName="title" required>
@@ -9,21 +37,21 @@
       <textarea matInput placeholder="Description" formControlName="description"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Author" formControlName="author" required>
+      <mat-select placeholder="Author" formControlName="author" [compareWith]="compareWith" required>
         <mat-option *ngFor="let option of authors | async" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
       <mat-error *ngIf="author.errors?.required">Author is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateTime" (focus)="picker.open()" (click)="picker.open()"
-        readonly required>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateTime" (focus)="picker.open()"
+        (click)="picker.open()" readonly required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="dateTime.errors?.required">Date is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Hearthis Id" formControlName="hearthisId">
-    </mat-form-field>    
+    </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Type" formControlName="resourceType" required>
         <mat-option *ngFor="let option of resourceTypes" [value]="option.value">{{option.text}}</mat-option>
@@ -33,8 +61,8 @@
     <mat-form-field>
       <input matInput type="url" placeholder="Image Url" formControlName="imageSrc">
     </mat-form-field>
-    <app-image-uploader [url]="imageSrc.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>   
-   
+    <app-image-uploader [url]="imageSrc.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>
+
     <app-save-button (save)="save()" [formGroup]="resourceForm"></app-save-button>
   </form>
 </div>

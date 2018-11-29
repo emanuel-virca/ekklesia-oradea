@@ -30,9 +30,21 @@ body {
     height:inherit;
 }
 
-.mat-drawer--header {
+.mat-drawer--header, .item-viewer--header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
+
+.height--inherit {
+    height: inherit;
+}
+
+.cursor--pointer {
+    cursor: pointer;
+}
+
+.text-danger {
+    color:red;
+}
