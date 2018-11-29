@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnCha
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { Author } from 'src/app/shared/models/author.model';
+import { MatDialog } from '@angular/material';
+import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-author',
@@ -13,15 +15,21 @@ export class AuthorComponent implements OnInit, OnChanges {
   @Input() author: Author;
   @Output() create = new EventEmitter<Author>();
   @Output() update = new EventEmitter<Author>();
+  @Output() delete = new EventEmitter();
+  @Output() clearSelected = new EventEmitter();
+
   authorForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
     description: new FormControl(),
     avatar: new FormControl(),
   });
+
   imageUploadFolder = '/authors';
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
   }
@@ -50,6 +58,25 @@ export class AuthorComponent implements OnInit, OnChanges {
     }
   }
 
+  confirmDelete(): void {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: {
+        title: 'Are you shure you want to delete the following resource?',
+        message: `${this.author.firstName} ${this.author.lastName}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { this.deleteAuthor(); }
+    });
+  }
+
+  deleteAuthor() {
+    if (!this.author.id) { return; }
+
+    this.delete.emit(this.author.id);
+  }
+
   imageSrcChanged(imageSrc) {
     this.authorForm.markAsDirty();
     this.authorForm.controls.avatar.setValue(imageSrc);
@@ -68,6 +95,10 @@ export class AuthorComponent implements OnInit, OnChanges {
     } else {
       this.update.emit(author);
     }
+  }
+
+  clearSelectedAuthor(): void {
+    this.clearSelected.emit();
   }
 
   get firstName() { return this.authorForm.controls.firstName; }

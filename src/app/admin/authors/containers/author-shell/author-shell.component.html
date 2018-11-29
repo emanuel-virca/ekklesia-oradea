@@ -1,14 +1,7 @@
 <mat-drawer-container hasBackdrop="false">
   <mat-drawer class="mat-drawer--author" #drawer mode="over" opened position="end" *ngIf="currentAuthor$ | async as currentAuthor">
-    <div class="container-fluid">
-      <div class="mat-drawer--header">
-        <h2>{{currentAuthor.id ? currentAuthor.firstName + ' ' + currentAuthor.lastName : 'Add Author'}}</h2>
-        <button mat-icon-button (click)="clearSelectedAuthor()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      <app-author [author]="currentAuthor" (create)="createAuthor($event)" (update)="updateAuthor($event)"></app-author>
-    </div>
+    <app-author [author]="currentAuthor" (create)="createAuthor($event)" (update)="updateAuthor($event)" (delete)="deleteAuthor($event)"
+      (clearSelected)="clearSelectedAuthor()"></app-author>
   </mat-drawer>
   <mat-drawer-content>
     <app-authors-list [authors]="authors$ | async" (delete)="deleteAuthor($event)" (initializeNew)="newAuthor()"

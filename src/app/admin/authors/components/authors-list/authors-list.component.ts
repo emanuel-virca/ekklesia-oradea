@@ -16,7 +16,7 @@ export class AuthorsListComponent implements OnInit, OnChanges {
 
   @Input() authors: Author[];
   @Output() select = new EventEmitter<Author>();
-  @Output() delete = new EventEmitter<Author>();
+  @Output() delete = new EventEmitter<string>();
   @Output() initializeNew = new EventEmitter<void>();
   @ViewChild(MatSort) sort: MatSort;
 
@@ -44,7 +44,7 @@ export class AuthorsListComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.delete.emit(author); }
+      if (result) { this.delete.emit(author.id); }
     });
   }
 
