@@ -75,8 +75,4 @@ export class ResourceShellComponent implements OnInit {
   unpublishResource(resourceId: string): void {
     this.store.dispatch(new resourceActions.UnpublishResource(resourceId));
   }
-
-  resetEdit(resource: Resource): void {
-    this.store.dispatch(new resourceActions.SetCurrentResource(resource));
-  }
 }
