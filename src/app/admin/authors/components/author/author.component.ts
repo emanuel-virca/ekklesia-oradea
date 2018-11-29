@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
-import { MatDialog } from '@angular/material';
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.model';
 
 @Component({
   selector: 'app-author',
@@ -11,12 +11,8 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
   styleUrls: ['./author.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorComponent implements OnInit, OnChanges {
+export class AuthorComponent extends ListItemEvents<Author> implements OnChanges {
   @Input() author: Author;
-  @Output() create = new EventEmitter<Author>();
-  @Output() update = new EventEmitter<Author>();
-  @Output() delete = new EventEmitter();
-  @Output() clearSelected = new EventEmitter();
 
   authorForm = new FormGroup({
     firstName: new FormControl(),
@@ -29,16 +25,11 @@ export class AuthorComponent implements OnInit, OnChanges {
 
   constructor(
     public dialog: MatDialog,
-  ) { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.author) {
-      const author: any = changes.author.currentValue as Author;
-      this.displayAuthor(author);
-    }
+  ) {
+    super(dialog, {
+      title: 'Are you shure you want to delete the following resource?',
+      message: (author: Author) => `${author.firstName} ${author.lastName}`
+    });
   }
 
   displayAuthor(author: Author | null): void {
@@ -58,25 +49,6 @@ export class AuthorComponent implements OnInit, OnChanges {
     }
   }
 
-  confirmDelete(): void {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: {
-        title: 'Are you shure you want to delete the following resource?',
-        message: `${this.author.firstName} ${this.author.lastName}`
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteAuthor(); }
-    });
-  }
-
-  deleteAuthor() {
-    if (!this.author.id) { return; }
-
-    this.delete.emit(this.author.id);
-  }
-
   imageSrcChanged(imageSrc) {
     this.authorForm.markAsDirty();
     this.authorForm.controls.avatar.setValue(imageSrc);
@@ -91,14 +63,17 @@ export class AuthorComponent implements OnInit, OnChanges {
     const author: Author = { ...this.author, ...this.authorForm.value };
 
     if (!author.id) {
-      this.create.emit(author);
+      this.createItem(author);
     } else {
-      this.update.emit(author);
+      this.updateItem(author);
     }
   }
 
-  clearSelectedAuthor(): void {
-    this.clearSelected.emit();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.author) {
+      const author: any = changes.author.currentValue as Author;
+      this.displayAuthor(author);
+    }
   }
 
   get firstName() { return this.authorForm.controls.firstName; }
