@@ -1,11 +1,11 @@
 import { Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { IBaseModel } from 'src/app/shared/models/base.model';
+import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
 import { ListEvents } from './list-events.model';
 import { ListItemConfirmConfigModel } from './list-item-delete-confirm-cofig.model';
 
-export class ListItemEvents<T extends IBaseModel> extends ListEvents<T> {
+export class ListItemEvents<T extends IListItemBaseModel> extends ListEvents<T> {
   @Output() create = new EventEmitter<T>();
   @Output() update = new EventEmitter<T>();
   @Output() delete = new EventEmitter<string>();

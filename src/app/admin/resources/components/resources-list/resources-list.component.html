@@ -14,7 +14,7 @@
     <!-- Title Column -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectResource(element)">
+      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectItem(element)">
         {{element.title}} </td>
     </ng-container>
 
@@ -47,10 +47,10 @@
         <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
           <mat-icon aria-label="Download">get_app</mat-icon>
         </a>
-        <button mat-icon-button (click)="selectResource(element)">
+        <button mat-icon-button (click)="selectItem(element)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="confirmDelete(element)">
+        <button mat-icon-button (click)="deleteItemWithConfirmation(element)">
           <mat-icon aria-label="Clear">clear</mat-icon>
         </button>
       </td>
@@ -59,5 +59,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <button mdc-fab position='bottomRight' icon="add" (click)="newResource()"></button>
+  <button mdc-fab position='bottomRight' icon="add" (click)="initializeNewItem()"></button>
 </div>

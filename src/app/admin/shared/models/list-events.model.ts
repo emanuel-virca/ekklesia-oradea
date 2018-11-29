@@ -2,10 +2,10 @@ import { Output, EventEmitter } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
-import { IBaseModel } from 'src/app/shared/models/base.model';
+import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
 import { ListItemConfirmConfigModel } from './list-item-delete-confirm-cofig.model';
 
-export class ListEvents<T extends IBaseModel> {
+export class ListEvents<T extends IListItemBaseModel> {
   @Output() select = new EventEmitter<T>();
   @Output() initializeNew = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();

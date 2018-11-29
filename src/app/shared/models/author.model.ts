@@ -1,6 +1,4 @@
-import { IBaseModel } from './base.model';
-
-export class Author implements IBaseModel {
+export class Author {
     id?: string;
     ref?: any;
     firstName: string;

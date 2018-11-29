@@ -20,7 +20,7 @@ export class AuthorsListComponent extends ListEvents<Author> implements OnInit, 
 
   constructor(public dialog: MatDialog) {
     super(dialog, {
-      title: 'Are you shure you want to delete the following resource?',
+      title: 'Are you shure you want to delete the following author?',
       message: (author: Author) => `${author.firstName} ${author.lastName}`
     });
   }
