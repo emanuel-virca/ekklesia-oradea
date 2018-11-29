@@ -1,5 +1,6 @@
 <mat-drawer-container hasBackdrop="false" class="height--inherit">
-  <mat-drawer class="mat-drawer--resource" #drawer mode="over" opened position="end" *ngIf="currentResource$ | async as currentResource">
+  <mat-drawer class="mat-drawer--resource" #drawer mode="over" [opened]="currentResource" (keydown.escape)="clearSelectedResource()"
+    disableClose position="end" *ngIf="currentResource$ | async as currentResource">
     <app-resource [resource]="currentResource" (create)="createResource($event)" (update)="updateResource($event)"
       (publish)="publishResource($event)" (unpublish)="unpublishResource($event)" (delete)="deleteResource($event)"
       (clearSelected)="clearSelectedResource()">
