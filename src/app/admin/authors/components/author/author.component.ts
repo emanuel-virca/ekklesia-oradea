@@ -4,12 +4,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Author } from 'src/app/shared/models/author.model';
 
 @Component({
-  selector: 'app-edit-author',
-  templateUrl: './edit-author.component.html',
-  styleUrls: ['./edit-author.component.scss'],
+  selector: 'app-author',
+  templateUrl: './author.component.html',
+  styleUrls: ['./author.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditAuthorComponent implements OnInit, OnChanges {
+export class AuthorComponent implements OnInit, OnChanges {
   @Input() author: Author;
   @Output() create = new EventEmitter<Author>();
   @Output() update = new EventEmitter<Author>();

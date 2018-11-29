@@ -6,7 +6,7 @@ import { AuthorsRoutingModule } from './authors-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AdminSharedModule } from 'src/app/admin/shared/shared.module';
 import { AuthorsListComponent } from './components/authors-list/authors-list.component';
-import { EditAuthorComponent } from './components/edit-author/edit-author.component';
+import { AuthorComponent } from './components/author/author.component';
 
 // NgRx
 import { authorReducer } from './state/author.reducers';
@@ -23,7 +23,7 @@ import { AuthorShellComponent } from './containers/author-shell/author-shell.com
   ],
   declarations: [
     AuthorsListComponent,
-    EditAuthorComponent,
+    AuthorComponent,
     AuthorShellComponent,
   ]
 })
