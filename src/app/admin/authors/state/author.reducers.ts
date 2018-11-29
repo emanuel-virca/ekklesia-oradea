@@ -49,7 +49,7 @@ export function authorReducer(state = intialState, action: authorActions.Actions
         }
 
         case authorActions.DELETE_AUTHOR_SUCCESS: {
-            return { ...state, errorMessage: '' };
+            return { ...state, currentAuthor: null, errorMessage: '' };
         }
 
         case authorActions.DELETE_AUTHOR_FAIL: {

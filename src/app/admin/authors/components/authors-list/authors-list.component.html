@@ -11,34 +11,36 @@
       <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
     </ng-container>
 
-    <!-- Author Column -->
+    <!-- Avatar Column -->
     <ng-container matColumnDef="avatar">
       <th mat-header-cell *matHeaderCellDef> Avatar </th>
       <td mat-cell *matCellDef="let element">
-        <img class="avatar" [src]="element?.avatar">
+        <img *ngIf="element?.avatar" class="avatar" [src]="element.avatar">
       </td>
     </ng-container>
 
-    <!-- Title Column -->
+    <!-- First Name Column -->
     <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectItem(element)">
+        {{element.firstName}} </td>
     </ng-container>
 
-    <!-- DateTime Column -->
+    <!-- Last Name Column -->
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectItem(element)">
+        {{element.lastName}} </td>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="selectAuthor(element)">
+        <button mat-icon-button (click)="selectItem(element)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteAuthor(element)">
+        <button mat-icon-button (click)="deleteItemWithConfirmation(element)">
           <mat-icon aria-label="Clear">clear</mat-icon>
         </button>
       </td>
@@ -47,5 +49,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <button mdc-fab position='bottomRight' icon="add" (click)="newAuthor()"></button>
+  <button mdc-fab position='bottomRight' icon="add" (click)="initializeNewItem()"></button>
 </div>

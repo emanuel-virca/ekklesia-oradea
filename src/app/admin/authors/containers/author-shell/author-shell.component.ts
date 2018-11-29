@@ -37,8 +37,8 @@ export class AuthorShellComponent implements OnInit {
     this.store.dispatch(new authorActions.SetCurrentAuthor(author));
   }
 
-  deleteAuthor(author: Author): void {
-    this.store.dispatch(new authorActions.DeleteAuthor(author.id));
+  deleteAuthor(authorId: string): void {
+    this.store.dispatch(new authorActions.DeleteAuthor(authorId));
   }
 
   createAuthor(author: Author): void {
@@ -52,9 +52,4 @@ export class AuthorShellComponent implements OnInit {
   clearSelectedAuthor(): void {
     this.store.dispatch(new authorActions.SetCurrentAuthor(null));
   }
-
-  resetEdit(author: Author): void {
-    this.store.dispatch(new authorActions.SetCurrentAuthor(author));
-  }
-
 }

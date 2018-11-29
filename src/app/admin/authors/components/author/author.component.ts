@@ -1,36 +1,35 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
+import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.model';
 
 @Component({
-  selector: 'app-edit-author',
-  templateUrl: './edit-author.component.html',
-  styleUrls: ['./edit-author.component.scss'],
+  selector: 'app-author',
+  templateUrl: './author.component.html',
+  styleUrls: ['./author.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditAuthorComponent implements OnInit, OnChanges {
+export class AuthorComponent extends ListItemEvents<Author> implements OnChanges {
   @Input() author: Author;
-  @Output() create = new EventEmitter<Author>();
-  @Output() update = new EventEmitter<Author>();
+
   authorForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
     description: new FormControl(),
     avatar: new FormControl(),
   });
+
   imageUploadFolder = '/authors';
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.author) {
-      const author: any = changes.author.currentValue as Author;
-      this.displayAuthor(author);
-    }
+  constructor(
+    public dialog: MatDialog,
+  ) {
+    super(dialog, {
+      title: 'Are you shure you want to delete the following resource?',
+      message: (author: Author) => `${author.firstName} ${author.lastName}`
+    });
   }
 
   displayAuthor(author: Author | null): void {
@@ -64,9 +63,16 @@ export class EditAuthorComponent implements OnInit, OnChanges {
     const author: Author = { ...this.author, ...this.authorForm.value };
 
     if (!author.id) {
-      this.create.emit(author);
+      this.createItem(author);
     } else {
-      this.update.emit(author);
+      this.updateItem(author);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.author) {
+      const author: any = changes.author.currentValue as Author;
+      this.displayAuthor(author);
     }
   }
 

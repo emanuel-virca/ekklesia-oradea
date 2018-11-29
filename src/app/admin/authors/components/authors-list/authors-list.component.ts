@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, OnDestroy, EventEmitter, Output, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
 
 @Component({
   selector: 'app-authors-list',
@@ -10,17 +10,20 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
   styleUrls: ['./authors-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorsListComponent implements OnInit, OnChanges {
+export class AuthorsListComponent extends ListEvents<Author> implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 
   @Input() authors: Author[];
-  @Output() select = new EventEmitter<Author>();
-  @Output() delete = new EventEmitter<Author>();
-  @Output() initializeNew = new EventEmitter<void>();
+
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    super(dialog, {
+      title: 'Are you shure you want to delete the following resource?',
+      message: (author: Author) => `${author.firstName} ${author.lastName}`
+    });
+  }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -28,24 +31,6 @@ export class AuthorsListComponent implements OnInit, OnChanges {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  newAuthor(): void {
-    this.initializeNew.emit();
-  }
-
-  selectAuthor(author: Author): void {
-    this.select.emit(author);
-  }
-
-  deleteAuthor(author: Author): void {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { title: 'Are you shure you want to delete the following author?', message: `${author.firstName} ${author.lastName}` }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.delete.emit(author); }
-    });
   }
 
   ngOnChanges() {
