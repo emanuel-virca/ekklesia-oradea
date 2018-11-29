@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="item-viewer--header">
     <h2>{{resource?.id ? 'Edit': 'Add'}}
-      <small *ngIf="resource?.id && resource?.published" class="text-danger">
+      <small *ngIf="resource?.id && !resource?.published" class="text-danger">
         (not published)
       </small>
     </h2>
