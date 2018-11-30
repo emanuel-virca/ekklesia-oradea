@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
-import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.model';
+import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
 
 @Component({
   selector: 'app-author',
@@ -11,7 +11,7 @@ import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.mod
   styleUrls: ['./author.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorComponent extends ListItemEvents<Author> implements OnChanges {
+export class AuthorComponent extends ListItemBaseComponent<Author> implements OnChanges {
   @Input() author: Author;
 
   authorForm = new FormGroup({

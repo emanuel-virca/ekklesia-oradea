@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy, Input, OnChanges
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Author } from 'src/app/shared/models/author.model';
-import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
+import { ListBaseComponent } from 'src/app/admin/shared/models/list-base.component';
 
 @Component({
   selector: 'app-authors-list',
@@ -10,7 +10,7 @@ import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
   styleUrls: ['./authors-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorsListComponent extends ListEvents<Author> implements OnInit, OnChanges {
+export class AuthorsListComponent extends ListBaseComponent<Author> implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 

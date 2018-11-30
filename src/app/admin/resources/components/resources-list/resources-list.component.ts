@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectionStrategy
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Resource } from 'src/app/shared/models/resource.model';
-import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
+import { ListBaseComponent } from 'src/app/admin/shared/models/list-base.component';
 
 
 @Component({
@@ -11,8 +11,8 @@ import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
   styleUrls: ['./resources-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResourcesListComponent extends ListEvents<Resource> implements OnInit, OnChanges {
-  displayedColumns: string[] = ['position', 'title', 'dateTime', 'author', 'actions'];
+export class ResourcesListComponent extends ListBaseComponent<Resource> implements OnInit, OnChanges {
+  displayedColumns: string[] = ['position', 'title', 'author', 'dateTime', 'actions'];
   dataSource = new MatTableDataSource<Resource>();
 
   @ViewChild(MatSort) sort: MatSort;

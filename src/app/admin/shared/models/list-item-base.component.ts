@@ -1,29 +1,40 @@
 import { Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
-import { ListItemDialogData } from './list-item-dialog-data.model';
+import { ListItemDialogDataModel } from './list-item-dialog-data.model';
 import { DialogData } from 'src/app/shared/models/dialog-data';
+import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
-export class ListEvents<T extends IListItemBaseModel> {
-  @Output() select = new EventEmitter<T>();
-  @Output() initializeNew = new EventEmitter<void>();
+export class ListItemBaseComponent<T extends IListItemBaseModel> {
+  @Output() create = new EventEmitter<T>();
+  @Output() update = new EventEmitter<T>();
   @Output() delete = new EventEmitter<string>();
+  @Output() clearSelected = new EventEmitter<void>();
 
   constructor(
     public dialog: MatDialog,
-    public dialogData: ListItemDialogData<T>
+    public dialogData: ListItemDialogDataModel<T>
   ) {
 
   }
 
-  initializeNewItem(): void {
-    this.initializeNew.emit();
+  createItem(item: T) {
+    this.create.emit(item);
   }
 
-  selectItem(item: T): void {
-    this.select.emit(item);
+  updateItem(item: T) {
+    this.update.emit(item);
+  }
+
+  clearSelectedItem(): void {
+    this.clearSelected.emit();
+  }
+
+  deleteItem(itemId: string) {
+    if (!itemId) { return; }
+
+    this.delete.emit(itemId);
   }
 
   deleteItemWithConfirmation(item: T): void {
@@ -44,9 +55,4 @@ export class ListEvents<T extends IListItemBaseModel> {
     });
   }
 
-  deleteItem(itemId: string) {
-    if (!itemId) { return; }
-
-    this.delete.emit(itemId);
-  }
 }
