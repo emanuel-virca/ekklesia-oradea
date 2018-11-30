@@ -4,8 +4,8 @@
 </div>
 
 <div *ngIf="url" class="image-container">
-  <img [src]="url" alt="">
   <button type="button" color="primary" mat-raised-button (click)="deleteAsync()" class="delete">
-    <mat-icon>close</mat-icon> Delete
+    <mat-icon>delete</mat-icon>
   </button>
+  <img [src]="url" alt="">
 </div>
