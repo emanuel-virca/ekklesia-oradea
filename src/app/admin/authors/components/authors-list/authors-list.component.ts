@@ -19,10 +19,7 @@ export class AuthorsListComponent extends ListEvents<Author> implements OnInit, 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog) {
-    super(dialog, {
-      title: 'Are you shure you want to delete the following author?',
-      message: (author: Author) => `${author.firstName} ${author.lastName}`
-    });
+    super(dialog, { messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>` });
   }
 
   ngOnInit() {

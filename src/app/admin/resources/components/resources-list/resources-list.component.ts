@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectionStrategy
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Resource } from 'src/app/shared/models/resource.model';
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 import { ListEvents } from 'src/app/admin/shared/models/list-events.model';
 
 
@@ -24,24 +23,11 @@ export class ResourcesListComponent extends ListEvents<Resource> implements OnIn
   constructor(
     public dialog: MatDialog,
   ) {
-    super(dialog, {
-      title: 'Are you shure you want to delete the following resource?',
-      message: (resource: Resource) => resource.title
-    });
+    super(dialog, { messageFn: (resource: Resource) => `You are about to delete <b>${resource.title}</b>` });
   }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-  }
-
-  public confirmDelete(resource: Resource): void {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { title: 'Are you shure you want to delete the following resource?', message: resource.title }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteResource(resource.id); }
-    });
   }
 
   public publishResource(resource: Resource) {

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 
 import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
 import { ListEvents } from './list-events.model';
-import { ListItemConfirmConfigModel } from './list-item-delete-confirm-cofig.model';
+import { ListItemDialogData } from './list-item-dialog-data.model';
 
 export class ListItemEvents<T extends IListItemBaseModel> extends ListEvents<T> {
   @Output() create = new EventEmitter<T>();
@@ -13,9 +13,9 @@ export class ListItemEvents<T extends IListItemBaseModel> extends ListEvents<T> 
 
   constructor(
     public dialog: MatDialog,
-    public confirmModalConfig: ListItemConfirmConfigModel<T>
+    public dialogData: ListItemDialogData<T>
   ) {
-    super(dialog, confirmModalConfig);
+    super(dialog, dialogData);
   }
 
   createItem(item: T) {

@@ -1,9 +1,10 @@
 import { Output, EventEmitter } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
-import { ListItemConfirmConfigModel } from './list-item-delete-confirm-cofig.model';
+import { ListItemDialogData } from './list-item-dialog-data.model';
+import { DialogData } from 'src/app/shared/models/dialog-data';
 
 export class ListEvents<T extends IListItemBaseModel> {
   @Output() select = new EventEmitter<T>();
@@ -12,7 +13,7 @@ export class ListEvents<T extends IListItemBaseModel> {
 
   constructor(
     public dialog: MatDialog,
-    public confirmConfig: ListItemConfirmConfigModel<T>
+    public dialogData: ListItemDialogData<T>
   ) {
 
   }
@@ -28,16 +29,15 @@ export class ListEvents<T extends IListItemBaseModel> {
   deleteItemWithConfirmation(item: T): void {
     if (!item.id) { return; }
 
-    if (!this.confirmConfig) { throw new Error('must provide config'); }
+    if (!this.dialogData) { throw new Error('confirmConfig was not provided'); }
 
-    const config: MatDialogConfig = {
-      data: {
-        title: this.confirmConfig.title,
-        message: typeof this.confirmConfig.message === 'string' ? this.confirmConfig.message : this.confirmConfig.message(item)
-      }
+    const dialogData: DialogData = {
+      ...this.dialogData,
+      message: this.dialogData.messageFn ? this.dialogData.messageFn(item) : this.dialogData.message,
+      confirmText: this.dialogData.confirmText || 'Delete',
     };
 
-    const dialogRef = this.dialog.open(ConfirmModalComponent, config);
+    const dialogRef = this.dialog.open(ConfirmModalComponent, { data: dialogData });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.deleteItem(item.id); }

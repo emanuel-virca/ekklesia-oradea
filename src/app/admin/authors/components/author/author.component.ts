@@ -26,10 +26,7 @@ export class AuthorComponent extends ListItemEvents<Author> implements OnChanges
   constructor(
     public dialog: MatDialog,
   ) {
-    super(dialog, {
-      title: 'Are you shure you want to delete the following author?',
-      message: (author: Author) => `${author.firstName} ${author.lastName}`
-    });
+    super(dialog, { messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>` });
   }
 
   displayAuthor(author: Author | null): void {

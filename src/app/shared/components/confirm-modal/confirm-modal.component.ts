@@ -1,12 +1,13 @@
-import { DialogData } from '../../models/dialog-data';
-
-import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+
+import { DialogData } from '../../models/dialog-data';
 
 @Component({
   selector: 'app-confirm-modal',
   templateUrl: './confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.css']
+  styleUrls: ['./confirm-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmModalComponent {
 
@@ -16,9 +17,8 @@ export class ConfirmModalComponent {
   ) { }
 
 
-  onNoClick(): void {
+  cancel(): void {
     this.dialogRef.close();
   }
 
 }
-
