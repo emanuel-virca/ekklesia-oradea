@@ -5,11 +5,12 @@
       <button type="menu" mat-icon-button (click)="onStartSearch()">
         <mat-icon aria-label="Search resources">search</mat-icon>
       </button>
-      <div mdcMenuSurfaceAnchor #demoanchor *ngIf="user | async as user; else showLogin">
+      <div mdcMenuSurfaceAnchor #demoanchor *ngIf="user$ | async as user; else showLogin">
         <button mat-mini-fab color="basic" aria-label="user.displayName" [matMenuTriggerFor]="profileMenu">
           {{getInitials(user.displayName) }}
-        </button>        
+        </button>
         <mat-menu #profileMenu="matMenu">
+          <button [routerLink]="['/admin']" mat-menu-item>Admin Portal</button>
           <button mat-menu-item (click)="signOut()">Logout</button>
         </mat-menu>
       </div>

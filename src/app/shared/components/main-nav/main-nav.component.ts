@@ -4,6 +4,8 @@ import { Subscription, Observable } from 'rxjs';
 import { SearchService } from '../../../core/services/search/search.service';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { SearchState } from '../../../core/models/search-state';
+import { User } from 'src/app/core/models/user.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,10 +17,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   searchVisibilitySubscription: Subscription;
   showSearch: boolean;
-  user: Observable<firebase.User>;
+  user$: Observable<User>;
 
-  constructor(private searchService: SearchService, private authService: AuthenticationService) {
-    this.user = authService.user;
+  constructor(
+    private searchService: SearchService,
+    private authService: AuthenticationService,
+    private router: Router,
+  ) {
+    this.user$ = authService.user$;
   }
 
   ngOnInit() {
@@ -44,8 +50,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.authService.doGoogleSignIn();
   }
 
-  signOut() {
-    this.authService.signOut();
+  async signOut() {
+    await this.authService.signOut();
+    this.router.navigateByUrl('');
   }
 
   getInitials(displayName): string {

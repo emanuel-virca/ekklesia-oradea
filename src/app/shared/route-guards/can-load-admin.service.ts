@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Route } from '@angular/router';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { PermissionsService } from '../../core/services/permissions/permissions.service';
+import { AuthorizationService } from '../../core/services/permissions/authorization.service';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
+import { User } from 'src/app/core/models/user.model';
 
 
 @Injectable({
@@ -12,9 +13,9 @@ import { AuthenticationService } from '../../core/services/authentication/authen
 })
 export class CanLoadAdmin implements CanLoad {
 
-  constructor(private permissionsService: PermissionsService, private authService: AuthenticationService) { }
+  constructor(private authorizationService: AuthorizationService, private authService: AuthenticationService) { }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.user.pipe( take(1), map((user: firebase.User) => this.permissionsService.canLoadChildren(user, route)));
+    return this.authService.user$.pipe(take(1), map((user: User) => this.authorizationService.canAccessRoute(user, route)));
   }
 }
