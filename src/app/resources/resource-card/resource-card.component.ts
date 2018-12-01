@@ -28,7 +28,7 @@ export class ResourceCardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.height = this.computeHeight();
 
-        this.store.pipe(select(fromAudioPlayer.getAudioPlayerState))
+        this.audioPlayerSubscription = this.store.pipe(select(fromAudioPlayer.getAudioPlayerState))
             .subscribe(state => this.playing = (state.current && state.current.id === this.resource.id && state.status === 'playing'));
     }
 

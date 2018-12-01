@@ -1,12 +1,9 @@
 .image-container {
-    position: relative;
+    display:flex;
+    flex-direction: column;
+
     img {
+        object-fit: contain;
         max-width: 100%;
     }
-}
-
-.delete {
-    position: absolute;
-    left: 0px;
-    top: 0px;
 }

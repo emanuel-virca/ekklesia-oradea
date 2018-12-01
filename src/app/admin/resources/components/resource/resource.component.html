@@ -10,10 +10,10 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="deleteItemWithConfirmation(resource)">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
+        <a [href]="resource.downloadUrl" download mat-menu-item [disabled]="!resource.downloadUrl">
+          <mat-icon aria-label="Download">get_app</mat-icon>
+          <span>Download</span>
+        </a>
         <button mat-menu-item (click)="publishResource()" *ngIf="!resource.published">
           <mat-icon>visibility</mat-icon>
           <span>Publish</span>
@@ -21,6 +21,11 @@
         <button mat-menu-item (click)="unpublishResource()" *ngIf="resource.published">
           <mat-icon>visibility_off</mat-icon>
           <span>Unpublish</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="deleteItemWithConfirmation(resource)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
         </button>
       </mat-menu>
       <button mat-icon-button (click)="clearSelectedItem()">

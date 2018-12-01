@@ -18,12 +18,6 @@
         {{element.title}} </td>
     </ng-container>
 
-    <!-- DateTime Column -->
-    <ng-container matColumnDef="dateTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateTime?.toDate() | date}} </td>
-    </ng-container>
-
     <!-- Author Column -->
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
@@ -34,21 +28,27 @@
       </td>
     </ng-container>
 
+    <!-- DateTime Column -->
+    <ng-container matColumnDef="dateTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateTime?.toDate() | date}} </td>
+    </ng-container>
+
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="selectItem(element)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
+          <mat-icon aria-label="Download">get_app</mat-icon>
+        </a>
         <button title="publish" *ngIf="!element.published" mat-icon-button (click)="publishResource(element)">
           <mat-icon aria-label="publish">visibility</mat-icon>
         </button>
         <button title="unpublish" *ngIf="element.published" mat-icon-button (click)="unpublishResource(element)">
           <mat-icon aria-label="Unpublish">visibility_off</mat-icon>
-        </button>
-        <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
-          <mat-icon aria-label="Download">get_app</mat-icon>
-        </a>
-        <button mat-icon-button (click)="selectItem(element)">
-          <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
         <button mat-icon-button (click)="deleteItemWithConfirmation(element)">
           <mat-icon aria-label="Clear">clear</mat-icon>

@@ -9,7 +9,7 @@ import { AuthorService } from '../../../../shared/services/author/author.service
 import { Resource, ResourceTypeSelect } from '../../../../shared/models/resource.model';
 import { SelectOption } from 'src/app/shared/models/select-option';
 import { Author } from 'src/app/shared/models/author.model';
-import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.model';
+import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { ListItemEvents } from 'src/app/admin/shared/models/list-item-events.mod
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.scss']
 })
-export class ResourceComponent extends ListItemEvents<Resource> implements OnInit, OnChanges {
+export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
   resourceTypes = ResourceTypeSelect;
   authors: Observable<SelectOption[]>;
   @Input() resource: Resource;
@@ -40,10 +40,7 @@ export class ResourceComponent extends ListItemEvents<Resource> implements OnIni
     private authorService: AuthorService,
     public dialog: MatDialog,
   ) {
-    super(dialog, {
-      title: 'Are you shure you want to delete the following resource?',
-      message: (resource: Resource) => resource.title
-    });
+    super(dialog, { messageFn: (resource: Resource) => `You are about to delete <b>${resource.title}</b>` });
   }
 
   ngOnInit() {

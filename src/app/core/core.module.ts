@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PermissionsService } from './services/permissions/permissions.service';
+import { AuthorizationService } from './services/permissions/authorization.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 
 @NgModule({
@@ -10,7 +10,7 @@ import { AuthenticationService } from './services/authentication/authentication.
   ],
   declarations: [],
   providers: [
-    PermissionsService,
+    AuthorizationService,
     AuthenticationService,
   ]
 })
