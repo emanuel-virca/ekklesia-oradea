@@ -1,0 +1,32 @@
+.search-form {
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  cursor: pointer
+}
+
+mat-toolbar {
+  &:not(.searchMode){
+    .main-row {
+      visibility: visible;
+    }
+    .search-row {
+      visibility: hidden;
+      height:0px;
+    }
+  }
+  &.searchMode{
+    .main-row {
+      visibility: hidden;
+      height:0px;
+    }
+    .search-row {
+      visibility: visible;
+    }
+  }
+}

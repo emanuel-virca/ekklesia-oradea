@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger  } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
 
 import { ResourceSearchResult } from './resource-search-result.model';
 import { SearchService } from 'src/app/core/services/search/search.service';
@@ -10,7 +10,7 @@ import { SearchService } from 'src/app/core/services/search/search.service';
 @Component({
     selector: 'app-resources-search',
     templateUrl: './resources-search.component.html',
-    styleUrls: ['./resources-search.component.css']
+    styleUrls: ['./resources-search.component.scss']
 })
 export class ResourcesSearchComponent implements OnInit, AfterViewInit {
     searchCtrl: FormControl;

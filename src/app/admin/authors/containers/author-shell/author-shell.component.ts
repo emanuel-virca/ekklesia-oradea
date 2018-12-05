@@ -15,7 +15,7 @@ import * as authorActions from '../../state/author.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthorShellComponent implements OnInit {
-  @HostBinding('class') classes = 'height-inherit';
+  @HostBinding('class') classes = 'height--inherit';
   authors$: Observable<Author[]>;
   currentAuthor$: Observable<Author>;
 
