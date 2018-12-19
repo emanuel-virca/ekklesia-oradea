@@ -15,7 +15,7 @@ import * as resourceActions from '../../state/resource.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceShellComponent implements OnInit {
-  @HostBinding('class') classes = 'height-inherit';
+  @HostBinding('class') classes = 'height--inherit';
   resources$: Observable<Resource[]>;
   currentResource$: Observable<Resource>;
 

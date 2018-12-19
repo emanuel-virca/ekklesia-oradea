@@ -1,32 +1,29 @@
-<mdc-top-app-bar #demoappbar>
-  <mdc-top-app-bar-row *ngIf="!showSearch">
-    <mdc-top-app-bar-section align="start" title="Ekklesia" routerLink="/"></mdc-top-app-bar-section>
-    <mdc-top-app-bar-section align="end">
-      <button type="menu" mat-icon-button (click)="onStartSearch()">
-        <mat-icon aria-label="Search resources">search</mat-icon>
+<mat-toolbar color="primary" [class.searchMode]="showSearch">
+  <mat-toolbar-row class="main-row">
+    <span class="logo" routerLink="/">Ekklesia</span>
+    <span class="example-spacer"></span>
+    <button type="menu" mat-icon-button (click)="onStartSearch()">
+      <mat-icon aria-label="Search resources">search</mat-icon>
+    </button>
+    <div mdcMenuSurfaceAnchor #demoanchor *ngIf="(user$ | async) as user; else: showLogin">
+      <button mat-icon-button class="user-display" aria-label="user.displayName" [matMenuTriggerFor]="profileMenu">
+        {{ getInitials(user.displayName) }}
       </button>
-      <div mdcMenuSurfaceAnchor #demoanchor *ngIf="user$ | async as user; else showLogin">
-        <button mat-mini-fab color="basic" aria-label="user.displayName" [matMenuTriggerFor]="profileMenu">
-          {{getInitials(user.displayName) }}
-        </button>
-        <mat-menu #profileMenu="matMenu">
-          <button [routerLink]="['/admin']" mat-menu-item>Admin Portal</button>
-          <button mat-menu-item (click)="signOut()">Logout</button>
-        </mat-menu>
-      </div>
-      <ng-template #showLogin>
-        <button type="menu" mat-icon-button (click)="signIn()">
-          <mat-icon aria-label="Login">person</mat-icon>
-        </button>
-      </ng-template>
-    </mdc-top-app-bar-section>
-  </mdc-top-app-bar-row>
-  <mdc-top-app-bar-row *ngIf="showSearch">
-    <mdc-top-app-bar-section>
-      <app-resources-search class="search-form"></app-resources-search>
-      <button type="menu" mat-icon-button (click)="onStopSearch()">
-        <mat-icon aria-label="Search resources">clear</mat-icon>
+      <mat-menu #profileMenu="matMenu">
+        <button [routerLink]="['/admin']" mat-menu-item>Admin Portal</button>
+        <button mat-menu-item (click)="signOut()">Logout</button>
+      </mat-menu>
+    </div>
+    <ng-template #showLogin>
+      <button type="menu" mat-icon-button (click)="signIn()">
+        <mat-icon aria-label="Login">person</mat-icon>
       </button>
-    </mdc-top-app-bar-section>
-  </mdc-top-app-bar-row>
-</mdc-top-app-bar>
+    </ng-template>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="search-row">
+    <app-resources-search *ngIf="showSearch" class="search-form"></app-resources-search>
+    <button type="menu" mat-icon-button (click)="onStopSearch()">
+      <mat-icon aria-label="Search resources">clear</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

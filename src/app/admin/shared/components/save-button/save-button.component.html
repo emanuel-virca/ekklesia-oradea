@@ -1,2 +1,4 @@
-<button type="button" mdc-fab position='bottomRight' (click)="onClick($event)" [disabled]="!formGroup.dirty || !formGroup.valid"
-    icon="save"></button>
+<button class="mat-fab--bottom-right" type="button" mat-fab (click)="onClick($event)" [disabled]="!formGroup.dirty || !formGroup.valid"
+    color="primary">
+    <mat-icon aria-label="Save">save</mat-icon>
+</button>
