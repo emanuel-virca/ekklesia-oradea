@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+@mixin ekklesia-app-audio-player-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  app-audio-player {
+    progress[value] {
+      background-color: mat-color($accent);
+    }
+
+    progress[value]::-webkit-progress-bar {
+      background-color: mat-color($background, status-bar);
+      color: mat-color($accent);
+    }
+
+    progress::-webkit-progress-value {
+      background-color:  mat-color($foreground, base);
+    }
+
+    .seeking circle {
+        stroke: mat-color($foreground, base);
+    }
+
+    .progress-time {
+      color: $dark-secondary-text;
+    }
+  }
+}

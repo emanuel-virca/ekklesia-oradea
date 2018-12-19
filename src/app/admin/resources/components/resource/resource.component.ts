@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentReference } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material';
@@ -15,7 +15,8 @@ import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-bas
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
-  styleUrls: ['./resource.component.scss']
+  styleUrls: ['./resource.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
   resourceTypes = ResourceTypeSelect;

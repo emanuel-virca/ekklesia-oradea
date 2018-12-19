@@ -10,27 +10,25 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Import themed
+// Import theme
 @import "themes/default-theme.scss";
 
 // Reset theme
 @import "styles-reset.scss-theme";
-
-$mdc-theme-primary: #f5f5f5; // change primary color example
-$mdc-theme-secondary: #14abc0; // change secondary color example
-@import "~@angular-mdc/theme/material";
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component that you are using.
 @import "app/app.component.scss-theme";
 @import "app/shared/components/resources-search/resource-search.components.scss-theme";
 @import "app/shared/components/main-nav/main-nav.component.scss-theme";
+@import "app/shared/components/audio-player/audio-player.component.scss-theme";
 
 @mixin custom-components-theme($theme) {
   @include ekklesia-styles-reset-theme($theme);
   @include ekklesia-app-component-theme($theme);
   @include ekklesia-app-resource-search-theme($theme);
-  @include  ekklesia-app-main-nav-theme($theme);
+  @include ekklesia-app-main-nav-theme($theme);
+  @include ekklesia-app-audio-player-component-theme($theme)
 }
 
 .default-theme {

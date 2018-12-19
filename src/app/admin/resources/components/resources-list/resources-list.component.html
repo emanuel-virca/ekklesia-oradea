@@ -59,5 +59,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <button mdc-fab position='bottomRight' icon="add" (click)="initializeNewItem()"></button>
+  <button class="mat-fab--bottom-right" type="button" mat-fab (click)="initializeNewItem()" color="primary">
+    <mat-icon aria-label="Add">add</mat-icon>
+  </button>
+
 </div>
