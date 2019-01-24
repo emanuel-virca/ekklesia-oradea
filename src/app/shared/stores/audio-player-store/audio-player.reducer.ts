@@ -11,7 +11,7 @@ export interface AudioPlayerState {
     status: string;
 }
 
-export function reducer(state = initialState, action: AudioPlayerActions): AudioPlayerState {
+export function audioPlayerReducer(state = initialState, action: AudioPlayerActions): AudioPlayerState {
     switch (action.type) {
         case AudioPlayerActionTypes.Select:
             return { ...state, current: action.payload, status: 'playing' };
