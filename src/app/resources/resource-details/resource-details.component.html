@@ -1,0 +1,25 @@
+<div clas="container-fluid" *ngIf="resource">
+  <div>
+    <h2>{{resource.title}}</h2>
+    <img class="image" [src]="resource.imageSrc">
+    <div *ngIf="(resource.author | doc | async) as author; else placeholder">
+      <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
+      <span>{{author?.firstName}}&nbsp;{{author?.lastName}}</span>
+    </div>
+    <ng-template #placeholder>
+      loading...
+    </ng-template>
+    <span>{{resource.dateTime?.toDate() | date}}</span>
+    <a mat-icon-button>
+      <mat-icon aria-label="download">get_app</mat-icon>
+    </a>
+    <app-audio-play-button-shell [audioResource]='resource | convertToAudioResource'></app-audio-play-button-shell>
+    <p>
+      {{resource.description}}
+    </p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+  </div>
+</div>
