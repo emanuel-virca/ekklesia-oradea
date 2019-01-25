@@ -33,6 +33,7 @@
     "@ngrx/store": "^7.0.0",
     "@ngrx/store-devtools": "^7.0.0",
     "algoliasearch": "^3.32.0",
+    "bootstrap": "^4.2.1",
     "core-js": "^2.6.2",
     "firebase": "^5.7.3",
     "ngx-infinite-scroll": "^7.0.1",

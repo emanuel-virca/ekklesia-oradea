@@ -1,25 +1,31 @@
-<div clas="container-fluid" *ngIf="resource">
-  <div>
-    <h2>{{resource.title}}</h2>
-    <img class="image" [src]="resource.imageSrc">
-    <div *ngIf="(resource.author | doc | async) as author; else placeholder">
+<div class="container" *ngIf="resource">
+  <mat-card>
+    <mat-card-header *ngIf="(resource.author | doc | async) as author; else placeholder">
       <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
-      <span>{{author?.firstName}}&nbsp;{{author?.lastName}}</span>
-    </div>
+      <mat-card-title>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
+    </mat-card-header>
     <ng-template #placeholder>
-      loading...
+      <app-material-card-header-content-loader></app-material-card-header-content-loader>
     </ng-template>
-    <span>{{resource.dateTime?.toDate() | date}}</span>
-    <a mat-icon-button>
-      <mat-icon aria-label="download">get_app</mat-icon>
-    </a>
-    <app-audio-play-button-shell [audioResource]='resource | convertToAudioResource'></app-audio-play-button-shell>
-    <p>
-      {{resource.description}}
-    </p>
-    <p>a</p>
-    <p>a</p>
-    <p>a</p>
-    <p>a</p>
-  </div>
+    <img mat-card-image [src]="resource.imageSrc">
+    <mat-card-content>
+      <h1 style="text-transform: capitalize">{{ resource.title }}</h1>
+      <p>
+        {{resource.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <!-- <button mat-icon-button>
+                      <mat-icon aria-label="favorite">favorite</mat-icon>
+                  </button>
+                  <button mat-icon-button>
+                      <mat-icon aria-label="share">share</mat-icon>
+                  </button> -->
+      <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
+        <mat-icon aria-label="download">get_app</mat-icon>
+      </a>
+      <app-audio-play-button-shell [audioResource]='resource | convertToAudioResource'></app-audio-play-button-shell>
+    </mat-card-actions>
+  </mat-card>
 </div>

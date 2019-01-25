@@ -2,6 +2,8 @@
 @import "styles-variables";
 @import "styles-reset";
 
+// @import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
 @import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
@@ -36,12 +38,12 @@
   @include custom-components-theme($ekklesia-theme);
 }
 
-.container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
+// .container-fluid {
+//   padding-right: 15px;
+//   padding-left: 15px;
+//   margin-right: auto;
+//   margin-left: auto;
+// }
 
 .form-horrizontal {
   display: flex;
@@ -78,4 +80,15 @@ app-main-nav {
   left: 0;
   right: 0;
   z-index: 2;
+  margin-bottom: 24px;
+}
+
+body {
+  padding-bottom: 100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: initial;
 }
