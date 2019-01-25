@@ -2,15 +2,14 @@
   <mat-card>
     <mat-card-header *ngIf="(resource.author | doc | async) as author; else placeholder">
       <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
-      <mat-card-title>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-title>
-      <mat-card-subtitle>{{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
+      <mat-card-title>{{ resource.title }}</mat-card-title>
+      <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
     </mat-card-header>
     <ng-template #placeholder>
       <app-material-card-header-content-loader></app-material-card-header-content-loader>
     </ng-template>
     <img mat-card-image [src]="resource.imageSrc">
     <mat-card-content>
-      <h1 style="text-transform: capitalize">{{ resource.title }}</h1>
       <p>
         {{resource.description}}
       </p>
