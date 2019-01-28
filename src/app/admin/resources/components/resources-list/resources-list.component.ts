@@ -16,7 +16,9 @@ export class ResourcesListComponent extends ListBaseComponent<Resource> implemen
   dataSource = new MatTableDataSource<Resource>();
 
   @ViewChild(MatSort) sort: MatSort;
+
   @Input() resources: Resource[];
+
   @Output() publish = new EventEmitter();
   @Output() unpublish = new EventEmitter();
 
@@ -40,20 +42,6 @@ export class ResourcesListComponent extends ListBaseComponent<Resource> implemen
     if (!resource) { return; }
 
     this.unpublish.emit(resource.id);
-  }
-
-  public deleteResource(resourceId: string) {
-    if (!resourceId) { return; }
-
-    this.delete.emit(resourceId);
-  }
-
-  public newResource(): void {
-    this.initializeNew.emit();
-  }
-
-  public selectResource(resource: Resource): void {
-    this.select.emit(resource);
   }
 
   public applyFilter(filterValue: string) {

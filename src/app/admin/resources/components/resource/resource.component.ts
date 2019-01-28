@@ -107,7 +107,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     // Then copy over the values from the form
     // This ensures values not on the form, such as the Id, are retained
     const resource: Resource = {
-      ... this.resource,
+      ...this.resource,
       ...this.resourceForm.value,
     };
 
