@@ -8,6 +8,8 @@ export class AudioResource {
     title: string;
 
     constructor(resource: Resource) {
+        if (!resource) { return; }
+
         this.id = resource.id;
         this.downloadUrl = resource.downloadUrl;
         this.streamUrl = resource.streamUrl;

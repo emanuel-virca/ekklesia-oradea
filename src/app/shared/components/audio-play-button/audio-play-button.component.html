@@ -1,0 +1,4 @@
+<button mat-icon-button (click)="togglePlay()" [disabled]="disabled">
+  <mat-icon aria-label="listen" *ngIf="!playing">play_arrow</mat-icon>
+  <mat-icon aria-label="pause" *ngIf="playing">pause</mat-icon>
+</button>

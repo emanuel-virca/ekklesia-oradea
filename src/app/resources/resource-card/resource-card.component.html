@@ -1,22 +1,16 @@
 <mat-card class="resource-card">
     <mat-card-header *ngIf="(resource.author | doc | async) as author; else placeholder">
         <img mat-card-avatar class="example-header-image" [src]="author?.avatar">
-        <mat-card-title>{{ resource.title }}</mat-card-title>
-        <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}</mat-card-subtitle>
+        <mat-card-title [routerLink]="[ resource.id ]">{{ resource.title }}</mat-card-title>
+        <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
     </mat-card-header>
     <ng-template #placeholder>
         <app-material-card-header-content-loader></app-material-card-header-content-loader>
     </ng-template>
-    
-    <div class="mat-card-image" *ngIf="resource.imageSrc" [style.height.px]="computeHeight(width)">
+
+    <div class="mat-card-image" *ngIf="resource.imageSrc" [style.height.px]="computeHeight(width)" [routerLink]="[ resource.id ]">
         <img [src]="resource.imageSrc" alt="">
     </div>
-    <mat-card-content>
-        <p>
-            {{resource.description}}
-        </p>
-        <p>{{resource.dateTime?.toDate() | date}}</p>
-    </mat-card-content>
     <mat-card-actions align="end">
         <!-- <button mat-icon-button>
             <mat-icon aria-label="favorite">favorite</mat-icon>
@@ -28,10 +22,7 @@
         <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
             <mat-icon aria-label="download">get_app</mat-icon>
         </a>
-        <button mat-icon-button (click)="togglePlay()" [disabled]="!resource.hearthisId">
-            <mat-icon aria-label="listen" *ngIf="!playing">play_arrow</mat-icon>
-            <mat-icon aria-label="pause" *ngIf="playing">pause</mat-icon>
-        </button>
+        <app-audio-play-button-shell [audioResource]='resource | convertToAudioResource'></app-audio-play-button-shell>
     </mat-card-actions>
 </mat-card>
 

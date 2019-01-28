@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoaderModule } from '@netbasal/content-loader';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
@@ -22,8 +23,10 @@ import { MaterialListContentLoaderComponent } from './components/material-list-c
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
 import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
 import { AudioPlayerShellComponent } from './containers/audio-player-shell/audio-player-shell.component';
-import { StoreModule } from '@ngrx/store';
-import { reducer } from './stores/audio-player-store/audio-player.reducer';
+import { audioPlayerReducer } from './stores/audio-player-store/audio-player.reducer';
+import { AudioPlayButtonComponent } from './components/audio-play-button/audio-play-button.component';
+import { AudioPlayButtonShellComponent } from './containers/audio-play-button-shell/audio-play-button-shell.component';
+import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
 
 @NgModule({
     imports: [
@@ -34,7 +37,7 @@ import { reducer } from './stores/audio-player-store/audio-player.reducer';
         RouterModule,
         HttpClientModule,
         ContentLoaderModule,
-        StoreModule.forFeature('audioPlayer', reducer),
+        StoreModule.forFeature('audioPlayer', audioPlayerReducer),
     ],
     declarations: [
         LoaderComponent,
@@ -50,6 +53,9 @@ import { reducer } from './stores/audio-player-store/audio-player.reducer';
         SecondsToTimePipe,
         NavBottomComponent,
         AudioPlayerShellComponent,
+        AudioPlayButtonComponent,
+        AudioPlayButtonShellComponent,
+        ConvertToAudioResourcePipe,
     ],
     exports: [
         CommonModule,
@@ -68,6 +74,8 @@ import { reducer } from './stores/audio-player-store/audio-player.reducer';
         ContentLoaderModule,
         MaterialCardHeaderContentLoaderComponent,
         MaterialListContentLoaderComponent,
+        AudioPlayButtonShellComponent,
+        ConvertToAudioResourcePipe
     ],
     providers: [
         CanLoadAdmin,
