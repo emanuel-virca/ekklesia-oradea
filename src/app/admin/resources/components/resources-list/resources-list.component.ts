@@ -61,6 +61,6 @@ export class ResourcesListComponent extends ListBaseComponent<Resource> implemen
   }
 
   ngOnChanges() {
-    this.dataSource.data = this.resources;
+    this.dataSource.data = this.resources || [];
   }
 }

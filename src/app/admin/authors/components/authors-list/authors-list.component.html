@@ -3,7 +3,7 @@
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" *ngIf="authors">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">

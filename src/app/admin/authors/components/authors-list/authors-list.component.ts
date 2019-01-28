@@ -31,6 +31,6 @@ export class AuthorsListComponent extends ListBaseComponent<Author> implements O
   }
 
   ngOnChanges() {
-    this.dataSource.data = this.authors;
+    this.dataSource.data = this.authors || [];
   }
 }
