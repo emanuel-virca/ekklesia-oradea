@@ -8,7 +8,7 @@
     <ng-template #placeholder>
       <app-material-card-header-content-loader></app-material-card-header-content-loader>
     </ng-template>
-    <img mat-card-image [src]="resource.imageSrc">
+    <img *ngIf="resource.imageSrc" mat-card-image [src]="resource.imageSrc">
     <mat-card-content>
       <p>
         {{resource.description}}

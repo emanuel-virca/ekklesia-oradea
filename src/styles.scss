@@ -2,8 +2,6 @@
 @import "styles-variables";
 @import "styles-reset";
 
-// @import '~bootstrap/scss/bootstrap-reboot';
-@import '~bootstrap/scss/bootstrap-grid';
 @import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
@@ -38,12 +36,44 @@
   @include custom-components-theme($ekklesia-theme);
 }
 
-// .container-fluid {
-//   padding-right: 15px;
-//   padding-left: 15px;
-//   margin-right: auto;
-//   margin-left: auto;
-// }
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  // padding-right: 15px;
+  // padding-left: 15px;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .form-horrizontal {
   display: flex;
@@ -51,7 +81,7 @@
 }
 
 .top-app-bar-margin {
-  margin-top: 64px;
+  padding-top: 64px;
 }
 
 .height--inherit {
@@ -85,10 +115,4 @@ app-main-nav {
 
 body {
   padding-bottom: 100px;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: initial;
 }

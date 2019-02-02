@@ -16,8 +16,8 @@ const routes: Routes = [
     },
     {
         path: '',
+        pathMatch: 'full',
         redirectTo: '/resources',
-        pathMatch: 'full'
     },
     {
         path: '**',
