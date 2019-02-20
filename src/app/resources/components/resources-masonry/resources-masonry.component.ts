@@ -9,8 +9,10 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { MediaObserver } from '@angular/flex-layout';
+
+import { Debounce } from 'src/app/shared/decorators/debounce';
 
 @Component({
   selector: 'app-resources-masonry',
@@ -25,7 +27,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   viewInitalized = false;
   updateMasonryLayout = false;
   masonryOptions: any = {
-    transitionDuration: '0',
+    transitionDuration: '0.1s',
     horizontalOrder: true,
     columnWidth: '.masonry-item-sizer',
     gutter: '.gutter-sizer',
@@ -34,19 +36,20 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
     resize: false,
   };
   masonryStyleElement: HTMLStyleElement;
-  masonryGutter = 15;
+  resizeTimeout = null;
 
   @HostListener('window:resize', ['$event'])
+  @Debounce()
   onResize(event) {
-    this.computeMasonryGutterSize();
+    console.log('resize');
     this.computeMasonry();
-    setTimeout(() => (this.updateMasonryLayout = !this.updateMasonryLayout), 100);
+    this.updateMasonryLayout = !this.updateMasonryLayout;
+    this.changeDetectorRef.detectChanges();
   }
 
-  constructor(private media: MediaObserver) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.computeMasonryGutterSize();
     this.masonryStyleElement = this.createMasonryStyleTag();
   }
 
@@ -58,14 +61,6 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
 
   ngOnChanges(changes: SimpleChanges): void {
     this.resources = changes.resources.currentValue || [];
-  }
-
-  private computeMasonryGutterSize() {
-    if (this.media.isActive('xs') || this.media.isActive('sm')) {
-      this.masonryGutter = 15;
-    } else {
-      this.masonryGutter = 25;
-    }
   }
 
   private computeMasonry() {
@@ -85,11 +80,6 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
         .masonry-item,
         .masonry-item-sizer {
             width:  ${this.masonryColumnWidth}px;
-            margin-bottom: ${this.masonryGutter}px
-        }
-
-        .gutter-sizer {
-            width: ${this.masonryGutter}px;
         }
     `;
 
