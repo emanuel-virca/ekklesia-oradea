@@ -11,29 +11,30 @@ import { ResourceCardComponent } from './resource-card/resource-card.component';
 import { ResourcesSearchResultsComponent } from './resources-search-results/resources-search-results.component';
 import { ResourceDetailsComponent } from './resource-details/resource-details.component';
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
+import { ResourcesMasonryComponent } from './components/resources-masonry/resources-masonry.component';
 
 // NgRx
 import { resourceReducer } from './state/resource.reducers';
 import { ResourceEffects } from './state/resource.effects';
 
-
 @NgModule({
-    imports: [
-        ResourcesRoutingModule,
-        InfiniteScrollModule,
-        NgxMasonryModule,
-        SharedModule,
-        StoreModule.forFeature('resources', resourceReducer),
-        EffectsModule.forFeature([ResourceEffects]),
-    ],
-    declarations: [
-        ResourcesListComponent,
-        ResourceCardComponent,
-        ResourcesSearchResultsComponent,
-        ResourceDetailsComponent,
-        ResourceDetailsShellComponent,
-    ],
-    exports: [],
-    providers: []
+  imports: [
+    ResourcesRoutingModule,
+    InfiniteScrollModule,
+    NgxMasonryModule,
+    SharedModule,
+    StoreModule.forFeature('resources', resourceReducer),
+    EffectsModule.forFeature([ResourceEffects]),
+  ],
+  declarations: [
+    ResourcesListComponent,
+    ResourceCardComponent,
+    ResourcesSearchResultsComponent,
+    ResourceDetailsComponent,
+    ResourceDetailsShellComponent,
+    ResourcesMasonryComponent,
+  ],
+  exports: [],
+  providers: [],
 })
-export class ResourcesModule { }
+export class ResourcesModule {}

@@ -1,86 +1,54 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Resource } from '../../shared/models/resource.model';
 import { LoaderService } from '../../core/services/loader/loader.service';
 import { ResourceService } from '../../shared/services/resource/resource.service';
 
 @Component({
-    selector: 'app-resources-list',
-    templateUrl: './resources-list.component.html',
-    styleUrls: ['./resources-list.component.scss']
+  selector: 'app-resources-list',
+  templateUrl: './resources-list.component.html',
+  styleUrls: ['./resources-list.component.scss'],
 })
-export class ResourcesListComponent implements OnInit, AfterViewInit {
+export class ResourcesListComponent implements OnInit {
+  @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
 
-    @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
+  resources: Resource[] = new Array<Resource>();
+  lastVisible: Resource;
+  pageSize = 20;
+  loading = false;
+  thereIsMore = true;
 
-    resources: Resource[] = new Array<Resource>();
-    lastVisible: Resource;
-    pageSize = 20;
-    loading = false;
-    thereIsMore = true;
-    cardWidth: number;
-    viewInitalized = false;
-    updateMasonryLayout = false;
-    masonryOptions: any = {
-        transitionDuration: '0',
-        horizontalOrder: true,
-        columnWidth: '.masonry-item-sizer',
-        gutter: '.gutter-sizer',
-        percentPosition: true,
-        itemSelector: '.masonry-item',
-        resize: false
-    };
+  constructor(private resourceService: ResourceService, private loaderService: LoaderService) {}
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-        this.cardWidth = this.getMasonryItemSize();
-        setTimeout(() => this.updateMasonryLayout = !this.updateMasonryLayout, 100);
+  ngOnInit() {
+    this.getNextResources();
+  }
+
+  onScroll() {
+    if (!this.loading && this.thereIsMore) {
+      this.getNextResources();
     }
+  }
 
-    constructor(
-        private resourceService: ResourceService,
-        private loaderService: LoaderService,
-    ) {
+  private getNextResources() {
+    // TODO move loader
+    this.loading = true;
+    this.loaderService.show();
 
-    }
-
-    ngOnInit() {
-        this.getNextResources();
-    }
-
-    ngAfterViewInit() {
-        this.cardWidth = this.getMasonryItemSize();
-        console.log('cardWidth', this.cardWidth);
-        setTimeout(() => this.viewInitalized = true);
-    }
-
-    onScroll() {
-        if (!this.loading && this.thereIsMore) {
-            this.getNextResources();
+    this.resourceService.query(this.pageSize, this.lastVisible, 'desc').subscribe(
+      (items: Resource[]) => {
+        this.resources = this.resources.concat(items);
+        this.lastVisible = items[items.length - 1];
+        if (items.length < this.pageSize) {
+          this.thereIsMore = false;
         }
-    }
-
-    private getNextResources() {
-        // TODO move loader
-        this.loading = true;
-        this.loaderService.show();
-
-        this.resourceService.query(this.pageSize, this.lastVisible, 'desc').subscribe(
-            (items: Resource[]) => {
-                this.resources = this.resources.concat(items);
-                this.lastVisible = items[items.length - 1];
-                if (items.length < this.pageSize) {
-                    this.thereIsMore = false;
-                }
-                this.loading = false;
-                this.loaderService.hide();
-            },
-            err => { this.loading = false; this.loaderService.hide(); }
-        );
-    }
-
-    private getMasonryItemSize(): number {
-        if (!this.masonryItemSizer) { return 0; }
-        return this.masonryItemSizer.nativeElement.getBoundingClientRect().width;
-    }
+        this.loading = false;
+        this.loaderService.hide();
+      },
+      () => {
+        this.loading = false;
+        this.loaderService.hide();
+      }
+    );
+  }
 }
