@@ -1,26 +1,26 @@
 <div class="container-fluid">
   <h1>Resources</h1>
   <mat-form-field class="filter-field">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
+  <table mat-table [dataSource]="dataSource" matSort>
     <!-- Position Column -->
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
     </ng-container>
 
     <!-- Title Column -->
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
       <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectItem(element)">
-        {{element.title}} </td>
+        {{element.title}}
+      </td>
     </ng-container>
 
     <!-- Author Column -->
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
       <td mat-cell *matCellDef="let element">
         <span *ngIf="(element.author | doc | async) as author">
           {{author?.firstName}}&nbsp;{{author?.lastName}}
@@ -30,8 +30,8 @@
 
     <!-- DateTime Column -->
     <ng-container matColumnDef="dateTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateTime?.toDate() | date}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Time</th>
+      <td mat-cell *matCellDef="let element">{{element.dateTime?.toDate() | date}}</td>
     </ng-container>
 
     <!-- Actions Column -->
@@ -59,8 +59,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
   <button class="mat-fab--bottom-right" type="button" mat-fab (click)="initializeNewItem()" color="primary">
     <mat-icon aria-label="Add">add</mat-icon>
   </button>
-
 </div>
