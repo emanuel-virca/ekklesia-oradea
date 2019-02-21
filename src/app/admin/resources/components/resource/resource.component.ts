@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  OnChanges,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentReference } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material';
@@ -11,12 +20,11 @@ import { SelectOption } from 'src/app/shared/models/select-option';
 import { Author } from 'src/app/shared/models/author.model';
 import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
 
-
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
   resourceTypes = ResourceTypeSelect;
@@ -37,10 +45,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
 
   imageUploadFolder = '/resources';
 
-  constructor(
-    private authorService: AuthorService,
-    public dialog: MatDialog,
-  ) {
+  constructor(private authorService: AuthorService, public dialog: MatDialog) {
     super(dialog, { messageFn: (resource: Resource) => `You are about to delete <b>${resource.title}</b>` });
   }
 
@@ -56,9 +61,11 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   getAuthors() {
-    this.authors = this.authorService.listWithRef().pipe(map((authors: Author[]) => {
-      return authors.map((x) => ({ text: x.firstName + ' ' + x.lastName, value: x.ref }));
-    }));
+    this.authors = this.authorService.listWithRef().pipe(
+      map((authors: Author[]) => {
+        return authors.map(x => ({ text: x.firstName + ' ' + x.lastName, value: x.ref }));
+      })
+    );
   }
 
   displayResource(resource: Resource | null): void {
@@ -77,20 +84,24 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         description: resource.description,
         hearthisId: resource.hearthisId,
         imageSrc: resource.imageSrc,
-        resourceType: resource.type,
+        resourceType: resource.resourceType,
         author: resource.author,
       });
     }
   }
 
   publishResource() {
-    if (!this.resource.id) { return; }
+    if (!this.resource.id) {
+      return;
+    }
 
     this.publish.emit(this.resource.id);
   }
 
   unpublishResource() {
-    if (!this.resource.id) { return; }
+    if (!this.resource.id) {
+      return;
+    }
 
     this.unpublish.emit(this.resource.id);
   }
@@ -101,7 +112,9 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   save() {
-    if (!this.resourceForm.valid) { return; }
+    if (!this.resourceForm.valid) {
+      return;
+    }
 
     // Copy over all of the original author properties
     // Then copy over the values from the form
@@ -127,9 +140,19 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     return o1.id === o2.id;
   }
 
-  get title() { return this.resourceForm.controls.title; }
-  get dateTime() { return this.resourceForm.controls.dateTime; }
-  get author() { return this.resourceForm.controls.author; }
-  get resourceType() { return this.resourceForm.controls.resourceType; }
-  get imageSrc() { return this.resourceForm.controls.imageSrc; }
+  get title() {
+    return this.resourceForm.controls.title;
+  }
+  get dateTime() {
+    return this.resourceForm.controls.dateTime;
+  }
+  get author() {
+    return this.resourceForm.controls.author;
+  }
+  get resourceType() {
+    return this.resourceForm.controls.resourceType;
+  }
+  get imageSrc() {
+    return this.resourceForm.controls.imageSrc;
+  }
 }
