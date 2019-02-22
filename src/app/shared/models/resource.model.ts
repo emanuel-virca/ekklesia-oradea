@@ -16,6 +16,11 @@ export class Resource {
   height?: number;
   width?: number;
   published: boolean;
+  tags?: Tag[];
+}
+
+export interface Tag {
+  name: string;
 }
 
 export const enum ResourceType {

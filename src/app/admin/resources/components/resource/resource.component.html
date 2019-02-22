@@ -64,6 +64,21 @@
       <mat-error *ngIf="resourceType.errors?.required">Type is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
+      <mat-chip-list #tags>
+        <mat-chip *ngFor="let tag of resource?.tags" removable="true" (removed)="removeTag(tag)">
+          {{tag.name}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Tags"
+          [matChipInputFor]="tags"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          matChipInputAddOnBlur="true"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-form-field>
       <input matInput type="url" placeholder="Image Url" formControlName="imageSrc" />
     </mat-form-field>
     <app-image-uploader [url]="imageSrc.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>

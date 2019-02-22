@@ -1,13 +1,14 @@
-import { ResourceType } from "./resource";
+import { ResourceType, Tag } from './resource';
 
 export class ResourceSearchResult {
-    objectID?: string;
+  objectID?: string;
+  id: string;
+  name: string;
+  type: ResourceType;
+  tags: Tag[];
+  author: {
     id: string;
-    name: string;
-    type: ResourceType;
-    author: {
-        id: string,
-        firstName: string,
-        lastName: string;
-    };
+    firstName: string;
+    lastName: string;
+  };
 }

@@ -8,6 +8,11 @@ export class Resource {
   resourceType: ResourceType;
   author: any; //TODO type
   published: boolean;
+  tags?: Tag[];
+}
+
+export interface Tag {
+  name: string;
 }
 
 export const enum ResourceType {
