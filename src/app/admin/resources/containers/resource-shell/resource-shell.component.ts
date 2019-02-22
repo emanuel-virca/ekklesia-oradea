@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
@@ -12,16 +12,13 @@ import * as resourceActions from '../../state/resource.actions';
   selector: 'app-resource-shell',
   templateUrl: './resource-shell.component.html',
   styleUrls: ['./resource-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceShellComponent implements OnInit {
-  @HostBinding('class') classes = 'height--inherit';
   resources$: Observable<Resource[]>;
   currentResource$: Observable<Resource>;
 
-  constructor(
-    private store: Store<fromResource.AppState>,
-  ) { }
+  constructor(private store: Store<fromResource.AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new resourceActions.LoadResources());
@@ -30,8 +27,8 @@ export class ResourceShellComponent implements OnInit {
   }
 
   newResource(): void {
-    this.store.dispatch(new resourceActions.SetCurrentResource(
-      {
+    this.store.dispatch(
+      new resourceActions.SetCurrentResource({
         title: '',
         dateTime: null,
         description: '',
@@ -39,13 +36,13 @@ export class ResourceShellComponent implements OnInit {
         downloadUrl: null,
         streamUrl: null,
         imageSrc: null,
-        type: null,
+        resourceType: null,
         author: null,
         height: null,
         width: null,
         published: false,
-      }
-    ));
+      })
+    );
   }
 
   selectResource(resource: Resource): void {

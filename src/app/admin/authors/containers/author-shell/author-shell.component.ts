@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -12,16 +12,13 @@ import * as authorActions from '../../state/author.actions';
   selector: 'app-author-shell',
   templateUrl: './author-shell.component.html',
   styleUrls: ['./author-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorShellComponent implements OnInit {
-  @HostBinding('class') classes = 'height--inherit';
   authors$: Observable<Author[]>;
   currentAuthor$: Observable<Author>;
 
-  constructor(
-    private store: Store<fromReducers.AppState>,
-  ) { }
+  constructor(private store: Store<fromReducers.AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new authorActions.LoadAuthors());
