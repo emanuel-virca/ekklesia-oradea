@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   HostListener,
   ViewChild,
   ElementRef,
@@ -19,7 +18,6 @@ import { Debounce } from 'src/app/shared/decorators/debounce';
   selector: 'app-resources-masonry',
   templateUrl: './resources-masonry.component.html',
   styleUrls: ['./resources-masonry.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
