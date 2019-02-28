@@ -40,9 +40,6 @@
       <mat-error *ngIf="title.errors?.required">Title is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput placeholder="Description" formControlName="description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
       <mat-select placeholder="Author" formControlName="author" [compareWith]="compareWith" required>
         <mat-option *ngFor="let option of authors | async" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
@@ -55,13 +52,31 @@
       <mat-error *ngIf="dateTime.errors?.required">Date is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Hearthis Id" formControlName="hearthisId" />
-    </mat-form-field>
-    <mat-form-field>
       <mat-select placeholder="Type" formControlName="resourceType" required>
         <mat-option *ngFor="let option of resourceTypes" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
       <mat-error *ngIf="resourceType.errors?.required">Type is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-chip-list #tags>
+        <mat-chip *ngFor="let tag of resource?.tags" removable="true" (removed)="removeTag(tag)">
+          {{tag.name}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Tags"
+          [matChipInputFor]="tags"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          matChipInputAddOnBlur="true"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Hearthis Id" formControlName="hearthisId" />
     </mat-form-field>
     <mat-form-field>
       <input matInput type="url" placeholder="Image Url" formControlName="imageSrc" />

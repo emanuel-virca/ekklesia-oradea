@@ -41,6 +41,7 @@ export class ResourceShellComponent implements OnInit {
         height: null,
         width: null,
         published: false,
+        tags: [],
       })
     );
   }

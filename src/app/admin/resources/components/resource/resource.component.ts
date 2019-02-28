@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentReference } from '@angular/fire/firestore';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatChipInputEvent } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { AuthorService } from '../../../../shared/services/author/author.service';
-import { Resource, ResourceTypeSelect } from '../../../../shared/models/resource.model';
+import { Resource, ResourceTypeSelect, Tag } from '../../../../shared/models/resource.model';
 import { SelectOption } from 'src/app/shared/models/select-option';
 import { Author } from 'src/app/shared/models/author.model';
 import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
@@ -27,6 +28,7 @@ import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-bas
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   resourceTypes = ResourceTypeSelect;
   authors: Observable<SelectOption[]>;
   @Input() resource: Resource;
@@ -138,6 +140,36 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
 
   compareWith(o1: DocumentReference, o2: DocumentReference) {
     return o1.id === o2.id;
+  }
+
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if (!this.resource.tags) {
+      this.resource.tags = [];
+    }
+
+    // Add tag
+    if ((value || '').trim()) {
+      this.resource.tags.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+
+    this.resourceForm.markAsDirty();
+  }
+
+  removeTag(tag: Tag): void {
+    const index = this.resource.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.resource.tags.splice(index, 1);
+      this.resourceForm.markAsDirty();
+    }
   }
 
   get title() {

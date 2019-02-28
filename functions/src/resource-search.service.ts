@@ -64,6 +64,7 @@ export class ResourceSearchService {
       id: resource.id,
       name: resource.title,
       type: resource.resourceType,
+      tags: resource.tags,
       author: {
         id: author.id,
         firstName: author.firstName,
