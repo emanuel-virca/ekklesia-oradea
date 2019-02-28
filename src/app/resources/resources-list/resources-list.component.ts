@@ -37,11 +37,30 @@ export class ResourcesListComponent implements OnInit {
 
     this.resourceService.query(this.pageSize, this.lastVisible, 'desc').subscribe(
       (items: Resource[]) => {
-        this.resources = this.resources.concat(items);
+        if (!items || !items.length) {
+          return;
+        }
+
+        const nextResources = new Array<Resource>();
+
+        items.forEach(item => {
+          const indexOfExisting = this.resources.findIndex(x => x.id === item.id);
+
+          if (indexOfExisting !== -1) {
+            this.resources[indexOfExisting] = item;
+          } else {
+            nextResources.push(item);
+          }
+        });
+
+        this.resources = this.resources.concat(nextResources);
+
         this.lastVisible = items[items.length - 1];
+
         if (items.length < this.pageSize) {
           this.thereIsMore = false;
         }
+
         this.loading = false;
         this.loaderService.hide();
       },
