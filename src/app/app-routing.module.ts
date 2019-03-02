@@ -3,26 +3,31 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CanLoadAdmin } from './shared/route-guards/can-load-admin.service';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
-    {
-        path: 'resources',
-        loadChildren: './resources/resources.module#ResourcesModule',
-    },
-    {
-        path: 'admin',
-        loadChildren: './admin/admin.module#AdminModule',
-        canLoad: [CanLoadAdmin],
-    },
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/resources',
-    },
-    {
-        path: '**',
-        component: PageNotFoundComponent
-    }
+  {
+    path: 'resources',
+    loadChildren: './resources/resources.module#ResourcesModule',
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+  },
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+    canLoad: [CanLoadAdmin],
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/resources',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 
 export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(routes);

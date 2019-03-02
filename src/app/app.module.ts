@@ -15,30 +15,28 @@ import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        PageNotFoundComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRouterModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        AngularFireStorageModule,
-        BrowserAnimationsModule,
-        StoreModule.forRoot({}),
-        StoreDevtoolsModule.instrument({
-            name: 'NgRx Ekklesia',
-            logOnly: environment.production,
-        }),
-        EffectsModule.forRoot([]),
-        SharedModule,
-        CoreModule,
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, ContactComponent, PageNotFoundComponent],
+  imports: [
+    BrowserModule,
+    AppRouterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: 'NgRx Ekklesia',
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
+    SharedModule,
+    CoreModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

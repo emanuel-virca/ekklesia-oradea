@@ -39,8 +39,6 @@
 .container {
   margin-right: auto;
   margin-left: auto;
-  // padding-right: 15px;
-  // padding-left: 15px;
   width: 100%;
 }
 
@@ -84,17 +82,29 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 64px;
+  top: $topAppBarHeight;
   bottom: 0;
   left: 0;
   right: 0;
 }
 
+@media (max-width: 599px) {
+  .main-content {
+    top: $topAppBarHeightSm;
+  }
+}
+
 mat-drawer-container {
-  height: calc(100vh - 64px) !important;
+  height: calc(100vh - #{$topAppBarHeight}) !important;
 
   mat-drawer {
     width: 500px;
+  }
+}
+
+@media (max-width: 599px) {
+  mat-drawer-container {
+    height: calc(100vh - #{$topAppBarHeightSm}) !important;
   }
 }
 
