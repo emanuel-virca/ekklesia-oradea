@@ -1,15 +1,18 @@
-<mat-toolbar color="primary" [class.searchMode]="showSearch">
-  <mat-toolbar-row class="main-row">
-    <span class="logo" routerLink="/">Ekklesia</span>
-    <span class="example-spacer"></span>
-    <button type="menu" mat-button routerLink="contact">
-      CONTACT
-    </button>
-    <button type="menu" mat-icon-button (click)="onStartSearch()">
-      <mat-icon aria-label="Search resources">search</mat-icon>
-    </button>
-    <div mdcMenuSurfaceAnchor #demoanchor *ngIf="(user$ | async) as user; else: showLogin">
-      <button mat-icon-button class="user-display" aria-label="user.displayName" [matMenuTriggerFor]="profileMenu">
+<mat-toolbar color="primary" class="header">
+  <button mat-icon-button [matMenuTriggerFor]="navMenu">
+    <mat-icon aria-label="Navigation menu">menu</mat-icon>
+  </button>
+  <mat-menu #navMenu="matMenu">
+    <a mat-menu-item *ngFor="let item of navigationItems" routerLink="{{item.routerLink}}" routerLinkActive="active">
+      <mat-icon aria-label="item.name">{{item.icon}}</mat-icon>
+      <span>{{item.name}}</span>
+    </a>
+  </mat-menu>
+  <a class="logo" routerLink="/">Ekklesia</a>
+  <span class="example-spacer"></span>
+  <div class="header__main-nav">
+    <div *ngIf="(user$ | async) as user; else: showLogin">
+      <button mat-icon-button class="user-display" [matMenuTriggerFor]="profileMenu">
         {{ getInitials(user.displayName) }}
       </button>
       <mat-menu #profileMenu="matMenu">
@@ -18,15 +21,12 @@
       </mat-menu>
     </div>
     <ng-template #showLogin>
-      <button type="menu" mat-icon-button (click)="signIn()">
+      <button mat-icon-button (click)="signIn()">
         <mat-icon aria-label="Login">person</mat-icon>
       </button>
     </ng-template>
-  </mat-toolbar-row>
-  <mat-toolbar-row class="search-row">
-    <app-resources-search *ngIf="showSearch" class="search-form"></app-resources-search>
-    <button type="menu" mat-icon-button (click)="onStopSearch()">
-      <mat-icon aria-label="Search resources">clear</mat-icon>
-    </button>
-  </mat-toolbar-row>
+  </div>
+  <div class="header_search">
+    <app-resources-search></app-resources-search>
+  </div>
 </mat-toolbar>

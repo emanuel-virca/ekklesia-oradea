@@ -1,8 +1,12 @@
-<form class="search-form">
-  <mat-form-field>
+<button class="search-form__button search-form__search-button" mat-icon-button (click)="onStartSearch()">
+  <mat-icon aria-label="Search resources">search</mat-icon>
+</button>
+<div class="search-form" [class.search-form--open]="showSearch">
+  <form class="search-form__form">
     <input
-      class="global-search"
+      class="global-search search-form__input"
       matInput
+      placeholder="Search"
       aria-label="Search Resources"
       #searchInput
       #matAutocompleteTrigger
@@ -15,5 +19,8 @@
         <span>{{ searchResult.name }}</span>
       </mat-option>
     </mat-autocomplete>
-  </mat-form-field>
-</form>
+  </form>
+  <button class="search-form__button search-form__clear-button" mat-icon-button (click)="onStopSearch()" color="primary">
+    <mat-icon aria-label="Clear">clear</mat-icon>
+  </button>
+</div>
