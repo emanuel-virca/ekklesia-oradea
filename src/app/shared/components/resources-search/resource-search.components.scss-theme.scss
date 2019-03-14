@@ -10,4 +10,12 @@
   .global-search {
     caret-color: mat-color($primary, default-contrast);
   }
+
+  .search-form {
+    background-color: mat-color($primary, default-contrast);
+  }
+
+  .search-form__input {
+    color: $dark-primary-text;
+  }
 }

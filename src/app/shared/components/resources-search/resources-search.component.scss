@@ -1,4 +1,5 @@
 @import '../../../../styles-variables.scss';
+@import '~@angular/material/theming';
 
 .search-form {
   position: absolute;
@@ -6,9 +7,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
   opacity: 0;
-  transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 100ms $backdrop-animation-timing-function;
   z-index: -1;
 }
 
@@ -22,11 +22,11 @@
   height: 100%;
   padding: 0 40px;
   padding-right: 50px;
-  font-size: 1.714rem;
+  padding-top: 5px;
   box-sizing: border-box;
-  font-size: 24px;
-  font-weight: 300;
   border: 0;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .search-form__input:focus {
@@ -37,12 +37,11 @@
   position: absolute;
   top: 50%;
   left: 42px;
-  margin-top: -13px;
+  margin-top: -16px;
   opacity: 1;
   user-select: none;
-  font-size: 24px;
-  font-weight: 300;
-  color: #757575;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .search-form__button {
@@ -61,16 +60,6 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
-}
-
-.search-form__scrim {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
 }
 
 .search-form--open {

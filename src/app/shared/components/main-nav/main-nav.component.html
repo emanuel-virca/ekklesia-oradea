@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="header">
-  <button mat-icon-button [matMenuTriggerFor]="navMenu">
+  <button mat-icon-button [matMenuTriggerFor]="navMenu" class="header__button">
     <mat-icon aria-label="Navigation menu">menu</mat-icon>
   </button>
   <mat-menu #navMenu="matMenu">
@@ -12,8 +12,8 @@
   <span class="example-spacer"></span>
   <div class="header__main-nav">
     <div *ngIf="(user$ | async) as user; else: showLogin">
-      <button mat-icon-button class="user-display" [matMenuTriggerFor]="profileMenu">
-        {{ getInitials(user.displayName) }}
+      <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
+        <span class="user-display__initials">{{ getInitials(user.displayName) }}</span>
       </button>
       <mat-menu #profileMenu="matMenu">
         <button [routerLink]="['/admin']" mat-menu-item>Admin Portal</button>
@@ -21,7 +21,7 @@
       </mat-menu>
     </div>
     <ng-template #showLogin>
-      <button mat-icon-button (click)="signIn()">
+      <button mat-icon-button (click)="signIn()" class="header__button">
         <mat-icon aria-label="Login">person</mat-icon>
       </button>
     </ng-template>
