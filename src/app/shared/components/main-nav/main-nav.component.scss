@@ -4,12 +4,12 @@
   flex: 1 1 auto;
 }
 
+.logo {
+  color: white;
+}
+
 .header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-
-  &__main-nav {
-    padding-right: 50px;
-  }
 
   &__button {
     width: $topAppBarHeight;
@@ -22,10 +22,6 @@
     height: $topAppBarHeightSm;
     width: $topAppBarHeightSm;
   }
-}
-
-a {
-  color: white;
 }
 
 .mat-toolbar-single-row {
