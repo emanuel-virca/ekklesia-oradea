@@ -29,9 +29,7 @@ export class ResourcesSearchComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.searchInput.nativeElement.focus());
-  }
+  ngAfterViewInit(): void {}
 
   optionSelected($event: MatAutocompleteSelectedEvent) {
     this.router.navigate(['../resources/results', { search_query: $event.option.value }]);
@@ -47,7 +45,12 @@ export class ResourcesSearchComponent implements OnInit, AfterViewInit {
     this.searchInput.nativeElement.focus();
   }
 
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
+  startSearch() {
+    this.showSearch = true;
+    setTimeout(() => this.searchInput.nativeElement.focus(), 150);
+  }
+
+  stopSearch() {
+    this.showSearch = false;
   }
 }

@@ -1,4 +1,4 @@
-<button *ngIf="showSearch" class="search-form__button search-form__close" mat-icon-button (click)="toggleSearch()" color="primary">
+<button *ngIf="showSearch" class="search-form__button search-form__close" mat-icon-button (click)="stopSearch()" color="primary">
   <mat-icon aria-label="Clear">arrow_back</mat-icon>
 </button>
 <form class="search-form" [class.search-open]="showSearch">
@@ -22,6 +22,6 @@
 <button *ngIf="searchCtrl.value" class="search-form__button" mat-icon-button (click)="clearSearch()" color="primary">
   <mat-icon aria-label="Search resources">clear</mat-icon>
 </button>
-<button class="search-form__button" mat-icon-button (click)="!showSearch ? toggleSearch() : search()" [color]="showSearch ? 'primary': null">
+<button class="search-form__button" mat-icon-button (click)="!showSearch ? startSearch() : search()" [color]="showSearch ? 'primary': null">
   <mat-icon aria-label="Search resources">search</mat-icon>
 </button>
