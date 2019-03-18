@@ -1,7 +1,7 @@
 {
-  "name": "ekklesia-oradea",
-  "short_name": "ekklesia-oradea",
-  "theme_color": "#1976d2",
+  "name": "Ekklesia Oradea",
+  "short_name": "Ekklesia",
+  "theme_color": "#0b91aa",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
