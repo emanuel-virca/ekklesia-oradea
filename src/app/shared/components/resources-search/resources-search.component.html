@@ -19,7 +19,7 @@
     </mat-option>
   </mat-autocomplete>
 </form>
-<button *ngIf="searchCtrl.value" class="search-form__button" mat-icon-button (click)="clearSearch()" color="primary">
+<button *ngIf="searchCtrl.value && showSearch" class="search-form__button" mat-icon-button (click)="clearSearch()" color="primary">
   <mat-icon aria-label="Search resources">clear</mat-icon>
 </button>
 <button class="search-form__button" mat-icon-button (click)="!showSearch ? startSearch() : search()" [color]="showSearch ? 'primary': null">
