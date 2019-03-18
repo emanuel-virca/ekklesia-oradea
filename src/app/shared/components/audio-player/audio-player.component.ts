@@ -1,4 +1,15 @@
-import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, OnDestroy, EventEmitter, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 import { interval, Subscription } from 'rxjs';
 import { AudioResource } from '../../models/audio-resource.model';
@@ -6,7 +17,7 @@ import { AudioResource } from '../../models/audio-resource.model';
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
-  styleUrls: ['./audio-player.component.scss']
+  styleUrls: ['./audio-player.component.scss'],
 })
 export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
   trackProgress = 0;
@@ -35,7 +46,9 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private registerBindings(): void {
-    if (!this.audioElement) { return; }
+    if (!this.audioElement) {
+      return;
+    }
 
     this.audioElement.addEventListener('ended', () => this.onEnded());
     this.audioElement.addEventListener('playing', () => this.onStatusChanged('playing'));
@@ -46,19 +59,25 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public play(): void {
-    if (this.audioResource == null) { return this.reset(); }
+    if (this.audioResource == null) {
+      return this.reset();
+    }
 
     this.audioElement.play();
   }
 
   public pause() {
-    if (this.audioResource == null) { return this.reset(); }
+    if (this.audioResource == null) {
+      return this.reset();
+    }
 
     this.audioElement.pause();
   }
 
   public seek(event): void {
-    if (this.audioResource == null) { return this.reset(); }
+    if (this.audioResource == null) {
+      return this.reset();
+    }
 
     const percent = event.offsetX / this.progressbar.nativeElement.offsetWidth;
     this.audioElement.currentTime = percent * this.audioElement.duration;
@@ -85,8 +104,12 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.audioResource.firstChange || (changes.audioResource.currentValue && changes.audioResource.previousValue &&
-      changes.audioResource.currentValue.id !== changes.audioResource.previousValue.id)) {
+    if (
+      changes.audioResource.firstChange ||
+      (changes.audioResource.currentValue &&
+        changes.audioResource.previousValue &&
+        changes.audioResource.currentValue.id !== changes.audioResource.previousValue.id)
+    ) {
       this.trackProgress = 0;
       this.audioElement.src = this.audioResource.streamUrl;
     }
