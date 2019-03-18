@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
 import { ContactComponent } from './contact/contact.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent, ContactComponent, PageNotFoundComponent],
@@ -35,6 +36,7 @@ import { ContactComponent } from './contact/contact.component';
     EffectsModule.forRoot([]),
     SharedModule,
     CoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
