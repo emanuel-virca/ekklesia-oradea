@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as probeImageSize from 'probe-image-size';
 
 import { AlgoliaConfig } from './algolia.config';
+import { WebPortalConfig } from './web-portal.config';
 import { Resource } from './models/resource';
 import { ResourceSearchService } from './resource-search.service';
 import { NotificationService } from './notification/notification.service';
@@ -26,7 +27,8 @@ export async function onResourceCreateAsync(
 export async function onResourceUpdateAsync(
   change: functions.Change<FirebaseFirestore.DocumentSnapshot>,
   context: functions.EventContext,
-  algoliaConfig: AlgoliaConfig
+  algoliaConfig: AlgoliaConfig,
+  webPortalConfig: WebPortalConfig
 ): Promise<void> {
   const previousData = change.before.data() as Resource;
   const resource = change.after.data() as Resource;
@@ -42,7 +44,7 @@ export async function onResourceUpdateAsync(
     await resourceSearchService.deleteAsync(resource.id);
   } else if (publish) {
     await resourceSearchService.addAsync(resource);
-    await notificationService.sendResourceNotificationAsync(resource);
+    await notificationService.sendResourceNotificationAsync(resource, webPortalConfig);
   } else {
     await resourceSearchService.updateAsync(resource);
   }

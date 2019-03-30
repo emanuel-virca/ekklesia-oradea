@@ -12,6 +12,10 @@ const algoliaConfig = {
   resourceIndex: functions.config().algolia.resourceindex,
 };
 
+const webportalConfig = {
+  domainURL: functions.config().webportal.domainurl,
+};
+
 admin.initializeApp(functions.config().firebase);
 
 // Start writing Firebase Functions
@@ -21,7 +25,7 @@ exports.onResourceCreated = functions.firestore.document('resources/{resourceId}
 });
 
 exports.onResourceUpdated = functions.firestore.document('resources/{resourceId}').onUpdate(async (change, context) => {
-  await onResourceUpdateAsync(change, context, algoliaConfig);
+  await onResourceUpdateAsync(change, context, algoliaConfig, webportalConfig);
 });
 
 exports.onResourceDeleted = functions.firestore.document('resources/{resourceId}').onDelete(async (snap, context) => {

@@ -2,13 +2,14 @@ import * as admin from 'firebase-admin';
 
 import { Resource } from '../models/resource';
 import { subscriptionTopic } from './notification.consts';
+import { WebPortalConfig } from '../web-portal.config';
 
 export class NotificationService {
-  public async sendResourceNotificationAsync(resource: Resource): Promise<void> {
+  public async sendResourceNotificationAsync(resource: Resource, webPortalConfig: WebPortalConfig): Promise<void> {
     const message: admin.messaging.Message = {
       topic: subscriptionTopic,
       notification: {
-        title: 'badge 1',
+        title: 'New Resource Published',
         body: resource.title + '\n' + resource.description,
       },
       webpush: {
@@ -17,6 +18,9 @@ export class NotificationService {
           badge: '/assets/icons/icon-badge-192x192.png',
           image: resource.imageSrc,
           tag: resource.id + resource.resourceType,
+        },
+        fcm_options: {
+          link: `${webPortalConfig.domainURL}/resources/${resource.id}`,
         },
       },
     };
