@@ -17,4 +17,7 @@ export const environment = {
     apiKey: '<your-api-key>',
     resourceIndex: 'resources',
   },
+  webPortal: {
+    domainURL: '<your-app-domain-url-here>',
+  },
 };

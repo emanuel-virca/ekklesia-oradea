@@ -3,16 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "docker-start": "ng serve --host 0.0.0.0",
+    "start": "ng serve --configuration=development",
+    "docker-start": "ng serve --configuration=development --host 0.0.0.0",
     "build": "ng build",
-    "build-prod": "ng build --prod",
+    "build-prod": "ng build --configuration=production --prod ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "deploy": "npm run build-prod && firebase deploy",
     "deploy-functions": "firebase deploy --only functions",
-    "deploy": "firebase deploy",
-    "deploy-hosting-only": "firebase deploy --only hosting"
+    "deploy-hosting": "npm run build-prod && firebase deploy --only hosting"
   },
   "husky": {
     "hooks": {
