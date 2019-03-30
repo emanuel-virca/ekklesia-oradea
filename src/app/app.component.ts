@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SwPush } from '@angular/service-worker';
+import { filter, take } from 'rxjs/operators';
 
-import { environment } from 'src/environments/environment';
 import { MessagingService } from './core/services/messaging/messaging.service';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
-import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
