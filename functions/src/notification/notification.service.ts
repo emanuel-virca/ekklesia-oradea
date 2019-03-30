@@ -8,19 +8,16 @@ export class NotificationService {
     const message: admin.messaging.Message = {
       topic: subscriptionTopic,
       notification: {
-        title: 'New resource published',
+        title: 'badge 1',
         body: resource.title + '\n' + resource.description,
       },
       webpush: {
         notification: {
-          icon: '/assets/icons/icon-512x512.png',
-          badge: '/assets/icons/badge-192x192.png',
+          icon: '/assets/icons/icon-192x192.png',
+          badge: '/assets/icons/icon-badge-192x192.png',
           image: resource.imageSrc,
           tag: resource.id + resource.resourceType,
         },
-      },
-      android: {
-        notification: {},
       },
     };
 
