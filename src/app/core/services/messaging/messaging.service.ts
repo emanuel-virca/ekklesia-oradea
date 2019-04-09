@@ -25,8 +25,8 @@ export class MessagingService {
   /**
    * update token in firebase database
    *
-   * @param userId userId as a key
-   * @param token token as a value
+   * @param userId user
+   * @param token token
    */
   updateToken(user: User, token: string) {
     const currentTokens = user.notificationTokens || {};
@@ -44,13 +44,13 @@ export class MessagingService {
   /**
    * request permission for notification from firebase cloud messaging
    *
-   * @param userId userId
+   * @param user user
    */
-  requestPermission(userId) {
+  requestPermission(user: User) {
     this.angularFireMessaging.requestToken.subscribe(
       token => {
         console.log(token);
-        this.updateToken(userId, token);
+        this.updateToken(user, token);
       },
       err => {
         console.error('Unable to get permission to notify.', err);

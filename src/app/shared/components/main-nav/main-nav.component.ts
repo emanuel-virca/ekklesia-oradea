@@ -33,6 +33,10 @@ export class MainNavComponent {
     this.authService.doGoogleSignIn();
   }
 
+  anonymousUpgrade() {
+    this.authService.linkGoogle();
+  }
+
   async signOut() {
     await this.authService.signOut();
     this.router.navigateByUrl('');

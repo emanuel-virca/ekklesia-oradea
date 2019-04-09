@@ -10,6 +10,8 @@ export interface User {
   email: string;
   roles: Roles;
   notificationTokens?: any;
+  isAnonymous: boolean;
+  profile: any;
 }
 
 export interface NotificationToken {

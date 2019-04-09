@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, take } from 'rxjs/operators';
 
 import { MessagingService } from './core/services/messaging/messaging.service';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
+import { User } from './core/models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +10,21 @@ import { AuthenticationService } from './core/services/authentication/authentica
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  message$;
-
   constructor(public messagingService: MessagingService, public auth: AuthenticationService) {}
 
   ngOnInit() {
-    this.auth.user$
-      .pipe(
-        filter(user => !!user), // filter null
-        take(1) // take first real user
-      )
-      .subscribe(user => {
-        if (user) {
-          this.messagingService.requestPermission(user);
-          this.messagingService.receiveMessage();
-          this.message$ = this.messagingService.currentMessage;
-        }
-      });
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.initializeMessaging(user);
+      } else {
+        this.auth.doAnonymousLogin();
+      }
+    });
+  }
+
+  initializeMessaging(user: User) {
+    this.messagingService.requestPermission(user);
+    this.messagingService.receiveMessage();
+    // this.message$ = this.messagingService.currentMessage;
   }
 }
