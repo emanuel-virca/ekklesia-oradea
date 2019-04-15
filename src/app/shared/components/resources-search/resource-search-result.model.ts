@@ -1,5 +1,4 @@
-import { ResourceType } from '../../models/resource.model';
-import { Tag } from 'functions/src/models/resource';
+import { ResourceType, Tag } from '../../models/resource.model';
 
 export class ResourceSearchResult {
   objectID?: number;

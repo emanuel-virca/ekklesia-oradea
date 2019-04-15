@@ -15,11 +15,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import { AuthorService } from '../../../../shared/services/author/author.service';
-import { Resource, ResourceTypeSelect, Tag } from '../../../../shared/models/resource.model';
-import { SelectOption } from 'src/app/shared/models/select-option';
-import { Author } from 'src/app/shared/models/author.model';
-import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
+import { AuthorService } from '@shared/services/author/author.service';
+import { Resource, ResourceTypeSelect, Tag } from '@shared/models/resource.model';
+import { SelectOption } from '@shared/models/select-option';
+import { Author } from '@shared/models/author.model';
+import { ListItemBaseComponent } from '@admin/shared/models/list-item-base.component';
 
 @Component({
   selector: 'app-resource',

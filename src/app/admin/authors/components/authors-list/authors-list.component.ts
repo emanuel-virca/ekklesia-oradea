@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
-import { Author } from 'src/app/shared/models/author.model';
-import { ListBaseComponent } from 'src/app/admin/shared/models/list-base.component';
+import { Author } from '@shared/models/author.model';
+import { ListBaseComponent } from '@admin/shared/models/list-base.component';
 
 @Component({
   selector: 'app-authors-list',
   templateUrl: './authors-list.component.html',
   styleUrls: ['./authors-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorsListComponent extends ListBaseComponent<Author> implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
@@ -19,7 +19,9 @@ export class AuthorsListComponent extends ListBaseComponent<Author> implements O
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog) {
-    super(dialog, { messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>` });
+    super(dialog, {
+      messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>`,
+    });
   }
 
   ngOnInit() {

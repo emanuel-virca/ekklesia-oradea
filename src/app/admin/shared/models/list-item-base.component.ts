@@ -1,10 +1,10 @@
 import { Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { IListItemBaseModel } from 'src/app/admin/shared/models/list-item-base.model';
+import { IListItemBaseModel } from '@admin/shared/models/list-item-base.model';
 import { ListItemDialogDataModel } from './list-item-dialog-data.model';
-import { DialogData } from 'src/app/shared/models/dialog-data';
-import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { DialogData } from '@shared/models/dialog-data';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 export class ListItemBaseComponent<T extends IListItemBaseModel> {
   @Output() create = new EventEmitter<T>();
@@ -12,12 +12,7 @@ export class ListItemBaseComponent<T extends IListItemBaseModel> {
   @Output() delete = new EventEmitter<string>();
   @Output() clearSelected = new EventEmitter<void>();
 
-  constructor(
-    public dialog: MatDialog,
-    public dialogData: ListItemDialogDataModel<T>
-  ) {
-
-  }
+  constructor(public dialog: MatDialog, public dialogData: ListItemDialogDataModel<T>) {}
 
   createItem(item: T) {
     this.create.emit(item);
@@ -32,15 +27,21 @@ export class ListItemBaseComponent<T extends IListItemBaseModel> {
   }
 
   deleteItem(itemId: string) {
-    if (!itemId) { return; }
+    if (!itemId) {
+      return;
+    }
 
     this.delete.emit(itemId);
   }
 
   deleteItemWithConfirmation(item: T): void {
-    if (!item.id) { return; }
+    if (!item.id) {
+      return;
+    }
 
-    if (!this.dialogData) { throw new Error('confirmConfig was not provided'); }
+    if (!this.dialogData) {
+      throw new Error('confirmConfig was not provided');
+    }
 
     const dialogData: DialogData = {
       ...this.dialogData,
@@ -51,8 +52,9 @@ export class ListItemBaseComponent<T extends IListItemBaseModel> {
     const dialogRef = this.dialog.open(ConfirmModalComponent, { data: dialogData });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.deleteItem(item.id); }
+      if (result) {
+        this.deleteItem(item.id);
+      }
     });
   }
-
 }

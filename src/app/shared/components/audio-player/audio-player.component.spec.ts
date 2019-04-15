@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AudioPlayerComponent } from './audio-player.component';
-import { SharedModule } from '../../shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 describe('AudioPlayerComponent', () => {
   let component: AudioPlayerComponent;
@@ -10,11 +10,10 @@ describe('AudioPlayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AudioPlayerComponent ],
+      declarations: [AudioPlayerComponent],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-      imports: [SharedModule]
-    })
-    .compileComponents();
+      imports: [SharedModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

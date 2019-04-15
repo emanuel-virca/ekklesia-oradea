@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
+import { startWith } from 'rxjs/operators';
 
 import { ResourceSearchResult } from './resource-search-result.model';
-import { SearchService } from 'src/app/core/services/search/search.service';
-import { startWith } from 'rxjs/operators';
+import { SearchService } from '@core/services/search/search.service';
 
 @Component({
   selector: 'app-resources-search',

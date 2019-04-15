@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoaderModule } from '@netbasal/content-loader';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 
 import { LoaderComponent } from './components/loader/loader.component';
@@ -17,7 +18,7 @@ import { DocPipe } from './pipes/doc/doc.pipe';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ResourceBottomViewerComponent } from './components/resource-bottom-viewer/resource-bottom-viewer.component';
-import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
+import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
@@ -27,7 +28,6 @@ import { audioPlayerReducer } from './stores/audio-player-store/audio-player.red
 import { AudioPlayButtonComponent } from './components/audio-play-button/audio-play-button.component';
 import { AudioPlayButtonShellComponent } from './containers/audio-play-button-shell/audio-play-button-shell.component';
 import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [

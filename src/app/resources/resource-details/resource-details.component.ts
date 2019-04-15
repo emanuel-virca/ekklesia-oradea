@@ -1,19 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { Resource } from 'src/app/shared/models/resource.model';
+import { Resource } from '@shared/models/resource.model';
 
 @Component({
   selector: 'app-resource-details',
   templateUrl: './resource-details.component.html',
   styleUrls: ['./resource-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceDetailsComponent implements OnInit {
   @Input() resource: Resource;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

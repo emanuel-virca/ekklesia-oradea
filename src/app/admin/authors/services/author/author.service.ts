@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { Author } from 'src/app/shared/models/author.model';
-import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { mapItemWithId, mapArrayWithId } from 'src/app/shared/rxjs/pipes';
+import { Author } from '@shared/models/author.model';
+import { LoaderService } from '@core/services/loader/loader.service';
+import { mapItemWithId, mapArrayWithId } from '@shared/rxjs/pipes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorService {
-
   private itemsCollection: AngularFirestoreCollection<Author>;
 
   constructor(private db: AngularFirestore, private loaderService: LoaderService) {
@@ -18,11 +17,17 @@ export class AuthorService {
   }
 
   public get(resourceId: string): Observable<Author> {
-    return this.itemsCollection.doc<Author>(resourceId).snapshotChanges().pipe(mapItemWithId);
+    return this.itemsCollection
+      .doc<Author>(resourceId)
+      .snapshotChanges()
+      .pipe(mapItemWithId);
   }
 
   public query(): Observable<Author[]> {
-    return this.db.collection<Author>('authors').snapshotChanges().pipe(mapArrayWithId);
+    return this.db
+      .collection<Author>('authors')
+      .snapshotChanges()
+      .pipe(mapArrayWithId);
   }
 
   public async createAsync(author: Author): Promise<Author> {

@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
-// NgRx
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap, catchError, map } from 'rxjs/operators';
 
 import * as resourceActions from './resource.actions';
-import { ResourceService } from 'src/app/shared/services/resource/resource.service';
+import { ResourceService } from '@shared/services/resource/resource.service';
 
 @Injectable()
 export class ResourceEffects {
-  constructor(
-    private actions$: Actions,
-    private resourceService: ResourceService,
-  ) { }
+  constructor(private actions$: Actions, private resourceService: ResourceService) {}
 
   @Effect()
   loadResources$: Observable<Action> = this.actions$.pipe(

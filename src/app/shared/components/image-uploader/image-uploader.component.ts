@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { FileService } from '../../../core/services/file/file.service';
+import { FileService } from '@core/services/file/file.service';
 
 @Component({
   selector: 'app-image-uploader',
   templateUrl: './image-uploader.component.html',
-  styleUrls: ['./image-uploader.component.scss']
+  styleUrls: ['./image-uploader.component.scss'],
 })
 export class ImageUploaderComponent implements OnInit {
   uploading = false;
@@ -16,16 +16,14 @@ export class ImageUploaderComponent implements OnInit {
   @Input() url: string;
   @Input() folder = 'common';
 
-  constructor(
-    private afStorage: AngularFireStorage,
-    private fileService: FileService,
-  ) { }
+  constructor(private afStorage: AngularFireStorage, private fileService: FileService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public async deleteAsync() {
-    if (!this.url) { return; }
+    if (!this.url) {
+      return;
+    }
 
     if (!this.isFirebaseStorageFile()) {
       this.url = null;
@@ -56,7 +54,6 @@ export class ImageUploaderComponent implements OnInit {
     } finally {
       this.uploading = false;
     }
-
   }
 
   private isFirebaseStorageFile(): boolean {

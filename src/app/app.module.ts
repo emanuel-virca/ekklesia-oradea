@@ -9,15 +9,15 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 import { AppRouterModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { CoreModule } from './core/core.module';
+import { CoreModule } from '@core/core.module';
 import { ContactComponent } from './contact/contact.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent, ContactComponent, PageNotFoundComponent],

@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { SearchService } from '../../core/services/search/search.service';
-import { LoaderService } from '../../core/services/loader/loader.service';
-import { ResourceSearchResult } from '../../shared/components/resources-search/resource-search-result.model';
-import { ResourceService } from '../../shared/services/resource/resource.service';
-import { Resource } from 'src/app/shared/models/resource.model';
-import { AudioResource } from '../../shared/models/audio-resource.model';
-import * as fromAudioPlayer from 'src/app/shared/stores/audio-player-store';
-import * as fromAudioPlayerActions from 'src/app/shared/stores/audio-player-store/audio-player.actions';
+import { SearchService } from '@core/services/search/search.service';
+import { LoaderService } from '@core/services/loader/loader.service';
+import { ResourceSearchResult } from '@shared/components/resources-search/resource-search-result.model';
+import { ResourceService } from '@shared/services/resource/resource.service';
+import { Resource } from '@shared/models/resource.model';
+import { AudioResource } from '@shared/models/audio-resource.model';
+
+import * as fromAudioPlayer from '@shared/stores/audio-player-store';
+import * as fromAudioPlayerActions from '@shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-resources-search-results',
   templateUrl: './resources-search-results.component.html',
-  styleUrls: ['./resources-search-results.component.scss']
+  styleUrls: ['./resources-search-results.component.scss'],
 })
 export class ResourcesSearchResultsComponent implements OnInit {
-
   searchResults: Array<ResourceSearchResult>;
   currentPage = 0;
   pageSize = 50;
@@ -30,25 +30,27 @@ export class ResourcesSearchResultsComponent implements OnInit {
     private resourceService: ResourceService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
-    private store: Store<fromAudioPlayer.AppState>,
+    private store: Store<fromAudioPlayer.AppState>
   ) {
-    this.route.paramMap.subscribe((x) => {
+    this.route.paramMap.subscribe(x => {
       this.initSearch();
       this.searchQuery = x.get('search_query');
       this.getNextResultsAsync();
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   async getNextResultsAsync() {
     this.loading = true;
     this.loaderService.show();
 
     try {
-      const pagedSearchResult = await this.searchService.searchResourcesAsync(this.searchQuery, this.currentPage, this.pageSize);
+      const pagedSearchResult = await this.searchService.searchResourcesAsync(
+        this.searchQuery,
+        this.currentPage,
+        this.pageSize
+      );
 
       this.searchResults = this.searchResults.concat(pagedSearchResult);
 
@@ -57,8 +59,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
       }
 
       this.currentPage++;
-
-    } catch (e) { }
+    } catch (e) {}
 
     this.loading = false;
     this.loaderService.hide();
@@ -71,14 +72,15 @@ export class ResourcesSearchResultsComponent implements OnInit {
   }
 
   public onResourceClick(resourceSearchResult: ResourceSearchResult) {
-    if (resourceSearchResult == null) { return; }
+    if (resourceSearchResult == null) {
+      return;
+    }
 
-    this.resourceService.get(resourceSearchResult.id)
-      .subscribe((resource: Resource) => {
-        if (resource.streamUrl) {
-          this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(resource)));
-        }
-      });
+    this.resourceService.get(resourceSearchResult.id).subscribe((resource: Resource) => {
+      if (resource.streamUrl) {
+        this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(resource)));
+      }
+    });
   }
 
   private initSearch() {

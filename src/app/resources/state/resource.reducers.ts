@@ -1,4 +1,4 @@
-import { Resource } from 'src/app/shared/models/resource.model';
+import { Resource } from '@shared/models/resource.model';
 import * as resourceActions from '../state/resource.actions';
 
 export interface ResourceState {
@@ -10,7 +10,7 @@ export interface ResourceState {
 export const initialState: ResourceState = {
   resources: [],
   currentResource: null,
-  errorMessage: ''
+  errorMessage: '',
 };
 
 export function resourceReducer(state = initialState, action: resourceActions.Actions) {

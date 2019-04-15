@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
-import { User } from 'src/app/core/models/user.model';
 import { Router } from '@angular/router';
+
+import { AuthenticationService } from '@core/services/authentication/authentication.service';
+import { User } from '@core/models/user.model';
 
 @Component({
   selector: 'app-main-nav',
