@@ -8,9 +8,8 @@ describe('ResourcesMasonryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourcesMasonryComponent ]
-    })
-    .compileComponents();
+      declarations: [ResourcesMasonryComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

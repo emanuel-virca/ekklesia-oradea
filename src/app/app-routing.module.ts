@@ -3,17 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CanLoadAdmin } from './shared/route-guards/can-load-admin.service';
-import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
-  {
-    path: 'resources',
-    loadChildren: './resources/resources.module#ResourcesModule',
-  },
-  {
-    path: 'contact',
-    component: ContactComponent,
-  },
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
@@ -21,8 +12,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/resources',
+    loadChildren: './web-portal/web-portal.module#WebPortalModule',
   },
   {
     path: '**',

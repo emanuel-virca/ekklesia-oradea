@@ -17,10 +17,9 @@ import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from '@core/core.module';
-import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
-  declarations: [AppComponent, ContactComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRouterModule,

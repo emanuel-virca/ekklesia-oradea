@@ -6,18 +6,14 @@ import { ResourcesSearchResultsComponent } from './resources-search-results/reso
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 
 const routes: Routes = [
-    { path: 'results', component: ResourcesSearchResultsComponent },
-    { path: ':id', component: ResourceDetailsShellComponent },
-    { path: '', component: ResourcesListComponent },
+  { path: 'results', component: ResourcesSearchResultsComponent },
+  { path: ':id', component: ResourceDetailsShellComponent },
+  { path: '', pathMatch: 'full', component: ResourcesListComponent },
 ];
 
 @NgModule({
-    declarations: [],
-    imports: [
-        RouterModule.forChild(routes),
-    ],
-    exports: [],
+  declarations: [],
+  imports: [RouterModule.forChild(routes)],
+  exports: [],
 })
-export class ResourcesRoutingModule {
-
-}
+export class ResourcesRoutingModule {}
