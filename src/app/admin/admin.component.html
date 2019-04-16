@@ -1,17 +1,19 @@
-<mat-sidenav-container fullscreen>
-  <mat-sidenav mode="side" opened [fixedInViewport]="true" [fixedTopGap]="64">
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['resources']" class="menu-button" routerLinkActive="mat-accent">
-        <mat-icon mat-list-icon>perm_media</mat-icon>
-        <span matLine>Resources</span>
-      </a>
-      <a mat-list-item [routerLink]="['authors']" class="menu-button" routerLinkActive="mat-accent">
-        <mat-icon mat-list-icon>people</mat-icon>
-        <span matLine>Authors</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="admin">
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav mode="side" opened [fixedInViewport]="true">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['resources']" class="menu-button" routerLinkActive="mat-accent">
+          <mat-icon mat-list-icon>perm_media</mat-icon>
+          <span matLine>Resources</span>
+        </a>
+        <a mat-list-item [routerLink]="['authors']" class="menu-button" routerLinkActive="mat-accent">
+          <mat-icon mat-list-icon>people</mat-icon>
+          <span matLine>Authors</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

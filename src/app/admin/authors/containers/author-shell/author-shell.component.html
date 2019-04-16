@@ -1,4 +1,4 @@
-<mat-drawer-container hasBackdrop="false">
+<mat-drawer-container hasBackdrop="false" fullscreen>
   <mat-drawer #drawer mode="over" [opened]="currentAuthor" disableClose position="end" *ngIf="currentAuthor$ | async as currentAuthor" (keydown.escape)="clearSelectedAuthor()">
     <app-author
       [author]="currentAuthor"

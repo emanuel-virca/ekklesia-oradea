@@ -16,6 +16,12 @@
 // Reset theme
 @import 'styles-reset.scss-theme';
 
+// Admin styles
+@import 'styles-admin.scss';
+
+// Web-portal stykes
+@import 'styles-web-portal.scss';
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component that you are using.
 @import 'app/app.component.scss-theme';
@@ -78,59 +84,12 @@
   flex-direction: column;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: $topAppBarHeight;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-@media (max-width: 599px) {
-  .main-content {
-    top: $topAppBarHeightSm;
-  }
-}
-
-mat-drawer-container {
-  height: calc(100vh - #{$topAppBarHeight}) !important;
-
-  mat-drawer {
-    width: 500px;
-  }
-}
-
-@media (max-width: 599px) {
-  mat-drawer-container {
-    height: calc(100vh - #{$topAppBarHeightSm}) !important;
-  }
-}
-
-.mat-drawer--header,
-.item-viewer--header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .cursor--pointer {
   cursor: pointer;
 }
 
 .text-danger {
   color: red;
-}
-
-app-main-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  margin-bottom: 24px;
 }
 
 body {
