@@ -8,7 +8,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 
 import { LoaderComponent } from './components/loader/loader.component';
-import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
 import { MaterialModule } from '../material/material.module';
 import { CanLoadAdmin } from './route-guards/can-load-admin.service';
@@ -43,7 +42,6 @@ import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/co
   ],
   declarations: [
     LoaderComponent,
-    MainNavComponent,
     ResourcesSearchComponent,
     DocPipe,
     ImageUploaderComponent,
@@ -67,7 +65,6 @@ import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/co
     MaterialModule,
     FlexLayoutModule,
     LoaderComponent,
-    MainNavComponent,
     ResourcesSearchComponent,
     DocPipe,
     ImageUploaderComponent,

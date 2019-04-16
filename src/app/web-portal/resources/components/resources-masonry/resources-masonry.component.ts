@@ -22,6 +22,8 @@ import { Debounce } from '@shared/decorators/debounce';
 export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
   @Input() resources: any[];
+  @Input() scrollableContainerId: string;
+
   masonryColumnWidth: number;
   viewInitalized = false;
   updateMasonryLayout = false;
@@ -40,7 +42,6 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   @HostListener('window:resize', ['$event'])
   @Debounce()
   onResize(event) {
-    console.log('resize');
     this.computeMasonry();
     this.updateMasonryLayout = !this.updateMasonryLayout;
     this.changeDetectorRef.detectChanges();
@@ -49,7 +50,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-    document.body.style.overflowY = 'scroll';
+    document.getElementById(this.scrollableContainerId).style.overflowY = 'scroll';
     this.masonryStyleElement = this.createMasonryStyleTag();
   }
 
@@ -64,7 +65,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnDestroy(): void {
-    document.body.style.overflowY = 'auto';
+    document.getElementById(this.scrollableContainerId).style.overflowY = 'auto';
   }
 
   private computeMasonry() {

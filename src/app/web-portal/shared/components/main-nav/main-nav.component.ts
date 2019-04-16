@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -12,21 +12,14 @@ import { User } from '@core/models/user.model';
 })
 export class MainNavComponent {
   user$: Observable<User>;
-  navigationItems: { icon: string; name: string; routerLink: string }[] = [
-    {
-      name: 'Resources',
-      icon: 'collections',
-      routerLink: 'resources',
-    },
-    {
-      name: 'Contact',
-      icon: 'phone',
-      routerLink: 'contact',
-    },
-  ];
+  @Output() toggleSidenavEvent = new EventEmitter();
 
   constructor(private authService: AuthenticationService, private router: Router) {
     this.user$ = authService.user$;
+  }
+
+  toggleSidenav() {
+    this.toggleSidenavEvent.emit();
   }
 
   signIn() {
