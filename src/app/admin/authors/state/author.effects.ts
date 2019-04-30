@@ -4,9 +4,9 @@ import { Action } from '@ngrx/store';
 import { of, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import * as authorActions from './author.actions';
-import { AuthorService } from '../services/author/author.service';
 import { Author } from '@shared/models/author.model';
+import { AuthorService } from '@admin/core/services/author/author.service';
+import * as authorActions from './author.actions';
 
 @Injectable()
 export class AuthorEffects {
@@ -16,7 +16,7 @@ export class AuthorEffects {
   loadAuthors$: Observable<Action> = this.actions$.pipe(
     ofType(authorActions.LOAD_AUTHORS),
     switchMap(action =>
-      this.authorService.query().pipe(
+      this.authorService.list().pipe(
         map(authors => new authorActions.LoadAuthorsSuccess(authors)),
         catchError(err => of(new authorActions.LoadAuthorsFail(err)))
       )

@@ -4,11 +4,9 @@ import { Observable } from 'rxjs';
 
 import { LoaderService } from '@core/services/loader/loader.service';
 import { Resource } from '@shared/models/resource.model';
-import { mapItemWithId, mapArrayWithId } from '@shared/rxjs/pipes';
+import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ResourceService {
   itemsCollection: AngularFirestoreCollection<any>;
 

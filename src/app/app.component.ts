@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MessagingService } from './core/services/messaging/messaging.service';
-import { AuthenticationService } from './core/services/authentication/authentication.service';
-import { User } from './core/models/user.model';
+import { MessagingService } from '@core/services/messaging/messaging.service';
+import { AuthenticationService } from '@core/services/authentication/authentication.service';
+import { User } from '@shared/models/user.model';
 
 @Component({
   selector: 'app-root',

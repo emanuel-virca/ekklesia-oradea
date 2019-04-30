@@ -1,5 +1,5 @@
-import * as resourceActions from './resource.actions';
 import { Resource } from '@shared/models/resource.model';
+import * as resourceActions from './resource.actions';
 
 export interface ResourceState {
   resources: Resource[];

@@ -12,7 +12,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 
-import { Debounce } from '@shared/decorators/debounce';
+import { Debounce } from '@core/decorators/debounce';
 
 @Component({
   selector: 'app-resources-masonry',

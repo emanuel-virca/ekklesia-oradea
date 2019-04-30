@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { mergeMapTo } from 'rxjs/operators';
-import { take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User } from '../../models/user.model';
+import { BehaviorSubject } from 'rxjs';
+
+import { User } from '@shared/models/user.model';
 
 @Injectable()
 export class MessagingService {

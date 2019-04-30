@@ -1,20 +1,14 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '@admin/core/core.module';
+import { SharedModule as CoreSharedModule } from '@shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { AdminSharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    AdminSharedModule,
-    AdminRoutingModule,
-  ],
-  declarations: [
-    AdminComponent
-  ],
-  providers: [
-  ],
+  declarations: [AdminComponent],
+  imports: [CoreModule, CoreSharedModule, SharedModule, AdminRoutingModule],
+  providers: [],
 })
-export class AdminModule { }
+export class AdminModule {}

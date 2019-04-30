@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
+import { User } from '@shared/models/user.model';
 import { NotificationTokenService } from '../notification-token/notification-token.service';
-import { User } from '../../models/user.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService {
   constructor(private afs: AngularFirestore, private notificationTokensService: NotificationTokenService) {}
 

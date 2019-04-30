@@ -1,5 +1,5 @@
-import * as authorActions from './author.actions';
 import { Author } from '@shared/models/author.model';
+import * as authorActions from './author.actions';
 
 export interface AuthorState {
   authors: Author[];

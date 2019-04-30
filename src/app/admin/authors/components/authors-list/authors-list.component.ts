@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy, Input, OnChanges
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Author } from '@shared/models/author.model';
-import { ListBaseComponent } from '@admin/shared/models/list-base.component';
+import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';
 
 @Component({
   selector: 'app-authors-list',

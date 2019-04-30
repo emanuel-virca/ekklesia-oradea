@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { SearchService } from '@core/services/search/search.service';
+import { SearchService } from '@web-portal/core/services/search/search.service';
 import { LoaderService } from '@core/services/loader/loader.service';
-import { ResourceSearchResult } from '@shared/components/resources-search/resource-search-result.model';
-import { ResourceService } from '@shared/services/resource/resource.service';
+import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result.model';
+import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
 import { Resource } from '@shared/models/resource.model';
-import { AudioResource } from '@shared/models/audio-resource.model';
+import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
 
-import * as fromAudioPlayer from '@shared/stores/audio-player-store';
-import * as fromAudioPlayerActions from '@shared/stores/audio-player-store/audio-player.actions';
+import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
+import * as fromAudioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-resources-search-results',

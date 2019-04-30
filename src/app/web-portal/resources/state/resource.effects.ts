@@ -4,8 +4,10 @@ import { switchMap, catchError, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
+import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
+
+// NgRx
 import * as resourceActions from './resource.actions';
-import { ResourceService } from '@shared/services/resource/resource.service';
 
 @Injectable()
 export class ResourceEffects {

@@ -10,7 +10,6 @@
         <span class="user-display__initials">{{ getInitials(user.profile?.name ||user.displayName) }}</span>
       </button>
       <mat-menu #profileMenu="matMenu">
-        <button [routerLink]="['/admin']" mat-menu-item>Admin Portal</button>
         <button mat-menu-item (click)="signOut()">Logout</button>
       </mat-menu>
     </ng-container>

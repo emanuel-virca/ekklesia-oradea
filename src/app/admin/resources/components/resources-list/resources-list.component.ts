@@ -11,7 +11,7 @@ import {
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
 import { Resource } from '@shared/models/resource.model';
-import { ListBaseComponent } from '@admin/shared/models/list-base.component';
+import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';
 
 @Component({
   selector: 'app-resources-list',

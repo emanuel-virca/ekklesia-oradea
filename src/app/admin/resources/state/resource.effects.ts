@@ -4,9 +4,11 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
-import * as resourceActions from './resource.actions';
-import { ResourceService } from '../services/resource/resource.service';
 import { Resource } from '@shared/models/resource.model';
+import { ResourceService } from '@admin/resources/services/resource/resource.service';
+
+// NxRx
+import * as resourceActions from './resource.actions';
 
 @Injectable()
 export class ResourceEffects {

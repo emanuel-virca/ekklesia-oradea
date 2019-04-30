@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { LoaderService } from '@core/services/loader/loader.service';
-import { LoaderState } from '@core/models/loader-state';
+import { LoaderState } from '@core/services/loader/loader-state';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.css'],
+  styleUrls: ['./loader.component.scss'],
 })
 export class LoaderComponent implements OnInit, OnDestroy {
   show = false;

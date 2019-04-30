@@ -5,8 +5,8 @@ import { Store, select } from '@ngrx/store';
 import { Resource } from '@shared/models/resource.model';
 
 // NgRx
-import * as fromResource from '../../state';
-import * as resourceActions from '../../state/resource.actions';
+import * as fromResource from '@admin/resources/state';
+import * as resourceActions from '@admin/resources/state/resource.actions';
 
 @Component({
   selector: 'app-resource-shell',

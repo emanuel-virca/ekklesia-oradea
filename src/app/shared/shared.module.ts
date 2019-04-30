@@ -5,58 +5,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoaderModule } from '@netbasal/content-loader';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StoreModule } from '@ngrx/store';
 
 import { LoaderComponent } from './components/loader/loader.component';
-import { ResourcesSearchComponent } from './components/resources-search/resources-search.component';
-import { MaterialModule } from '../material/material.module';
-import { CanLoadAdmin } from './route-guards/can-load-admin.service';
-import { AuthorService } from './services/author/author.service';
-import { ResourceService } from './services/resource/resource.service';
+import { CanLoadAdminGuard } from '../core/route-guards/can-load-admin.guard';
 import { DocPipe } from './pipes/doc/doc.pipe';
-import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
-import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import { ResourceBottomViewerComponent } from './components/resource-bottom-viewer/resource-bottom-viewer.component';
-import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
-import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
-import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
-import { NavBottomComponent } from './components/nav-bottom/nav-bottom.component';
-import { AudioPlayerShellComponent } from './containers/audio-player-shell/audio-player-shell.component';
-import { audioPlayerReducer } from './stores/audio-player-store/audio-player.reducer';
-import { AudioPlayButtonComponent } from './components/audio-play-button/audio-play-button.component';
-import { AudioPlayButtonShellComponent } from './containers/audio-play-button-shell/audio-play-button-shell.component';
-import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
+import { ConvertToAudioResourcePipe } from '../web-portal/shared/pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
     RouterModule,
     HttpClientModule,
     ContentLoaderModule,
-    StoreModule.forFeature('audioPlayer', audioPlayerReducer),
+    MaterialModule,
     FlexLayoutModule,
   ],
-  declarations: [
-    LoaderComponent,
-    ResourcesSearchComponent,
-    DocPipe,
-    ImageUploaderComponent,
-    ConfirmModalComponent,
-    ResourceBottomViewerComponent,
-    AudioPlayerComponent,
-    MaterialCardHeaderContentLoaderComponent,
-    MaterialListContentLoaderComponent,
-    SecondsToTimePipe,
-    NavBottomComponent,
-    AudioPlayerShellComponent,
-    AudioPlayButtonComponent,
-    AudioPlayButtonShellComponent,
-    ConvertToAudioResourcePipe,
-  ],
+  declarations: [LoaderComponent, DocPipe, SecondsToTimePipe, ConvertToAudioResourcePipe],
   exports: [
     CommonModule,
     RouterModule,
@@ -65,19 +33,12 @@ import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/co
     MaterialModule,
     FlexLayoutModule,
     LoaderComponent,
-    ResourcesSearchComponent,
     DocPipe,
-    ImageUploaderComponent,
-    ConfirmModalComponent,
-    ResourceBottomViewerComponent,
-    NavBottomComponent,
     ContentLoaderModule,
-    MaterialCardHeaderContentLoaderComponent,
-    MaterialListContentLoaderComponent,
-    AudioPlayButtonShellComponent,
+    SecondsToTimePipe,
     ConvertToAudioResourcePipe,
   ],
-  providers: [CanLoadAdmin, AuthorService, ResourceService],
-  entryComponents: [ConfirmModalComponent],
+  providers: [CanLoadAdminGuard],
+  entryComponents: [],
 })
 export class SharedModule {}

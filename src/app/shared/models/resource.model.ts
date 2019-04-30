@@ -1,6 +1,6 @@
 import { DocumentReference } from '@angular/fire/firestore';
 
-import { SelectOption } from './select-option';
+import { SelectOption } from '../../admin/shared/models/select-option';
 
 export class Resource {
   id?: string;

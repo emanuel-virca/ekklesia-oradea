@@ -4,7 +4,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { ResourcesRoutingModule } from './resources-routing.module';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
 import { ResourceCardComponent } from './resource-card/resource-card.component';
@@ -12,6 +12,7 @@ import { ResourcesSearchResultsComponent } from './resources-search-results/reso
 import { ResourceDetailsComponent } from './resource-details/resource-details.component';
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 import { ResourcesMasonryComponent } from './components/resources-masonry/resources-masonry.component';
+import { ResourceService } from './services/resource/resource.service';
 
 // NgRx
 import { resourceReducer } from './state/resource.reducers';
@@ -35,7 +36,7 @@ import { ResourceEffects } from './state/resource.effects';
     ResourcesMasonryComponent,
   ],
   exports: [],
-  providers: [],
+  providers: [ResourceService],
 })
 export class ResourcesModule {
   constructor() {

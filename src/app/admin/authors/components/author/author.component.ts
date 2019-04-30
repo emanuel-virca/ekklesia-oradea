@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { Author } from '@shared/models/author.model';
-import { ListItemBaseComponent } from '@admin/shared/models/list-item-base.component';
+import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
 
 @Component({
   selector: 'app-author',
