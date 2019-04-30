@@ -40,8 +40,4 @@ import { ResourceEffects } from './state/resource.effects';
   exports: [],
   providers: [ResourceService],
 })
-export class ResourcesModule {
-  constructor() {
-    console.log('resources...');
-  }
-}
+export class ResourcesModule {}
