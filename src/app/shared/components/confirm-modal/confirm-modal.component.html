@@ -1,8 +1,0 @@
-<h1 mat-dialog-title>{{ data.title || 'Please confirm delete action'}}</h1>
-<div mat-dialog-content>
-  <p [innerHTML]="data.message"></p>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-button color="primary" (click)="cancel()">{{ data.cancelText || 'Cancel'}}</button>
-  <button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ data.confirmText || 'Confirm'}}</button>
-</div>

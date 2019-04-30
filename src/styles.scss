@@ -1,0 +1,101 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'styles-variables';
+@import 'styles-reset';
+
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Import theme
+@import 'themes/default-theme.scss';
+
+// Reset theme
+@import 'styles-reset.scss-theme';
+
+// Admin styles
+@import 'styles-admin.scss';
+
+// Web-portal stykes
+@import 'styles-web-portal.scss';
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component that you are using.
+@import 'app/app.component.scss-theme';
+@import 'app/web-portal/shared/components/resources-search/resource-search.components.scss-theme';
+@import 'app/web-portal/shared/components/main-nav/main-nav.component.scss-theme';
+@import 'app/web-portal/shared/components/audio-player/audio-player.component.scss-theme';
+
+@mixin custom-components-theme($theme) {
+  @include ekklesia-styles-reset-theme($theme);
+  @include ekklesia-app-component-theme($theme);
+  @include ekklesia-app-resource-search-theme($theme);
+  @include ekklesia-app-main-nav-theme($theme);
+  @include ekklesia-app-audio-player-component-theme($theme);
+}
+
+.default-theme {
+  @include angular-material-theme($ekklesia-theme);
+  @include custom-components-theme($ekklesia-theme);
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form-horrizontal {
+  display: flex;
+  flex-direction: column;
+}
+
+.cursor--pointer {
+  cursor: pointer;
+}
+
+.text-danger {
+  color: red;
+}
+
+body {
+  padding-bottom: 100px;
+}
+
+.margin-top__default {
+  margin-top: 20px;
+}
