@@ -1,12 +1,22 @@
 <div class="web-portal">
   <div class="main-content">
-    <app-main-nav (toggleSidenavEvent)="sidenav.toggle()"></app-main-nav>
+    <app-main-nav
+      [user]="user$ | async"
+      (toggleSidenavEvent)="sidenav.toggle()"
+      (signInEvent)="signIn()"
+      (signOutEvent)="signOut()"
+      (upgradeAnnonymousEvent)="upgradeAnnonymous()"
+    ></app-main-nav>
     <mat-sidenav-container>
       <mat-sidenav mode="over" #sidenav>
         <mat-nav-list>
           <a mat-list-item *ngFor="let item of navigationItems" routerLinkActive="active" [routerLink]="[item.routerLink]">
             <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
             <span matLine>{{item.name}}</span>
+          </a>
+          <a mat-list-item routerLinkActive="active" [routerLink]="['/admin']">
+            <mat-icon mat-list-icon>settings</mat-icon>
+            <span matLine>Admin Portal</span>
           </a>
         </mat-nav-list>
       </mat-sidenav>

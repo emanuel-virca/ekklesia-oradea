@@ -1,41 +1,39 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import { AuthenticationService } from '@core/services/authentication/authentication.service';
 import { User } from '@shared/models/user.model';
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainNavComponent {
-  user$: Observable<User>;
+  @Input() user: User;
   @Output() toggleSidenavEvent = new EventEmitter();
+  @Output() signInEvent = new EventEmitter();
+  @Output() signOutEvent = new EventEmitter();
+  @Output() upgradeAnnonymousEvent = new EventEmitter();
 
-  constructor(private authService: AuthenticationService, private router: Router) {
-    this.user$ = authService.user$;
-  }
+  constructor() {}
 
   toggleSidenav() {
     this.toggleSidenavEvent.emit();
   }
 
   signIn() {
-    this.authService.doGoogleSignIn();
+    this.signInEvent.emit();
   }
 
-  anonymousUpgrade() {
-    this.authService.linkGoogle();
+  signOut() {
+    this.signOutEvent.emit();
   }
 
-  async signOut() {
-    await this.authService.signOut();
-    this.router.navigateByUrl('');
+  upgradeAnnonymous() {
+    this.upgradeAnnonymousEvent.emit();
   }
 
-  getInitials(displayName): string {
+  getInitials(displayName: string): string {
     if (!displayName) {
       return '';
     }

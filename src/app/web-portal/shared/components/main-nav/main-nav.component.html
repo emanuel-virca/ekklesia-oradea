@@ -4,20 +4,19 @@
   </button>
   <a class="logo" routerLink="/">Ekklesia</a>
   <span class="example-spacer"></span>
-  <div *ngIf="(user$ | async) as user">
-    <ng-container *ngIf="!user.isAnonymous; else showLogin">
-      <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
-        <span class="user-display__initials">{{ getInitials(user.profile?.name ||user.displayName) }}</span>
-      </button>
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item (click)="signOut()">Logout</button>
-      </mat-menu>
-    </ng-container>
-    <ng-template #showLogin>
-      <button mat-icon-button (click)="anonymousUpgrade()" class="header__button">
-        <mat-icon aria-label="Login">person</mat-icon>
-      </button>
-    </ng-template>
-  </div>
+  <ng-container *ngIf="user && !user.isAnonymous; else showLogin">
+    <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
+      <span class="user-display__initials">{{ getInitials(user.profile?.name ||user.displayName) }}</span>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="signOut()">Logout</button>
+    </mat-menu>
+  </ng-container>
+  <ng-template #showLogin>
+    <button mat-icon-button (click)="upgradeAnnonymous()" class="header__button">
+      <mat-icon aria-label="Login">person</mat-icon>
+    </button>
+  </ng-template>
+
   <app-resources-search></app-resources-search>
 </mat-toolbar>

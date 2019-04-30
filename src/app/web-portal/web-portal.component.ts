@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav } from '@angular/material';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '@core/services/authentication/authentication.service';
 import { User } from '@shared/models/user.model';
@@ -13,7 +13,7 @@ import { AuthorizationService } from '@core/services/authorization/authorization
   templateUrl: './web-portal.component.html',
   styleUrls: ['./web-portal.component.scss'],
 })
-export class WebPortalComponent implements OnDestroy {
+export class WebPortalComponent {
   navigationItems: { icon: string; name: string; routerLink: string }[] = [
     {
       name: 'Resources',
@@ -26,20 +26,34 @@ export class WebPortalComponent implements OnDestroy {
       routerLink: '/contact',
     },
   ];
-  userSubscription: Subscription;
+  user$: Observable<User>;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  constructor(router: Router, authService: AuthenticationService, authorizationService: AuthorizationService) {
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService,
+    private authorizationService: AuthorizationService
+  ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
-    this.userSubscription = authService.user$.subscribe((user: User) => {
-      if (authorizationService.canAccessAdmin(user)) {
-        this.navigationItems.push({ name: 'Admin', icon: 'settings', routerLink: '/admin' });
-      }
-    });
+    this.user$ = authService.user$;
   }
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+  signIn() {
+    this.authService.doGoogleSignIn();
+  }
+
+  async signOut() {
+    await this.authService.signOut();
+
+    this.router.navigateByUrl('');
+  }
+
+  upgradeAnnonymous() {
+    this.authService.linkGoogle();
+  }
+
+  shouldDisplayAdmin(user: User) {
+    return this.authorizationService.canAccessAdmin(user);
   }
 }
