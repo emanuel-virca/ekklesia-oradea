@@ -1,10 +1,10 @@
-import { AdminSharedModule } from './shared.module';
+import { SharedModule } from './shared.module';
 
 describe('SharedModule', () => {
-  let sharedModule: AdminSharedModule;
+  let sharedModule: SharedModule;
 
   beforeEach(() => {
-    sharedModule = new AdminSharedModule();
+    sharedModule = new SharedModule();
   });
 
   it('should create an instance', () => {

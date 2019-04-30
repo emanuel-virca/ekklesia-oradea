@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { User } from '../../models/user.model';
-import { UserService } from '../user/user.service';
+import { User } from '@shared/models/user.model';
+import { UserService } from '@core/services/user/user.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthenticationService {
   user$: Observable<User>;
   userRoles: Array<string>; // roles of currently logged in uer
@@ -47,7 +44,7 @@ export class AuthenticationService {
       const anonymousUser = this.afAuth.auth.currentUser;
 
       // Sign in user with google Account
-      const credential = firebase.auth.GoogleAuthProvider.credential(ex.credential.idToken);
+      const credential = auth.GoogleAuthProvider.credential(ex.credential.idToken);
       const currentUser = await this.afAuth.auth.signInWithCredential(credential);
 
       // Merge prevUser and currentUser data stored in Firebase.
@@ -55,6 +52,7 @@ export class AuthenticationService {
 
       // After data is migrated delete the duplicate user
       await this.userService.delete(anonymousUser.uid);
+
       await anonymousUser.delete();
     }
   }
@@ -79,9 +77,6 @@ export class AuthenticationService {
   }
 
   private updateUserDataWithCredentials(userCredential: auth.UserCredential) {
-    console.log('updating with credential...');
-    console.log(userCredential);
-
     const data: User = {
       uid: userCredential.user.uid,
       displayName: userCredential.user.displayName,

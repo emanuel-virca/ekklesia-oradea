@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Author } from 'src/app/shared/models/author.model';
+import { Author } from '@shared/models/author.model';
 
 // NgRx
-import * as fromReducers from '../../state';
-import * as authorActions from '../../state/author.actions';
+import * as fromReducers from '@admin/authors/state';
+import * as authorActions from '@admin/authors/state/author.actions';
 
 @Component({
   selector: 'app-author-shell',

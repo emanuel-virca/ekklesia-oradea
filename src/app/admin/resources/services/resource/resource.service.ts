@@ -2,22 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { Resource } from 'src/app/shared/models/resource.model';
-import { mapItemWithId, mapArrayWithId } from 'src/app/shared/rxjs/pipes';
+import { LoaderService } from '@core/services/loader/loader.service';
+import { Resource } from '@shared/models/resource.model';
+import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ResourceService {
-
   itemsCollection: AngularFirestoreCollection<any>;
 
-  constructor(
-    private db: AngularFirestore,
-    private loaderService: LoaderService,
-  ) {
+  constructor(private db: AngularFirestore, private loaderService: LoaderService) {
     this.itemsCollection = this.db.collection<any>('resources');
   }
 
@@ -28,7 +21,6 @@ export class ResourceService {
       const resourceDocumnetReference = await this.itemsCollection.add(resource);
 
       resource.id = resourceDocumnetReference.id;
-
     } catch (e) {
       console.log(e);
     }
@@ -47,25 +39,38 @@ export class ResourceService {
   }
 
   public get(resourceId: string): Observable<Resource> {
-    return this.itemsCollection.doc<Resource>(resourceId).snapshotChanges().pipe(mapItemWithId);
+    return this.itemsCollection
+      .doc<Resource>(resourceId)
+      .snapshotChanges()
+      .pipe(mapItemWithId);
   }
 
-  public query(pageSize: number, lastVisible?: Resource, orderBy?: firebase.firestore.OrderByDirection): Observable<Resource[]> {
-    return this.db.collection<Resource>('resources', ref => {
-      if (lastVisible) {
-        if (orderBy) {
-          return ref.orderBy('dateTime', orderBy).startAfter(lastVisible.dateTime).limit(pageSize);
+  public query(
+    pageSize: number,
+    lastVisible?: Resource,
+    orderBy?: firebase.firestore.OrderByDirection
+  ): Observable<Resource[]> {
+    return this.db
+      .collection<Resource>('resources', ref => {
+        if (lastVisible) {
+          if (orderBy) {
+            return ref
+              .orderBy('dateTime', orderBy)
+              .startAfter(lastVisible.dateTime)
+              .limit(pageSize);
+          } else {
+            return ref.startAfter(lastVisible.dateTime).limit(pageSize);
+          }
         } else {
-          return ref.startAfter(lastVisible.dateTime).limit(pageSize);
+          if (orderBy) {
+            return ref.orderBy('dateTime', orderBy).limit(pageSize);
+          } else {
+            return ref.limit(pageSize);
+          }
         }
-      } else {
-        if (orderBy) {
-          return ref.orderBy('dateTime', orderBy).limit(pageSize);
-        } else {
-          return ref.limit(pageSize);
-        }
-      }
-    }).snapshotChanges().pipe(mapArrayWithId);
+      })
+      .snapshotChanges()
+      .pipe(mapArrayWithId);
   }
 
   public async publishAsync(resourceId: string) {

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromRoot from '../../../state/app.state';
+import * as fromRoot from '@root-state/app.state';
 import * as fromResources from './resource.reducers';
 
 // Extends the app state to include the author feature.
@@ -12,6 +12,12 @@ export interface AppState extends fromRoot.AppState {
 
 export const getResourcesFeatureState = createFeatureSelector<fromResources.ResourceState>('resources');
 
-export const getResources = createSelector(getResourcesFeatureState, state => state.resources);
+export const getResources = createSelector(
+  getResourcesFeatureState,
+  state => state.resources
+);
 
-export const getCurrentResource = createSelector(getResourcesFeatureState, state => state.currentResource);
+export const getCurrentResource = createSelector(
+  getResourcesFeatureState,
+  state => state.currentResource
+);

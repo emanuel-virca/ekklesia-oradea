@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Resource } from 'src/app/shared/models/resource.model';
+import { Resource } from '@shared/models/resource.model';
 
 export const LOAD_RESOURCES = 'LOAD RESOURCES';
 export const LOAD_RESOURCES_SUCCESS = 'LOAD RESOURCES SUCCESS';
@@ -12,12 +12,12 @@ export class LoadResources implements Action {
 
 export class LoadResourcesSuccess implements Action {
   readonly type = LOAD_RESOURCES_SUCCESS;
-  constructor(public payload: Resource[]) { }
+  constructor(public payload: Resource[]) {}
 }
 
 export class LoadResourcesFail implements Action {
   readonly type = LOAD_RESOURCES_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const LOAD_RESOURCE = 'LOAD RESOURCE';
@@ -26,17 +26,17 @@ export const LOAD_RESOURCE_FAIL = 'LOAD RESOURCE FAIL';
 
 export class LoadResource implements Action {
   readonly type = LOAD_RESOURCE;
-  constructor() { }
+  constructor() {}
 }
 
 export class LoadResourceSuccess implements Action {
   readonly type = LOAD_RESOURCE_SUCCESS;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export class LoadResourceFail implements Action {
   readonly type = LOAD_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const CREATE_RESOURCE = 'CREATE RESOURCE';
@@ -45,17 +45,17 @@ export const CREATE_RESOURCE_FAIL = 'CREATE RESOURCE FAIL';
 
 export class CreateResource implements Action {
   readonly type = CREATE_RESOURCE;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export class CreateResourceSuccess implements Action {
   readonly type = CREATE_RESOURCE_SUCCESS;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export class CreateResourceFail implements Action {
   readonly type = CREATE_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const UPDATE_RESOURCE = 'UPDATE RESOURCE';
@@ -64,17 +64,17 @@ export const UPDATE_RESOURCE_FAIL = 'UPDATE RESOURCE FAIL';
 
 export class UpdateResource implements Action {
   readonly type = UPDATE_RESOURCE;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export class UpdateResourceSuccess implements Action {
   readonly type = UPDATE_RESOURCE_SUCCESS;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export class UpdateResourceFail implements Action {
   readonly type = UPDATE_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const DELETE_RESOURCE = 'DELETE RESOURCE';
@@ -83,7 +83,7 @@ export const DELETE_RESOURCE_FAIL = 'DELETE RESOURCE FAIL';
 
 export class DeleteResource implements Action {
   readonly type = DELETE_RESOURCE;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class DeleteResourceSuccess implements Action {
@@ -92,14 +92,14 @@ export class DeleteResourceSuccess implements Action {
 
 export class DeleteResourceFail implements Action {
   readonly type = DELETE_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const SET_CURRENT_RESOURCE = 'SET CURRENT RESOURCE';
 
 export class SetCurrentResource implements Action {
   readonly type = SET_CURRENT_RESOURCE;
-  constructor(public payload: Resource) { }
+  constructor(public payload: Resource) {}
 }
 
 export const PUBLISH_RESOURCE = 'PUBLISH RESOURCE';
@@ -108,17 +108,17 @@ export const PUBLISH_RESOURCE_FAIL = 'PUBLISH RESOURCE FAIL';
 
 export class PublishResource implements Action {
   readonly type = PUBLISH_RESOURCE;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class PublishResourceSuccess implements Action {
   readonly type = PUBLISH_RESOURCE_SUCCESS;
-  constructor() { }
+  constructor() {}
 }
 
 export class PublishResourceFail implements Action {
   readonly type = PUBLISH_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export const UNPUBLISH_RESOURCE = 'UNPUBLISH RESOURCE';
@@ -127,17 +127,17 @@ export const UNPUBLISH_RESOURCE_FAIL = 'UNPUBLISH RESOURCE FAIL';
 
 export class UnpublishResource implements Action {
   readonly type = UNPUBLISH_RESOURCE;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class UnpublishResourceSuccess implements Action {
   readonly type = UNPUBLISH_RESOURCE_SUCCESS;
-  constructor() { }
+  constructor() {}
 }
 
 export class UnpublishResourceFail implements Action {
   readonly type = UNPUBLISH_RESOURCE_FAIL;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export type Actions =

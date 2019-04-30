@@ -1,0 +1,100 @@
+@import 'mixins';
+@import 'variables';
+
+.audio-player-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 90px;
+
+  .audio-player-artwork {
+    margin-right: 15px;
+
+    img {
+      height: 56px;
+      vertical-align: baseline;
+    }
+  }
+
+  .audio-player-controls {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    .audio-player-header {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      .track-info-title {
+        flex: 1;
+        margin-left: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .seeking {
+        margin: 3px;
+      }
+    }
+
+    .audio-player-waveform {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .progress-time {
+        width: 36px;
+        text-align: center;
+      }
+
+      .mat-slider {
+        width: 100%;
+        height: 20px;
+
+        .mat-slider-wrapper {
+          top: 9px !important;
+        }
+      }
+    }
+  }
+}
+
+/* XSmall */
+
+@media (max-width: 599px) {
+  .audio-player-content {
+    height: 60px;
+    padding-bottom: 10px;
+    .audio-player-artwork {
+      display: none;
+    }
+  }
+}
+
+:host {
+  .mat-icon-button {
+    @include mat-icon-button-size(36px);
+  }
+}
+
+progress {
+  flex: 1;
+  margin: 0 5px;
+}
+
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+  border-radius: 2px;
+}

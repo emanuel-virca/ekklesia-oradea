@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-
 import { of, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
+import { Author } from '@shared/models/author.model';
+import { AuthorService } from '@admin/core/services/author/author.service';
 import * as authorActions from './author.actions';
-import { AuthorService } from '../services/author/author.service';
-import { Author } from 'src/app/shared/models/author.model';
 
 @Injectable()
 export class AuthorEffects {
-  constructor(
-    private actions$: Actions,
-    private authorService: AuthorService,
-  ) { }
+  constructor(private actions$: Actions, private authorService: AuthorService) {}
 
   @Effect()
   loadAuthors$: Observable<Action> = this.actions$.pipe(
     ofType(authorActions.LOAD_AUTHORS),
     switchMap(action =>
-      this.authorService.query().pipe(
-        map(authors => (new authorActions.LoadAuthorsSuccess(authors))),
+      this.authorService.list().pipe(
+        map(authors => new authorActions.LoadAuthorsSuccess(authors)),
         catchError(err => of(new authorActions.LoadAuthorsFail(err)))
       )
     )

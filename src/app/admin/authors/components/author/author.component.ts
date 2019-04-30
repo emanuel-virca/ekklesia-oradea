@@ -2,14 +2,14 @@ import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } f
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
-import { Author } from 'src/app/shared/models/author.model';
-import { ListItemBaseComponent } from 'src/app/admin/shared/models/list-item-base.component';
+import { Author } from '@shared/models/author.model';
+import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
 
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
   styleUrls: ['./author.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorComponent extends ListItemBaseComponent<Author> implements OnChanges {
   @Input() author: Author;
@@ -23,10 +23,10 @@ export class AuthorComponent extends ListItemBaseComponent<Author> implements On
 
   imageUploadFolder = '/authors';
 
-  constructor(
-    public dialog: MatDialog,
-  ) {
-    super(dialog, { messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>` });
+  constructor(public dialog: MatDialog) {
+    super(dialog, {
+      messageFn: (author: Author) => `You are about to delete <b>${author.firstName} ${author.lastName}</b>`,
+    });
   }
 
   displayAuthor(author: Author | null): void {
@@ -41,7 +41,7 @@ export class AuthorComponent extends ListItemBaseComponent<Author> implements On
       this.authorForm.patchValue({
         firstName: this.author.firstName,
         lastName: this.author.lastName,
-        avatar: this.author.avatar
+        avatar: this.author.avatar,
       });
     }
   }
@@ -52,7 +52,9 @@ export class AuthorComponent extends ListItemBaseComponent<Author> implements On
   }
 
   save() {
-    if (!this.authorForm.valid) { return; }
+    if (!this.authorForm.valid) {
+      return;
+    }
 
     // Copy over all of the original author properties
     // Then copy over the values from the form
@@ -73,7 +75,13 @@ export class AuthorComponent extends ListItemBaseComponent<Author> implements On
     }
   }
 
-  get firstName() { return this.authorForm.controls.firstName; }
-  get lastName() { return this.authorForm.controls.lastName; }
-  get avatar() { return this.authorForm.controls.avatar; }
+  get firstName() {
+    return this.authorForm.controls.firstName;
+  }
+  get lastName() {
+    return this.authorForm.controls.lastName;
+  }
+  get avatar() {
+    return this.authorForm.controls.avatar;
+  }
 }

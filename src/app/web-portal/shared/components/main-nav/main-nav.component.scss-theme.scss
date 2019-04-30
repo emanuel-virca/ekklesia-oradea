@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+@mixin ekklesia-app-main-nav-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .user-display__initials {
+    color: mat-color($primary);
+    background-color: mat-color($primary, default-contrast);
+  }
+}
