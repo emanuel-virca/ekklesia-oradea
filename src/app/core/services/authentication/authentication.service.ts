@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -45,7 +44,7 @@ export class AuthenticationService {
       const anonymousUser = this.afAuth.auth.currentUser;
 
       // Sign in user with google Account
-      const credential = firebase.auth.GoogleAuthProvider.credential(ex.credential.idToken);
+      const credential = auth.GoogleAuthProvider.credential(ex.credential.idToken);
       const currentUser = await this.afAuth.auth.signInWithCredential(credential);
 
       // Merge prevUser and currentUser data stored in Firebase.

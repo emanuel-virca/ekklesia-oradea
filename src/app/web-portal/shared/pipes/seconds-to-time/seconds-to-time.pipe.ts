@@ -2,12 +2,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { isNumber } from 'util';
 
 @Pipe({
-  name: 'secondsToTime'
+  name: 'secondsToTime',
 })
 export class SecondsToTimePipe implements PipeTransform {
-
   transform(value: number, args?: any): any {
-    if (isNaN(Number(value))) { return '--:--'; }
+    if (isNaN(Number(value))) {
+      return '--:--';
+    }
 
     return this.convertSecondsToTime(value);
   }
@@ -26,5 +27,4 @@ export class SecondsToTimePipe implements PipeTransform {
 
     return `${minutes}:${seconds}`;
   }
-
 }

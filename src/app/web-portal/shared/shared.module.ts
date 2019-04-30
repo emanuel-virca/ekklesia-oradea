@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
+import { ContentLoaderModule } from '@netbasal/content-loader';
 
 import { SharedModule as CoreSharedModule } from '@shared/shared.module';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
@@ -14,6 +15,8 @@ import { ResourcesSearchComponent } from './components/resources-search/resource
 import { MaterialCardHeaderContentLoaderComponent } from './components/material-card-header-content-loader/material-card-header-content-loader.component';
 import { MaterialListContentLoaderComponent } from './components/material-list-content-loader/material-list-content-loader.component';
 import { MaterialModule } from './material/material.module';
+import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
+import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
 
 @NgModule({
   declarations: [
@@ -26,8 +29,15 @@ import { MaterialModule } from './material/material.module';
     ResourcesSearchComponent,
     MaterialCardHeaderContentLoaderComponent,
     MaterialListContentLoaderComponent,
+    ConvertToAudioResourcePipe,
+    SecondsToTimePipe,
   ],
-  imports: [CoreSharedModule, MaterialModule, StoreModule.forFeature('audioPlayer', audioPlayerReducer)],
+  imports: [
+    CoreSharedModule,
+    MaterialModule,
+    StoreModule.forFeature('audioPlayer', audioPlayerReducer),
+    ContentLoaderModule,
+  ],
   exports: [
     CoreSharedModule,
     MaterialModule,
@@ -40,6 +50,9 @@ import { MaterialModule } from './material/material.module';
     ResourcesSearchComponent,
     MaterialCardHeaderContentLoaderComponent,
     MaterialListContentLoaderComponent,
+    ContentLoaderModule,
+    SecondsToTimePipe,
+    ConvertToAudioResourcePipe,
   ],
 })
 export class SharedModule {}

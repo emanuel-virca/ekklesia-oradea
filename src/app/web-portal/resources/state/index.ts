@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromRoot from '../../../state/app.state';
+import * as fromRoot from '@root-state/app.state';
 import * as resourceReducers from './resource.reducers';
 
 // Extends the app state to include the author feature.

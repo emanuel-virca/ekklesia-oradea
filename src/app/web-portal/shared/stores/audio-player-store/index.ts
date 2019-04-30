@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromRoot from '../../../../state/app.state';
+import * as fromRoot from '@root-state/app.state';
 import * as fromAudioPlayer from './audio-player.reducer';
 
 export interface AppState extends fromRoot.AppState {

@@ -3,10 +3,10 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
-import { AudioPlayerComponent } from '../../components/audio-player/audio-player.component';
+import { AudioPlayerComponent } from '@web-portal/shared/components/audio-player/audio-player.component';
 
-import * as fromAudioPlayer from '../../../shared/stores/audio-player-store';
-import * as fromAudioPlayerActions from '../../../shared/stores/audio-player-store/audio-player.actions';
+import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
+import * as fromAudioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-audio-player-shell',

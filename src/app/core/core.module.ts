@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { AuthorizationService } from './services/authorization/authorization.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
@@ -9,7 +8,7 @@ import { CanLoadAdminGuard } from './route-guards/can-load-admin.guard';
 import { UserService } from './services/user/user.service';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [],
   declarations: [],
   providers: [
     AuthorizationService,

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { StoreModule } from '@ngrx/store';
@@ -26,6 +27,7 @@ import { ResourceEffects } from './state/resource.effects';
     SharedModule,
     StoreModule.forFeature('resources', resourceReducer),
     EffectsModule.forFeature([ResourceEffects]),
+    FlexLayoutModule,
   ],
   declarations: [
     ResourcesListComponent,

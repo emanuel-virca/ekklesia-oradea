@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
 
-import * as fromAudioPlayer from '../../stores/audio-player-store';
-import * as audioPlayerActions from '../../stores/audio-player-store/audio-player.actions';
+import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
+import * as audioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-audio-play-button-shell',
