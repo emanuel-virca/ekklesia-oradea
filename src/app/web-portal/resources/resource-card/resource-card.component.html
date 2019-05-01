@@ -12,6 +12,9 @@
   <div class="mat-card-image" *ngIf="resource.imageSrc" [style.height.px]="height" [routerLink]="[ resource.id ]">
     <img [src]="resource.imageSrc" alt="" />
   </div>
+  <div *ngIf="resource.tags?.length" align="end">
+    <span *ngFor="let item of resource.tags">#{{item.name}}&nbsp;</span>
+  </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>
             <mat-icon aria-label="favorite">favorite</mat-icon>

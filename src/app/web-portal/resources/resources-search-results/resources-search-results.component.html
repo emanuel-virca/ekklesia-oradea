@@ -1,10 +1,13 @@
-<div class="container-fluid" class="margin-top__default">
+<div class="margin-top__default container-fluid">
   <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <mat-card *ngFor="let resource of searchResults" mat-ripple class="resource-result" [routerLink]="[ '/resources/', resource.id ]">
       <mat-card-header>
         <mat-card-title>{{resource.name}}</mat-card-title>
         <mat-card-subtitle>by {{resource.author.firstName}} {{resource.author.lastName}}</mat-card-subtitle>
       </mat-card-header>
+      <div *ngIf="resource.tags?.length" class="mat-card-text" align="right">
+        <span *ngFor="let item of resource.tags">#{{item.name}}&nbsp;</span>
+      </div>
     </mat-card>
   </div>
   <p *ngIf="!searchResults?.length">
