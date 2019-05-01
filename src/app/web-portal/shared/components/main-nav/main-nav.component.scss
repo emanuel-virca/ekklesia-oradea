@@ -1,4 +1,4 @@
-@import '../../../../../styles-variables.scss';
+@import '~styles-variables.scss';
 
 .example-spacer {
   flex: 1 1 auto;
@@ -9,8 +9,6 @@
 }
 
 .header {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-
   &__button {
     width: $topAppBarHeight;
     height: $topAppBarHeight;
