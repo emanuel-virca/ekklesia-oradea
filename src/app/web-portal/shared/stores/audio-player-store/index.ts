@@ -18,3 +18,8 @@ export const getAudioStatus = createSelector(
   getAudioPlayerState,
   state => state.status
 );
+
+export const getIsAudioPlayerVisible = createSelector(
+  getAudioPlayerState,
+  state => state.current != null
+);

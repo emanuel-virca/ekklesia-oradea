@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentLoaderModule } from '@netbasal/content-loader';
 
 import { SharedModule as CoreSharedModule } from '@shared/shared.module';
@@ -37,10 +38,12 @@ import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe'
     MaterialModule,
     StoreModule.forFeature('audioPlayer', audioPlayerReducer),
     ContentLoaderModule,
+    FlexLayoutModule,
   ],
   exports: [
     CoreSharedModule,
     MaterialModule,
+    FlexLayoutModule,
     MainNavComponent,
     BottomNavComponent,
     AudioPlayButtonComponent,

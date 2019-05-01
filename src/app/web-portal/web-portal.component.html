@@ -1,4 +1,4 @@
-<div class="web-portal-app">
+<div class="web-portal-app" [ngClass]="{'audio-player-visible': isAudioPlayerVisible$ | async}">
   <app-main-nav
     class="mat-elevation-z6"
     [user]="user$ | async"
@@ -22,7 +22,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>
-      <app-bottom-nav></app-bottom-nav>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <app-bottom-nav></app-bottom-nav>
 </div>

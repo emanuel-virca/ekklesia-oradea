@@ -3,10 +3,13 @@ import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav } from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 import { AuthenticationService } from '@core/services/authentication/authentication.service';
 import { User } from '@shared/models/user.model';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
+import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
+import { AudioResource } from './shared/models/audio-resource.model';
 
 @Component({
   selector: 'app-web-portal',
@@ -27,16 +30,19 @@ export class WebPortalComponent {
     },
   ];
   user$: Observable<User>;
+  isAudioPlayerVisible$: Observable<boolean>;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private store: Store<fromAudioPlayer.AppState>
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
     this.user$ = authService.user$;
+    this.isAudioPlayerVisible$ = this.store.pipe(select(fromAudioPlayer.getIsAudioPlayerVisible));
   }
 
   signIn() {

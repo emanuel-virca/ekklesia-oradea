@@ -65,7 +65,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnDestroy(): void {
-    document.getElementById(this.scrollContainer).style.overflowY = 'auto';
+    (document.querySelector(this.scrollContainer) as HTMLElement).style.overflowY = 'auto';
   }
 
   private computeMasonry() {
