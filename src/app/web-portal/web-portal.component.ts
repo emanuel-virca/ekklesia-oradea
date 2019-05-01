@@ -9,7 +9,6 @@ import { AuthenticationService } from '@core/services/authentication/authenticat
 import { User } from '@shared/models/user.model';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
-import { AudioResource } from './shared/models/audio-resource.model';
 
 @Component({
   selector: 'app-web-portal',

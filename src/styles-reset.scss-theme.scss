@@ -12,4 +12,9 @@
       // color: mat-color($accent);
     }
   }
+
+  .active-list-item {
+    font-weight: bold;
+    color: mat-color($primary) !important;
+  }
 }
