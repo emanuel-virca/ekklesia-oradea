@@ -41,7 +41,9 @@
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Author" formControlName="author" [compareWith]="compareWith" required>
-        <mat-option *ngFor="let option of authors | async" [value]="option.value">{{option.text}}</mat-option>
+        <mat-option *ngFor="let item of authors$ | async" [value]="item.ref">
+          <app-author-signature [author]="item"></app-author-signature>
+        </mat-option>
       </mat-select>
       <mat-error *ngIf="author.errors?.required">Author is required.</mat-error>
     </mat-form-field>

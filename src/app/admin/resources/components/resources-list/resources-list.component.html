@@ -22,9 +22,7 @@
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="(element.author | doc | async) as author">
-          {{author?.firstName}}&nbsp;{{author?.lastName}}
-        </span>
+        <app-author-signature [author]="element.author | doc | async"></app-author-signature>
       </td>
     </ng-container>
 

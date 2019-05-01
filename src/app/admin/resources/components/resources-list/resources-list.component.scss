@@ -1,18 +1,21 @@
 table {
-    width: 100%;
+  width: 100%;
 }
 
 .mat-column-actions {
-    width: 40*4px;
-    text-align: center;
+  width: calc(4 * 40px);
+  text-align: center;
 }
 
 .mat-column-position {
-    width: 60px;   
+  width: 60px;
+}
+
+.mat-column-dateTime {
+  width: 100px;
 }
 
 .filter-field {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
-

@@ -30,7 +30,7 @@ import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.comp
 export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   resourceTypes = ResourceTypeSelect;
-  authors: Observable<SelectOption[]>;
+  authors$: Observable<Author[]>;
   @Input() resource: Resource;
   @Output() publish = new EventEmitter();
   @Output() unpublish = new EventEmitter();
@@ -63,11 +63,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   getAuthors() {
-    this.authors = this.authorService.listWithRef().pipe(
-      map((authors: Author[]) => {
-        return authors.map(x => ({ text: x.firstName + ' ' + x.lastName, value: x.ref }));
-      })
-    );
+    this.authors$ = this.authorService.listWithRef();
   }
 
   displayResource(resource: Resource | null): void {
