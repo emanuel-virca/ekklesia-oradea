@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { tap, catchError } from 'rxjs/operators';
 
 import { Resource } from '@shared/models/resource.model';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-resources-list',
@@ -24,50 +26,55 @@ export class ResourcesListComponent implements OnInit {
     this.getNextResources();
   }
 
-  onScroll() {
-    if (!this.loading && this.thereIsMore) {
-      this.getNextResources();
+  getNextResources() {
+    if (this.loading || !this.thereIsMore) {
+      return;
     }
-  }
 
-  private getNextResources() {
-    // TODO move loader
     this.loading = true;
     this.loaderService.show();
 
-    this.resourceService.query(this.pageSize, this.lastVisible, 'desc').subscribe(
-      (items: Resource[]) => {
-        if (!items || !items.length) {
-          return;
-        }
+    this.resourceService
+      .query(this.pageSize, this.lastVisible, 'desc')
+      .pipe(
+        tap(resources => this.onNextResource(resources)),
+        tap(() => {
+          this.loading = false;
+          this.loaderService.hide();
+        }),
+        catchError(err => {
+          this.loading = false;
+          this.loaderService.hide();
+          console.log('could not load resources');
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
 
-        const nextResources = new Array<Resource>();
+  private onNextResource(items: Resource[]) {
+    if (!items || !items.length) {
+      return;
+    }
 
-        items.forEach(item => {
-          const indexOfExisting = this.resources.findIndex(x => x.id === item.id);
+    const nextResources = new Array<Resource>();
 
-          if (indexOfExisting !== -1) {
-            this.resources[indexOfExisting] = item;
-          } else {
-            nextResources.push(item);
-          }
-        });
+    items.forEach(item => {
+      const indexOfExisting = this.resources.findIndex(x => x.id === item.id);
 
-        this.resources = this.resources.concat(nextResources);
-
-        this.lastVisible = items[items.length - 1];
-
-        if (items.length < this.pageSize) {
-          this.thereIsMore = false;
-        }
-
-        this.loading = false;
-        this.loaderService.hide();
-      },
-      () => {
-        this.loading = false;
-        this.loaderService.hide();
+      if (indexOfExisting !== -1) {
+        this.resources[indexOfExisting] = item;
+      } else {
+        nextResources.push(item);
       }
-    );
+    });
+
+    this.resources = this.resources.concat(nextResources);
+
+    this.lastVisible = items[items.length - 1];
+
+    if (items.length < this.pageSize) {
+      this.thereIsMore = false;
+    }
   }
 }

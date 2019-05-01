@@ -1,6 +1,6 @@
-@import '../../styles-variables.scss';
+@import '~styles-variables.scss';
 
-.main-content {
+.web-portal-app {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -11,7 +11,7 @@
 }
 
 @media (max-width: 599px) {
-  .main-content {
+  .web-portal-app {
     top: $topAppBarHeightSm;
   }
 }
@@ -22,5 +22,8 @@ app-main-nav {
   left: 0;
   right: 0;
   z-index: 2;
-  margin-bottom: 24px;
+}
+
+.mat-sidenav-container {
+  flex: 1;
 }
