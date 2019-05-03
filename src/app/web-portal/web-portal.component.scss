@@ -8,16 +8,16 @@
   bottom: 0;
   left: 0;
   right: 0;
+
+  &.audio-player-visible {
+    bottom: $audioPlayerHeight;
+  }
 }
 
 @media (max-width: 599px) {
   .web-portal-app {
     top: $topAppBarHeightSm;
   }
-}
-
-.web-portal-app.audio-player-visible {
-  bottom: 90px;
 }
 
 app-main-nav {
