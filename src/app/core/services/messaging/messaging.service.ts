@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
 
 import { User } from '@shared/models/user.model';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class MessagingService {
-  currentMessage = new BehaviorSubject(null);
-
-  constructor(
-    private db: AngularFirestore,
-    private angularFireAuth: AngularFireAuth,
-    private angularFireMessaging: AngularFireMessaging
-  ) {
+  constructor(private angularFireMessaging: AngularFireMessaging, private userService: UserService) {
     this.angularFireMessaging.messaging.subscribe(_messaging => {
       _messaging.onMessage = _messaging.onMessage.bind(_messaging);
       _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
@@ -27,17 +19,16 @@ export class MessagingService {
    * @param userId user
    * @param token token
    */
-  updateToken(user: User, token: string) {
-    const currentTokens = user.notificationTokens || {};
-
-    // If token does not exist in firestore, update db
-    if (!currentTokens[token]) {
-      const notificationTokens = this.db
-        .collection('users')
-        .doc(user.uid)
-        .collection('notificationTokens');
-      notificationTokens.add({ [token]: true });
+  async updateTokenAsync(user: User, token: string): Promise<void> {
+    // If token already exists in firestore, update db
+    if (!user || (user.notificationTokens && user.notificationTokens.indexOf(token) !== -1)) {
+      return;
     }
+
+    user.notificationTokens = user.notificationTokens || [];
+    user.notificationTokens.push(token);
+
+    await this.userService.update(user);
   }
 
   /**
@@ -47,9 +38,8 @@ export class MessagingService {
    */
   requestPermission(user: User) {
     this.angularFireMessaging.requestToken.subscribe(
-      token => {
-        console.log(token);
-        this.updateToken(user, token);
+      async token => {
+        await this.updateTokenAsync(user, token);
       },
       err => {
         console.error('Unable to get permission to notify.', err);
@@ -63,7 +53,6 @@ export class MessagingService {
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(payload => {
       console.log('new message received. ', payload);
-      this.currentMessage.next(payload);
     });
   }
 }

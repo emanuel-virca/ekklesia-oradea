@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 
 import { onResourceCreateAsync, onResourceDeleteAsync, onResourceUpdateAsync } from './resources-triggers';
 import { onAuthorUpdateAsync } from './authors-triggers';
-import { onNotificationWriteAsync } from './notification/notification-triggers';
+import { onUserWriteAsync } from './user-triggers';
 
 const algoliaConfig = {
   applicationId: functions.config().algolia.applicationid,
@@ -36,8 +36,6 @@ exports.onAuthorUpdated = functions.firestore.document('authors/{authorId}').onU
   await onAuthorUpdateAsync(change, context, algoliaConfig);
 });
 
-exports.onUserNotificationTokensUpdated = functions.firestore
-  .document('users/{userId}/notificationTokens/{notificationToken}')
-  .onWrite(async (change, context) => {
-    await onNotificationWriteAsync(change, context);
-  });
+exports.onUserUpdated = functions.firestore.document('users/{userId}').onWrite(async (change, context) => {
+  await onUserWriteAsync(change, context);
+});

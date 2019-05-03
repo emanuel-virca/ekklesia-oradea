@@ -9,11 +9,7 @@ export interface User {
   displayName: string;
   email: string;
   roles: Roles;
-  notificationTokens?: any;
+  notificationTokens?: string[];
   isAnonymous: boolean;
   profile: any;
-}
-
-export interface NotificationToken {
-  [token: string]: true;
 }

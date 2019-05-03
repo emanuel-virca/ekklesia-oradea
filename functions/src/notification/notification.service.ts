@@ -29,4 +29,16 @@ export class NotificationService {
     // registration token.
     await admin.messaging().send(message);
   }
+
+  public async subscribeToTopicAsync(notificationTokens: string[]) {
+    await admin
+      .messaging()
+      .subscribeToTopic(notificationTokens, subscriptionTopic)
+      .then(function(response) {
+        console.log('Successfully subscribed to topic:', response);
+      })
+      .catch(function(error) {
+        console.log('Error subscribing to topic:', error);
+      });
+  }
 }
