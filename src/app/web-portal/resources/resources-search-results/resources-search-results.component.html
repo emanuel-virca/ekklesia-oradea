@@ -6,7 +6,7 @@
         <mat-card-subtitle>by {{resource.author.firstName}} {{resource.author.lastName}}</mat-card-subtitle>
       </mat-card-header>
       <div *ngIf="resource.tags?.length" class="mat-card-text" align="right">
-        <span *ngFor="let item of resource.tags">#{{item.name}}&nbsp;</span>
+        <app-resource-tags [tags]="resource.tags"></app-resource-tags>
       </div>
     </mat-card>
   </div>

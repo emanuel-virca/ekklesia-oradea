@@ -12,6 +12,7 @@ import { ResourcesSearchResultsComponent } from './resources-search-results/reso
 import { ResourceDetailsComponent } from './resource-details/resource-details.component';
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 import { ResourcesMasonryComponent } from './components/resources-masonry/resources-masonry.component';
+import { ResourceTagsComponent } from './components/resource-tags/resource-tags.component';
 import { ResourceService } from './services/resource/resource.service';
 
 // NgRx
@@ -34,6 +35,7 @@ import { ResourceEffects } from './state/resource.effects';
     ResourceDetailsComponent,
     ResourceDetailsShellComponent,
     ResourcesMasonryComponent,
+    ResourceTagsComponent,
   ],
   exports: [],
   providers: [ResourceService],

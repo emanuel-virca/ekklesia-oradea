@@ -9,7 +9,7 @@
       <app-material-card-header-content-loader></app-material-card-header-content-loader>
     </ng-template>
     <div *ngIf="resource.tags?.length" class="mat-card-text" align="left">
-      <span *ngFor="let item of resource.tags">#{{item.name}}&nbsp;</span>
+      <app-resource-tags [tags]="resource.tags"></app-resource-tags>
     </div>
     <mat-card-actions>
       <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">

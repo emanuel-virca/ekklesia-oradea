@@ -13,7 +13,7 @@
     <img [src]="resource.imageSrc" alt="" />
   </div>
   <div *ngIf="resource.tags?.length" align="end">
-    <span *ngFor="let item of resource.tags">#{{item.name}}&nbsp;</span>
+    <app-resource-tags [tags]="resource.tags"></app-resource-tags>
   </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>
