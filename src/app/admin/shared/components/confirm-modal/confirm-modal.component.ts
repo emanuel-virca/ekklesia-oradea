@@ -14,8 +14,4 @@ export class ConfirmModalComponent {
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
-
-  cancel(): void {
-    this.dialogRef.close();
-  }
 }
