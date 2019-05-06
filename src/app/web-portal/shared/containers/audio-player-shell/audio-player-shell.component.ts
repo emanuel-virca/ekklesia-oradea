@@ -28,6 +28,10 @@ export class AudioPlayerShellComponent implements OnInit {
     this.store.dispatch(new fromAudioPlayerActions.ChangeStatus(event));
   }
 
+  public close(): void {
+    this.store.dispatch(new fromAudioPlayerActions.Clear());
+  }
+
   private onStoreStatusChanged(status) {
     if (!this.audioPlayer) {
       return;

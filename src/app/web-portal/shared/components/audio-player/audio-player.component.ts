@@ -29,6 +29,7 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() audioResource: AudioResource;
   @Output() statusChanged = new EventEmitter<string>();
+  @Output() closeEvent = new EventEmitter();
 
   constructor() {
     this.createAudio();
@@ -82,6 +83,11 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
     const percent = event.offsetX / this.progressbar.nativeElement.offsetWidth;
     this.audioElement.currentTime = percent * this.audioElement.duration;
     this.onProgress();
+  }
+
+  public close(): void {
+    this.pause();
+    this.closeEvent.emit();
   }
 
   private reset() {

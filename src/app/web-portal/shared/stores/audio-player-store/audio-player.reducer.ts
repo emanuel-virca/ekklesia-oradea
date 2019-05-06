@@ -15,6 +15,8 @@ export function audioPlayerReducer(state = initialState, action: AudioPlayerActi
   switch (action.type) {
     case AudioPlayerActionTypes.Select:
       return { ...state, current: action.payload, status: 'playing' };
+    case AudioPlayerActionTypes.Clear:
+      return { ...state, current: null, status: '' };
     case AudioPlayerActionTypes.ChangeStatus:
       return { ...state, status: action.payload };
     default:

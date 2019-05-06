@@ -16,9 +16,12 @@
         </button>
       </div>
       <span class="track-info-title">{{audioResource.title}}</span>
-      <a class="track-download" [href]="audioResource.downloadUrl" mat-icon-button *ngIf="audioResource.downloadUrl" download="!audioResource.downloadUrl">
+      <a [href]="audioResource.downloadUrl" mat-icon-button *ngIf="audioResource.downloadUrl" download="!audioResource.downloadUrl">
         <mat-icon aria-label="download">get_app</mat-icon>
       </a>
+      <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="download">close</mat-icon>
+      </button>
     </div>
     <div class="audio-player-waveform">
       <small class="progress-time">{{audioElement?.currentTime | secondsToTime}}</small>
