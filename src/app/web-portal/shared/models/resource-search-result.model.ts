@@ -1,4 +1,5 @@
-import { ResourceType, Tag } from '@shared/models/resource.model';
+import { ResourceType } from '@shared/models/resource-type.model';
+import { Tag } from '@shared/models/tag.model';
 
 export class ResourceSearchResult {
   objectID?: number;

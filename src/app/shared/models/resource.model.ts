@@ -1,6 +1,7 @@
 import { DocumentReference } from '@angular/fire/firestore';
 
-import { SelectOption } from '../../admin/shared/models/select-option';
+import { ResourceType } from './resource-type.model';
+import { Tag } from './tag.model';
 
 export class Resource {
   id?: string;
@@ -18,19 +19,3 @@ export class Resource {
   published: boolean;
   tags?: Tag[];
 }
-
-export interface Tag {
-  name: string;
-}
-
-export const enum ResourceType {
-  Audio = 'audio',
-  Video = 'video',
-  Article = 'article',
-}
-
-export const ResourceTypeSelect: Array<SelectOption> = [
-  { text: 'Audio', value: ResourceType.Audio },
-  { text: 'Video', value: ResourceType.Video },
-  { text: 'Article', value: ResourceType.Article },
-];

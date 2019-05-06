@@ -12,13 +12,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentReference } from '@angular/fire/firestore';
 import { MatDialog, MatChipInputEvent } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import { Resource, ResourceTypeSelect, Tag } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource.model';
+import { ResourceTypeSelect } from '@admin/resources/resources.consts';
+import { Tag } from '@shared/models/tag.model';
 import { Author } from '@shared/models/author.model';
 import { AuthorService } from '@admin/core/services/author/author.service';
-import { SelectOption } from '@admin/shared/models/select-option';
 import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
 
 @Component({
