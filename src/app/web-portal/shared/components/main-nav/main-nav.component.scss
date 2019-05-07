@@ -17,8 +17,8 @@
 
 @media (max-width: 599px) {
   .header__button {
-    height: $topAppBarHeightSm;
-    width: $topAppBarHeightSm;
+    height: $topAppBarButtonSizeSm;
+    width: $topAppBarButtonSizeSm;
   }
 }
 
@@ -35,8 +35,8 @@
 
   &__initials {
     border-radius: 50%;
-    height: 43px;
-    width: 43px;
-    line-height: 43px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
   }
 }

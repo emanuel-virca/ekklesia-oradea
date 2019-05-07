@@ -79,12 +79,12 @@
   .search-form {
     &__input {
       height: $topAppBarHeightSm;
-      padding: 0 calc(2 * #{$topAppBarHeightSm}) 0 $topAppBarHeightSm;
+      padding: 0 calc(2 * #{$topAppBarButtonSizeSm}) 0 $topAppBarButtonSizeSm;
     }
 
     &__button {
-      height: $topAppBarHeightSm;
-      width: $topAppBarHeightSm;
+      height: $topAppBarButtonSizeSm;
+      width: $topAppBarButtonSizeSm;
     }
   }
 }
