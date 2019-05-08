@@ -18,6 +18,9 @@ import { MaterialListContentLoaderComponent } from './components/material-list-c
 import { MaterialModule } from './material/material.module';
 import { ConvertToAudioResourcePipe } from './pipes/convert-to-audio-resource/convert-to-audio-resource.pipe';
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
+import { MatCardAvatarContentLoaderComponent } from './components/mat-card-avatar-content-loader/mat-card-avatar-content-loader.component';
+// tslint:disable-next-line:max-line-length
+import { MatCardSubtitleContentLoaderComponent } from './components/mat-card-subtitle-content-loader/mat-card-subtitle-content-loader.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe'
     MaterialListContentLoaderComponent,
     ConvertToAudioResourcePipe,
     SecondsToTimePipe,
+    MatCardAvatarContentLoaderComponent,
+    MatCardSubtitleContentLoaderComponent,
   ],
   imports: [
     CoreSharedModule,
@@ -56,6 +61,8 @@ import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe'
     ContentLoaderModule,
     SecondsToTimePipe,
     ConvertToAudioResourcePipe,
+    MatCardAvatarContentLoaderComponent,
+    MatCardSubtitleContentLoaderComponent,
   ],
 })
 export class SharedModule {}
