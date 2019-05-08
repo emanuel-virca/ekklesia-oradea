@@ -4,9 +4,11 @@
 /dist
 /tmp
 /out-tsc
+/functions/lib
 
 # dependencies
 /node_modules
+/functions/node_modules
 
 # IDEs and editors
 /.idea
@@ -37,4 +39,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-src/environments/environment.prod.ts
+
+#environements
+src/environments/environment.*.ts
+
+#firebase config
+/functions/.runtimeconfig.json
+.firebase/*

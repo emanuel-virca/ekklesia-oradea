@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="header">
+  <button mat-icon-button (click)="toggleSidenav()" class="header__button">
+    <mat-icon aria-label="Navigation menu">menu</mat-icon>
+  </button>
+  <a class="logo" routerLink="/">Ekklesia</a>
+  <span class="example-spacer"></span>
+  <ng-container *ngIf="user && !user.isAnonymous; else showLogin">
+    <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
+      <span class="user-display__initials">{{ getInitials(user.profile?.name ||user.displayName) }}</span>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="signOut()">Logout</button>
+    </mat-menu>
+  </ng-container>
+  <ng-template #showLogin>
+    <button mat-icon-button (click)="upgradeAnnonymous()" class="header__button">
+      <mat-icon aria-label="Login">person</mat-icon>
+    </button>
+  </ng-template>
+
+  <app-resources-search></app-resources-search>
+</mat-toolbar>

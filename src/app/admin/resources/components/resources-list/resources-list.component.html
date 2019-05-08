@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <h1>Resources</h1>
+  <mat-form-field class="filter-field">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="selectItem(element)">
+        {{element.title}}
+      </td>
+    </ng-container>
+
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+      <td mat-cell *matCellDef="let element">
+        <app-author-signature [author]="element.author | doc | async"></app-author-signature>
+      </td>
+    </ng-container>
+
+    <!-- DateTime Column -->
+    <ng-container matColumnDef="dateTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Time</th>
+      <td mat-cell *matCellDef="let element">{{element.dateTime?.toDate() | date}}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="selectItem(element)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <a [href]="element.downloadUrl" download mat-icon-button [disabled]="!element.downloadUrl">
+          <mat-icon aria-label="Download">get_app</mat-icon>
+        </a>
+        <button title="publish" *ngIf="!element.published" mat-icon-button (click)="publishResource(element)">
+          <mat-icon aria-label="publish">visibility</mat-icon>
+        </button>
+        <button title="unpublish" *ngIf="element.published" mat-icon-button (click)="unpublishResource(element)">
+          <mat-icon aria-label="Unpublish">visibility_off</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteItemWithConfirmation(element)">
+          <mat-icon aria-label="Clear">clear</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button class="mat-fab--bottom-right" type="button" mat-fab (click)="initializeNewItem()" color="primary">
+    <mat-icon aria-label="Add">add</mat-icon>
+  </button>
+</div>

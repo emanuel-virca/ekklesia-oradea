@@ -1,0 +1,6 @@
+<app-audio-player
+  *ngIf="audioResource$ | async as audioResource"
+  [audioResource]="audioResource"
+  (statusChanged)="onStatusChanged($event)"
+  (closeEvent)="close()"
+></app-audio-player>

@@ -1,0 +1,21 @@
+@mixin roundedElement($size) {
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  background-color: rgba(0, 0, 0, 0.26);
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  height: $size;
+  width: $size;
+  line-height: $size;
+}
+
+.author-signature {
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    @include roundedElement(30px);
+  }
+}

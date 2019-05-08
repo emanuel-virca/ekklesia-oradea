@@ -1,0 +1,14 @@
+<mat-drawer-container hasBackdrop="false" fullscreen>
+  <mat-drawer #drawer mode="over" [opened]="currentAuthor" disableClose position="end" *ngIf="currentAuthor$ | async as currentAuthor" (keydown.escape)="clearSelectedAuthor()">
+    <app-author
+      [author]="currentAuthor"
+      (create)="createAuthor($event)"
+      (update)="updateAuthor($event)"
+      (delete)="deleteAuthor($event)"
+      (clearSelected)="clearSelectedAuthor()"
+    ></app-author>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-authors-list [authors]="authors$ | async" (delete)="deleteAuthor($event)" (initializeNew)="newAuthor()" (select)="selectAuthor($event)"></app-authors-list>
+  </mat-drawer-content>
+</mat-drawer-container>

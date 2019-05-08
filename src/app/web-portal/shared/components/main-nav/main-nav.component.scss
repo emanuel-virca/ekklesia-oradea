@@ -1,0 +1,42 @@
+@import '~styles-variables.scss';
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  color: white;
+}
+
+.header {
+  &__button {
+    width: $topAppBarHeight;
+    height: $topAppBarHeight;
+  }
+}
+
+@media (max-width: 599px) {
+  .header__button {
+    height: $topAppBarButtonSizeSm;
+    width: $topAppBarButtonSizeSm;
+  }
+}
+
+.mat-toolbar-single-row {
+  padding: 0;
+}
+
+.user-display {
+  ::ng-deep .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__initials {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+  }
+}

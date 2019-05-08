@@ -1,0 +1,29 @@
+<div class="web-portal-app" [ngClass]="{'audio-player-visible': isAudioPlayerVisible$ | async}">
+  <app-main-nav
+    class="mat-elevation-z6"
+    [user]="user$ | async"
+    (toggleSidenavEvent)="sidenav.toggle()"
+    (signInEvent)="signIn()"
+    (signOutEvent)="signOut()"
+    (upgradeAnnonymousEvent)="upgradeAnnonymous()"
+  ></app-main-nav>
+  <mat-sidenav-container>
+    <mat-sidenav mode="over" #sidenav>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/" style="height: 0;"></a>
+        <a mat-list-item *ngFor="let item of navigationItems" routerLinkActive="active-list-item" [routerLink]="[item.routerLink]">
+          <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+          <span matLine>{{item.name}}</span>
+        </a>
+        <a mat-list-item *ngIf="shouldDisplayAdmin(user$ | async)" routerLinkActive="active-list-item" [routerLink]="['/admin']">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <span matLine>Admin Portal</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-bottom-nav></app-bottom-nav>
+</div>
