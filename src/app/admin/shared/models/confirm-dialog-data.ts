@@ -1,4 +1,4 @@
-export class DialogData {
+export class ConfirmDialogData {
   title?: string;
   message?: string;
   confirmText?: string;

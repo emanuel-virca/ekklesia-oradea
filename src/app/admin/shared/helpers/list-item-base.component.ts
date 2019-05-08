@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material';
 
 import { IListItemBaseModel } from '../models/list-item-base.model';
 import { ListItemDialogDataModel } from '../models/list-item-dialog-data.model';
-import { DialogData } from '../models/dialog-data';
-import { ConfirmModalComponent } from '@admin/shared/components/confirm-modal/confirm-modal.component';
+import { ConfirmDialogData } from '../models/confirm-dialog-data';
+import { ConfirmDialogComponent } from '@admin/shared/components/confirm-dialog/confirm-dialog.component';
 
 export class ListItemBaseComponent<T extends IListItemBaseModel> {
   @Output() create = new EventEmitter<T>();
@@ -43,13 +43,13 @@ export class ListItemBaseComponent<T extends IListItemBaseModel> {
       throw new Error('confirmConfig was not provided');
     }
 
-    const dialogData: DialogData = {
+    const dialogData: ConfirmDialogData = {
       ...this.dialogData,
       message: this.dialogData.messageFn ? this.dialogData.messageFn(item) : this.dialogData.message,
       confirmText: this.dialogData.confirmText || 'Delete',
     };
 
-    const dialogRef = this.dialog.open(ConfirmModalComponent, { data: dialogData });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: dialogData });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
