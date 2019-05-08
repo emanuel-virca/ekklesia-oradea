@@ -1,5 +1,5 @@
-import { DialogData } from '@admin/shared/models/confirm-dialog-data';
+import { ConfirmDialogData } from '@admin/shared/models/confirm-dialog-data';
 
-export class ListItemDialogDataModel<T> extends DialogData {
+export class ListItemDialogDataModel<T> extends ConfirmDialogData {
   messageFn?: (item: T) => string;
 }
