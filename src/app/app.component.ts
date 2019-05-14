@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
 import { MessagingService } from '@core/services/messaging/messaging.service';
 import { AuthenticationService } from '@core/services/authentication/authentication.service';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,17 @@ import { AuthenticationService } from '@core/services/authentication/authenticat
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(public messagingService: MessagingService, public auth: AuthenticationService) {}
+  constructor(
+    public messagingService: MessagingService,
+    public auth: AuthenticationService,
+    @Inject(PLATFORM_ID) private platformId
+  ) {}
 
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     this.doAnonymousLogin();
     this.initializeMessaging();
   }
