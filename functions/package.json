@@ -12,7 +12,11 @@
   "main": "lib/index.js",
   "dependencies": {
     "algoliasearch": "^3.33.0",
+<<<<<<< HEAD
     "firebase-admin": "^8.0.0",
+=======
+    "firebase-admin": "^7.3.0",
+>>>>>>> feat(ssr): temp work for ssr
     "firebase-functions": "^2.3.1",
     "image-size": "^0.7.4",
     "probe-image-size": "^4.0.0"
