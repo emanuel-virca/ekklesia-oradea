@@ -19,8 +19,14 @@ export class ResourceEffects {
     map((action: resourceActions.LoadResource) => action.payload),
     switchMap(resourceId =>
       this.resourceService.get(resourceId).pipe(
-        map(resource => new resourceActions.LoadResourceSuccess(resource)),
-        catchError(err => of(new resourceActions.LoadResourceFail(err)))
+        map(resource => {
+          console.log(resource);
+          return new resourceActions.LoadResourceSuccess(resource);
+        }),
+        catchError(err => {
+          console.log(err);
+          return of(new resourceActions.LoadResourceFail(err));
+        })
       )
     )
   );

@@ -48,7 +48,7 @@ export class AuthenticationService {
       const currentUser = await this.afAuth.auth.signInWithCredential(credential);
 
       // Merge prevUser and currentUser data stored in Firebase.
-      await this.userService.upgradeAnnonymous(currentUser.uid, anonymousUser.uid);
+      //await this.userService.upgradeAnnonymous(currentUser.uid, anonymousUser.uid);
 
       // After data is migrated delete the duplicate user
       await this.userService.delete(anonymousUser.uid);

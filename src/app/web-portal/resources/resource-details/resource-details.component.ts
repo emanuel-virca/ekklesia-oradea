@@ -12,12 +12,28 @@ import { SeoService } from '@web-portal/core/services/seo/seo.service';
 export class ResourceDetailsComponent implements OnInit, OnChanges {
   @Input() resource: Resource;
 
-  constructor(private seo: SeoService) {}
+  constructor(private seo: SeoService) {
+    if (!this.resource) {
+      return;
+    }
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.resource) {
+      return;
+    }
+
+    this.seo.generateTags({
+      title: this.resource.title,
+      description: this.resource.description,
+      image: this.resource.imageSrc,
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.resource) {
+    console.log('changes', changes);
+
+    if (!changes.resource.currentValue != null) {
       return;
     }
 

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (isPlatformServer(this.platformId)) {
+      console.log('is platform server...');
       return;
     }
 
