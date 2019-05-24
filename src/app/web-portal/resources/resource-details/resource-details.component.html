@@ -1,13 +1,10 @@
 <div class="container margin-top__default" *ngIf="resource">
   <mat-card class="mat-card-flat">
-    <mat-card-header class="" *ngIf="(resource.author | doc | async) as author; else placeholder">
-      <img mat-card-avatar class="example-header-image" [src]="author?.avatar" />
+    <mat-card-header class="">
+      <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar" alt="" />
       <mat-card-title>{{ resource.title }}</mat-card-title>
-      <mat-card-subtitle>{{author?.firstName}}&nbsp;{{author?.lastName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
+      <mat-card-subtitle>{{resource.author?.firstName}}&nbsp;{{resource.author?.lastName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
     </mat-card-header>
-    <ng-template #placeholder>
-      <app-material-card-header-content-loader></app-material-card-header-content-loader>
-    </ng-template>
     <div *ngIf="resource.tags?.length" class="mat-card-text" align="left">
       <app-resource-tags [tags]="resource.tags"></app-resource-tags>
     </div>

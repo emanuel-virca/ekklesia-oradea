@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   SimpleChanges,
   OnChanges,
@@ -9,7 +8,6 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { DocumentReference } from '@angular/fire/firestore';
 import { MatDialog, MatChipInputEvent } from '@angular/material';
 import { Observable } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -27,7 +25,7 @@ import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.comp
   styleUrls: ['./resource.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnInit, OnChanges {
+export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnChanges {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   resourceTypes = ResourceTypeSelect;
   authors$: Observable<Author[]>;
@@ -47,11 +45,8 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
 
   imageUploadFolder = '/resources';
 
-  constructor(private authorService: AuthorService, public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private authorService: AuthorService) {
     super(dialog, { messageFn: (resource: Resource) => `You are about to delete <b>${resource.title}</b>` });
-  }
-
-  ngOnInit() {
     this.getAuthors();
   }
 
@@ -134,8 +129,8 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     }
   }
 
-  compareWith(o1: DocumentReference, o2: DocumentReference) {
-    return o1.id === o2.id;
+  compareAuthors(a1: Author, a2: Author) {
+    return a1.id === a2.id;
   }
 
   addTag(event: MatChipInputEvent): void {

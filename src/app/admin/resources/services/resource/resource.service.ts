@@ -8,10 +8,10 @@ import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 
 @Injectable()
 export class ResourceService {
-  itemsCollection: AngularFirestoreCollection<any>;
+  itemsCollection: AngularFirestoreCollection<Resource>;
 
   constructor(private db: AngularFirestore, private loaderService: LoaderService) {
-    this.itemsCollection = this.db.collection<any>('resources');
+    this.itemsCollection = this.db.collection<Resource>('resources');
   }
 
   public async createAsync(resource: Resource): Promise<Resource> {
@@ -40,7 +40,7 @@ export class ResourceService {
 
   public get(resourceId: string): Observable<Resource> {
     return this.itemsCollection
-      .doc<Resource>(resourceId)
+      .doc(resourceId)
       .snapshotChanges()
       .pipe(mapItemWithId);
   }

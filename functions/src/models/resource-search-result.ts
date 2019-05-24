@@ -1,4 +1,5 @@
 import { ResourceType, Tag } from './resource';
+import { Author } from './author.model';
 
 export class ResourceSearchResult {
   objectID?: string;
@@ -6,9 +7,5 @@ export class ResourceSearchResult {
   name: string;
   type: ResourceType;
   tags: Tag[];
-  author: {
-    id: string;
-    firstName: string;
-    lastName: string;
-  };
+  author: Author;
 }
