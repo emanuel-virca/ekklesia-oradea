@@ -28,8 +28,8 @@ describe('ResourcesListComponent', () => {
   // });
 
   const FirestoreStub = {
-    //TODO https://github.com/angular/@angular/fire/blob/master/src/firestore/collection/collection.spec.ts
-    //collection<T>(ref: CollectionReference, queryFn?: QueryFn): AngularFirestoreCollection<T>;
+    // TODO https://github.com/angular/@angular/fire/blob/master/src/firestore/collection/collection.spec.ts
+    // collection<T>(ref: CollectionReference, queryFn?: QueryFn): AngularFirestoreCollection<T>;
     // collection: (name: string, ref: Function) => ({
     //     doc: (_id: string) => ({
     //         valueChanges: () => new BehaviorSubject({ foo: 'bar' }),

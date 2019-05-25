@@ -6,10 +6,10 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '../shared/shared.module';
 import { ResourcesRoutingModule } from './resources-routing.module';
-import { ResourcesListComponent } from './resources-list/resources-list.component';
-import { ResourceCardComponent } from './resource-card/resource-card.component';
+import { ResourcesListComponent } from './containers/resources-list/resources-list.component';
+import { ResourceCardComponent } from './components/resource-card/resource-card.component';
 import { ResourcesSearchResultsComponent } from './resources-search-results/resources-search-results.component';
-import { ResourceDetailsComponent } from './resource-details/resource-details.component';
+import { ResourceDetailsComponent } from './components/resource-details/resource-details.component';
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 import { ResourcesMasonryComponent } from './components/resources-masonry/resources-masonry.component';
 import { ResourceTagsComponent } from './components/resource-tags/resource-tags.component';
