@@ -44,11 +44,11 @@ export class AuthenticationService {
       const anonymousUser = this.afAuth.auth.currentUser;
 
       // Sign in user with google Account
-      const credential = auth.GoogleAuthProvider.credential(ex.credential.idToken);
-      const currentUser = await this.afAuth.auth.signInWithCredential(credential);
+      const credential: auth.OAuthCredential = auth.GoogleAuthProvider.credential(ex.credential.idToken);
+      const currentUser: auth.UserCredential = await this.afAuth.auth.signInWithCredential(credential);
 
       // Merge prevUser and currentUser data stored in Firebase.
-      await this.userService.upgradeAnnonymous(currentUser.uid, anonymousUser.uid);
+      await this.userService.upgradeAnnonymous(currentUser.user.uid, anonymousUser.uid);
 
       // After data is migrated delete the duplicate user
       await this.userService.delete(anonymousUser.uid);
