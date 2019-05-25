@@ -37,7 +37,7 @@ export class WebPortalComponent {
     private router: Router,
     private authService: AuthenticationService,
     private authorizationService: AuthorizationService,
-    private store: Store<fromAudioPlayer.AppState>
+    private store: Store<fromAudioPlayer.State>
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
     this.user$ = authService.user$;

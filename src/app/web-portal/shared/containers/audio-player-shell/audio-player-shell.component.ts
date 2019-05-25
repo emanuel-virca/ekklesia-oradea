@@ -17,7 +17,7 @@ export class AudioPlayerShellComponent implements OnInit {
 
   @ViewChild(AudioPlayerComponent) audioPlayer: AudioPlayerComponent;
 
-  constructor(private store: Store<fromAudioPlayer.AppState>) {}
+  constructor(private store: Store<fromAudioPlayer.State>) {}
 
   ngOnInit(): void {
     this.audioResource$ = this.store.pipe(select(fromAudioPlayer.getCurrentAudioResource));

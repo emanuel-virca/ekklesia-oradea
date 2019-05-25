@@ -1,13 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromRoot from '@root-state/app.state';
+import * as fromRoot from '@root-state';
 import * as fromAudioPlayer from './audio-player.reducer';
 
-export interface AppState extends fromRoot.AppState {
-  audioPlayer: fromAudioPlayer.AudioPlayerState;
+export interface State extends fromRoot.State {
+  audioPlayer: fromAudioPlayer.State;
 }
 
-export const getAudioPlayerState = createFeatureSelector<fromAudioPlayer.AudioPlayerState>('audioPlayer');
+export const getAudioPlayerState = createFeatureSelector<fromAudioPlayer.State>('audioPlayer');
 
 export const getCurrentAudioResource = createSelector(
   getAudioPlayerState,

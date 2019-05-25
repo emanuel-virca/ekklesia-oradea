@@ -10,7 +10,7 @@
       "@shared/*": ["app/shared/*"],
       "@admin/*": ["app/admin/*"],
       "@web-portal/*": ["app/web-portal/*"],
-      "@root-state/*": ["app/state/*"]
+      "@root-state": ["app/reducers"]
     }
   },
   "exclude": ["src/test.ts", "**/*.spec.ts"]

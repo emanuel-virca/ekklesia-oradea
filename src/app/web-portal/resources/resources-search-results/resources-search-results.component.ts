@@ -30,7 +30,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
     private resourceService: ResourceService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
-    private store: Store<fromAudioPlayer.AppState>
+    private store: Store<fromAudioPlayer.State>
   ) {
     this.route.paramMap.subscribe(x => {
       this.initSearch();

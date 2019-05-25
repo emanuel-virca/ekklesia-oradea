@@ -17,7 +17,7 @@ import * as resourceActions from '../../state/resource.actions';
 export class ResourceDetailsShellComponent implements OnInit {
   currentResource$: Observable<Resource>;
 
-  constructor(private route: ActivatedRoute, private store: Store<fromResource.AppState>) {}
+  constructor(private route: ActivatedRoute, private store: Store<fromResource.State>) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) =>

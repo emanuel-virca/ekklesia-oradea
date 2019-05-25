@@ -18,7 +18,7 @@ export class AuthorShellComponent implements OnInit {
   authors$: Observable<Author[]>;
   currentAuthor$: Observable<Author>;
 
-  constructor(private store: Store<fromReducers.AppState>) {}
+  constructor(private store: Store<fromReducers.State>) {}
 
   ngOnInit() {
     this.store.dispatch(new authorActions.LoadAuthors());

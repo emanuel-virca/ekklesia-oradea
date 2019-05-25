@@ -1,13 +1,13 @@
 import { Resource } from '@shared/models/resource.model';
 import * as resourceActions from './resource.actions';
 
-export interface ResourceState {
+export interface State {
   resources: Resource[];
   currentResource: Resource;
   errorMessage: string;
 }
 
-export const initialState: ResourceState = {
+export const initialState: State = {
   resources: [],
   currentResource: null,
   errorMessage: '',

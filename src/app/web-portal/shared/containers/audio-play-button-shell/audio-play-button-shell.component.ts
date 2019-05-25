@@ -17,7 +17,7 @@ export class AudioPlayButtonShellComponent implements OnInit {
   @Input() audioResource: AudioResource;
   playing$: Observable<boolean>;
 
-  constructor(private store: Store<fromAudioPlayer.AppState>) {}
+  constructor(private store: Store<fromAudioPlayer.State>) {}
 
   ngOnInit() {
     this.playing$ = this.store.pipe(
