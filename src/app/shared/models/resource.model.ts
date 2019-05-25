@@ -1,7 +1,6 @@
-import { DocumentReference } from '@angular/fire/firestore';
-
 import { ResourceType } from './resource-type.model';
 import { Tag } from './tag.model';
+import { Author } from './author.model';
 
 export class Resource {
   id?: string;
@@ -13,7 +12,7 @@ export class Resource {
   streamUrl?: string;
   imageSrc?: string;
   resourceType: ResourceType;
-  author: DocumentReference;
+  author: Author;
   height?: number;
   width?: number;
   published: boolean;

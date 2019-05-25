@@ -40,8 +40,8 @@
       <mat-error *ngIf="title.errors?.required">Title is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Author" formControlName="author" [compareWith]="compareWith" required>
-        <mat-option *ngFor="let item of authors$ | async" [value]="item.ref">
+      <mat-select placeholder="Author" formControlName="author" [compareWith]="compareAuthors" required>
+        <mat-option *ngFor="let item of authors$ | async" [value]="item">
           <app-author-signature [author]="item"></app-author-signature>
         </mat-option>
       </mat-select>

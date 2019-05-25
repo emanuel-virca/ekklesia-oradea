@@ -18,7 +18,7 @@ export class AuthorService {
     return this.itemsCollection.valueChanges();
   }
 
-  get(documentId: string) {
-    return this.itemsCollection.doc(documentId);
+  get(documentId: string): Observable<Author> {
+    return this.itemsCollection.doc<Author>(documentId).valueChanges();
   }
 }

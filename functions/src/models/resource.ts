@@ -1,3 +1,5 @@
+import { Author } from './author.model';
+
 export class Resource {
   id?: string;
   title: string;
@@ -6,7 +8,7 @@ export class Resource {
   hearthisId?: string;
   imageSrc?: string;
   resourceType: ResourceType;
-  author: any; //TODO type
+  author: Author;
   published: boolean;
   tags?: Tag[];
 }

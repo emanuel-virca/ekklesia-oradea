@@ -14,9 +14,7 @@ export class ResourceSearchService {
   }
 
   public async addAsync(resource: Resource): Promise<algoliasearchProxy.Task> {
-    const resourceSearchResult = await this.mapResourceToResourceSearchResultAsync(resource);
-
-    return await this.algoliaIndex.addObject(resourceSearchResult);
+    return await this.algoliaIndex.addObject(this.mapResourceToResourceSearchResult(resource));
   }
 
   public async updateAsync(resource: Resource): Promise<algoliasearchProxy.Task> {
@@ -26,9 +24,7 @@ export class ResourceSearchService {
       return await this.addAsync(resource);
     }
 
-    const resourceSearchResult = await this.mapResourceToResourceSearchResultAsync(resource);
-
-    return await this.algoliaIndex.saveObject(resourceSearchResult);
+    return await this.algoliaIndex.saveObject(this.mapResourceToResourceSearchResult(resource));
   }
 
   public async updateByAuthorAsync(author: Author): Promise<algoliasearchProxy.Task> {
@@ -38,12 +34,9 @@ export class ResourceSearchService {
       return null;
     }
 
-    const resourceSearchResults = [];
-
-    response.hits.forEach((resourceSearchResult: ResourceSearchResult) => {
-      resourceSearchResult.author.firstName = author.firstName;
-      resourceSearchResult.author.lastName = author.lastName;
-      resourceSearchResults.push(resourceSearchResult);
+    const resourceSearchResults = response.hits.map((resourceSearchResult: ResourceSearchResult) => {
+      resourceSearchResult.author = author;
+      return resourceSearchResult;
     });
 
     return await this.algoliaIndex.saveObjects(resourceSearchResults);
@@ -53,23 +46,14 @@ export class ResourceSearchService {
     await this.algoliaIndex.deleteObject(resourceId);
   }
 
-  private async mapResourceToResourceSearchResultAsync(resource: Resource): Promise<ResourceSearchResult> {
-    const authorDocumentSnapshot = await resource.author.get();
-
-    const author = authorDocumentSnapshot.data() as Author;
-    author.id = authorDocumentSnapshot.id;
-
+  private mapResourceToResourceSearchResult(resource: Resource): ResourceSearchResult {
     return {
       objectID: resource.id,
       id: resource.id,
       name: resource.title,
       type: resource.resourceType,
       tags: resource.tags,
-      author: {
-        id: author.id,
-        firstName: author.firstName,
-        lastName: author.lastName,
-      },
+      author: resource.author,
     };
   }
 }
