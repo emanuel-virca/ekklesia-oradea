@@ -16,8 +16,8 @@ import { ResourceTagsComponent } from './components/resource-tags/resource-tags.
 import { ResourceService } from './services/resource/resource.service';
 
 // NgRx
-import { resourceReducer } from './state/resource.reducers';
-import { ResourceEffects } from './state/resource.effects';
+import { reducers } from './reducers';
+import { ResourceEffects } from './effects/resource.effects';
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ import { ResourceEffects } from './state/resource.effects';
     InfiniteScrollModule,
     NgxMasonryModule,
     SharedModule,
-    StoreModule.forFeature('resources', resourceReducer),
+    StoreModule.forFeature('resources', reducers),
     EffectsModule.forFeature([ResourceEffects]),
   ],
   declarations: [

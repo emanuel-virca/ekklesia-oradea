@@ -1,28 +1,32 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 import { Resource } from '@shared/models/resource.model';
 
 // NgRx
-import * as fromResource from '../../state';
-import * as resourceActions from '../../state/resource.actions';
+import * as fromResources from '../../reducers';
+import { ResourceActions } from '../../actions';
 
 @Component({
   selector: 'app-resource-details-shell',
   templateUrl: './resource-details-shell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResourceDetailsShellComponent implements OnInit {
-  currentResource$: Observable<Resource>;
+export class ResourceDetailsShellComponent implements OnDestroy {
+  resource$: Observable<Resource>;
+  actionsSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private store: Store<fromResource.State>) {}
+  constructor(route: ActivatedRoute, store: Store<fromResources.State>) {
+    this.actionsSubscription = route.params
+      .pipe(map(params => ResourceActions.selectResource({ id: params.id })))
+      .subscribe(store);
+    this.resource$ = store.pipe(select(fromResources.getCurrentResource));
+  }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) =>
-      this.store.dispatch(new resourceActions.LoadResource(params.get('id')))
-    );
-    this.currentResource$ = this.store.pipe(select(fromResource.getCurrentResource));
+  ngOnDestroy(): void {
+    this.actionsSubscription.unsubscribe();
   }
 }
