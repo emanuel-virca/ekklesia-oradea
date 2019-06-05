@@ -1,26 +1,44 @@
 import { Resource } from '@shared/models/resource.model';
-import { ResourceApiActions } from '../actions';
+import { ResourcesApiActions } from '../actions';
 
 export interface State {
-  resources: Resource[];
-  currentResource: Resource;
+  entities: Resource[];
+  orderByDirection: firebase.firestore.OrderByDirection;
+  startAfter: number;
+  currentPage: number;
+  isFetching: boolean;
   errorMessage: string;
+  pageSize: number;
 }
 
 export const initialState: State = {
-  resources: [],
-  currentResource: null,
+  entities: [],
+  orderByDirection: 'desc',
+  startAfter: 0,
+  currentPage: 0,
+  isFetching: false,
   errorMessage: '',
+  pageSize: 5,
 };
 
-export function resourceReducer(state = initialState, action: ResourceApiActions.ResourceApiActionsUnion) {
+export function reducer(state = initialState, action: ResourcesApiActions.ResourcesApiActionsUnion): State {
   switch (action.type) {
-    case ResourceApiActions.loadResourceSuccess.type: {
-      return { ...state, currentResource: action.resource, errorMessage: '' };
+    case ResourcesApiActions.loadResourcesSuccess.type: {
+      const startAfter =
+        (action.resources || []).length === state.pageSize ? action.resources[state.pageSize - 1].dateTime : null;
+
+      return {
+        ...state,
+        isFetching: false,
+        entities: [...state.entities, ...action.resources],
+        startAfter: startAfter,
+        errorMessage: '',
+        currentPage: state.currentPage + 1,
+      };
     }
 
-    case ResourceApiActions.loadResourceFailure.type: {
-      return { ...state, currentResource: null, errorMessage: action.errorMsg };
+    case ResourcesApiActions.loadResourcesFailure.type: {
+      return { ...state, isFetching: false, errorMessage: action.errorMsg };
     }
 
     default:
@@ -28,5 +46,6 @@ export function resourceReducer(state = initialState, action: ResourceApiActions
   }
 }
 
-export const getCurrentResource = (state: State) => state.currentResource;
-export const getResources = (state: State) => state.resources;
+export const getResources = (state: State) => state.entities;
+export const getIsFetching = (state: State) => state.isFetching;
+export const getNextPage = (state: State) => state.startAfter;

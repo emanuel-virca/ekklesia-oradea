@@ -15,29 +15,30 @@ export class ResourceService {
 
   public query(
     pageSize: number,
-    lastVisible?: Resource,
-    orderBy?: firebase.firestore.OrderByDirection
+    startAfter?: any,
+    orderByDirection?: firebase.firestore.OrderByDirection
   ): Observable<Resource[]> {
+    // TODO reduce complexity
     return this.db
       .collection<Resource>('resources', ref => {
-        if (lastVisible) {
-          if (orderBy) {
+        if (startAfter) {
+          if (orderByDirection) {
             return ref
               .where('published', '==', true)
-              .orderBy('dateTime', orderBy)
-              .startAfter(lastVisible.dateTime)
+              .orderBy('dateTime', orderByDirection)
+              .startAfter(startAfter)
               .limit(pageSize);
           } else {
             return ref
               .where('published', '==', true)
-              .startAfter(lastVisible.dateTime)
+              .startAfter(startAfter)
               .limit(pageSize);
           }
         } else {
-          if (orderBy) {
+          if (orderByDirection) {
             return ref
               .where('published', '==', true)
-              .orderBy('dateTime', orderBy)
+              .orderBy('dateTime', orderByDirection)
               .limit(pageSize);
           } else {
             return ref.where('published', '==', true).limit(pageSize);

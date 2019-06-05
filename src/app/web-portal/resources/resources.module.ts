@@ -18,6 +18,7 @@ import { ResourceService } from './services/resource/resource.service';
 // NgRx
 import { reducers } from './reducers';
 import { ResourceEffects } from './effects/resource.effects';
+import { ResourcesEffects } from './effects/resources.effects';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { ResourceEffects } from './effects/resource.effects';
     NgxMasonryModule,
     SharedModule,
     StoreModule.forFeature('resources', reducers),
-    EffectsModule.forFeature([ResourceEffects]),
+    EffectsModule.forFeature([ResourceEffects, ResourcesEffects]),
   ],
   declarations: [
     ResourcesListComponent,

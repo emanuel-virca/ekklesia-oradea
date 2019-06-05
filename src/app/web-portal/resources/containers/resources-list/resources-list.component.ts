@@ -1,29 +1,40 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { tap, catchError } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 
 import { Resource } from '@shared/models/resource.model';
 import { LoaderService } from '@core/services/loader/loader.service';
-import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
-import { of } from 'rxjs';
+
+import * as fromResources from '@web-portal/resources/reducers';
+import { ResourcesActions } from '@web-portal/resources/actions';
 
 @Component({
   selector: 'app-resources-list',
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResourcesListComponent implements OnInit {
+export class ResourcesListComponent implements OnInit, OnDestroy {
   @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
 
-  resources: Resource[] = new Array<Resource>();
-  lastVisible: Resource;
-  pageSize = 20;
   loading = false;
   thereIsMore = true;
+  resources$: Observable<Resource[]>;
+  isFetching$: Observable<boolean>;
+  loaderSubscription: Subscription;
 
-  constructor(private resourceService: ResourceService, private loaderService: LoaderService) {}
+  constructor(private loaderService: LoaderService, private store: Store<fromResources.State>) {
+    this.resources$ = this.store.select(fromResources.getResources);
+    this.store.select(fromResources.getResourcesNextPage).subscribe(x => (this.thereIsMore = x !== null));
+
+    this.loaderSubscription = this.store.select(fromResources.getResourcesIsFetching).subscribe(isFetching => {
+      isFetching ? this.loaderService.show() : this.loaderService.hide();
+      this.loading = isFetching;
+    });
+  }
 
   ngOnInit() {
-    this.getNextResources();
+    this.store.dispatch(ResourcesActions.loadResources());
   }
 
   getNextResources() {
@@ -31,50 +42,10 @@ export class ResourcesListComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-    this.loaderService.show();
-
-    this.resourceService
-      .query(this.pageSize, this.lastVisible, 'desc')
-      .pipe(
-        tap(resources => this.onNextResource(resources)),
-        tap(() => {
-          this.loading = false;
-          this.loaderService.hide();
-        }),
-        catchError(err => {
-          this.loading = false;
-          this.loaderService.hide();
-          console.log('could not load resources');
-          return of(null);
-        })
-      )
-      .subscribe();
+    this.store.dispatch(ResourcesActions.loadResources());
   }
 
-  private onNextResource(items: Resource[]) {
-    if (!items || !items.length) {
-      return;
-    }
-
-    const nextResources = new Array<Resource>();
-
-    items.forEach(item => {
-      const indexOfExisting = this.resources.findIndex(x => x.id === item.id);
-
-      if (indexOfExisting !== -1) {
-        this.resources[indexOfExisting] = item;
-      } else {
-        nextResources.push(item);
-      }
-    });
-
-    this.resources = this.resources.concat(nextResources);
-
-    this.lastVisible = items[items.length - 1];
-
-    if (items.length < this.pageSize) {
-      this.thereIsMore = false;
-    }
+  ngOnDestroy() {
+    this.loaderSubscription.unsubscribe();
   }
 }

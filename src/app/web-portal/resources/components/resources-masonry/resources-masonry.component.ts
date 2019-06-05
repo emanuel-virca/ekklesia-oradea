@@ -10,18 +10,21 @@ import {
   SimpleChanges,
   ChangeDetectorRef,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { Debounce } from '@core/decorators/debounce';
+import { Resource } from '@shared/models/resource.model';
 
 @Component({
   selector: 'app-resources-masonry',
   templateUrl: './resources-masonry.component.html',
   styleUrls: ['./resources-masonry.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
-  @Input() resources: any[];
+  @Input() resources: Resource[];
   @Input() scrollContainer: string;
 
   masonryColumnWidth: number;
@@ -61,7 +64,9 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.resources = changes.resources.currentValue || [];
+    if (changes.resources) {
+      this.resources = changes.resources.currentValue || [];
+    }
   }
 
   ngOnDestroy(): void {

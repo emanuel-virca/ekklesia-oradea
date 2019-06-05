@@ -1,13 +1,15 @@
 import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
 
 import * as fromRoot from '@root-state';
+import * as fromResourceDetails from './resource.reducer';
 import * as fromResources from './resources.reducer';
 
 /**
  * Define Resources module main state
  */
 export interface ResourcesState {
-  resources: fromResources.State; // resources page state
+  resources: fromResources.State;
+  resourceDetails: fromResourceDetails.State; // resources page state
 }
 
 // Extends the app state to include the author feature.
@@ -18,7 +20,8 @@ export interface State extends fromRoot.State {
 }
 
 export const reducers: ActionReducerMap<ResourcesState, any> = {
-  resources: fromResources.resourceReducer,
+  resources: fromResources.reducer,
+  resourceDetails: fromResourceDetails.reducer,
 };
 
 export const getResourcesFeatureState = createFeatureSelector<State, ResourcesState>('resources');
@@ -28,7 +31,27 @@ export const getResourcesState = createSelector(
   (state: ResourcesState) => state.resources
 );
 
-export const getCurrentResource = createSelector(
+export const getResources = createSelector(
   getResourcesState,
-  fromResources.getCurrentResource
+  fromResources.getResources
+);
+
+export const getResourcesIsFetching = createSelector(
+  getResourcesState,
+  fromResources.getIsFetching
+);
+
+export const getResourcesNextPage = createSelector(
+  getResourcesState,
+  fromResources.getNextPage
+);
+
+export const getResourceDetailsState = createSelector(
+  getResourcesFeatureState,
+  (state: ResourcesState) => state.resourceDetails
+);
+
+export const getCurrentResource = createSelector(
+  getResourceDetailsState,
+  fromResourceDetails.getCurrentResource
 );

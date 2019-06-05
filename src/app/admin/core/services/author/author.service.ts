@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Author } from '@shared/models/author.model';
 import { LoaderService } from '@core/services/loader/loader.service';
-import { mapItemWithId, mapArrayWithId, mappItemWithReference } from '@core/rxjs/pipes';
+import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 
 @Injectable()
 export class AuthorService {
@@ -16,10 +16,6 @@ export class AuthorService {
 
   public list(): Observable<Author[]> {
     return this.itemsCollection.snapshotChanges().pipe(mapArrayWithId);
-  }
-
-  public listWithRef(): Observable<Author[]> {
-    return this.itemsCollection.snapshotChanges().pipe(mappItemWithReference);
   }
 
   public get(resourceId: string): Observable<Author> {

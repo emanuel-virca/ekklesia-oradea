@@ -58,7 +58,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   getAuthors() {
-    this.authors$ = this.authorService.listWithRef();
+    this.authors$ = this.authorService.list();
   }
 
   displayResource(resource: Resource | null): void {

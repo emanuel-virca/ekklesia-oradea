@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { mergeMap, catchError, map, filter, tap } from 'rxjs/operators';
+import { mergeMap, catchError, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -11,7 +11,10 @@ import { ResourceApiActions, ResourceActions } from '../actions';
 
 @Injectable()
 export class ResourceEffects {
-  constructor(private actions$: Actions, private resourceService: ResourceService) {}
+  constructor(
+    private actions$: Actions<ResourceActions.ResourceActionsUnion>,
+    private resourceService: ResourceService
+  ) {}
 
   @Effect()
   loadResource$: Observable<Action> = this.actions$.pipe(
