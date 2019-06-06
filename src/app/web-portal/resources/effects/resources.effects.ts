@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { mergeMap, catchError, map, withLatestFrom, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -21,17 +21,31 @@ export class ResourcesEffects {
   @Effect()
   loadResources$: Observable<Action> = this.actions$.pipe(
     ofType(ResourcesActions.loadResources.type),
+    mergeMap(async action => {
+      try {
+        const resources = await this.resourceService.query(action.pageSize, null, action.orderByDirection);
+        return ResourcesApiActions.loadResourcesSuccess({ resources });
+      } catch (err) {
+        return ResourcesApiActions.loadResourcesFailure(err);
+      }
+    })
+  );
+
+  @Effect()
+  loadNextResources$: Observable<Action> = this.actions$.pipe(
+    ofType(ResourcesActions.loadNextResources.type),
     withLatestFrom(this.store.select(fromResources.getResourcesState)),
-    mergeMap(([, state]) => {
+    mergeMap(async ([, state]) => {
       if (state.currentPage > 0 && !state.startAfter) {
         return null;
       }
 
-      return this.resourceService.query(state.pageSize, state.startAfter, state.orderByDirection).pipe(
-        take(1),
-        map(resources => ResourcesApiActions.loadResourcesSuccess({ resources })),
-        catchError(err => of(ResourcesApiActions.loadResourcesFailure(err)))
-      );
+      try {
+        const resources = await this.resourceService.query(state.pageSize, state.startAfter, state.orderByDirection);
+        return ResourcesApiActions.loadResourcesSuccess({ resources });
+      } catch (err) {
+        return ResourcesApiActions.loadResourcesFailure(err);
+      }
     })
   );
 }

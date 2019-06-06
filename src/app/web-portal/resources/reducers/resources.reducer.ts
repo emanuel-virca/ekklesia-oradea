@@ -1,5 +1,5 @@
 import { Resource } from '@shared/models/resource.model';
-import { ResourcesApiActions } from '../actions';
+import { ResourcesApiActions, ResourcesActions } from '../actions';
 
 export interface State {
   entities: Resource[];
@@ -21,8 +21,30 @@ export const initialState: State = {
   pageSize: 5,
 };
 
-export function reducer(state = initialState, action: ResourcesApiActions.ResourcesApiActionsUnion): State {
+export function reducer(
+  state = initialState,
+  action: ResourcesApiActions.ResourcesApiActionsUnion | ResourcesActions.ResourcesActionsUnion
+): State {
   switch (action.type) {
+    case ResourcesActions.loadResources.type: {
+      return {
+        ...state,
+        isFetching: true,
+        entities: [],
+        startAfter: null,
+        errorMessage: '',
+        currentPage: 0,
+        pageSize: action.pageSize,
+        orderByDirection: action.orderByDirection,
+      };
+    }
+    case ResourcesActions.loadNextResources.type: {
+      return {
+        ...state,
+        isFetching: true,
+        errorMessage: '',
+      };
+    }
     case ResourcesApiActions.loadResourcesSuccess.type: {
       const startAfter =
         (action.resources || []).length === state.pageSize ? action.resources[state.pageSize - 1].dateTime : null;
@@ -39,6 +61,10 @@ export function reducer(state = initialState, action: ResourcesApiActions.Resour
 
     case ResourcesApiActions.loadResourcesFailure.type: {
       return { ...state, isFetching: false, errorMessage: action.errorMsg };
+    }
+
+    case ResourcesActions.clearResources.type: {
+      return { ...state, entities: [], currentPage: 0, pageSize: 0, startAfter: 0 };
     }
 
     default:

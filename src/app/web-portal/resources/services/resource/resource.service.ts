@@ -1,58 +1,46 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
+import { mapItemWithId } from '@core/rxjs/pipes';
 
 import { Resource } from '@shared/models/resource.model';
 
 @Injectable()
 export class ResourceService {
-  itemsCollection: AngularFirestoreCollection<any>;
+  constructor(private db: AngularFirestore) {}
 
-  constructor(private db: AngularFirestore) {
-    this.itemsCollection = this.db.collection<any>('resources');
-  }
-
-  public query(
+  public async query(
     pageSize: number,
     startAfter?: any,
     orderByDirection?: firebase.firestore.OrderByDirection
-  ): Observable<Resource[]> {
-    // TODO reduce complexity
-    return this.db
+  ): Promise<Resource[]> {
+    const snapshotChanges = await this.db
       .collection<Resource>('resources', ref => {
-        if (startAfter) {
-          if (orderByDirection) {
-            return ref
-              .where('published', '==', true)
-              .orderBy('dateTime', orderByDirection)
-              .startAfter(startAfter)
-              .limit(pageSize);
-          } else {
-            return ref
-              .where('published', '==', true)
-              .startAfter(startAfter)
-              .limit(pageSize);
-          }
-        } else {
-          if (orderByDirection) {
-            return ref
-              .where('published', '==', true)
-              .orderBy('dateTime', orderByDirection)
-              .limit(pageSize);
-          } else {
-            return ref.where('published', '==', true).limit(pageSize);
-          }
+        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+        query = query.where('published', '==', true);
+        query = query.limit(pageSize);
+        if (orderByDirection) {
+          query = query.orderBy('dateTime', orderByDirection);
         }
+        if (startAfter) {
+          query = query.startAfter(startAfter);
+        }
+        return query;
       })
-      .snapshotChanges()
-      .pipe(mapArrayWithId);
+      .ref.get();
+
+    return this.mapQuerySnapshotToResource(snapshotChanges);
   }
 
   public get(resourceId: string): Observable<Resource> {
-    return this.itemsCollection
+    return this.db
+      .collection<Resource>('resources')
       .doc<Resource>(resourceId)
       .snapshotChanges()
       .pipe(mapItemWithId);
+  }
+
+  public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): Resource[] {
+    return snapshotChanges.docs.map<Resource>(x => ({ id: x.id, ...(x.data() as Resource) }));
   }
 }

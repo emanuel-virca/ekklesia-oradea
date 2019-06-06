@@ -26,7 +26,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   constructor(private loaderService: LoaderService, private store: Store<fromResources.State>) {
     this.resources$ = this.store.select(fromResources.getResources);
     this.store.select(fromResources.getResourcesNextPage).subscribe(x => (this.thereIsMore = x !== null));
-
     this.loaderSubscription = this.store.select(fromResources.getResourcesIsFetching).subscribe(isFetching => {
       isFetching ? this.loaderService.show() : this.loaderService.hide();
       this.loading = isFetching;
@@ -34,7 +33,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(ResourcesActions.loadResources());
+    this.store.dispatch(ResourcesActions.loadResources({ orderByDirection: 'desc', pageSize: 20 }));
   }
 
   getNextResources() {
@@ -42,10 +41,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.dispatch(ResourcesActions.loadResources());
+    this.store.dispatch(ResourcesActions.loadNextResources());
   }
 
   ngOnDestroy() {
+    this.store.dispatch(ResourcesActions.clearResources());
     this.loaderSubscription.unsubscribe();
   }
 }

@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 import { Resource } from '@shared/models/resource.model';
 
 // NgRx
-import * as fromResources from '../../reducers';
-import { ResourceActions } from '../../actions';
+import * as fromResources from '@web-portal/resources/reducers';
+import { ResourceActions } from '@web-portal/resources/actions';
 
 @Component({
   selector: 'app-resource-details-shell',
@@ -19,7 +19,7 @@ export class ResourceDetailsShellComponent implements OnDestroy {
   resource$: Observable<Resource>;
   actionsSubscription: Subscription;
 
-  constructor(route: ActivatedRoute, store: Store<fromResources.State>) {
+  constructor(route: ActivatedRoute, private store: Store<fromResources.State>) {
     this.actionsSubscription = route.params
       .pipe(map(params => ResourceActions.selectResource({ id: params.id })))
       .subscribe(store);
@@ -27,6 +27,7 @@ export class ResourceDetailsShellComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(ResourceActions.clearSelectedResource());
     this.actionsSubscription.unsubscribe();
   }
 }

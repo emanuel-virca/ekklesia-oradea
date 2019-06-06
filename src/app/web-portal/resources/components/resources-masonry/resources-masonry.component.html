@@ -3,12 +3,7 @@
     <div class="masonry-column-width" #masonryItemSizer></div>
   </div>
   <div>
-    <ngx-masonry
-      [options]="masonryOptions"
-      [updateLayout]="updateMasonryLayout"
-      [useImagesLoaded]="false"
-      *ngIf="viewInitalized"
-    >
+    <ngx-masonry [options]="masonryOptions" [updateLayout]="updateMasonryLayout" [useImagesLoaded]="false" *ngIf="viewInitalized">
       <div class="masonry-item-sizer"></div>
       <div class="gutter-sizer"></div>
       <div ngxMasonryItem class="masonry-item" *ngFor="let resource of resources">
