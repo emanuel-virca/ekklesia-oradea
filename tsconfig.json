@@ -2,16 +2,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "src",
-    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "importHelpers": true,
+    "target": "es2015",
     "paths": {
       "@env/*": ["environments/*"],
       "@core/*": ["app/core/*"],
@@ -19,6 +18,8 @@
       "@admin/*": ["app/admin/*"],
       "@web-portal/*": ["app/web-portal/*"],
       "@root-state": ["app/reducers"]
-    }
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"]
   }
 }

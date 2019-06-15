@@ -23,7 +23,7 @@ export class ResourcesListComponent extends ListBaseComponent<Resource> implemen
   displayedColumns: string[] = ['position', 'title', 'author', 'dateTime', 'actions'];
   dataSource = new MatTableDataSource<Resource>();
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() resources: Resource[];
 

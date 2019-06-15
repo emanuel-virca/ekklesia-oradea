@@ -25,7 +25,7 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
   audioElement: HTMLAudioElement;
   audioStatus: string;
 
-  @ViewChild('progressbar') progressbar: ElementRef;
+  @ViewChild('progressbar', { static: true }) progressbar: ElementRef;
 
   @Input() audioResource: AudioResource;
   @Output() statusChanged = new EventEmitter<string>();

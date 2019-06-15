@@ -31,7 +31,7 @@ export class WebPortalComponent {
   user$: Observable<User>;
   isAudioPlayerVisible$: Observable<boolean>;
 
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
   constructor(
     private router: Router,

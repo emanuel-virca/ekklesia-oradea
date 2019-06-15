@@ -16,7 +16,7 @@ export class AuthorsListComponent extends ListBaseComponent<Author> implements O
 
   @Input() authors: Author[];
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(public dialog: MatDialog) {
     super(dialog, {

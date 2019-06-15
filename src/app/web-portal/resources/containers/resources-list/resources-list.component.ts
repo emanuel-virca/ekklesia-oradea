@@ -15,7 +15,7 @@ import { ResourcesActions } from '@web-portal/resources/actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourcesListComponent implements OnInit, OnDestroy {
-  @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
+  @ViewChild('masonryItemSizer', { static: true }) masonryItemSizer: ElementRef;
 
   loading = false;
   thereIsMore = true;

@@ -18,8 +18,9 @@ export class ResourcesSearchComponent implements OnInit, AfterViewInit {
   showAutocompletePanel: boolean;
   showSearch = false;
 
-  @ViewChild('matAutocompleteTrigger', { read: MatAutocompleteTrigger }) matAutocompleteTrigger: MatAutocompleteTrigger;
-  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
+  @ViewChild(MatAutocompleteTrigger, { static: true })
+  matAutocompleteTrigger: MatAutocompleteTrigger;
+  @ViewChild('searchInput', { static: true }) searchInput: ElementRef<HTMLInputElement>;
 
   constructor(private searchService: SearchService, private router: Router) {}
 

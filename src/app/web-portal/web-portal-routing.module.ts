@@ -10,7 +10,10 @@ const routes: Routes = [
     component: WebPortalComponent,
     children: [
       { path: 'contact', component: ContactComponent },
-      { path: 'resources', loadChildren: '@web-portal/resources/resources.module#ResourcesModule' },
+      {
+        path: 'resources',
+        loadChildren: () => import('@web-portal/resources/resources.module').then(x => x.ResourcesModule),
+      },
       { path: '', pathMatch: 'full', redirectTo: 'resources' },
     ],
   },

@@ -15,7 +15,7 @@ import * as fromAudioPlayerActions from '@web-portal/shared/stores/audio-player-
 export class AudioPlayerShellComponent implements OnInit {
   audioResource$: Observable<AudioResource>;
 
-  @ViewChild(AudioPlayerComponent) audioPlayer: AudioPlayerComponent;
+  @ViewChild(AudioPlayerComponent, { static: false }) audioPlayer: AudioPlayerComponent;
 
   constructor(private store: Store<fromAudioPlayer.State>) {}
 

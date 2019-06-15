@@ -23,7 +23,7 @@ import { Resource } from '@shared/models/resource.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-  @ViewChild('masonryItemSizer') masonryItemSizer: ElementRef;
+  @ViewChild('masonryItemSizer', { static: true }) masonryItemSizer: ElementRef;
   @Input() resources: Resource[];
   @Input() scrollContainer: string;
 
