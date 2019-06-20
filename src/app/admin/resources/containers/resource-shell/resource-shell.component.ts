@@ -18,12 +18,13 @@ export class ResourceShellComponent implements OnInit {
   resources$: Observable<Resource[]>;
   currentResource$: Observable<Resource>;
 
-  constructor(private store: Store<fromResource.State>) {}
+  constructor(private store: Store<fromResource.State>) {
+    this.resources$ = this.store.pipe(select(fromResource.getResources));
+    this.currentResource$ = this.store.pipe(select(fromResource.getCurrentResource));
+  }
 
   ngOnInit() {
     this.store.dispatch(new resourceActions.LoadResources());
-    this.resources$ = this.store.pipe(select(fromResource.getResources));
-    this.currentResource$ = this.store.pipe(select(fromResource.getCurrentResource));
   }
 
   newResource(): void {

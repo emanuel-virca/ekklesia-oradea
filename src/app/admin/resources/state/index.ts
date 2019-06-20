@@ -10,7 +10,7 @@ export interface State extends fromRoot.State {
   resources: fromResources.ResourceState;
 }
 
-export const getResourcesFeatureState = createFeatureSelector<fromResources.ResourceState>('resources');
+export const getResourcesFeatureState = createFeatureSelector<fromResources.ResourceState>('admin-resources');
 
 export const getResources = createSelector(
   getResourcesFeatureState,

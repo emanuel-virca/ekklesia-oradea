@@ -17,7 +17,7 @@ import { AuthorEffects } from './state/author.effects';
   imports: [
     SharedModule,
     AuthorsRoutingModule,
-    StoreModule.forFeature('authors', authorReducer),
+    StoreModule.forFeature('admin-authors', authorReducer),
     EffectsModule.forFeature([AuthorEffects]),
   ],
   providers: [],

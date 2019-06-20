@@ -10,7 +10,7 @@ export interface State extends fromRoot.State {
   authors: fromAuthors.AuthorState;
 }
 
-export const getAuthorsFeatureState = createFeatureSelector<fromAuthors.AuthorState>('authors');
+export const getAuthorsFeatureState = createFeatureSelector<fromAuthors.AuthorState>('admin-authors');
 
 export const getAuthors = createSelector(
   getAuthorsFeatureState,

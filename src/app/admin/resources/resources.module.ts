@@ -17,7 +17,7 @@ import { ResourceEffects } from './state/resource.effects';
   imports: [
     SharedModule,
     ResourcesRoutingModule,
-    StoreModule.forFeature('resources', resourceReducer),
+    StoreModule.forFeature('admin-resources', resourceReducer),
     EffectsModule.forFeature([ResourceEffects]),
   ],
   declarations: [ResourcesListComponent, ResourceComponent, ResourceShellComponent],

@@ -31,7 +31,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   viewInitalized = false;
   updateMasonryLayout = false;
   masonryOptions: any = {
-    transitionDuration: '0.1s',
+    transitionDuration: '0s',
     horizontalOrder: true,
     columnWidth: '.masonry-item-sizer',
     gutter: '.gutter-sizer',
