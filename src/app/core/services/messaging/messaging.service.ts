@@ -7,9 +7,9 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class MessagingService {
   constructor(private angularFireMessaging: AngularFireMessaging, private userService: UserService) {
-    this.angularFireMessaging.messaging.subscribe(_messaging => {
-      _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-      _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+    this.angularFireMessaging.messaging.subscribe(messaging => {
+      messaging.onMessage = messaging.onMessage.bind(messaging);
+      messaging.onTokenRefresh = messaging.onTokenRefresh.bind(messaging);
     });
   }
 

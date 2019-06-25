@@ -10,7 +10,7 @@ export class UserService {
   constructor(private afs: AngularFirestore) {}
 
   public async upgradeAnnonymous(destinationUserId: string, annonymousUserId: string): Promise<void> {
-    combineLatest(this.get(destinationUserId), this.get(annonymousUserId))
+    combineLatest([this.get(destinationUserId), this.get(annonymousUserId)])
       .pipe(take(1))
       .subscribe(async users => {
         const destinationNotificationTokens = users[0] ? users[0].notificationTokens || [] : [];

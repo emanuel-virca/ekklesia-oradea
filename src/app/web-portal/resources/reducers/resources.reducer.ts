@@ -53,7 +53,7 @@ export function reducer(
         ...state,
         isFetching: false,
         entities: [...state.entities, ...action.resources],
-        startAfter: startAfter,
+        startAfter,
         errorMessage: '',
         currentPage: state.currentPage + 1,
       };

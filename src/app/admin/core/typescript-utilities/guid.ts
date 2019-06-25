@@ -4,6 +4,7 @@ export class Guid {
   }
 
   // Static member
+  // tslint:disable-next-line:variable-name
   private _guid: string;
 
   static MakeNew(): Guid {

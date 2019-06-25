@@ -15,8 +15,8 @@ export class SecondsToTimePipe implements PipeTransform {
 
   private convertSecondsToTime(duration) {
     const roundedSeconds = Math.round(duration);
-    const minutes = Math.floor(roundedSeconds / 60),
-      seconds = Math.floor(roundedSeconds % 60);
+    const minutes = Math.floor(roundedSeconds / 60);
+    const seconds = Math.floor(roundedSeconds % 60);
 
     return this.formatTime(seconds, minutes);
   }

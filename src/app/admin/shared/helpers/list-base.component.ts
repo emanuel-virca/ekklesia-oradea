@@ -6,7 +6,7 @@ import { ListItemDialogDataModel } from '../models/list-item-dialog-data.model';
 import { ListItemBaseComponent } from './list-item-base.component';
 
 export class ListBaseComponent<T extends IListItemBaseModel> extends ListItemBaseComponent<T> {
-  @Output() select = new EventEmitter<T>();
+  @Output() selectItem = new EventEmitter<T>();
   @Output() initializeNew = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
 
@@ -18,7 +18,7 @@ export class ListBaseComponent<T extends IListItemBaseModel> extends ListItemBas
     this.initializeNew.emit();
   }
 
-  selectItem(item: T): void {
-    this.select.emit(item);
+  onSelectItem(item: T): void {
+    this.selectItem.emit(item);
   }
 }

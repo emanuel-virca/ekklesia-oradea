@@ -10,14 +10,14 @@ export class AudioPlayButtonComponent {
   @Input() disabled: boolean;
   @Input() playing: boolean;
 
-  @Output() play = new EventEmitter();
-  @Output() pause = new EventEmitter();
+  @Output() playAudio = new EventEmitter();
+  @Output() pauseAudio = new EventEmitter();
 
   public togglePlay() {
     if (!this.playing) {
-      this.play.emit();
+      this.playAudio.emit();
     } else {
-      this.pause.emit();
+      this.pauseAudio.emit();
     }
   }
 }

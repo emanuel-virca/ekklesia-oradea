@@ -16,7 +16,7 @@ export class SearchService {
   }
 
   public searchResourcesAsync(search: string, pageNo: number, pageSize: number): Promise<ResourceSearchResult[]> {
-    return this.algoliaIndex.search({ query: search, page: pageNo, hitsPerPage: pageSize }).then(function(responses) {
+    return this.algoliaIndex.search({ query: search, page: pageNo, hitsPerPage: pageSize }).then(responses => {
       return responses.hits;
     });
   }

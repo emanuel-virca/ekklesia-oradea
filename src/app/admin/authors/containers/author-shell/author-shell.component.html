@@ -9,6 +9,6 @@
     ></app-author>
   </mat-drawer>
   <mat-drawer-content>
-    <app-authors-list [authors]="authors$ | async" (delete)="deleteAuthor($event)" (initializeNew)="newAuthor()" (select)="selectAuthor($event)"></app-authors-list>
+    <app-authors-list [authors]="authors$ | async" (delete)="deleteAuthor($event)" (initializeNew)="newAuthor()" (selectItem)="selectAuthor($event)"></app-authors-list>
   </mat-drawer-content>
 </mat-drawer-container>
