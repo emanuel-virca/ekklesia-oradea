@@ -46,6 +46,11 @@ export const getResourcesNextPage = createSelector(
   fromResources.getNextPage
 );
 
+export const getResourcesOrderByDirection = createSelector(
+  getResourcesState,
+  fromResources.getOrderByDirection
+);
+
 export const getResourceDetailsState = createSelector(
   getResourcesFeatureState,
   (state: ResourcesState) => state.resourceDetails

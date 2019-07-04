@@ -1,12 +1,17 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Resource } from '@shared/models/resource.model';
-import { LoaderService } from '@core/services/loader/loader.service';
 
 import * as fromResources from '@web-portal/resources/reducers';
 import { ResourcesActions } from '@web-portal/resources/actions';
+import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
+
+export interface OrderByProp {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-resources-list',
@@ -17,35 +22,48 @@ import { ResourcesActions } from '@web-portal/resources/actions';
 export class ResourcesListComponent implements OnInit, OnDestroy {
   @ViewChild('masonryItemSizer', { static: true }) masonryItemSizer: ElementRef;
 
-  loading = false;
-  thereIsMore = true;
+  nextPage$: Observable<string>;
   resources$: Observable<Resource[]>;
-  isFetching$: Observable<boolean>;
-  loaderSubscription: Subscription;
+  loading$: Observable<boolean>;
+  orderByDirection$: Observable<OrderByDirection>;
+  orderByOptions: OrderByProp[] = [
+    {
+      value: 'dateTime',
+      viewValue: 'Published Date',
+    },
+    {
+      value: 'title',
+      viewValue: 'Name',
+    },
+  ];
+  selectedOrderedBy: OrderByProp = this.orderByOptions[0];
 
-  constructor(private loaderService: LoaderService, private store: Store<fromResources.State>) {
+  constructor(private store: Store<fromResources.State>) {
     this.resources$ = this.store.select(fromResources.getResources);
-    this.store.select(fromResources.getResourcesNextPage).subscribe(x => (this.thereIsMore = x !== null));
-    this.loaderSubscription = this.store.select(fromResources.getResourcesIsFetching).subscribe(isFetching => {
-      isFetching ? this.loaderService.show() : this.loaderService.hide();
-      this.loading = isFetching;
-    });
+    this.nextPage$ = this.store.select(fromResources.getResourcesNextPage);
+    this.orderByDirection$ = this.store.select(fromResources.getResourcesOrderByDirection);
+    this.loading$ = this.store.select(fromResources.getResourcesIsFetching);
   }
 
   ngOnInit() {
-    this.store.dispatch(ResourcesActions.loadResources({ orderByDirection: 'desc', pageSize: 20 }));
+    this.store.dispatch(ResourcesActions.loadResources());
   }
 
   getNextResources() {
-    if (this.loading || !this.thereIsMore) {
-      return;
-    }
-
     this.store.dispatch(ResourcesActions.loadNextResources());
+  }
+
+  toggleDirection(currentValue: OrderByDirection) {
+    const orderByDirection = currentValue === 'asc' ? 'desc' : 'asc';
+    this.store.dispatch(ResourcesActions.changeResourceOrderDirection({ orderByDirection }));
+  }
+
+  onOrderByChanged(orderedByProp: OrderByProp) {
+    this.selectedOrderedBy = orderedByProp;
+    this.store.dispatch(ResourcesActions.changeResourceOrderBy({ orderBy: orderedByProp.value }));
   }
 
   ngOnDestroy() {
     this.store.dispatch(ResourcesActions.clearResources());
-    this.loaderSubscription.unsubscribe();
   }
 }

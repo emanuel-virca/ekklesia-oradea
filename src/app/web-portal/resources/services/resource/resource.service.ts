@@ -12,24 +12,24 @@ export class ResourceService {
   public async query(
     pageSize: number,
     startAfter?: any,
+    orderBy?: string,
     orderByDirection?: firebase.firestore.OrderByDirection
   ): Promise<Resource[]> {
-    const snapshotChanges = await this.db
-      .collection<Resource>('resources', ref => {
-        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-        query = query.where('published', '==', true);
-        query = query.limit(pageSize);
-        if (orderByDirection) {
-          query = query.orderBy('dateTime', orderByDirection);
-        }
-        if (startAfter) {
-          query = query.startAfter(startAfter);
-        }
-        return query;
-      })
-      .ref.get();
+    let query = this.db
+      .collection<Resource>('resources')
+      .ref.where('published', '==', true)
+      .orderBy(orderBy, orderByDirection)
+      .limit(pageSize);
 
-    return this.mapQuerySnapshotToResource(snapshotChanges);
+    if (startAfter) {
+      query = query.startAfter(startAfter);
+    }
+    try {
+      const snapshotChanges = await query.get();
+      return this.mapQuerySnapshotToResource(snapshotChanges);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public get(resourceId: string): Observable<Resource> {

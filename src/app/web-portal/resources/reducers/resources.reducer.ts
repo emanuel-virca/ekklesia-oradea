@@ -3,8 +3,9 @@ import { ResourcesApiActions, ResourcesActions } from '../actions';
 
 export interface State {
   entities: Resource[];
+  orderBy: string;
   orderByDirection: firebase.firestore.OrderByDirection;
-  startAfter: number;
+  startAfter: any;
   currentPage: number;
   isFetching: boolean;
   errorMessage: string;
@@ -13,12 +14,13 @@ export interface State {
 
 export const initialState: State = {
   entities: [],
+  orderBy: 'dateTime',
   orderByDirection: 'desc',
-  startAfter: 0,
+  startAfter: null,
   currentPage: 0,
   isFetching: false,
   errorMessage: '',
-  pageSize: 5,
+  pageSize: 20,
 };
 
 export function reducer(
@@ -34,8 +36,6 @@ export function reducer(
         startAfter: null,
         errorMessage: '',
         currentPage: 0,
-        pageSize: action.pageSize,
-        orderByDirection: action.orderByDirection,
       };
     }
     case ResourcesActions.loadNextResources.type: {
@@ -46,13 +46,14 @@ export function reducer(
       };
     }
     case ResourcesApiActions.loadResourcesSuccess.type: {
+      const resources = action.resources || [];
       const startAfter =
-        (action.resources || []).length === state.pageSize ? action.resources[state.pageSize - 1].dateTime : null;
+        resources.length === state.pageSize ? action.resources[state.pageSize - 1][state.orderBy] : null;
 
       return {
         ...state,
         isFetching: false,
-        entities: [...state.entities, ...action.resources],
+        entities: [...state.entities, ...resources],
         startAfter,
         errorMessage: '',
         currentPage: state.currentPage + 1,
@@ -64,7 +65,15 @@ export function reducer(
     }
 
     case ResourcesActions.clearResources.type: {
-      return { ...state, entities: [], currentPage: 0, pageSize: 0, startAfter: 0 };
+      return { ...state, entities: [], currentPage: 0, startAfter: null };
+    }
+
+    case ResourcesActions.changeResourceOrderDirection.type: {
+      return { ...state, entities: [], currentPage: 0, startAfter: null, orderByDirection: action.orderByDirection };
+    }
+
+    case ResourcesActions.changeResourceOrderBy.type: {
+      return { ...state, entities: [], currentPage: 0, startAfter: null, orderBy: action.orderBy };
     }
 
     default:
@@ -75,3 +84,4 @@ export function reducer(
 export const getResources = (state: State) => state.entities;
 export const getIsFetching = (state: State) => state.isFetching;
 export const getNextPage = (state: State) => state.startAfter;
+export const getOrderByDirection = (state: State) => state.orderByDirection;
