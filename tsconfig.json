@@ -18,7 +18,8 @@
       "@shared/*": ["app/shared/*"],
       "@admin/*": ["app/admin/*"],
       "@web-portal/*": ["app/web-portal/*"],
-      "@root-state": ["app/reducers"]
+      "@root-state": ["app/reducers"],
+      "@authentication/*": ["app/authentication/*"]
     },
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"]

@@ -13,7 +13,6 @@ export class MainNavComponent {
   @Output() toggleSidenavEvent = new EventEmitter();
   @Output() signInEvent = new EventEmitter();
   @Output() signOutEvent = new EventEmitter();
-  @Output() upgradeAnnonymousEvent = new EventEmitter();
 
   constructor() {}
 
@@ -27,10 +26,6 @@ export class MainNavComponent {
 
   signOut() {
     this.signOutEvent.emit();
-  }
-
-  upgradeAnnonymous() {
-    this.upgradeAnnonymousEvent.emit();
   }
 
   getInitials(displayName: string): string {

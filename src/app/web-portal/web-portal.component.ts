@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { AuthenticationService } from '@core/services/authentication/authentication.service';
+import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
+import { LoginDialogComponent } from '@authentication/components/login-dialog/login-dialog.component';
 import { User } from '@shared/models/user.model';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
@@ -37,7 +38,8 @@ export class WebPortalComponent {
     private router: Router,
     private authService: AuthenticationService,
     private authorizationService: AuthorizationService,
-    private store: Store<fromAudioPlayer.State>
+    private store: Store<fromAudioPlayer.State>,
+    private dialog: MatDialog
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
     this.user$ = authService.user$;
@@ -45,17 +47,13 @@ export class WebPortalComponent {
   }
 
   signIn() {
-    this.authService.doGoogleSignIn();
+    this.dialog.open(LoginDialogComponent);
   }
 
   async signOut() {
     await this.authService.signOut();
 
     this.router.navigateByUrl('');
-  }
-
-  upgradeAnnonymous() {
-    this.authService.linkGoogle();
   }
 
   shouldDisplayAdmin(user: User) {

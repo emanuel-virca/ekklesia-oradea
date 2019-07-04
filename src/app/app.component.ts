@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
 import { MessagingService } from '@core/services/messaging/messaging.service';
-import { AuthenticationService } from '@core/services/authentication/authentication.service';
+import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',

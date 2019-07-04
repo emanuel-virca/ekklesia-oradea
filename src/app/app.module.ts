@@ -17,6 +17,7 @@ import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from '@core/core.module';
+import { AuthenticationModule } from '@authentication/authentication.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -37,6 +38,7 @@ import { CoreModule } from '@core/core.module';
     EffectsModule.forRoot([]),
     SharedModule,
     CoreModule,
+    AuthenticationModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],

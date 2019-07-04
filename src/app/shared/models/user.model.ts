@@ -11,5 +11,15 @@ export interface User {
   roles: Roles;
   notificationTokens?: string[];
   isAnonymous: boolean;
-  profile?: object;
+  profile?: UserProfile;
+}
+
+export interface UserProfile {
+  firstName: string;
+  lastName: string;
+  id: string;
+  email: string;
+  picture: string;
+  locale?: string;
+  name: string;
 }
