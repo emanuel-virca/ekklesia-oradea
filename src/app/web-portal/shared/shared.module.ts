@@ -43,12 +43,10 @@ import { MatCardSubtitleContentLoaderComponent } from './components/mat-card-sub
     MaterialModule,
     StoreModule.forFeature('audioPlayer', audioPlayerReducer),
     ContentLoaderModule,
-    FlexLayoutModule,
   ],
   exports: [
     CoreSharedModule,
     MaterialModule,
-    FlexLayoutModule,
     MainNavComponent,
     BottomNavComponent,
     AudioPlayButtonComponent,

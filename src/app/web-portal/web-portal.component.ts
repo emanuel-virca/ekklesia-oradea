@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav, MatDialog } from '@angular/material';
-import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
@@ -30,6 +30,7 @@ export class WebPortalComponent {
     },
   ];
   user$: Observable<User>;
+  displayAdmin$: Observable<boolean>;
   isAudioPlayerVisible$: Observable<boolean>;
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
@@ -44,6 +45,11 @@ export class WebPortalComponent {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
     this.user$ = authService.user$;
     this.isAudioPlayerVisible$ = this.store.pipe(select(fromAudioPlayer.getIsAudioPlayerVisible));
+    this.displayAdmin$ = this.user$.pipe(
+      switchMap(user => {
+        return of(this.authorizationService.canAccessAdmin(user));
+      })
+    );
   }
 
   signIn() {
@@ -54,9 +60,5 @@ export class WebPortalComponent {
     await this.authService.signOut();
 
     this.router.navigateByUrl('');
-  }
-
-  shouldDisplayAdmin(user: User) {
-    return this.authorizationService.canAccessAdmin(user);
   }
 }
