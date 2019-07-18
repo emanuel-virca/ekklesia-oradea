@@ -7,7 +7,7 @@
       <div class="masonry-item-sizer"></div>
       <div class="gutter-sizer"></div>
       <div ngxMasonryItem class="masonry-item" *ngFor="let resource of resources; trackBy: resource?.id">
-        <app-resource-card [resource]="resource" [width]="masonryColumnWidth"></app-resource-card>
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: resource, masonryColumnWidth: masonryColumnWidth}"></ng-container>
       </div>
     </ngx-masonry>
   </div>

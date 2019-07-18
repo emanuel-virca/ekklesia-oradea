@@ -15,12 +15,15 @@
   </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>
-            <mat-icon aria-label="favorite">favorite</mat-icon>
-        </button>
-        <button mat-icon-button>
-            <mat-icon aria-label="share">share</mat-icon>
-        </button> -->
+      <mat-icon aria-label="share">share</mat-icon>
+    </button> -->
     <div fxFlex></div>
+    <button *ngIf="!inLibrary" mat-icon-button (click)="onSaveToLibrary(resource)">
+      <mat-icon aria-label="favorite">favorite_border</mat-icon>
+    </button>
+    <button *ngIf="inLibrary" color="primary" mat-icon-button (click)="onRemoveFromLibrary(resource)">
+      <mat-icon aria-label="unfavorite">favorite</mat-icon>
+    </button>
     <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
       <mat-icon aria-label="download">get_app</mat-icon>
     </a>

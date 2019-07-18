@@ -11,6 +11,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   ChangeDetectionStrategy,
+  TemplateRef,
 } from '@angular/core';
 
 import { Debounce } from '@core/decorators/debounce';
@@ -26,6 +27,7 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
   @ViewChild('masonryItemSizer', { static: true }) masonryItemSizer: ElementRef;
   @Input() resources: Resource[];
   @Input() scrollContainer: string;
+  @Input() itemTemplate: TemplateRef<any>;
 
   masonryColumnWidth: number;
   viewInitalized = false;

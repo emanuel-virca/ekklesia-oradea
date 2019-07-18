@@ -12,6 +12,7 @@ export interface User {
   notificationTokens?: string[];
   isAnonymous: boolean;
   profile?: UserProfile;
+  library?: string[];
 }
 
 export interface UserProfile {

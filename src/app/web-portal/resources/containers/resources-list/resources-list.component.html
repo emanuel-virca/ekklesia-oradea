@@ -17,5 +17,15 @@
   [fromRoot]="true"
   [infiniteScrollDisabled]="(loading$ | async) || !(nextPage$ | async)"
 >
-  <app-resources-masonry [resources]="resources$ | async" [scrollContainer]="'mat-sidenav-content'"></app-resources-masonry>
+  <ng-template #resourceCard let-item let-masonryColumnWidth="masonryColumnWidth">
+    <app-resource-card
+      [resource]="item"
+      [width]="masonryColumnWidth"
+      (saveToLibrary)="onSaveToLibrary($event)"
+      (removeFromLibrary)="onRemoveFromLibrary($event)"
+      [inLibrary]="((userLibrary$ | async) || []).indexOf(item.id) > -1"
+    ></app-resource-card>
+  </ng-template>
+
+  <app-resources-masonry [resources]="resources$ | async" [scrollContainer]="'mat-sidenav-content'" [itemTemplate]="resourceCard"></app-resources-masonry>
 </div>

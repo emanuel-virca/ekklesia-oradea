@@ -1,5 +1,5 @@
 import { DocumentSnapshot, Action, DocumentChangeAction } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 export const mapItemWithId = map((a: Action<DocumentSnapshot<any>>) => {
   const data = a.payload.data();
@@ -14,3 +14,5 @@ export const mapArrayWithId = map((changes: DocumentChangeAction<any>[]) =>
 export const mappItemWithReference = map((changes: DocumentChangeAction<any>[]) =>
   changes.map(a => ({ ref: a.payload.doc.ref, ...a.payload.doc.data() }))
 );
+
+export const filterNotNull = filter(x => !!x);
