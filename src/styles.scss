@@ -108,3 +108,10 @@ body {
 // .mat-icon-button {
 //   @include mat-icon-button-size(36px);
 // }
+
+@media (max-width: 599px) {
+  mat-drawer,
+  mat-sidenav {
+    width: 100vw !important;
+  }
+}

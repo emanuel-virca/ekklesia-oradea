@@ -18,10 +18,3 @@ ul {
 a {
   text-decoration: none;
 }
-
-@media (max-width: 599px) {
-  mat-drawer,
-  mat-sidenav {
-    width: 100vw;
-  }
-}
