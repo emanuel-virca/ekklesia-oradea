@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ResourcesRoutingModule } from './resources-routing.module';
 import { ResourcesListComponent } from './containers/resources-list/resources-list.component';
 import { ResourceCardComponent } from './components/resource-card/resource-card.component';
-import { ResourcesSearchResultsComponent } from './resources-search-results/resources-search-results.component';
+import { ResourcesSearchResultsComponent } from './containers/resources-search-results/resources-search-results.component';
 import { ResourceDetailsComponent } from './components/resource-details/resource-details.component';
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 import { ResourcesMasonryComponent } from './components/resources-masonry/resources-masonry.component';
