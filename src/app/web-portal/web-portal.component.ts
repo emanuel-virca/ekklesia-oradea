@@ -24,6 +24,11 @@ export class WebPortalComponent {
       routerLink: '/resources',
     },
     {
+      name: 'Your Library',
+      icon: 'favorite',
+      routerLink: '/resources/collections/liked-resources',
+    },
+    {
       name: 'Contact',
       icon: 'phone',
       routerLink: '/contact',

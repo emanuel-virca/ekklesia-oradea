@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { mapItemWithId } from '@core/rxjs/pipes';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
+import { mapItemWithId } from '@core/rxjs/pipes';
 import { Resource } from '@shared/models/resource.model';
-import { User } from '@shared/models/user.model';
 
 @Injectable()
 export class ResourceService {
@@ -44,23 +43,5 @@ export class ResourceService {
 
   public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): Resource[] {
     return snapshotChanges.docs.map<Resource>(x => ({ id: x.id, ...(x.data() as Resource) }));
-  }
-
-  public async saveToLibraryAsync(resource: Resource, userId: string): Promise<void> {
-    await this.db.doc<User>(`users/${userId}`).ref.set(
-      {
-        library: firebase.firestore.FieldValue.arrayUnion(resource.id),
-      },
-      { merge: true }
-    );
-  }
-
-  public async removeFromLibraryAsync(resource: Resource, userId: string): Promise<void> {
-    await this.db.doc<User>(`users/${userId}`).ref.set(
-      {
-        library: firebase.firestore.FieldValue.arrayRemove(resource.id),
-      },
-      { merge: true }
-    );
   }
 }

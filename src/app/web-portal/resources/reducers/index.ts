@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/s
 import * as fromRoot from '@root-state';
 import * as fromResourceDetails from './resource.reducer';
 import * as fromResources from './resources.reducer';
+import * as fromCollections from './collections.reducer';
 
 /**
  * Define Resources module main state
@@ -10,6 +11,7 @@ import * as fromResources from './resources.reducer';
 export interface ResourcesState {
   resources: fromResources.State;
   resourceDetails: fromResourceDetails.State; // resources page state
+  collections: fromCollections.State;
 }
 
 // Extends the app state to include the author feature.
@@ -22,6 +24,7 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<ResourcesState, any> = {
   resources: fromResources.reducer,
   resourceDetails: fromResourceDetails.reducer,
+  collections: fromCollections.reducer,
 };
 
 export const getResourcesFeatureState = createFeatureSelector<State, ResourcesState>('resources');
@@ -59,4 +62,35 @@ export const getResourceDetailsState = createSelector(
 export const getCurrentResource = createSelector(
   getResourceDetailsState,
   fromResourceDetails.getCurrentResource
+);
+
+// collections
+export const getCollectionsState = createSelector(
+  getResourcesFeatureState,
+  (state: ResourcesState) => state.collections
+);
+
+export const getLikedResources = createSelector(
+  getCollectionsState,
+  fromCollections.getLikedResources
+);
+
+export const getLikedResourcesOrderByDirection = createSelector(
+  getCollectionsState,
+  fromCollections.getOrderByDirection
+);
+
+export const getLikedResourcesNextPage = createSelector(
+  getCollectionsState,
+  fromCollections.getLikedResourcesNextPage
+);
+
+export const getLikedResourceIds = createSelector(
+  getCollectionsState,
+  fromCollections.getLikedResourceIds
+);
+
+export const getLikedResourcesIsFetching = createSelector(
+  getCollectionsState,
+  fromCollections.geIsLikedFetching
 );

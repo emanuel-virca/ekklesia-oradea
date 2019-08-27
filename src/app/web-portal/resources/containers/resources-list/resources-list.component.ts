@@ -1,16 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Resource } from '@shared/models/resource.model';
-
 import * as fromResources from '@web-portal/resources/reducers';
-import { ResourcesActions, ResourceActions } from '@web-portal/resources/actions';
+import { ResourcesActions, CollectionsActions } from '@web-portal/resources/actions';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
-import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
-import { User } from '@shared/models/user.model';
-import { filterNotNull } from '@core/rxjs/pipes';
 
 export interface OrderByProp {
   value: string;
@@ -30,7 +25,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   resources$: Observable<Resource[]>;
   loading$: Observable<boolean>;
   orderByDirection$: Observable<OrderByDirection>;
-  userLibrary$: Observable<string[]>;
+  likedResourceIds$: Observable<string[]>;
   orderByOptions: OrderByProp[] = [
     {
       value: 'dateTime',
@@ -43,19 +38,17 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];
 
-  constructor(private store: Store<fromResources.State>, private authService: AuthenticationService) {
+  constructor(private store: Store<fromResources.State>) {
     this.resources$ = this.store.select(fromResources.getResources);
     this.nextPage$ = this.store.select(fromResources.getResourcesNextPage);
     this.orderByDirection$ = this.store.select(fromResources.getResourcesOrderByDirection);
     this.loading$ = this.store.select(fromResources.getResourcesIsFetching);
-    this.userLibrary$ = this.authService.user$.pipe(
-      filterNotNull,
-      map((user: User) => user.library)
-    );
+    this.likedResourceIds$ = this.store.select(fromResources.getLikedResourceIds);
   }
 
   ngOnInit() {
     this.store.dispatch(ResourcesActions.loadResources());
+    this.store.dispatch(CollectionsActions.loadLikedResourceIds());
   }
 
   getNextResources() {
@@ -73,11 +66,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   onSaveToLibrary(resource: Resource) {
-    this.store.dispatch(ResourceActions.saveResourceToLibrary({ resource }));
+    this.store.dispatch(CollectionsActions.addToLikedResources({ resource }));
   }
 
   onRemoveFromLibrary(resource: Resource) {
-    this.store.dispatch(ResourceActions.removeResourceFromLibrary({ resource }));
+    this.store.dispatch(CollectionsActions.removeFromLikedResources({ resource }));
   }
 
   ngOnDestroy() {

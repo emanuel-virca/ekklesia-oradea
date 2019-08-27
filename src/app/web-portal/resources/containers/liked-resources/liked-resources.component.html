@@ -21,9 +21,9 @@
     <app-resource-card
       [resource]="item"
       [width]="masonryColumnWidth"
-      (saveToLibrary)="onSaveToLibrary($event)"
+      (saveToLibrary)="onRemoveFromLibrary($event)"
       (removeFromLibrary)="onRemoveFromLibrary($event)"
-      [inLibrary]="((likedResourceIds$ | async) || []).indexOf(item.id) > -1"
+      [inLibrary]="true"
     ></app-resource-card>
   </ng-template>
 

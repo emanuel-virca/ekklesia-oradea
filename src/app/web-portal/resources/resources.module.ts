@@ -19,6 +19,9 @@ import { ResourceService } from './services/resource/resource.service';
 import { reducers } from './reducers';
 import { ResourceEffects } from './effects/resource.effects';
 import { ResourcesEffects } from './effects/resources.effects';
+import { CollectionEffects } from './effects/collections.effects';
+import { CollectionsService } from './services/collections/collections.service';
+import { LikedResourcesComponent } from './containers/liked-resources/liked-resources.component';
 
 @NgModule({
   imports: [
@@ -27,7 +30,7 @@ import { ResourcesEffects } from './effects/resources.effects';
     NgxMasonryModule,
     SharedModule,
     StoreModule.forFeature('resources', reducers),
-    EffectsModule.forFeature([ResourceEffects, ResourcesEffects]),
+    EffectsModule.forFeature([ResourceEffects, ResourcesEffects, CollectionEffects]),
   ],
   declarations: [
     ResourcesListComponent,
@@ -37,8 +40,9 @@ import { ResourcesEffects } from './effects/resources.effects';
     ResourceDetailsShellComponent,
     ResourcesMasonryComponent,
     ResourceTagsComponent,
+    LikedResourcesComponent,
   ],
   exports: [],
-  providers: [ResourceService],
+  providers: [ResourceService, CollectionsService],
 })
 export class ResourcesModule {}
