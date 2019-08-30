@@ -1,11 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ResourceService } from './resource.service';
+import { ResourcesService } from './resources.service';
 
-describe('ResourceService', () => {
+describe('ResourcesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ResourceService],
+      providers: [ResourcesService],
     });
   });
 

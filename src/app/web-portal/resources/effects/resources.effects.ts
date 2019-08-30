@@ -4,7 +4,7 @@ import { mergeMap, withLatestFrom, filter } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
+import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
 
 // NgRx
 import { ResourcesActions, ResourcesApiActions } from '../actions';
@@ -15,7 +15,7 @@ import { LoaderService } from '@core/services/loader/loader.service';
 export class ResourcesEffects {
   constructor(
     private actions$: Actions<ResourcesActions.ResourcesActionsUnion>,
-    private resourceService: ResourceService,
+    private resourcesService: ResourcesService,
     private store: Store<fromResources.State>,
     private loaderService: LoaderService
   ) {}
@@ -31,7 +31,7 @@ export class ResourcesEffects {
     mergeMap(async ([, store]) => {
       this.loaderService.show();
       try {
-        const resources = await this.resourceService.query(
+        const resources = await this.resourcesService.get(
           store.pageSize,
           store.startAfter,
           store.orderBy,
@@ -54,7 +54,7 @@ export class ResourcesEffects {
     mergeMap(async ([, state]) => {
       this.loaderService.show();
       try {
-        const resources = await this.resourceService.query(
+        const resources = await this.resourcesService.get(
           state.pageSize,
           state.startAfter,
           state.orderBy,

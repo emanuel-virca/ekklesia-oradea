@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'resources',
         loadChildren: () => import('@web-portal/resources/resources.module').then(x => x.ResourcesModule),
       },
+      {
+        path: 'collections',
+        loadChildren: () => import('@web-portal/collections/collections.module').then(x => x.CollectionsModule),
+      },
       { path: '', pathMatch: 'full', redirectTo: 'resources' },
     ],
   },

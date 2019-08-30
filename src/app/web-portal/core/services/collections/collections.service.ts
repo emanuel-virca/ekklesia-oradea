@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FireSQL } from 'firesql';
 
 import { LikedResource } from '@web-portal/shared/models/liked-resource.model';
-import { Resource } from '@shared/models/resource.model';
+import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
 
 @Injectable()
 export class CollectionsService {
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private resourcesService: ResourcesService) {}
 
   public async getLikedResources(
     userId: string,
@@ -16,32 +15,26 @@ export class CollectionsService {
     orderBy?: string,
     orderByDirection?: firebase.firestore.OrderByDirection
   ): Promise<LikedResource[]> {
-    let queryLiked = this.db
+    let query = this.db
       .collection<LikedResource>('liked-resources')
       .ref.where('userId', '==', userId)
       .orderBy(orderBy, orderByDirection)
       .limit(pageSize);
 
     if (startAfter) {
-      queryLiked = queryLiked.startAfter(userId + '_' + startAfter);
+      query = query.startAfter(startAfter);
     }
 
     try {
-      const snapshotChanges = await queryLiked.get();
+      const snapshotChanges = await query.get();
 
       const likedResources = snapshotChanges.docs.map<LikedResource>(x => x.data() as LikedResource);
 
-      const fireSQL = new FireSQL(this.db.firestore);
-
       const resourceIds = likedResources.map(x => '"' + x.resourceId + '"');
 
-      const query = `Select * from resources where __name__ in (${resourceIds.join(',')})`;
+      const resources = await this.resourcesService.getByIds(resourceIds);
 
-      const resources: Resource[] = (await fireSQL.query(query, { includeId: 'id' })) as Resource[];
-
-      likedResources.forEach(x => (x.resource = resources.find(r => r.id === x.resourceId)));
-
-      return likedResources;
+      return likedResources.map(x => ({ ...x, resource: resources.find(r => r.id === x.resourceId) }));
     } catch (error) {
       console.log(error);
     }

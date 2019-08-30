@@ -1,4 +1,5 @@
 import { createAction, union, props } from '@ngrx/store';
+
 import { Resource } from '@shared/models/resource.model';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 

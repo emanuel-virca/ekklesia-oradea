@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { Resource } from '@shared/models/resource.model';
-import { CollectionsActions } from '@web-portal/resources/actions';
-import * as fromResources from '@web-portal/resources/reducers';
+import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
-import { OrderByProp } from '../resources-list/resources-list.component';
+import { CollectionsActions } from '@web-portal/collections/actions';
+import * as fromCollections from '@web-portal/collections/reducers';
 
 @Component({
   selector: 'app-liked-resources',
@@ -30,11 +30,11 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];
 
-  constructor(private store: Store<fromResources.State>) {
-    this.resources$ = this.store.select(fromResources.getLikedResources);
-    this.orderByDirection$ = this.store.select(fromResources.getLikedResourcesOrderByDirection);
-    this.nextPage$ = this.store.select(fromResources.getLikedResourcesNextPage);
-    this.loading$ = this.store.select(fromResources.getLikedResourcesIsFetching);
+  constructor(private store: Store<fromCollections.State>) {
+    this.resources$ = this.store.select(fromCollections.getLikedResources);
+    this.orderByDirection$ = this.store.select(fromCollections.getLikedResourcesOrderByDirection);
+    this.nextPage$ = this.store.select(fromCollections.getLikedResourcesNextPage);
+    this.loading$ = this.store.select(fromCollections.getLikedResourcesIsFetching);
   }
 
   ngOnInit() {

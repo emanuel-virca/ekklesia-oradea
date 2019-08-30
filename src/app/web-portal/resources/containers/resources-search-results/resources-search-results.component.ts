@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { SearchService } from '@web-portal/core/services/search/search.service';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result.model';
-import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
+import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
 import { Resource } from '@shared/models/resource.model';
 import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
 
@@ -27,7 +27,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
-    private resourceService: ResourceService,
+    private resourcesService: ResourcesService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
     private store: Store<fromAudioPlayer.State>
@@ -76,7 +76,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
       return;
     }
 
-    this.resourceService.get(resourceSearchResult.id).subscribe((resource: Resource) => {
+    this.resourcesService.getById(resourceSearchResult.id).subscribe((resource: Resource) => {
       if (resource.streamUrl) {
         this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(resource)));
       }

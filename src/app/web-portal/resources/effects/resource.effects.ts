@@ -4,7 +4,7 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { ResourceService } from '@web-portal/resources/services/resource/resource.service';
+import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
 
 // NgRx
 import { ResourceApiActions, ResourceActions } from '../actions';
@@ -13,14 +13,14 @@ import { ResourceApiActions, ResourceActions } from '../actions';
 export class ResourceEffects {
   constructor(
     private actions$: Actions<ResourceActions.ResourceActionsUnion>,
-    private resourceService: ResourceService
+    private resourceService: ResourcesService
   ) {}
 
   @Effect()
-  loadResource$: Observable<Action> = this.actions$.pipe(
+  loadResources$: Observable<Action> = this.actions$.pipe(
     ofType(ResourceActions.selectResource.type),
     mergeMap(({ id }) =>
-      this.resourceService.get(id).pipe(
+      this.resourceService.getById(id).pipe(
         map(resource => ResourceApiActions.loadResourceSuccess({ resource })),
         catchError(err => of(ResourceApiActions.loadResourceFailure(err)))
       )

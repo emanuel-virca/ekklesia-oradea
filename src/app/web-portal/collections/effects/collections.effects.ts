@@ -4,11 +4,11 @@ import { combineLatest, switchMap, catchError, withLatestFrom, mergeMap } from '
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { CollectionsActions, CollectionsApiActions } from '../actions';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
-import { CollectionsService } from '../services/collections/collections.service';
-import * as fromResources from '../reducers';
+import { CollectionsService } from '@web-portal/core/services/collections/collections.service';
+import * as fromCollections from '../reducers';
+import { CollectionsActions, CollectionsApiActions } from '../actions';
 
 @Injectable()
 export class CollectionEffects {
@@ -17,7 +17,7 @@ export class CollectionEffects {
     private collectionsService: CollectionsService,
     private loaderService: LoaderService,
     private authService: AuthenticationService,
-    private store: Store<fromResources.State>
+    private store: Store<fromCollections.State>
   ) {}
 
   @Effect()
@@ -27,7 +27,7 @@ export class CollectionEffects {
       CollectionsActions.changeOrderBy.type,
       CollectionsActions.changeOrderDirection
     ),
-    withLatestFrom(this.store.select(fromResources.getCollectionsState), this.authService.user$),
+    withLatestFrom(this.store.select(fromCollections.getCollectionsState), this.authService.user$),
     switchMap(async ([, state, user]) => {
       this.loaderService.show();
 
