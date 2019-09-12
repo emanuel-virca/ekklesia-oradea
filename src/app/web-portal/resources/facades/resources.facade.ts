@@ -20,10 +20,6 @@ export class ResourcesFacade {
     this.store.dispatch(ResourcesActions.loadResources());
   }
 
-  loadNextEntities() {
-    this.store.dispatch(ResourcesActions.loadNextResources());
-  }
-
   changeOrderDirection(orderByDirection: 'desc' | 'asc') {
     this.store.dispatch(ResourcesActions.changeResourceOrderDirection({ orderByDirection }));
   }

@@ -44,8 +44,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.store.dispatch(CollectionsActions.loadLikedResourceIds());
   }
 
-  getNextResources() {
-    this.resourcesFacade.loadNextEntities();
+  loadResources() {
+    this.resourcesFacade.loadEntities();
   }
 
   toggleDirection(currentValue: OrderByDirection) {

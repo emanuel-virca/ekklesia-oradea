@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { mergeMap, withLatestFrom, filter } from 'rxjs/operators';
+import { mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
+import { LoaderService } from '@core/services/loader/loader.service';
 
 // NgRx
 import { ResourcesActions, ResourcesApiActions } from '../actions';
 import * as fromResources from '../reducers';
-import { LoaderService } from '@core/services/loader/loader.service';
 import { resourcesQuery } from '../reducers/resources.selectors';
 
 @Injectable()
@@ -29,29 +29,6 @@ export class ResourcesEffects {
       ResourcesActions.changeResourceOrderBy
     ),
     withLatestFrom(this.store.select(resourcesQuery.getState)),
-    mergeMap(async ([, store]) => {
-      this.loaderService.show();
-      try {
-        const resources = await this.resourcesService.get(
-          store.pageSize,
-          store.startAfter,
-          store.orderBy,
-          store.orderByDirection
-        );
-        return ResourcesApiActions.loadResourcesSuccess({ resources });
-      } catch (err) {
-        return ResourcesApiActions.loadResourcesFailure(err);
-      } finally {
-        this.loaderService.hide();
-      }
-    })
-  );
-
-  @Effect()
-  loadNextResources$: Observable<Action> = this.actions$.pipe(
-    ofType(ResourcesActions.loadNextResources.type),
-    withLatestFrom(this.store.select(resourcesQuery.getState)),
-    filter(([, state]) => state.startAfter != null),
     mergeMap(async ([, state]) => {
       this.loaderService.show();
       try {

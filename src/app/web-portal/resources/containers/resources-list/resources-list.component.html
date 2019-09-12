@@ -12,7 +12,7 @@
 </div>
 <div
   infiniteScroll
-  (scrolled)="getNextResources()"
+  (scrolled)="loadResources()"
   [infiniteScrollContainer]="'mat-sidenav-content'"
   [fromRoot]="true"
   [infiniteScrollDisabled]="(loading$ | async) || !(nextPage$ | async)"

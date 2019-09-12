@@ -32,16 +32,6 @@ export function reducer(
       return {
         ...state,
         isFetching: true,
-        entities: [],
-        startAfter: null,
-        errorMessage: '',
-        currentPage: 0,
-      };
-    }
-    case ResourcesActions.loadNextResources.type: {
-      return {
-        ...state,
-        isFetching: true,
         errorMessage: '',
       };
     }
