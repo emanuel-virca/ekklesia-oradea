@@ -1,12 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 
 import { Resource } from '@shared/models/resource.model';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
-import { CollectionsActions } from '@web-portal/collections/actions';
-import * as fromCollections from '@web-portal/collections/reducers';
+import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
 
 @Component({
   selector: 'app-liked-resources',
@@ -17,10 +14,10 @@ import * as fromCollections from '@web-portal/collections/reducers';
 export class LikedResourcesComponent implements OnInit, OnDestroy {
   @ViewChild('masonryItemSizer', { static: true }) masonryItemSizer: ElementRef;
 
-  nextPage$: Observable<string>;
-  resources$: Observable<Resource[]>;
-  orderByDirection$: Observable<OrderByDirection>;
-  loading$: Observable<boolean>;
+  nextPage$ = this.collectionsFacade.query.likedResources.nextPage$;
+  resources$ = this.collectionsFacade.query.likedResources.entities$;
+  orderByDirection$ = this.collectionsFacade.query.likedResources.orderByDirection$;
+  loading$ = this.collectionsFacade.query.likedResources.loading$;
 
   orderByOptions: OrderByProp[] = [
     {
@@ -30,36 +27,31 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];
 
-  constructor(private store: Store<fromCollections.State>) {
-    this.resources$ = this.store.select(fromCollections.getLikedResources);
-    this.orderByDirection$ = this.store.select(fromCollections.getLikedResourcesOrderByDirection);
-    this.nextPage$ = this.store.select(fromCollections.getLikedResourcesNextPage);
-    this.loading$ = this.store.select(fromCollections.getLikedResourcesIsFetching);
-  }
+  constructor(private collectionsFacade: CollectionsFacade) {}
 
   ngOnInit() {
-    this.store.dispatch(CollectionsActions.loadLikedResources());
+    this.collectionsFacade.loadLikedResources();
   }
 
-  getNextResources() {
-    this.store.dispatch(CollectionsActions.loadLikedResources());
+  loadResources() {
+    this.collectionsFacade.loadLikedResources();
   }
 
   onRemoveFromLibrary(resource: Resource) {
-    this.store.dispatch(CollectionsActions.removeFromLikedResources({ resource }));
+    this.collectionsFacade.removeFromLikedResources(resource);
   }
 
   toggleDirection(currentValue: OrderByDirection) {
     const orderByDirection = currentValue === 'asc' ? 'desc' : 'asc';
-    this.store.dispatch(CollectionsActions.changeOrderDirection({ orderByDirection }));
+    this.collectionsFacade.changeOrderDirection(orderByDirection);
   }
 
   onOrderByChanged(orderedByProp: OrderByProp) {
     this.selectedOrderedBy = orderedByProp;
-    this.store.dispatch(CollectionsActions.changeOrderBy({ orderBy: orderedByProp.value }));
+    this.collectionsFacade.changeOrderBy(orderedByProp.value);
   }
 
   ngOnDestroy() {
-    this.store.dispatch(CollectionsActions.clearLikedResources());
+    this.collectionsFacade.clear();
   }
 }

@@ -99,9 +99,3 @@ export function reducer(
       return state;
   }
 }
-
-export const getLikedResources = (state: State) => state.entities;
-export const getOrderByDirection = (state: State) => state.orderByDirection;
-export const getLikedResourcesNextPage = (state: State) => state.startAfter;
-export const getLikedResourceIds = (state: State) => state.entityIds;
-export const geIsLikedFetching = (state: State) => state.isFetching;

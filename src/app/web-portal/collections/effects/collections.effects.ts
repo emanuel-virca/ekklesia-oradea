@@ -9,6 +9,7 @@ import { AuthenticationService } from '@authentication/services/authentication/a
 import { CollectionsService } from '@web-portal/core/services/collections/collections.service';
 import * as fromCollections from '../reducers';
 import { CollectionsActions, CollectionsApiActions } from '../actions';
+import { collectionsQuery } from '../reducers/collections.selectors';
 
 @Injectable()
 export class CollectionEffects {
@@ -27,7 +28,7 @@ export class CollectionEffects {
       CollectionsActions.changeOrderBy.type,
       CollectionsActions.changeOrderDirection
     ),
-    withLatestFrom(this.store.select(fromCollections.getCollectionsState), this.authService.user$),
+    withLatestFrom(this.store.select(collectionsQuery.getState), this.authService.user$),
     switchMap(async ([, state, user]) => {
       this.loaderService.show();
 

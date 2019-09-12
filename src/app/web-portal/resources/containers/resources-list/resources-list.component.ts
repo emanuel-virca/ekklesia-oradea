@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
 import { Resource } from '@shared/models/resource.model';
-import * as fromCollections from '@web-portal/collections/reducers';
-import { CollectionsActions } from '@web-portal/collections/actions';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { ResourcesFacade } from '@web-portal/resources/facades/resources.facade';
+import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
 
 @Component({
   selector: 'app-resources-list',
@@ -22,7 +19,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   resources$ = this.resourcesFacade.query.entities$;
   loading$ = this.resourcesFacade.query.loading$;
   orderByDirection$ = this.resourcesFacade.query.orderByDirection$;
-  likedResourceIds$: Observable<string[]>;
+  likedResourceIds$ = this.collectionsFacade.query.likedResources.entityIds$;
   orderByOptions: OrderByProp[] = [
     {
       value: 'dateTime',
@@ -35,13 +32,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];
 
-  constructor(private store: Store<fromCollections.State>, private resourcesFacade: ResourcesFacade) {
-    this.likedResourceIds$ = this.store.select(fromCollections.getLikedResourceIds);
-  }
+  constructor(private resourcesFacade: ResourcesFacade, private collectionsFacade: CollectionsFacade) {}
 
   ngOnInit() {
     this.resourcesFacade.loadEntities();
-    this.store.dispatch(CollectionsActions.loadLikedResourceIds());
+    this.collectionsFacade.loadLikedResourceIds();
   }
 
   loadResources() {
@@ -59,11 +54,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   onSaveToLibrary(resource: Resource) {
-    this.store.dispatch(CollectionsActions.addToLikedResources({ resource }));
+    this.collectionsFacade.addToLikedResources(resource);
   }
 
   onRemoveFromLibrary(resource: Resource) {
-    this.store.dispatch(CollectionsActions.removeFromLikedResources({ resource }));
+    this.collectionsFacade.removeFromLikedResources(resource);
   }
 
   ngOnDestroy() {
