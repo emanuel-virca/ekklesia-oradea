@@ -20,31 +20,6 @@ export const reducers: ActionReducerMap<ResourcesState, any> = {
 
 export const getResourcesFeatureState = createFeatureSelector<State, ResourcesState>('resources');
 
-export const getResourcesState = createSelector(
-  getResourcesFeatureState,
-  (state: ResourcesState) => state.resources
-);
-
-export const getResources = createSelector(
-  getResourcesState,
-  fromResources.getResources
-);
-
-export const getResourcesIsFetching = createSelector(
-  getResourcesState,
-  fromResources.getIsFetching
-);
-
-export const getResourcesNextPage = createSelector(
-  getResourcesState,
-  fromResources.getNextPage
-);
-
-export const getResourcesOrderByDirection = createSelector(
-  getResourcesState,
-  fromResources.getOrderByDirection
-);
-
 export const getResourceDetailsState = createSelector(
   getResourcesFeatureState,
   (state: ResourcesState) => state.resourceDetails

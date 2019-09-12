@@ -10,6 +10,7 @@ import { ResourcesService } from '@web-portal/core/services/resources/resources.
 import { ResourcesActions, ResourcesApiActions } from '../actions';
 import * as fromResources from '../reducers';
 import { LoaderService } from '@core/services/loader/loader.service';
+import { resourcesQuery } from '../reducers/resources.selectors';
 
 @Injectable()
 export class ResourcesEffects {
@@ -27,7 +28,7 @@ export class ResourcesEffects {
       ResourcesActions.changeResourceOrderDirection.type,
       ResourcesActions.changeResourceOrderBy
     ),
-    withLatestFrom(this.store.select(fromResources.getResourcesState)),
+    withLatestFrom(this.store.select(resourcesQuery.getState)),
     mergeMap(async ([, store]) => {
       this.loaderService.show();
       try {
@@ -49,7 +50,7 @@ export class ResourcesEffects {
   @Effect()
   loadNextResources$: Observable<Action> = this.actions$.pipe(
     ofType(ResourcesActions.loadNextResources.type),
-    withLatestFrom(this.store.select(fromResources.getResourcesState)),
+    withLatestFrom(this.store.select(resourcesQuery.getState)),
     filter(([, state]) => state.startAfter != null),
     mergeMap(async ([, state]) => {
       this.loaderService.show();

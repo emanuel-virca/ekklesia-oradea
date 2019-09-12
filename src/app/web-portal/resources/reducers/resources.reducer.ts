@@ -80,8 +80,3 @@ export function reducer(
       return state;
   }
 }
-
-export const getResources = (state: State) => state.entities;
-export const getIsFetching = (state: State) => state.isFetching;
-export const getNextPage = (state: State) => state.startAfter;
-export const getOrderByDirection = (state: State) => state.orderByDirection;

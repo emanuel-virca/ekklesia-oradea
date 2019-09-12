@@ -14,6 +14,7 @@ import { reducers } from './reducers';
 import { ResourceEffects } from './effects/resource.effects';
 import { ResourcesEffects } from './effects/resources.effects';
 import { CollectionsModule } from '@web-portal/collections/collections.module';
+import { ResourcesFacade } from './facades/resources.facade';
 
 @NgModule({
   imports: [
@@ -30,5 +31,6 @@ import { CollectionsModule } from '@web-portal/collections/collections.module';
     ResourceDetailsShellComponent,
   ],
   exports: [],
+  providers: [ResourcesFacade],
 })
 export class ResourcesModule {}
