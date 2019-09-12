@@ -33,5 +33,3 @@ export function reducer(
       return state;
   }
 }
-
-export const getCurrentResource = (state: State) => state.currentResource;

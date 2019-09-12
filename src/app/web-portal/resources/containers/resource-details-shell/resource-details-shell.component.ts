@@ -1,14 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { Resource } from '@shared/models/resource.model';
-
-// NgRx
-import * as fromResources from '@web-portal/resources/reducers';
-import { ResourceActions } from '@web-portal/resources/actions';
+import { ResourceFacade } from '@web-portal/resources/facades/resource.facade';
 
 @Component({
   selector: 'app-resource-details-shell',
@@ -16,18 +11,15 @@ import { ResourceActions } from '@web-portal/resources/actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceDetailsShellComponent implements OnDestroy {
-  resource$: Observable<Resource>;
+  resource$ = this.resourceFacades.query.current$;
   actionsSubscription: Subscription;
 
-  constructor(route: ActivatedRoute, private store: Store<fromResources.State>) {
-    this.actionsSubscription = route.params
-      .pipe(map(params => ResourceActions.selectResource({ id: params.id })))
-      .subscribe(store);
-    this.resource$ = store.pipe(select(fromResources.getCurrentResource));
+  constructor(route: ActivatedRoute, private resourceFacades: ResourceFacade) {
+    this.actionsSubscription = route.params.pipe(tap(params => resourceFacades.load(params.id))).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(ResourceActions.clearSelectedResource());
+    this.resourceFacades.clear();
     this.actionsSubscription.unsubscribe();
   }
 }
