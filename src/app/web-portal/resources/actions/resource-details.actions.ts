@@ -9,4 +9,4 @@ export const clearSelectedResource = createAction('[Resource] Clear Selected Res
  */
 const all = union({ selectResource, clearSelectedResource });
 
-export type ResourceActionsUnion = typeof all;
+export type ResourceDetailsActionsUnion = typeof all;

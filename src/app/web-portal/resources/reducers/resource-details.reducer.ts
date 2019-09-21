@@ -13,7 +13,7 @@ export const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action: ResourceApiActions.ResourceApiActionsUnion | ResourceActions.ResourceActionsUnion
+  action: ResourceApiActions.ResourceDetailsApiActionsUnion | ResourceActions.ResourceDetailsActionsUnion
 ) {
   switch (action.type) {
     case ResourceActions.selectResource.type:

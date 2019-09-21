@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { ResourceFacade } from '@web-portal/resources/facades/resource.facade';
+import { ResourceDetailsFacade } from '@web-portal/resources/facades/resource-details.facade';
 
 @Component({
   selector: 'app-resource-details-shell',
@@ -11,15 +11,15 @@ import { ResourceFacade } from '@web-portal/resources/facades/resource.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceDetailsShellComponent implements OnDestroy {
-  resource$ = this.resourceFacades.query.current$;
+  resource$ = this.resourceDetailsFacades.query.current$;
   actionsSubscription: Subscription;
 
-  constructor(route: ActivatedRoute, private resourceFacades: ResourceFacade) {
-    this.actionsSubscription = route.params.pipe(tap(params => resourceFacades.load(params.id))).subscribe();
+  constructor(route: ActivatedRoute, private resourceDetailsFacades: ResourceDetailsFacade) {
+    this.actionsSubscription = route.params.pipe(tap(params => resourceDetailsFacades.load(params.id))).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.resourceFacades.clear();
+    this.resourceDetailsFacades.clear();
     this.actionsSubscription.unsubscribe();
   }
 }

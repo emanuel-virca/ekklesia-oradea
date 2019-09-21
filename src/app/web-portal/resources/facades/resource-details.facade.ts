@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../reducers/resources.reducer';
 import { ResourceActions } from '../actions';
-import { resourceQuery } from '../reducers/resource.selectors';
+import { resourceQuery } from '../reducers/resource-details.selectors';
 
 @Injectable()
-export class ResourceFacade {
+export class ResourceDetailsFacade {
   query = {
     current$: this.store.select(resourceQuery.getCurrent),
   };

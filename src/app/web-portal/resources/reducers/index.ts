@@ -1,7 +1,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 
 import * as fromRoot from '@root-state';
-import * as fromResourceDetails from './resource.reducer';
+import * as fromResourceDetails from './resource-details.reducer';
 import * as fromResources from './resources.reducer';
 
 export interface ResourcesState {

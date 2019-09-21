@@ -16,4 +16,4 @@ const all = union({
   loadResourceFailure,
 });
 
-export type ResourceApiActionsUnion = typeof all;
+export type ResourceDetailsApiActionsUnion = typeof all;

@@ -8,10 +8,6 @@ import { Resource } from '@shared/models/resource.model';
   styleUrls: ['./resource-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResourceDetailsComponent implements OnInit {
+export class ResourceDetailsComponent {
   @Input() resource: Resource;
-
-  constructor() {}
-
-  ngOnInit() {}
 }

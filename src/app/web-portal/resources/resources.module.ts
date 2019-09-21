@@ -11,11 +11,11 @@ import { ResourceDetailsShellComponent } from './containers/resource-details-she
 
 // NgRx
 import { reducers } from './reducers';
-import { ResourceEffects } from './effects/resource.effects';
+import { ResourceDetailsEffects } from './effects/resource-details.effects';
 import { ResourcesEffects } from './effects/resources.effects';
 import { CollectionsModule } from '@web-portal/collections/collections.module';
 import { ResourcesFacade } from './facades/resources.facade';
-import { ResourceFacade } from './facades/resource.facade';
+import { ResourceDetailsFacade } from './facades/resource-details.facade';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import { ResourceFacade } from './facades/resource.facade';
     SharedModule,
     CollectionsModule,
     StoreModule.forFeature('resources', reducers),
-    EffectsModule.forFeature([ResourceEffects, ResourcesEffects]),
+    EffectsModule.forFeature([ResourceDetailsEffects, ResourcesEffects]),
   ],
   declarations: [
     ResourcesListComponent,
@@ -32,6 +32,6 @@ import { ResourceFacade } from './facades/resource.facade';
     ResourceDetailsShellComponent,
   ],
   exports: [],
-  providers: [ResourcesFacade, ResourceFacade],
+  providers: [ResourcesFacade, ResourceDetailsFacade],
 })
 export class ResourcesModule {}
