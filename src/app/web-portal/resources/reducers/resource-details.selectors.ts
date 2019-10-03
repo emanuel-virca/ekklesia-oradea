@@ -1,12 +1,10 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 
-import { ResourcesState } from '.';
-
-const getResourcesFeatureState = createFeatureSelector<ResourcesState>('resources');
+import { getFeatureState } from '.';
 
 const getState = createSelector(
-  getResourcesFeatureState,
-  (state: ResourcesState) => state.resourceDetails
+  getFeatureState,
+  state => state.resourceDetails
 );
 
 const getCurrent = createSelector(

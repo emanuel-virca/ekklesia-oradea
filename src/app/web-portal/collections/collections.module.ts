@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { CollectionsRoutingModule } from './collections-routing.module';
 import { LikedResourcesComponent } from './containers/liked-resources/liked-resources.component';
-import { reducers } from './reducers';
+import { reducers, featureKey } from './reducers';
 import { CollectionEffects } from './effects/collections.effects';
 import { SharedModule } from '@web-portal/shared/shared.module';
 import { CollectionsFacade } from './facades/collections.facade';
@@ -16,7 +16,7 @@ import { CollectionsFacade } from './facades/collections.facade';
     CommonModule,
     SharedModule,
     CollectionsRoutingModule,
-    StoreModule.forFeature('collections', reducers),
+    StoreModule.forFeature(featureKey, reducers),
     EffectsModule.forFeature([CollectionEffects]),
   ],
   providers: [CollectionsFacade],

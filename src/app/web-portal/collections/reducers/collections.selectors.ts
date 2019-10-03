@@ -1,11 +1,9 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 
-import { CollectionsState } from '.';
-
-const getCollectionsFeatureState = createFeatureSelector<CollectionsState>('collections');
+import { getFeatureState } from '.';
 
 const getState = createSelector(
-  getCollectionsFeatureState,
+  getFeatureState,
   state => state.collections
 );
 

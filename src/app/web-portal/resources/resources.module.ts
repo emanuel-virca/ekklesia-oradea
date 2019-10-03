@@ -10,7 +10,7 @@ import { ResourceDetailsComponent } from './components/resource-details/resource
 import { ResourceDetailsShellComponent } from './containers/resource-details-shell/resource-details-shell.component';
 
 // NgRx
-import { reducers } from './reducers';
+import { reducers, featureKey } from './reducers';
 import { ResourceDetailsEffects } from './effects/resource-details.effects';
 import { ResourcesEffects } from './effects/resources.effects';
 import { CollectionsModule } from '@web-portal/collections/collections.module';
@@ -22,7 +22,7 @@ import { ResourceDetailsFacade } from './facades/resource-details.facade';
     ResourcesRoutingModule,
     SharedModule,
     CollectionsModule,
-    StoreModule.forFeature('resources', reducers),
+    StoreModule.forFeature(featureKey, reducers),
     EffectsModule.forFeature([ResourceDetailsEffects, ResourcesEffects]),
   ],
   declarations: [

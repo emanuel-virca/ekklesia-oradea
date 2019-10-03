@@ -1,6 +1,8 @@
 import { Resource } from '@shared/models/resource.model';
 import { ResourceApiActions, ResourceActions } from '../actions';
 
+export const featureKey = 'resourceDetails';
+
 export interface State {
   currentResource: Resource;
   errorMessage: string;

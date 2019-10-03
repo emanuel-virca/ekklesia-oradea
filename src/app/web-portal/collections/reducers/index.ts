@@ -1,19 +1,17 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 
-import * as fromRoot from '@root-state';
 import * as fromCollections from './collections.reducer';
 
-/**
- * Define Resources module main state
- */
-export interface CollectionsState {
-  collections: fromCollections.State;
+export const featureKey = 'collections';
+
+export interface State {
+  [fromCollections.featureKey]: fromCollections.State;
 }
 
-export interface State extends fromRoot.State {
-  collections: CollectionsState;
+export function reducers(state: State | undefined, action: Action) {
+  return combineReducers({
+    [fromCollections.featureKey]: fromCollections.reducer,
+  })(state, action);
 }
 
-export const reducers: ActionReducerMap<CollectionsState, any> = {
-  collections: fromCollections.reducer,
-};
+export const getFeatureState = createFeatureSelector<State>(featureKey);

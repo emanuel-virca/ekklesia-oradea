@@ -1,6 +1,8 @@
 import { Resource } from '@shared/models/resource.model';
 import { CollectionsActions, CollectionsApiActions } from '../actions';
 
+export const featureKey = 'collections';
+
 export interface State {
   entities: Resource[];
   entityIds: string[];

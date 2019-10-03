@@ -1,11 +1,10 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ResourcesState } from '.';
+import { createSelector } from '@ngrx/store';
 
-export const getResourcesFeatureState = createFeatureSelector<ResourcesState>('resources');
+import { getFeatureState } from '.';
 
 export const getState = createSelector(
-  getResourcesFeatureState,
-  (state: ResourcesState) => state.resources
+  getFeatureState,
+  state => state.resources
 );
 
 export const getEntities = createSelector(

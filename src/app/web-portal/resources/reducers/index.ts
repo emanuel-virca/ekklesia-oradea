@@ -1,19 +1,20 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { Action, createFeatureSelector, combineReducers } from '@ngrx/store';
 
-import * as fromRoot from '@root-state';
 import * as fromResourceDetails from './resource-details.reducer';
 import * as fromResources from './resources.reducer';
 
-export interface ResourcesState {
-  resources: fromResources.State;
-  resourceDetails: fromResourceDetails.State;
+export const featureKey = 'resources';
+
+export interface State {
+  [fromResources.featureKey]: fromResources.State;
+  [fromResourceDetails.featureKey]: fromResourceDetails.State;
 }
 
-export interface State extends fromRoot.State {
-  resources: ResourcesState;
+export function reducers(state: State | undefined, action: Action) {
+  return combineReducers({
+    [fromResources.featureKey]: fromResources.reducer,
+    [fromResourceDetails.featureKey]: fromResourceDetails.reducer,
+  })(state, action);
 }
 
-export const reducers: ActionReducerMap<ResourcesState, any> = {
-  resources: fromResources.reducer,
-  resourceDetails: fromResourceDetails.reducer,
-};
+export const getFeatureState = createFeatureSelector<State>(featureKey);
