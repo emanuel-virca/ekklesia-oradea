@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 
-import { User } from '@shared/models/user.model';
+import { User } from '@shared/models/user';
 
 @Injectable()
 export class AuthorizationService {

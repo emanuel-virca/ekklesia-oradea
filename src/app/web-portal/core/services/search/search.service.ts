@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as algoliasearchProxy from 'algoliasearch';
 
 import { environment } from '@env/environment';
-import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result.model';
+import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result';
 
 @Injectable({
   providedIn: 'root',

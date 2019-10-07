@@ -6,7 +6,7 @@
   <span class="example-spacer"></span>
   <ng-container *ngIf="user && !user.isAnonymous; else showLogin">
     <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
-      <span class="user-display__initials">{{ getInitials(user.profile?.name ||user.displayName) }}</span>
+      <span class="user-display__initials">{{ (user.profile?.name || user.displayName) | userInitials }}</span>
     </button>
     <mat-menu #profileMenu="matMenu">
       <button mat-menu-item (click)="signOut()">Logout</button>

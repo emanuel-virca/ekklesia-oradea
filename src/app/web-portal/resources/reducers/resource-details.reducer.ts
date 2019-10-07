@@ -1,4 +1,4 @@
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { ResourceApiActions, ResourceActions } from '../actions';
 
 export const featureKey = 'resourceDetails';

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 
 // NgRx
 import * as fromReducers from '@admin/authors/state';

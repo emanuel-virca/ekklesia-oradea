@@ -3,7 +3,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 
 import { LoaderService } from '@core/services/loader/loader.service';
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 
 @Injectable()

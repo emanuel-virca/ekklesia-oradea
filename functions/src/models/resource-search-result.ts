@@ -1,11 +1,12 @@
-import { ResourceType, Tag } from './resource';
-import { Author } from './author.model';
+import { ResourceType } from './resource';
+import { AuthorSnippet } from './author';
+import { Tag } from './tag';
 
-export class ResourceSearchResult {
+export interface ResourceSearchResult {
   objectID?: string;
   id: string;
   name: string;
   type: ResourceType;
   tags: Tag[];
-  author: Author;
+  author: AuthorSnippet;
 }

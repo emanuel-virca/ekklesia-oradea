@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 
 @Component({
   selector: 'app-author-signature',

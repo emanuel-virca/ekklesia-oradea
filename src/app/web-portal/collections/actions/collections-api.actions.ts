@@ -1,6 +1,6 @@
 import { createAction, union, props } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { LikedResource } from '@web-portal/shared/models/liked-resource.model';
 
 export const loadLikedResourcesSuccess = createAction(

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 
 export const LOAD_AUTHORS = 'LOAD AUTHORS';
 export const LOAD_AUTHORS_SUCCESS = 'LOAD AUTHORS SUCCESS';

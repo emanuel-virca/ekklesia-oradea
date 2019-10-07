@@ -3,7 +3,7 @@ import * as algoliasearchProxy from 'algoliasearch';
 import { AlgoliaConfig } from './algolia.config';
 import { Resource } from './models/resource';
 import { ResourceSearchResult } from './models/resource-search-result';
-import { Author } from './models/author.model';
+import { Author, convertToAuthorSnippet } from './models/author';
 
 export class ResourceSearchService {
   private algoliaIndex: algoliasearchProxy.Index;
@@ -35,7 +35,7 @@ export class ResourceSearchService {
     }
 
     const resourceSearchResults = response.hits.map((resourceSearchResult: ResourceSearchResult) => {
-      resourceSearchResult.author = author;
+      resourceSearchResult.author = convertToAuthorSnippet(author);
       return resourceSearchResult;
     });
 

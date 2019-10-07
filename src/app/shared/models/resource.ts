@@ -1,7 +1,7 @@
-import { AuthorSnippet } from './author';
 import { Tag } from './tag';
-import { Album } from './album';
+import { AuthorSnippet } from './author';
 import { Image } from './image';
+import { Album } from './album';
 
 export interface Resource {
   id?: string;

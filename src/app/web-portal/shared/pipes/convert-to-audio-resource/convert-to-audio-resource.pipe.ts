@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
 
 @Pipe({

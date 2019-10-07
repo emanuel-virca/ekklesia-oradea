@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 
-import { User } from '@shared/models/user.model';
+import { User } from '@shared/models/user';
 import { UserService } from '../user/user.service';
 
 @Injectable()

@@ -5,7 +5,7 @@ import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/m
 import { startWith } from 'rxjs/operators';
 
 import { SearchService } from '@web-portal/core/services/search/search.service';
-import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result.model';
+import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result';
 
 @Component({
   selector: 'app-resources-search',

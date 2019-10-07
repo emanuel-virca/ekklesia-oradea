@@ -1,6 +1,6 @@
 import { createAction, union, props } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 
 export const clearLikedResources = createAction('[Collections] Clear Liked Resources');

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 // NgRx
 import * as fromResource from '@admin/resources/state';

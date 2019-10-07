@@ -4,7 +4,7 @@
       <mat-card *ngFor="let resource of searchResults" mat-ripple class="resource-result" [routerLink]="[ '/resources/', resource.id ]">
         <mat-card-header>
           <mat-card-title>{{resource.name}}</mat-card-title>
-          <mat-card-subtitle>by {{resource.author.firstName}} {{resource.author.lastName}}</mat-card-subtitle>
+          <mat-card-subtitle>by {{resource.author?.displayName}}</mat-card-subtitle>
         </mat-card-header>
         <div *ngIf="resource.tags?.length" class="mat-card-text" align="right">
           <app-resource-tags [tags]="resource.tags"></app-resource-tags>

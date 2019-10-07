@@ -2,9 +2,9 @@
   <mat-card class="mat-card-flat">
     <mat-card-header class="">
       <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
-      <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author.firstName[0] + resource.author.lastName[0]}}</span>
+      <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.displayName | userInitials}}</span>
       <mat-card-title>{{ resource.title }}</mat-card-title>
-      <mat-card-subtitle>{{resource.author?.firstName}}&nbsp;{{resource.author?.lastName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
+      <mat-card-subtitle>{{resource.author?.displayName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
     </mat-card-header>
     <div *ngIf="resource.tags?.length" class="mat-card-text" align="left">
       <app-resource-tags [tags]="resource.tags"></app-resource-tags>

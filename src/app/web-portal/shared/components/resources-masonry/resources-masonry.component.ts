@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 
 import { Debounce } from '@core/decorators/debounce';
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 @Component({
   selector: 'app-resources-masonry',

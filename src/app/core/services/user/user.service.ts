@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, combineLatest } from 'rxjs';
-
-import { User } from '@shared/models/user.model';
 import { take } from 'rxjs/operators';
+
+import { User } from '@shared/models/user';
 
 @Injectable()
 export class UserService {

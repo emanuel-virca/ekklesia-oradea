@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 @Component({
   selector: 'app-resource-card',

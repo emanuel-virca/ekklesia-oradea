@@ -42,7 +42,7 @@
     <mat-form-field>
       <mat-select placeholder="Author" formControlName="author" [compareWith]="compareAuthors" required>
         <mat-option *ngFor="let item of authors$ | async" [value]="item">
-          <app-author-signature [author]="item"></app-author-signature>
+          {{item.displayName}}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="author.errors?.required">Author is required.</mat-error>

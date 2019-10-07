@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
-import { User } from '@shared/models/user.model';
+import { User } from '@shared/models/user';
 
 @Injectable()
 export class CanLoadAdminGuard implements CanLoad {

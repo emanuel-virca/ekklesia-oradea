@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav } from '@angular/material';
-import { filter, take, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MediaObserver } from '@angular/flex-layout';
 
 import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
-import { User } from '@shared/models/user.model';
+import { User } from '@shared/models/user';
 
 @Component({
   selector: 'app-admin',

@@ -5,7 +5,7 @@ import * as firebase from 'firebase/app';
 import { FireSQL } from 'firesql';
 
 import { mapItemWithId } from '@core/rxjs/pipes';
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 @Injectable()
 export class ResourcesService {

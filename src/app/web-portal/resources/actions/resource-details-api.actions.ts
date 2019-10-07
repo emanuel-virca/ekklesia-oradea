@@ -1,5 +1,5 @@
 import { createAction, union, props } from '@ngrx/store';
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 export const loadResourceSuccess = createAction(
   '[Resource/API] Load Resource Success',

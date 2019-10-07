@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { collectionsQuery } from '../reducers/collections.selectors';
 import { CollectionsActions } from '../actions';
 import { State } from '../reducers/collections.reducer';
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 @Injectable()
 export class CollectionsFacade {

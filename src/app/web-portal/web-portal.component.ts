@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 
 import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
 import { LoginDialogComponent } from '@authentication/components/login-dialog/login-dialog.component';
-import { User } from '@shared/models/user.model';
+import { User } from '@shared/models/user';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
 

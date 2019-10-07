@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-import { Author } from './models/author.model';
+import { Author } from './models/author';
 
 export class ResourceService {
   public async updateAuthorAsync(author: Author): Promise<void> {

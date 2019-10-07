@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';
 
 @Component({

@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 
 import { AlgoliaConfig } from './algolia.config';
 import { ResourceSearchService } from './resource-search.service';
-import { Author } from './models/author.model';
+import { Author } from './models/author';
 import { ResourceService } from './resource.service';
 
 export async function onAuthorUpdateAsync(

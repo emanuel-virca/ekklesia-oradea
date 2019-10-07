@@ -1,9 +1,9 @@
 <span class="author-signature" *ngIf="author">
-  <span *ngIf="!author.avatar" class="author-signature__avatar">{{author.firstName[0] + author.lastName[0]}}</span>
+  <span *ngIf="!author.avatar" class="author-signature__avatar">{{author.displayName | userInitials}}</span>
   <img *ngIf="author.avatar" class="author-signature__avatar" [src]="author.avatar" />
   <ng-container *ngIf="!onlyAvatar">
     <span fxShow fxHide.lt-md>
-      &nbsp;&nbsp;{{author.firstName + ' ' + author.lastName}}
+      &nbsp;&nbsp;{{author.displayName}}
     </span>
   </ng-container>
 </span>

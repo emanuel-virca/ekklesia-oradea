@@ -24,3 +24,13 @@ export interface UserProfile {
   locale?: string;
   name: string;
 }
+
+export interface UserSnippet {
+  id: string;
+  displayName: string;
+}
+
+export interface UserLikes {
+  userId: string;
+  resources: string[];
+}

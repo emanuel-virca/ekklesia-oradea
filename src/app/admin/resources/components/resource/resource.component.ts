@@ -12,12 +12,13 @@ import { MatDialog, MatChipInputEvent } from '@angular/material';
 import { Observable } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import { Resource } from '@shared/models/resource.model';
-import { ResourceTypeSelect } from '@admin/resources/resources.consts';
-import { Tag } from '@shared/models/tag.model';
-import { Author } from '@shared/models/author.model';
+import { Resource, ResourceType } from '@shared/models/resource';
+import { Tag } from '@shared/models/tag';
+import { Author, AuthorSnippet, convertToAuthorSnippet } from '@shared/models/author';
 import { AuthorService } from '@admin/core/services/author/author.service';
 import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
+import { SelectOption } from '@admin/shared/models/select-option';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-resource',
@@ -27,8 +28,12 @@ import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.comp
 })
 export class ResourceComponent extends ListItemBaseComponent<Resource> implements OnChanges {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  resourceTypes = ResourceTypeSelect;
-  authors$: Observable<Author[]>;
+  readonly resourceTypes: Array<SelectOption> = [
+    { text: 'Audio', value: ResourceType.Audio },
+    { text: 'Video', value: ResourceType.Video },
+    { text: 'Article', value: ResourceType.Article },
+  ];
+  authors$: Observable<AuthorSnippet[]>;
   @Input() resource: Resource;
   @Output() publish = new EventEmitter();
   @Output() unpublish = new EventEmitter();
@@ -58,7 +63,11 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   getAuthors() {
-    this.authors$ = this.authorService.list();
+    this.authors$ = this.authorService.list().pipe(
+      map(authors => {
+        return authors.map<AuthorSnippet>(x => convertToAuthorSnippet(x));
+      })
+    );
   }
 
   displayResource(resource: Resource | null): void {

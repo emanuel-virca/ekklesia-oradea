@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { Tag } from '@shared/models/tag.model';
+import { Tag } from '@shared/models/tag';
 
 @Component({
   selector: 'app-resource-tags',

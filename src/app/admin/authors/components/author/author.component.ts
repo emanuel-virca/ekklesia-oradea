@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } f
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
 
 @Component({

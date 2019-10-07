@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 export const LOAD_RESOURCES = 'LOAD RESOURCES';
 export const LOAD_RESOURCES_SUCCESS = 'LOAD RESOURCES SUCCESS';

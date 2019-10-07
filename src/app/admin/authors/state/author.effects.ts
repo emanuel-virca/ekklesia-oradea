@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { of, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 import { AuthorService } from '@admin/core/services/author/author.service';
 import * as authorActions from './author.actions';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { ResourcesFacade } from '@web-portal/resources/facades/resources.facade';

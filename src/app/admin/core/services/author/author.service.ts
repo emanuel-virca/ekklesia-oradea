@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { Author } from '@shared/models/author.model';
+import { Author } from '@shared/models/author';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 

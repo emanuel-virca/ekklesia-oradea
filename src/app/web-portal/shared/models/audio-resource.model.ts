@@ -1,4 +1,4 @@
-import { Resource } from '@shared/models/resource.model';
+import { Resource } from '@shared/models/resource';
 
 export class AudioResource {
   id: string;
