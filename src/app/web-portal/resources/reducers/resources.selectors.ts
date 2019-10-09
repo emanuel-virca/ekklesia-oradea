@@ -27,10 +27,16 @@ export const getOrderByDirection = createSelector(
   state => state.orderByDirection
 );
 
+export const getIsInitialFetching = createSelector(
+  getState,
+  state => !state.currentPage
+);
+
 export const resourcesQuery = {
   getState,
   getEntities,
   getIsFetching,
   getNextPage,
   getOrderByDirection,
+  getIsInitialFetching,
 };

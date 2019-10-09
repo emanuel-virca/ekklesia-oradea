@@ -1,11 +1,11 @@
 import { createAction, union, props } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource';
-import { LikedResource } from '@web-portal/shared/models/liked-resource.model';
+import { Resource, ResourceSnippet } from '@shared/models/resource';
+import { UserLikes } from '@shared/models/user-likes';
 
 export const loadLikedResourcesSuccess = createAction(
   '[Collections/API] Load Liked Resources Success',
-  props<{ likedResources: LikedResource[] }>()
+  props<{ likedResources: ResourceSnippet[] }>()
 );
 
 export const loadLikedResourcesFailure = createAction(
@@ -15,7 +15,7 @@ export const loadLikedResourcesFailure = createAction(
 
 export const addToLikedResourcesSuccess = createAction(
   '[Collections/API] Add To Liked Resources Success',
-  props<{ resource: Resource }>()
+  props<{ resource: Resource | ResourceSnippet }>()
 );
 export const addToLikedResourcesFailure = createAction(
   '[Collections/API] Add To Liked Resources Failure',
@@ -24,7 +24,7 @@ export const addToLikedResourcesFailure = createAction(
 
 export const removeFromLikedResourcesSuccess = createAction(
   '[Collections/API] Remove From Liked Resources Success',
-  props<{ resource: Resource }>()
+  props<{ resource: Resource | ResourceSnippet }>()
 );
 
 export const removeFromLikedResourcesFailure = createAction(
@@ -34,12 +34,12 @@ export const removeFromLikedResourcesFailure = createAction(
 
 export const loadLikedResourceIdsSuccess = createAction(
   '[Collections/API] Load Liked Resource Ids Success',
-  props<{ resourceIds: string[] }>()
+  props<UserLikes>()
 );
 
 export const loadLikedResourceIdsFailure = createAction(
   '[Collections/API] Load Liked Resource Ids Failure',
-  props<{ resourceIds: string[] }>()
+  props<{ errorMsg: string }>()
 );
 
 /**

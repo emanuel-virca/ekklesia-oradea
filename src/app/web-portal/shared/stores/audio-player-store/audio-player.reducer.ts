@@ -1,5 +1,5 @@
 import { AudioPlayerActions, AudioPlayerActionTypes } from './audio-player.actions';
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { AudioResource } from '@shared/models/resource';
 
 const initialState: State = {
   current: null,

@@ -51,7 +51,7 @@ export class ResourceSearchService {
       objectID: resource.id,
       id: resource.id,
       name: resource.title,
-      type: resource.resourceType,
+      type: resource.type,
       tags: resource.tags,
       author: resource.author,
     };

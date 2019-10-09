@@ -32,6 +32,11 @@ const getEntityIds = createSelector(
   state => state.entityIds
 );
 
+export const getIsInitialFetching = createSelector(
+  getState,
+  state => !state.currentPage
+);
+
 export const collectionsQuery = {
   getState,
   getEntities,
@@ -39,4 +44,5 @@ export const collectionsQuery = {
   getNextPage,
   getOrderByDirection,
   getEntityIds,
+  getIsInitialFetching,
 };

@@ -43,8 +43,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     dateTime: new FormControl(),
     description: new FormControl(),
     hearthisId: new FormControl(),
-    imageSrc: new FormControl(),
-    resourceType: new FormControl(),
+    type: new FormControl(),
     author: new FormControl(),
   });
 
@@ -85,8 +84,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
         description: resource.description,
         hearthisId: resource.hearthisId,
-        imageSrc: resource.imageSrc,
-        resourceType: resource.resourceType,
+        type: resource.type,
         author: resource.author,
       });
     }
@@ -108,9 +106,9 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     this.unpublish.emit(this.resource.id);
   }
 
-  imageSrcChanged($event) {
+  imageChanged(url: string) {
+    this.resource.image = { url };
     this.resourceForm.markAsDirty();
-    this.resourceForm.controls.imageSrc.setValue($event);
   }
 
   save() {
@@ -181,10 +179,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   get author() {
     return this.resourceForm.controls.author;
   }
-  get resourceType() {
-    return this.resourceForm.controls.resourceType;
-  }
-  get imageSrc() {
-    return this.resourceForm.controls.imageSrc;
+  get type() {
+    return this.resourceForm.controls.type;
   }
 }

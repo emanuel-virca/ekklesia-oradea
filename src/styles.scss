@@ -102,6 +102,16 @@ body {
   margin-top: 20px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  &.initial {
+    padding-top: 25vh;
+  }
+}
+
 // resize button
 // @import 'mixins';
 // @import 'variables';

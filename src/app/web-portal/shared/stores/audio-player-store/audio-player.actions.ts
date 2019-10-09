@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { AudioResource } from '@shared/models/resource';
 
 export enum AudioPlayerActionTypes {
   Select = '[Audio Player] Select',

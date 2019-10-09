@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
-import { FireSQL } from 'firesql';
 
 import { mapItemWithId } from '@core/rxjs/pipes';
 import { Resource } from '@shared/models/resource';
@@ -40,14 +39,6 @@ export class ResourcesService {
       .doc<Resource>(resourceId)
       .snapshotChanges()
       .pipe(mapItemWithId);
-  }
-
-  public async getByIds(resourceIds: string[]): Promise<Resource[]> {
-    const fireSQL = new FireSQL(this.db.firestore);
-
-    const query = `Select * from resources where __name__ in (${resourceIds.join(',')})`;
-
-    return (await fireSQL.query(query, { includeId: 'id' })) as Resource[];
   }
 
   public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): Resource[] {

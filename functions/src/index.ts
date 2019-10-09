@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import { onResourceCreateAsync, onResourceDeleteAsync, onResourceUpdateAsync } from './resources-triggers';
 import { onAuthorUpdateAsync } from './authors-triggers';
 import { onUserWriteAsync } from './user-triggers';
+import { onUserLikesWriteAsync } from './user-likes-triggers';
 
 const algoliaConfig = {
   applicationId: functions.config().algolia.applicationid,
@@ -38,4 +39,8 @@ exports.onAuthorUpdated = functions.firestore.document('authors/{authorId}').onU
 
 exports.onUserUpdated = functions.firestore.document('users/{userId}').onWrite(async (change, context) => {
   await onUserWriteAsync(change, context);
+});
+
+exports.onUserLikesUpdated = functions.firestore.document('user-likes/{userId}').onWrite(async (change, context) => {
+  await onUserLikesWriteAsync(change, context);
 });

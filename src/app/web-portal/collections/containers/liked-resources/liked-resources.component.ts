@@ -18,6 +18,7 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   resources$ = this.collectionsFacade.query.likedResources.entities$;
   orderByDirection$ = this.collectionsFacade.query.likedResources.orderByDirection$;
   loading$ = this.collectionsFacade.query.likedResources.loading$;
+  initialLoading$ = this.collectionsFacade.query.likedResources.initialLoading$;
 
   orderByOptions: OrderByProp[] = [
     {

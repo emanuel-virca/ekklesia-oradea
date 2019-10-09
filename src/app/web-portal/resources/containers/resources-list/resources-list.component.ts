@@ -17,6 +17,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   nextPage$ = this.resourcesFacade.query.nextPage$;
   resources$ = this.resourcesFacade.query.entities$;
+  initialLoading$ = this.resourcesFacade.query.initialLoading$;
   loading$ = this.resourcesFacade.query.loading$;
   orderByDirection$ = this.resourcesFacade.query.orderByDirection$;
   likedResourceIds$ = this.collectionsFacade.query.likedResources.entityIds$;

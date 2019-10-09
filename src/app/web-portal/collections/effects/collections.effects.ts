@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { combineLatest, switchMap, catchError, withLatestFrom, mergeMap } from 'rxjs/operators';
+import { combineLatest, switchMap, catchError, withLatestFrom, mergeMap, map } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -54,7 +54,7 @@ export class CollectionEffects {
   );
 
   @Effect()
-  saveResourceToLibrary$: Observable<Action> = this.actions$.pipe(
+  addToLikedResources$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionsActions.addToLikedResources.type),
     withLatestFrom(this.authService.user$),
     mergeMap(async ([{ resource }, user]) => {
@@ -68,7 +68,7 @@ export class CollectionEffects {
   );
 
   @Effect()
-  removeResourceFromLibrary$: Observable<Action> = this.actions$.pipe(
+  removeFromLikedResources$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionsActions.removeFromLikedResources.type),
     withLatestFrom(this.authService.user$),
     mergeMap(async ([{ resource }, user]) => {
@@ -85,21 +85,11 @@ export class CollectionEffects {
   loadLikedResourceIds$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionsActions.loadLikedResourceIds.type),
     combineLatest(this.authService.user$),
-    switchMap(async ([, user]) => {
-      this.loaderService.show();
-
-      try {
-        const resourceIds = await this.collectionsService.getLikedResourceIds(user.uid);
-        return CollectionsApiActions.loadLikedResourceIdsSuccess({ resourceIds });
-      } catch (err) {
-        return CollectionsApiActions.loadLikedResourceIdsFailure(err);
-      } finally {
-        this.loaderService.hide();
-      }
-    }),
-    catchError(error => {
-      console.log(error);
-      return of(null);
-    })
+    switchMap(([, user]) =>
+      this.collectionsService.getUserLikes(user.uid).pipe(
+        map(likedResources => CollectionsApiActions.loadLikedResourceIdsSuccess(likedResources)),
+        catchError(err => of(CollectionsApiActions.loadLikedResourceIdsFailure(err)))
+      )
+    )
   );
 }

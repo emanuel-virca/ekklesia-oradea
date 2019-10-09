@@ -15,6 +15,7 @@ export class CollectionsFacade {
       orderByDirection$: this.store.select(collectionsQuery.getOrderByDirection),
       nextPage$: this.store.select(collectionsQuery.getNextPage),
       loading$: this.store.select(collectionsQuery.getIsFetching),
+      initialLoading$: this.store.select(collectionsQuery.getIsInitialFetching),
     },
   };
 

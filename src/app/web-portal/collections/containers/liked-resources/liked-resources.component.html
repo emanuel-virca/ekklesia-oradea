@@ -29,3 +29,6 @@
 
   <app-resources-masonry [resources]="resources$ | async" [scrollContainer]="'mat-sidenav-content'" [itemTemplate]="resourceCard"></app-resources-masonry>
 </div>
+<div class="loading" *ngIf="loading$ | async" [ngClass]="{'initial': initialLoading$ | async}">
+  <mat-progress-spinner mode="indeterminate" [diameter]="48"></mat-progress-spinner>
+</div>

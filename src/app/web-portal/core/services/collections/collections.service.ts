@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
 
-import { LikedResource } from '@web-portal/shared/models/liked-resource.model';
-import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
+import { UserLikes } from '@shared/models/user-likes';
+import { Resource } from '@shared/models/resource';
 
 @Injectable()
 export class CollectionsService {
-  constructor(private db: AngularFirestore, private resourcesService: ResourcesService) {}
+  constructor(private db: AngularFirestore) {}
 
   public async getLikedResources(
     userId: string,
@@ -14,10 +16,10 @@ export class CollectionsService {
     startAfter?: any,
     orderBy?: string,
     orderByDirection?: firebase.firestore.OrderByDirection
-  ): Promise<LikedResource[]> {
+  ): Promise<Resource[]> {
     let query = this.db
-      .collection<LikedResource>('liked-resources')
-      .ref.where('userId', '==', userId)
+      .collection<Resource>(`libraries/${userId}_likes/library-resources`)
+      .ref.where('published', '==', true)
       .orderBy(orderBy, orderByDirection)
       .limit(pageSize);
 
@@ -27,38 +29,45 @@ export class CollectionsService {
 
     try {
       const snapshotChanges = await query.get();
-
-      const likedResources = snapshotChanges.docs.map<LikedResource>(x => x.data() as LikedResource);
-
-      const resourceIds = likedResources.map(x => '"' + x.resourceId + '"');
-
-      const resources = await this.resourcesService.getByIds(resourceIds);
-
-      return likedResources.map(x => ({ ...x, resource: resources.find(r => r.id === x.resourceId) }));
+      return this.mapQuerySnapshotToResource(snapshotChanges);
     } catch (error) {
       console.log(error);
     }
   }
 
+  public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): Resource[] {
+    return snapshotChanges.docs.map<Resource>(x => ({ id: x.id, ...(x.data() as Resource) }));
+  }
+
   public async addToLikedResourcesAsync(resourceId: string, userId: string): Promise<void> {
-    await this.db.doc(`liked-resources/${userId}_${resourceId}`).ref.set({
-      resourceId,
-      userId,
-      addedOn: new Date(),
-    });
+    await this.db
+      .collection<UserLikes>('user-likes')
+      .doc(userId)
+      .set(
+        {
+          resourceIds: firebase.firestore.FieldValue.arrayUnion(resourceId),
+        },
+        { merge: true }
+      );
   }
 
   public async removeFromLikedResourcesAsync(resourceId: string, userId: string): Promise<void> {
-    await this.db.doc(`liked-resources/${userId}_${resourceId}`).delete();
+    await this.db
+      .collection(`user-likes`)
+      .doc(userId)
+      .set(
+        {
+          resourceIds: firebase.firestore.FieldValue.arrayRemove(resourceId),
+        },
+        { merge: true }
+      );
   }
 
-  public async getLikedResourceIds(userId: string): Promise<string[]> {
-    const likedResources = await this.db
-      .collection<LikedResource>(`liked-resources`)
-      .ref.where('userId', '==', userId)
-      .get();
-
-    return likedResources.docs.map(x => x.data().resourceId);
+  public getUserLikes(userId: string): Observable<UserLikes> {
+    return this.db
+      .collection(`user-likes`)
+      .doc<UserLikes>(userId)
+      .valueChanges();
   }
 }
 // work with arrays

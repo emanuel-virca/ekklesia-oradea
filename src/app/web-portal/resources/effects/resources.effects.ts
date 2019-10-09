@@ -5,7 +5,6 @@ import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
-import { LoaderService } from '@core/services/loader/loader.service';
 
 // NgRx
 import { ResourcesActions, ResourcesApiActions } from '../actions';
@@ -17,8 +16,7 @@ export class ResourcesEffects {
   constructor(
     private actions$: Actions<ResourcesActions.ResourcesActionsUnion>,
     private resourcesService: ResourcesService,
-    private store: Store<fromResources.State>,
-    private loaderService: LoaderService
+    private store: Store<fromResources.State>
   ) {}
 
   @Effect()
@@ -30,7 +28,6 @@ export class ResourcesEffects {
     ),
     withLatestFrom(this.store.select(resourcesQuery.getState)),
     mergeMap(async ([, state]) => {
-      this.loaderService.show();
       try {
         const resources = await this.resourcesService.get(
           state.pageSize,
@@ -41,8 +38,6 @@ export class ResourcesEffects {
         return ResourcesApiActions.loadResourcesSuccess({ resources });
       } catch (err) {
         return ResourcesApiActions.loadResourcesFailure(err);
-      } finally {
-        this.loaderService.hide();
       }
     })
   );

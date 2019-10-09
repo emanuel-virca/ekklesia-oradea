@@ -1,6 +1,6 @@
 <div class="audio-player-content">
-  <div class="audio-player-artwork">
-    <img [src]="audioResource.artwork" />
+  <div class="audio-player-artwork" *ngIf="audioResource.artwork?.url">
+    <img [src]="audioResource.artwork?.url" />
   </div>
   <div class="audio-player-controls">
     <div class="audio-player-header">

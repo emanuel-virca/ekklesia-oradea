@@ -37,7 +37,7 @@ export class ResourceShellComponent implements OnInit {
         downloadUrl: null,
         streamUrl: null,
         imageSrc: null,
-        resourceType: null,
+        type: null,
         author: null,
         height: null,
         width: null,

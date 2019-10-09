@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { AudioResource } from '@shared/models/resource';
 import { AudioPlayerComponent } from '@web-portal/shared/components/audio-player/audio-player.component';
 
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';

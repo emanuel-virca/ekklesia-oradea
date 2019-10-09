@@ -1,10 +1,10 @@
-import { Resource } from '@shared/models/resource';
+import { ResourceSnippet } from '@shared/models/resource';
 import { CollectionsActions, CollectionsApiActions } from '../actions';
 
 export const featureKey = 'collections';
 
 export interface State {
-  entities: Resource[];
+  entities: ResourceSnippet[];
   entityIds: string[];
   isFetching: boolean;
   errorMessage: string;
@@ -18,8 +18,8 @@ export interface State {
 export const initialState: State = {
   entities: [],
   entityIds: [],
-  orderBy: 'addedOn',
-  orderByDirection: 'desc',
+  orderBy: 'sortNo',
+  orderByDirection: 'asc',
   isFetching: false,
   errorMessage: '',
   pageSize: 20,
@@ -43,12 +43,12 @@ export function reducer(
     case CollectionsApiActions.loadLikedResourcesSuccess.type: {
       const likedResource = action.likedResources || [];
       const startAfter =
-        likedResource.length === state.pageSize ? action.likedResources[state.pageSize - 1].addedOn : null;
+        likedResource.length === state.pageSize ? action.likedResources[state.pageSize - 1].sortNo : null;
 
       return {
         ...state,
         isFetching: false,
-        entities: [...state.entities, ...likedResource.map(x => x.resource)],
+        entities: [...state.entities, ...likedResource],
         errorMessage: '',
         startAfter,
         currentPage: state.currentPage + 1,

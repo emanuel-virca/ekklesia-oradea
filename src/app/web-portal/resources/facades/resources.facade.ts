@@ -12,6 +12,7 @@ export class ResourcesFacade {
     orderByDirection$: this.store.select(resourcesQuery.getOrderByDirection),
     nextPage$: this.store.select(resourcesQuery.getNextPage),
     loading$: this.store.select(resourcesQuery.getIsFetching),
+    initialLoading$: this.store.select(resourcesQuery.getIsInitialFetching),
   };
 
   constructor(private store: Store<State>) {}

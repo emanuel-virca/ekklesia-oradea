@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { AudioResource } from '@shared/models/resource';
 
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
 import * as audioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';

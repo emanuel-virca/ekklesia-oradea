@@ -11,8 +11,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { AudioResource } from '@shared/models/resource';
 
 @Component({
   selector: 'app-audio-player',

@@ -16,10 +16,10 @@ export class NotificationService {
         notification: {
           icon: '/assets/icons/icon-192x192.png',
           badge: '/assets/icons/icon-badge-192x192.png',
-          image: resource.imageSrc,
-          tag: resource.id + resource.resourceType,
+          image: resource.image ? resource.image.url : null,
+          tag: resource.id + resource.type,
         },
-        fcm_options: {
+        fcmOptions: {
           link: `${webPortalConfig.domainURL}/resources/${resource.id}`,
         },
       },

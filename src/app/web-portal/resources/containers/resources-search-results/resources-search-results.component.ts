@@ -6,8 +6,7 @@ import { SearchService } from '@web-portal/core/services/search/search.service';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result';
 import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
-import { Resource } from '@shared/models/resource';
-import { AudioResource } from '@web-portal/shared/models/audio-resource.model';
+import { Resource, AudioResource } from '@shared/models/resource';
 
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
 import * as fromAudioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';

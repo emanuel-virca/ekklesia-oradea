@@ -4,6 +4,7 @@ import * as probeImageSize from 'probe-image-size';
 import { AlgoliaConfig } from './algolia.config';
 import { WebPortalConfig } from './web-portal.config';
 import { Resource } from './models/resource';
+import { Image } from './models/image';
 import { ResourceSearchService } from './resource-search.service';
 import { NotificationService } from './notification/notification.service';
 
@@ -21,7 +22,7 @@ export async function onResourceCreateAsync(
     await resourceSearchService.addAsync(resource);
   }
 
-  await computeImageDimensions(snap.ref, resource.imageSrc);
+  await computeImageDimensions(snap.ref, resource.image);
 }
 
 export async function onResourceUpdateAsync(
@@ -49,8 +50,11 @@ export async function onResourceUpdateAsync(
     await resourceSearchService.updateAsync(resource);
   }
 
-  if (resource.imageSrc !== change.before.data().imageSrc) {
-    await computeImageDimensions(change.after.ref, resource.imageSrc);
+  const oldImageUrl = change.before.data().image ? change.before.data().image.url : null;
+  const newImageUrl = resource.image ? resource.image.url : null;
+
+  if (newImageUrl !== oldImageUrl) {
+    await computeImageDimensions(change.after.ref, resource.image);
   }
 }
 
@@ -64,12 +68,12 @@ export async function onResourceDeleteAsync(
   await resourceSearchService.deleteAsync(snap.id);
 }
 
-async function computeImageDimensions(ref: FirebaseFirestore.DocumentReference, imageUrl: string): Promise<void> {
-  if (!imageUrl) return;
+async function computeImageDimensions(ref: FirebaseFirestore.DocumentReference, image: Image): Promise<void> {
+  if (!image || !image.url) return;
 
-  const dimensions = await probeImageSize(imageUrl);
+  const dimensions = await probeImageSize(image.url);
 
   if (!dimensions) return;
 
-  await ref.set({ width: dimensions.width, height: dimensions.height }, { merge: true });
+  await ref.set({ image: { width: dimensions.width, height: dimensions.height, url: image.url } }, { merge: true });
 }
