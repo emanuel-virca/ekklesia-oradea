@@ -5,6 +5,7 @@ import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { ResourcesFacade } from '@web-portal/resources/facades/resources.facade';
 import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
+import { LikesLibrary } from '@shared/models/library';
 
 @Component({
   selector: 'app-resources-list',
@@ -37,7 +38,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.resourcesFacade.loadEntities();
-    this.collectionsFacade.loadLikedResourceIds();
+    this.collectionsFacade.loadUserLikes();
   }
 
   loadResources() {
@@ -55,11 +56,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   onSaveToLibrary(resource: Resource) {
-    this.collectionsFacade.addToLikedResources(resource);
+    this.collectionsFacade.addToLibrary(resource, LikesLibrary);
   }
 
   onRemoveFromLibrary(resource: Resource) {
-    this.collectionsFacade.removeFromLikedResources(resource);
+    this.collectionsFacade.removeFromLibrary(resource, LikesLibrary);
   }
 
   ngOnDestroy() {

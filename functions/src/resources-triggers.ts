@@ -7,6 +7,9 @@ import { Resource } from './models/resource';
 import { Image } from './models/image';
 import { ResourceSearchService } from './resource-search.service';
 import { NotificationService } from './notification/notification.service';
+import { ResourceSnippetService } from './resource-snippet.service';
+import { LibraryService } from './library.service';
+import { UserLikesService } from './user-likes.service';
 
 export async function onResourceCreateAsync(
   snap: FirebaseFirestore.DocumentSnapshot,
@@ -14,15 +17,23 @@ export async function onResourceCreateAsync(
   algoliaConfig: AlgoliaConfig
 ): Promise<void> {
   const resource = snap.data() as Resource;
+
   resource.id = snap.id;
 
-  if (resource.published) {
-    const resourceSearchService = new ResourceSearchService(algoliaConfig);
+  await computeImageDimensions(snap.ref, resource.cover);
 
-    await resourceSearchService.addAsync(resource);
-  }
+  const tasks = [];
 
-  await computeImageDimensions(snap.ref, resource.image);
+  // search
+  tasks.push(updateSearchService(algoliaConfig, resource));
+
+  // resource snippets
+  const resourceSnippetService = new ResourceSnippetService();
+  const snippetTask = resourceSnippetService.addAsync(resource);
+
+  tasks.push(snippetTask);
+
+  await Promise.all(tasks);
 }
 
 export async function onResourceUpdateAsync(
@@ -31,31 +42,40 @@ export async function onResourceUpdateAsync(
   algoliaConfig: AlgoliaConfig,
   webPortalConfig: WebPortalConfig
 ): Promise<void> {
-  const previousData = change.before.data() as Resource;
-  const resource = change.after.data() as Resource;
-  resource.id = change.after.id;
+  const before = change.before.data() as Resource;
+  const after = change.after.data() as Resource;
 
-  const resourceSearchService = new ResourceSearchService(algoliaConfig);
-  const notificationService = new NotificationService();
+  after.id = change.after.id;
 
-  const publish = !previousData.published && resource.published;
-  const unpublish = previousData.published && !resource.published;
+  // image dimensions
 
-  if (unpublish) {
-    await resourceSearchService.deleteAsync(resource.id);
-  } else if (publish) {
-    await resourceSearchService.addAsync(resource);
-    await notificationService.sendResourceNotificationAsync(resource, webPortalConfig);
-  } else {
-    await resourceSearchService.updateAsync(resource);
-  }
-
-  const oldImageUrl = change.before.data().image ? change.before.data().image.url : null;
-  const newImageUrl = resource.image ? resource.image.url : null;
+  const oldImageUrl = before.cover ? before.cover.url : null;
+  const newImageUrl = after.cover ? after.cover.url : null;
 
   if (newImageUrl !== oldImageUrl) {
-    await computeImageDimensions(change.after.ref, resource.image);
+    await computeImageDimensions(change.after.ref, after.cover);
   }
+
+  const tasks = [];
+
+  // resource snippets
+  const resourceSnippetService = new ResourceSnippetService();
+  tasks.push(resourceSnippetService.updateAsync(after));
+
+  // libraries
+  const libraryService = new LibraryService();
+  tasks.push(libraryService.updateResourceAsync(after));
+
+  // search
+  tasks.push(updateSearchService(algoliaConfig, after, before));
+
+  // notifications
+  const notificationService = new NotificationService();
+  if (!before.published && after.published) {
+    tasks.push(notificationService.sendResourceNotificationAsync(after, webPortalConfig));
+  }
+
+  await Promise.all(tasks);
 }
 
 export async function onResourceDeleteAsync(
@@ -64,8 +84,18 @@ export async function onResourceDeleteAsync(
   algoliaConfig: AlgoliaConfig
 ): Promise<void> {
   const resourceSearchService = new ResourceSearchService(algoliaConfig);
+  const resourceSnippetService = new ResourceSnippetService();
+  const libraryService = new LibraryService();
+  const userLikesService = new UserLikesService();
 
-  await resourceSearchService.deleteAsync(snap.id);
+  const taks = [
+    resourceSearchService.deleteAsync(snap.id),
+    resourceSnippetService.removeAsync(snap.id),
+    libraryService.deleteResourceAsync(snap.id),
+    userLikesService.unlikeResourceAsync(snap.id),
+  ];
+
+  await Promise.all(taks);
 }
 
 async function computeImageDimensions(ref: FirebaseFirestore.DocumentReference, image: Image): Promise<void> {
@@ -75,5 +105,30 @@ async function computeImageDimensions(ref: FirebaseFirestore.DocumentReference, 
 
   if (!dimensions) return;
 
-  await ref.set({ image: { width: dimensions.width, height: dimensions.height, url: image.url } }, { merge: true });
+  const resource: Partial<Resource> = { cover: { width: dimensions.width, height: dimensions.height, url: image.url } };
+
+  await ref.set(resource, { merge: true });
+}
+
+async function updateSearchService(algoliaConfig: AlgoliaConfig, after: Resource, before: Resource = null) {
+  const publish = !(before && before.published) && after.published;
+  const unpublish = before && before.published && !after.published;
+
+  const resourceSearchService = new ResourceSearchService(algoliaConfig);
+
+  const tasks = [];
+
+  if (publish) {
+    tasks.push(resourceSearchService.addAsync(after));
+  }
+
+  if (unpublish) {
+    tasks.push(resourceSearchService.deleteAsync(after.id));
+  }
+
+  if (!unpublish && !publish) {
+    tasks.push(resourceSearchService.updateAsync(after));
+  }
+
+  await Promise.all(tasks);
 }

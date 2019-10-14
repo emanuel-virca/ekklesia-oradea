@@ -112,6 +112,12 @@ body {
   }
 }
 
+.mat-simple-snackbar {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 // resize button
 // @import 'mixins';
 // @import 'variables';

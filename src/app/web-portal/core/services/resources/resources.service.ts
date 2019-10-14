@@ -17,7 +17,7 @@ export class ResourcesService {
     orderByDirection?: firebase.firestore.OrderByDirection
   ): Promise<Resource[]> {
     let query = this.db
-      .collection<Resource>('resources')
+      .collection<Resource>('resource-snippets')
       .ref.where('published', '==', true)
       .orderBy(orderBy, orderByDirection)
       .limit(pageSize);
@@ -27,6 +27,7 @@ export class ResourcesService {
     }
     try {
       const snapshotChanges = await query.get();
+
       return this.mapQuerySnapshotToResource(snapshotChanges);
     } catch (error) {
       console.log(error);

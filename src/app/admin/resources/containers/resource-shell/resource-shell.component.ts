@@ -36,11 +36,9 @@ export class ResourceShellComponent implements OnInit {
         hearthisId: null,
         downloadUrl: null,
         streamUrl: null,
-        imageSrc: null,
+        cover: null,
         type: null,
         author: null,
-        height: null,
-        width: null,
         published: false,
         tags: [],
       })

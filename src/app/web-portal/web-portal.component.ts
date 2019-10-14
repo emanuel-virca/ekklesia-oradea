@@ -25,8 +25,8 @@ export class WebPortalComponent {
     },
     {
       name: 'Your Library',
-      icon: 'favorite',
-      routerLink: '/collections',
+      icon: 'library_books',
+      routerLink: '/libraries',
     },
     {
       name: 'Contact',

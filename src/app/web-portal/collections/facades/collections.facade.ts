@@ -21,31 +21,31 @@ export class CollectionsFacade {
 
   constructor(private store: Store<State>) {}
 
-  loadLikedResources() {
-    this.store.dispatch(CollectionsActions.loadLikedResources());
+  loadLibraryResources(libraryId: string) {
+    this.store.dispatch(CollectionsActions.loadLibraryResources({ libraryId }));
   }
 
-  loadLikedResourceIds() {
-    this.store.dispatch(CollectionsActions.loadLikedResourceIds());
+  loadUserLikes() {
+    this.store.dispatch(CollectionsActions.loadUserLikes());
   }
 
-  addToLikedResources(resource: Resource) {
-    this.store.dispatch(CollectionsActions.addToLikedResources({ resource }));
+  addToLibrary(resource: Resource, libraryId: string) {
+    this.store.dispatch(CollectionsActions.addToLibrary({ resource, libraryId }));
   }
 
-  removeFromLikedResources(resource: Resource) {
-    this.store.dispatch(CollectionsActions.removeFromLikedResources({ resource }));
+  removeFromLibrary(resource: Resource, libraryId) {
+    this.store.dispatch(CollectionsActions.removeFromLibrary({ resource, libraryId }));
   }
 
-  changeOrderDirection(orderByDirection: 'desc' | 'asc') {
-    this.store.dispatch(CollectionsActions.changeOrderDirection({ orderByDirection }));
+  changeOrderDirection(orderByDirection: 'desc' | 'asc', libraryId: string) {
+    this.store.dispatch(CollectionsActions.changeOrderDirection({ orderByDirection, libraryId }));
   }
 
-  changeOrderBy(orderBy: string) {
-    this.store.dispatch(CollectionsActions.changeOrderBy({ orderBy }));
+  changeOrderBy(orderBy: string, libraryId: string) {
+    this.store.dispatch(CollectionsActions.changeOrderBy({ orderBy, libraryId }));
   }
 
-  clear() {
-    this.store.dispatch(CollectionsActions.clearLikedResources());
+  clear(libraryId: string) {
+    this.store.dispatch(CollectionsActions.clearLibraryResources({ libraryId }));
   }
 }

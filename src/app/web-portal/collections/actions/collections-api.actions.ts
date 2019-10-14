@@ -2,43 +2,41 @@ import { createAction, union, props } from '@ngrx/store';
 
 import { Resource, ResourceSnippet } from '@shared/models/resource';
 import { UserLikes } from '@shared/models/user-likes';
+import { LibraryResource } from '@shared/models/library';
 
-export const loadLikedResourcesSuccess = createAction(
-  '[Collections/API] Load Liked Resources Success',
-  props<{ likedResources: ResourceSnippet[] }>()
+export const loadLibraryResourcesSuccess = createAction(
+  '[Collections/API] Load Library Resources Success',
+  props<{ likedResources: LibraryResource[] }>()
 );
 
-export const loadLikedResourcesFailure = createAction(
-  '[Collections/API] Load Liked Resources Failure',
+export const loadLibraryResourcesFailure = createAction(
+  '[Collections/API] Load Library Resources Failure',
   props<{ errorMsg: string }>()
 );
 
-export const addToLikedResourcesSuccess = createAction(
-  '[Collections/API] Add To Liked Resources Success',
-  props<{ resource: Resource | ResourceSnippet }>()
+export const addToLibrarySuccess = createAction(
+  '[Collections/API] Add To Library Success',
+  props<{ resource: Resource | ResourceSnippet; libraryId: string }>()
 );
-export const addToLikedResourcesFailure = createAction(
-  '[Collections/API] Add To Liked Resources Failure',
+export const addToLibraryFailure = createAction(
+  '[Collections/API] Add To Library Failure',
   props<{ errorMsg: string }>()
 );
 
-export const removeFromLikedResourcesSuccess = createAction(
-  '[Collections/API] Remove From Liked Resources Success',
-  props<{ resource: Resource | ResourceSnippet }>()
+export const removeFromLibrarySuccess = createAction(
+  '[Collections/API] Remove From Library Success',
+  props<{ resource: Resource | ResourceSnippet; libraryId: string }>()
 );
 
-export const removeFromLikedResourcesFailure = createAction(
-  '[Collections/API] Remove From Liked Resources Failure',
+export const removeFromLibraryFailure = createAction(
+  '[Collections/API] Remove From Library Failure',
   props<{ errorMsg: string }>()
 );
 
-export const loadLikedResourceIdsSuccess = createAction(
-  '[Collections/API] Load Liked Resource Ids Success',
-  props<UserLikes>()
-);
+export const loadUserLikesSuccess = createAction('[Collections/API] Load User Likes Success', props<UserLikes>());
 
-export const loadLikedResourceIdsFailure = createAction(
-  '[Collections/API] Load Liked Resource Ids Failure',
+export const loadUserLikesFailure = createAction(
+  '[Collections/API] Load User Likes Failure',
   props<{ errorMsg: string }>()
 );
 
@@ -47,14 +45,14 @@ export const loadLikedResourceIdsFailure = createAction(
  * so that reducers can easily compose action types
  */
 const all = union({
-  loadLikedResourcesSuccess,
-  loadLikedResourcesFailure,
-  addToLikedResourcesSuccess,
-  addToLikedResourcesFailure,
-  removeFromLikedResourcesSuccess,
-  removeFromLikedResourcesFailure,
-  loadLikedResourceIdsSuccess,
-  loadLikedResourceIdsFailure,
+  loadLibraryResourcesSuccess,
+  loadLibraryResourcesFailure,
+  addToLibrarySuccess,
+  addToLibraryFailure,
+  removeFromLibrarySuccess,
+  removeFromLibraryFailure,
+  loadUserLikesSuccess,
+  loadUserLikesFailure,
 });
 
 export type CollectionsApiActionsUnion = typeof all;

@@ -3,13 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SharedModule } from '@web-portal/shared/shared.module';
 import { LikedResourcesComponent } from './containers/liked-resources/liked-resources.component';
+import { LikesLibrary } from '@shared/models/library';
 
 const routes: Routes = [
   {
-    path: 'liked',
+    path: LikesLibrary,
     component: LikedResourcesComponent,
   },
-  { path: '', pathMatch: 'full', redirectTo: 'liked' },
+  { path: '', pathMatch: 'full', redirectTo: LikesLibrary },
 ];
 
 @NgModule({

@@ -9,14 +9,14 @@ export class NotificationService {
     const message: admin.messaging.Message = {
       topic: subscriptionTopic,
       notification: {
-        title: 'New Resource Published',
-        body: resource.title + '\n' + resource.description,
+        title: resource.title,
+        body: resource.author.displayName + '\n' + resource.description,
       },
       webpush: {
         notification: {
           icon: '/assets/icons/icon-192x192.png',
           badge: '/assets/icons/icon-badge-192x192.png',
-          image: resource.image ? resource.image.url : null,
+          image: resource.cover ? resource.cover.url : null,
           tag: resource.id + resource.type,
         },
         fcmOptions: {

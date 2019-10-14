@@ -80,7 +80,7 @@
     <mat-form-field>
       <input matInput placeholder="Hearthis Id" formControlName="hearthisId" />
     </mat-form-field>
-    <app-image-uploader [url]="resource?.image?.url" [folder]="imageUploadFolder" (urlChanged)="imageChanged($event)"></app-image-uploader>
+    <app-image-uploader [url]="resource?.cover?.url" [folder]="imageUploadFolder" (urlChanged)="imageChanged($event)"></app-image-uploader>
 
     <app-save-button (save)="save()" [formGroup]="resourceForm"></app-save-button>
   </form>

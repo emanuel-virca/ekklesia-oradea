@@ -7,11 +7,8 @@
       {{resource.author?.displayName}}, {{resource.dateTime?.toDate() | date}}
     </mat-card-subtitle>
   </mat-card-header>
-  <div class="mat-card-image" *ngIf="resource.image?.url" [style.height.px]="height" [routerLink]="[ resource.id ]">
-    <img [src]="resource.image.url" alt="" />
-  </div>
-  <div *ngIf="resource.tags?.length" align="end">
-    <app-resource-tags [tags]="resource.tags"></app-resource-tags>
+  <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height" [routerLink]="[ resource.id ]">
+    <img [src]="resource.cover.url" alt="" />
   </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>

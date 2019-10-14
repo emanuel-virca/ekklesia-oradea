@@ -1,35 +1,46 @@
 import { createAction, union, props } from '@ngrx/store';
 
-import { Resource } from '@shared/models/resource';
+import { Resource, ResourceSnippet } from '@shared/models/resource';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 
-export const clearLikedResources = createAction('[Collections] Clear Liked Resources');
+export const clearLibraryResources = createAction(
+  '[Collections] Clear Library Resources',
+  props<{ libraryId: string }>()
+);
 
-export const loadLikedResources = createAction('[Collections] Load Liked Resources');
+export const loadLibraryResources = createAction(
+  '[Collections] Load Library Resources',
+  props<{ libraryId: string }>()
+);
 
 export const changeOrderDirection = createAction(
-  '[Collections/Liked] Change Order Direction',
-  props<{ orderByDirection: OrderByDirection }>()
-);
-export const changeOrderBy = createAction('[Collections/Liked] Change Order By', props<{ orderBy: string }>());
-
-export const addToLikedResources = createAction(
-  '[Collections] Add To Liked Resources',
-  props<{ resource: Resource }>()
-);
-export const removeFromLikedResources = createAction(
-  '[Collections] Remove From Liked Resource',
-  props<{ resource: Resource }>()
+  '[Collections] Change Order Direction',
+  props<{ orderByDirection: OrderByDirection; libraryId: string }>()
 );
 
-export const loadLikedResourceIds = createAction('[Collections] Load Liked Resource Ids');
+export const changeOrderBy = createAction(
+  '[Collections] Change Library Order By',
+  props<{ orderBy: string; libraryId: string }>()
+);
+
+export const addToLibrary = createAction(
+  '[Collections] Add To Library',
+  props<{ resource: Resource | ResourceSnippet; libraryId: string }>()
+);
+
+export const removeFromLibrary = createAction(
+  '[Collections] Remove From Library',
+  props<{ resource: Resource | ResourceSnippet; libraryId: string }>()
+);
+
+export const loadUserLikes = createAction('[Collections] Load User Likes');
 
 const all = union({
-  clearLikedResources,
-  loadLikedResources,
-  addToLikedResources,
-  removeFromLikedResources,
-  loadLikedResourceIds,
+  clearLibraryResources,
+  loadLibraryResources,
+  addToLibrary,
+  removeFromLibrary,
+  loadUserLikes,
   changeOrderDirection,
   changeOrderBy,
 });

@@ -1,10 +1,10 @@
-import { ResourceSnippet } from '@shared/models/resource';
 import { CollectionsActions, CollectionsApiActions } from '../actions';
+import { LibraryResource } from '@shared/models/library';
 
 export const featureKey = 'collections';
 
 export interface State {
-  entities: ResourceSnippet[];
+  entities: LibraryResource[];
   entityIds: string[];
   isFetching: boolean;
   errorMessage: string;
@@ -32,7 +32,7 @@ export function reducer(
   action: CollectionsActions.CollectionsActionsUnion | CollectionsApiActions.CollectionsApiActionsUnion
 ): State {
   switch (action.type) {
-    case CollectionsActions.loadLikedResources.type: {
+    case CollectionsActions.loadLibraryResources.type: {
       return {
         ...state,
         isFetching: true,
@@ -40,7 +40,7 @@ export function reducer(
       };
     }
 
-    case CollectionsApiActions.loadLikedResourcesSuccess.type: {
+    case CollectionsApiActions.loadLibraryResourcesSuccess.type: {
       const likedResource = action.likedResources || [];
       const startAfter =
         likedResource.length === state.pageSize ? action.likedResources[state.pageSize - 1].sortNo : null;
@@ -55,11 +55,11 @@ export function reducer(
       };
     }
 
-    case CollectionsApiActions.loadLikedResourcesFailure.type: {
+    case CollectionsApiActions.loadLibraryResourcesFailure.type: {
       return { ...state, isFetching: false, errorMessage: action.errorMsg };
     }
 
-    case CollectionsApiActions.addToLikedResourcesSuccess.type: {
+    case CollectionsApiActions.addToLibrarySuccess.type: {
       return {
         ...state,
         isFetching: false,
@@ -68,24 +68,24 @@ export function reducer(
       };
     }
 
-    case CollectionsApiActions.removeFromLikedResourcesSuccess.type: {
+    case CollectionsApiActions.removeFromLibrarySuccess.type: {
       return {
         ...state,
         isFetching: false,
-        entities: [...state.entities.filter(x => x.id !== action.resource.id)],
+        entities: [...state.entities.filter(x => x.resource.id !== action.resource.id)],
         entityIds: [...state.entityIds.filter(x => x !== action.resource.id)],
         errorMessage: '',
       };
     }
 
-    case CollectionsApiActions.loadLikedResourceIdsSuccess.type: {
+    case CollectionsApiActions.loadUserLikesSuccess.type: {
       return {
         ...state,
         entityIds: action.resourceIds,
       };
     }
 
-    case CollectionsActions.clearLikedResources.type: {
+    case CollectionsActions.clearLibraryResources.type: {
       return { ...state, entities: [], currentPage: 0, startAfter: null };
     }
 

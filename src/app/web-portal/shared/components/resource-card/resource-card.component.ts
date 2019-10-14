@@ -22,11 +22,11 @@ export class ResourceCardComponent implements OnInit, OnChanges {
   }
 
   computeHeight() {
-    if (!this.resource || !this.resource.image) {
+    if (!this.resource || !this.resource.cover) {
       return 0;
     }
 
-    return (this.resource.image.height / this.resource.image.width) * this.width;
+    return (this.resource.cover.height / this.resource.cover.width) * this.width;
   }
 
   onSaveToLibrary(resource: ResourceSnippet) {

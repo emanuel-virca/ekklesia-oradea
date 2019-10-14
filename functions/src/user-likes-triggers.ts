@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 
 import { UserLikes } from './models/user-likes';
 import { LibraryService } from './library.service';
+import { likesLibraryId } from './models/library';
 
 export async function onUserLikesWriteAsync(
   change: functions.Change<FirebaseFirestore.DocumentSnapshot>,
@@ -20,13 +21,13 @@ export async function onUserLikesWriteAsync(
 
   if (addedResourceIds.length) {
     addedResourceIds.forEach(async resourceId => {
-      await libraryService.addResourceToLibraryAsync('likes', resourceId, change.after.id, context.timestamp);
+      await libraryService.addResourceAsync(resourceId, likesLibraryId, change.after.id, context.timestamp);
     });
   }
 
   if (removedResourceIds.length) {
     removedResourceIds.forEach(async resourceId => {
-      await libraryService.removeResourceFromLibraryAsync('likes', resourceId, change.after.id);
+      await libraryService.deleteResourceAsync(resourceId, likesLibraryId, change.after.id);
     });
   }
 }

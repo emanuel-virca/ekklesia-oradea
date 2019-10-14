@@ -107,7 +107,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
 
   imageChanged(url: string) {
-    this.resource.image = { url };
+    this.resource.cover = { url };
     this.resourceForm.markAsDirty();
   }
 

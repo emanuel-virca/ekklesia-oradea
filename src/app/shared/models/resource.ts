@@ -14,10 +14,9 @@ export interface Resource {
   hearthisId?: string;
   downloadUrl?: string;
   streamUrl?: string;
-  image?: Image;
+  cover?: Image;
   tags?: Tag[];
   album?: Album;
-  sortNo?: any;
 }
 
 export interface ResourceSnippet {
@@ -29,9 +28,28 @@ export interface ResourceSnippet {
   author: AuthorSnippet;
   downloadUrl?: string;
   streamUrl?: string;
-  image?: Image;
+  // TODO rename to cover
+  cover?: Image;
   album?: Album;
-  sortNo?: any;
+}
+
+export function convertToResourceSnippet(resource: Resource): ResourceSnippet {
+  if (!resource) {
+    return null;
+  }
+
+  return {
+    id: resource.id,
+    published: resource.published,
+    type: resource.type,
+    title: resource.title,
+    author: resource.author,
+    dateTime: resource.dateTime,
+    downloadUrl: resource.downloadUrl || null,
+    streamUrl: resource.streamUrl || null,
+    cover: resource.cover || null,
+    album: resource.album || null,
+  };
 }
 
 export const enum ResourceType {
@@ -55,7 +73,7 @@ export class AudioResource {
     this.id = resource.id;
     this.downloadUrl = resource.downloadUrl;
     this.streamUrl = resource.streamUrl;
-    this.artwork = resource.image;
+    this.artwork = resource.cover;
     this.title = resource.title;
   }
 }
