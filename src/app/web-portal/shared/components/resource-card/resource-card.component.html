@@ -1,13 +1,13 @@
 <mat-card class="resource-card">
-  <mat-card-header>
+  <mat-card-header [routerLink]="['/resources', resource.id ]">
     <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
     <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.displayName | userInitials}}</span>
-    <mat-card-title [routerLink]="[ resource.id ]">{{ resource.title }}</mat-card-title>
+    <mat-card-title>{{ resource.title }}</mat-card-title>
     <mat-card-subtitle>
       {{resource.author?.displayName}}, {{resource.dateTime?.toDate() | date}}
     </mat-card-subtitle>
   </mat-card-header>
-  <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height" [routerLink]="[ resource.id ]">
+  <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height" [routerLink]="['/resources', resource.id ]">
     <img [src]="resource.cover.url" alt="" />
   </div>
   <mat-card-actions align="end">
