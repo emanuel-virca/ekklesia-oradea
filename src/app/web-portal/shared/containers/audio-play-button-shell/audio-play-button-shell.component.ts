@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 import { AudioResource } from '@shared/models/resource';
 
@@ -22,15 +22,16 @@ export class AudioPlayButtonShellComponent implements OnInit {
   ngOnInit() {
     this.playing$ = this.store.pipe(
       select(fromAudioPlayer.getAudioPlayerState),
-      map(state => state.current && state.current.id === this.audioResource.id && state.status === 'playing')
+      filter(state => state.current && state.current.id === this.audioResource.id),
+      map(state => state.status === 'playing')
     );
   }
 
-  public play() {
+  public playAudio() {
     this.store.dispatch(new audioPlayerActions.Select(this.audioResource));
   }
 
-  public pause() {
+  public pauseAudio() {
     this.store.dispatch(new audioPlayerActions.ChangeStatus('paused'));
   }
 }
