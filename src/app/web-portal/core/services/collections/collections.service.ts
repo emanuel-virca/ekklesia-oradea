@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 
 import { UserLikes } from '@shared/models/user-likes';
-import { LibraryResource, LikesLibrary } from '@shared/models/library';
+import { LibraryResource, likesLibraryId } from '@shared/models/library';
 
 @Injectable()
 export class CollectionsService {
@@ -41,7 +41,7 @@ export class CollectionsService {
   }
 
   public async addToLibraryAsync(resourceId: string, userId: string, libraryId: string): Promise<void> {
-    if (libraryId === LikesLibrary) {
+    if (libraryId === likesLibraryId) {
       await this.db
         .collection<UserLikes>('user-likes')
         .doc(userId)
@@ -55,7 +55,7 @@ export class CollectionsService {
   }
 
   public async removeFromLibraryAsync(resourceId: string, userId: string, libraryId: string): Promise<void> {
-    if (libraryId === LikesLibrary) {
+    if (libraryId === likesLibraryId) {
       await this.db
         .collection(`user-likes`)
         .doc(userId)

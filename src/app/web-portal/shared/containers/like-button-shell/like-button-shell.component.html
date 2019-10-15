@@ -1,0 +1,6 @@
+<button *ngIf="!(isLiked$ | async)" mat-icon-button (click)="onSaveToLibrary()">
+  <mat-icon aria-label="favorite">favorite_border</mat-icon>
+</button>
+<button *ngIf="isLiked$ | async" color="primary" mat-icon-button (click)="onRemoveFromLibrary()">
+  <mat-icon aria-label="unfavorite">favorite</mat-icon>
+</button>

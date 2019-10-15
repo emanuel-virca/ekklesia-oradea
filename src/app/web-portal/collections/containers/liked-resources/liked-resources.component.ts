@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { Resource, ResourceSnippet } from '@shared/models/resource';
+import { ResourceSnippet } from '@shared/models/resource';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
-import { LikesLibrary } from '@shared/models/library';
+import { likesLibraryId } from '@shared/models/library';
 
 @Component({
   selector: 'app-liked-resources',
@@ -43,28 +43,26 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   constructor(private collectionsFacade: CollectionsFacade) {}
 
   ngOnInit() {
-    this.collectionsFacade.loadLibraryResources(LikesLibrary);
+    // This is necesary as it's used by like-button-shell
+    this.collectionsFacade.loadUserLikes();
+    this.collectionsFacade.loadLibraryResources(likesLibraryId);
   }
 
   loadResources() {
-    this.collectionsFacade.loadLibraryResources(LikesLibrary);
-  }
-
-  onRemoveFromLibrary(resource: Resource) {
-    this.collectionsFacade.removeFromLibrary(resource, LikesLibrary);
+    this.collectionsFacade.loadLibraryResources(likesLibraryId);
   }
 
   toggleDirection(currentValue: OrderByDirection) {
     const orderByDirection = currentValue === 'asc' ? 'desc' : 'asc';
-    this.collectionsFacade.changeOrderDirection(orderByDirection, LikesLibrary);
+    this.collectionsFacade.changeOrderDirection(orderByDirection, likesLibraryId);
   }
 
   onOrderByChanged(orderedByProp: OrderByProp) {
     this.selectedOrderedBy = orderedByProp;
-    this.collectionsFacade.changeOrderBy(orderedByProp.value, LikesLibrary);
+    this.collectionsFacade.changeOrderBy(orderedByProp.value, likesLibraryId);
   }
 
   ngOnDestroy() {
-    this.collectionsFacade.clear(LikesLibrary);
+    this.collectionsFacade.clear(likesLibraryId);
   }
 }

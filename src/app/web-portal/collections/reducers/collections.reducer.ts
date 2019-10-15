@@ -41,14 +41,14 @@ export function reducer(
     }
 
     case CollectionsApiActions.loadLibraryResourcesSuccess.type: {
-      const likedResource = action.likedResources || [];
+      const likedResources = action.likedResources || [];
       const startAfter =
-        likedResource.length === state.pageSize ? action.likedResources[state.pageSize - 1].sortNo : null;
+        likedResources.length === state.pageSize ? action.likedResources[state.pageSize - 1].sortNo : null;
 
       return {
         ...state,
         isFetching: false,
-        entities: [...state.entities, ...likedResource],
+        entities: [...state.entities, ...likedResources],
         errorMessage: '',
         startAfter,
         currentPage: state.currentPage + 1,

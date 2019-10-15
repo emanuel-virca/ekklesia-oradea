@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
-import { Resource } from '@shared/models/resource';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { ResourcesFacade } from '@web-portal/resources/facades/resources.facade';
 import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
-import { LikesLibrary } from '@shared/models/library';
 
 @Component({
   selector: 'app-resources-list',
@@ -21,7 +19,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   initialLoading$ = this.resourcesFacade.query.initialLoading$;
   loading$ = this.resourcesFacade.query.loading$;
   orderByDirection$ = this.resourcesFacade.query.orderByDirection$;
-  likedResourceIds$ = this.collectionsFacade.query.likedResources.entityIds$;
+
   orderByOptions: OrderByProp[] = [
     {
       value: 'dateTime',
@@ -38,6 +36,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.resourcesFacade.loadEntities();
+    // This is necesary as it's used by like-button-shell
     this.collectionsFacade.loadUserLikes();
   }
 
@@ -53,14 +52,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   onOrderByChanged(orderedByProp: OrderByProp) {
     this.selectedOrderedBy = orderedByProp;
     this.resourcesFacade.changeOrderBy(orderedByProp.value);
-  }
-
-  onSaveToLibrary(resource: Resource) {
-    this.collectionsFacade.addToLibrary(resource, LikesLibrary);
-  }
-
-  onRemoveFromLibrary(resource: Resource) {
-    this.collectionsFacade.removeFromLibrary(resource, LikesLibrary);
   }
 
   ngOnDestroy() {

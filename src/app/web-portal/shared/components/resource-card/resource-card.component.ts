@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 
-import { ResourceSnippet } from '@shared/models/resource';
+import { ResourceSnippet, Resource } from '@shared/models/resource';
 
 @Component({
   selector: 'app-resource-card',
@@ -9,11 +9,8 @@ import { ResourceSnippet } from '@shared/models/resource';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceCardComponent implements OnInit, OnChanges {
-  @Input() resource: ResourceSnippet;
+  @Input() resource: ResourceSnippet | Resource;
   @Input() width;
-  @Input() inLibrary = false;
-  @Output() saveToLibrary = new EventEmitter<ResourceSnippet>();
-  @Output() removeFromLibrary = new EventEmitter<ResourceSnippet>();
 
   height: number;
 
@@ -27,14 +24,6 @@ export class ResourceCardComponent implements OnInit, OnChanges {
     }
 
     return (this.resource.cover.height / this.resource.cover.width) * this.width;
-  }
-
-  onSaveToLibrary(resource: ResourceSnippet) {
-    this.saveToLibrary.emit(resource);
-  }
-
-  onRemoveFromLibrary(resource: ResourceSnippet) {
-    this.removeFromLibrary.emit(resource);
   }
 
   ngOnChanges(): void {

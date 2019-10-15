@@ -18,13 +18,7 @@
   [infiniteScrollDisabled]="(loading$ | async) || !(nextPage$ | async)"
 >
   <ng-template #resourceCard let-item let-masonryColumnWidth="masonryColumnWidth">
-    <app-resource-card
-      [resource]="item"
-      [width]="masonryColumnWidth"
-      (saveToLibrary)="onSaveToLibrary($event)"
-      (removeFromLibrary)="onRemoveFromLibrary($event)"
-      [inLibrary]="((likedResourceIds$ | async) || []).indexOf(item.id) > -1"
-    ></app-resource-card>
+    <app-resource-card [resource]="item" [width]="masonryColumnWidth"></app-resource-card>
   </ng-template>
   <app-resources-masonry [resources]="resources$ | async" [scrollContainer]="'mat-sidenav-content'" [itemTemplate]="resourceCard"></app-resources-masonry>
 </div>

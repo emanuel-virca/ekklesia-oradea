@@ -16,4 +16,8 @@ export interface LibraryResource {
   sortNo: any;
 }
 
-export const LikesLibrary = 'likes';
+export const likesLibraryId = 'likes';
+
+export const librariesCollectionName = 'libraries';
+
+export const libraryResourcesCollectionName = 'library-resources';

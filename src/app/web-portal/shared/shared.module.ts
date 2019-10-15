@@ -28,6 +28,7 @@ import {
   MaterialCardHeaderContentLoaderComponent,
   MatCardSubtitleContentLoaderComponent,
 } from './components/content-loaders';
+import { LikeButtonShellComponent } from './containers/like-button-shell/like-button-shell.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {
     ResourceCardComponent,
     ResourceTagsComponent,
     ResourcesMasonryComponent,
+    LikeButtonShellComponent,
   ],
   imports: [
     CoreSharedModule,
@@ -76,6 +78,7 @@ import {
     ResourceCardComponent,
     ResourceTagsComponent,
     ResourcesMasonryComponent,
+    LikeButtonShellComponent,
   ],
 })
 export class SharedModule {}

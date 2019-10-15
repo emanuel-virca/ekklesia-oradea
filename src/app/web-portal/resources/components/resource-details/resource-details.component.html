@@ -10,6 +10,7 @@
       <app-resource-tags [tags]="resource.tags"></app-resource-tags>
     </div>
     <mat-card-actions>
+      <app-like-button-shell [resource]="resource"></app-like-button-shell>
       <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
         <mat-icon aria-label="download">get_app</mat-icon>
       </a>
