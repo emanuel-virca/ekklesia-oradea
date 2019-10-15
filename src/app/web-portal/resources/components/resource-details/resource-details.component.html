@@ -18,6 +18,6 @@
     <mat-card-content *ngIf="resource.description">
       <p>{{resource.description}}</p>
     </mat-card-content>
-    <img *ngIf="resource.imageSrc" mat-card-image [src]="resource.imageSrc" />
+    <img *ngIf="resource.cover.url" mat-card-image [src]="resource.cover.url" />
   </mat-card>
 </div>
