@@ -70,6 +70,10 @@
     .audio-player-artwork {
       display: none;
     }
+
+    .audio-player-header {
+      flex-flow: row-reverse !important;
+    }
   }
 }
 
