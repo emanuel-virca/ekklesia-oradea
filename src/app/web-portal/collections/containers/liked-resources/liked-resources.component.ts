@@ -6,6 +6,7 @@ import { OrderByProp } from '@web-portal/shared/models/order-by-prop';
 import { OrderByDirection } from '@web-portal/shared/models/order-by-direction';
 import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
 import { likesLibraryId } from '@shared/models/library';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-liked-resources',
@@ -23,6 +24,11 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   orderByDirection$ = this.collectionsFacade.query.likedResources.orderByDirection$;
   loading$ = this.collectionsFacade.query.likedResources.loading$;
   initialLoading$ = this.collectionsFacade.query.likedResources.initialLoading$;
+  emptyList$ = combineLatest([this.loading$, this.resources$]).pipe(
+    map(([loading, resources]) => {
+      return !loading && !(resources || []).length;
+    })
+  );
 
   orderByOptions: OrderByProp[] = [
     {

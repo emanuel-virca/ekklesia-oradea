@@ -5,6 +5,8 @@ import { collectionsQuery } from '../reducers/collections.selectors';
 import { CollectionsActions } from '../actions';
 import { State } from '../reducers/collections.reducer';
 import { Resource } from '@shared/models/resource';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CollectionsFacade {
@@ -16,6 +18,14 @@ export class CollectionsFacade {
       nextPage$: this.store.select(collectionsQuery.getNextPage),
       loading$: this.store.select(collectionsQuery.getIsFetching),
       initialLoading$: this.store.select(collectionsQuery.getIsInitialFetching),
+      emptyList$: combineLatest([
+        this.store.select(collectionsQuery.getIsFetching),
+        this.store.select(collectionsQuery.getEntities),
+      ]).pipe(
+        map(([loading, resources]) => {
+          return !loading && !(resources || []).length;
+        })
+      ),
     },
   };
 
