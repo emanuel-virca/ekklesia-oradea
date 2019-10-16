@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, combineLatest } from 'rxjs';
-import { switchMap, catchError, mergeMap, map, concatMap, withLatestFrom, take } from 'rxjs/operators';
+import { switchMap, catchError, mergeMap, map, concatMap, withLatestFrom, take, filter } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -91,7 +91,7 @@ export class CollectionEffects {
   @Effect()
   loadUserLikes$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionsActions.loadUserLikes),
-    concatMap(action => combineLatest([of(action), this.authService.user$])),
+    concatMap(action => combineLatest([of(action), this.authService.user$.pipe(filter(x => !!x))])),
     switchMap(([, user]) =>
       this.collectionsService.getUserLikes(user.uid).pipe(
         map(userLikes => CollectionsApiActions.loadUserLikesSuccess(userLikes)),

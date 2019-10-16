@@ -9,9 +9,10 @@ import { reducers, featureKey } from './reducers';
 import { CollectionEffects } from './effects/collections.effects';
 import { SharedModule } from '@web-portal/shared/shared.module';
 import { CollectionsFacade } from './facades/collections.facade';
+import { CollectionsComponent } from './collections.component';
 
 @NgModule({
-  declarations: [LikedResourcesComponent],
+  declarations: [LikedResourcesComponent, CollectionsComponent],
   imports: [
     CommonModule,
     SharedModule,
