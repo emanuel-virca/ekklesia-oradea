@@ -8,9 +8,18 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { DocPipe } from './pipes/doc/doc.pipe';
 import { MaterialModule } from './material/material.module';
 import { UserInitialsPipe } from './pipes/user-initials/user-initials.pipe';
+import { SvgIconsModule } from './svg-icons/svg-icons.module';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    SvgIconsModule,
+  ],
   declarations: [LoaderComponent, DocPipe, UserInitialsPipe],
   exports: [
     CommonModule,
@@ -22,6 +31,7 @@ import { UserInitialsPipe } from './pipes/user-initials/user-initials.pipe';
     DocPipe,
     UserInitialsPipe,
     FlexLayoutModule,
+    SvgIconsModule,
   ],
   providers: [],
   entryComponents: [],

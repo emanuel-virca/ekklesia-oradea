@@ -20,12 +20,12 @@ export class WebPortalComponent {
   navigationItems: { icon: string; name: string; routerLink: string }[] = [
     {
       name: 'Resources',
-      icon: 'collections',
+      icon: 'dashboard',
       routerLink: '/resources',
     },
     {
       name: 'Your Library',
-      icon: 'library_books',
+      icon: 'bookmarks',
       routerLink: '/libraries',
     },
     {
