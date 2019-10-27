@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
 
 import { User } from '@shared/models/user';
 
@@ -10,18 +11,18 @@ export class UserService {
   constructor(private afs: AngularFirestore) {}
 
   public async upgradeAnnonymous(destinationUserId: string, annonymousUserId: string): Promise<void> {
-    combineLatest([this.get(destinationUserId), this.get(annonymousUserId)])
+    this.get(annonymousUserId)
       .pipe(take(1))
-      .subscribe(async users => {
-        const destinationNotificationTokens = users[0] ? users[0].notificationTokens || [] : [];
-        const annonymousNotificationTokens = users[1] ? users[1].notificationTokens || [] : [];
+      .subscribe(async user => {
+        const annonymousNotificationTokens = user ? user.notificationTokens || [] : [];
 
         if (annonymousNotificationTokens.length) {
-          users[0].notificationTokens = destinationNotificationTokens.concat(
-            destinationNotificationTokens.filter(x => annonymousNotificationTokens.indexOf(x) === -1)
+          await this.afs.doc(`users/${destinationUserId}`).set(
+            {
+              notificationTokens: firebase.firestore.FieldValue.arrayUnion(annonymousNotificationTokens),
+            },
+            { merge: true }
           );
-
-          await this.update(users[0]);
         }
       });
   }
