@@ -1,2 +1,6 @@
-<h4>Liked Resources</h4>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let link of navigationItems" [routerLink]="link.routerLink" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+    {{link.name}}
+  </a>
+</nav>
 <router-outlet></router-outlet>

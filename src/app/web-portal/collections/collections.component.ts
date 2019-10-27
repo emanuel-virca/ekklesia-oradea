@@ -6,8 +6,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./collections.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CollectionsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+export class CollectionsComponent {
+  navigationItems: { icon?: string; name: string; routerLink: string }[] = [
+    {
+      name: 'Liked',
+      routerLink: 'likes',
+    },
+  ];
 }
