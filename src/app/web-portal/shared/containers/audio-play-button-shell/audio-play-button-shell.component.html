@@ -1,7 +1,1 @@
-<app-audio-play-button
-  [ngClass]="{'saving': saving | async}"
-  (playAudio)="playAudio()"
-  (pauseAudio)="pauseAudio()"
-  [playing]="playing$ | async"
-  [disabled]="!audioResource?.streamUrl"
-></app-audio-play-button>
+<app-audio-play-button (playAudio)="playAudio()" (pauseAudio)="pauseAudio()" [playing]="playing$ | async" [disabled]="!audioResource?.streamUrl"></app-audio-play-button>

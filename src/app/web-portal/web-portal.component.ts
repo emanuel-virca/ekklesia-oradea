@@ -25,12 +25,12 @@ export class WebPortalComponent {
     },
     {
       name: 'Your Library',
-      icon: 'bookmarks',
+      icon: 'folder',
       routerLink: '/libraries',
     },
     {
       name: 'Contact',
-      icon: 'phone',
+      icon: 'near_me',
       routerLink: '/contact',
     },
   ];
