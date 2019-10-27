@@ -9,6 +9,7 @@
   </mat-card-header>
   <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height" [routerLink]="['/resources', resource.id ]">
     <img [src]="resource.cover.url" alt="" />
+    <mat-icon mat-list-icon>photo</mat-icon>
   </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>
