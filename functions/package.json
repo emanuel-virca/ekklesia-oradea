@@ -3,11 +3,19 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
-    "serve": "npm run build && firebase serve --only functions",
+    "firebase-test": "firebase use ekklesia-oradea-test",
+    "firebase-dev": "firebase use ekklesia-oradea-dev",
+    "firebase-prod": "firebase use ekklesia-oradea-prod",
+    "serve-dev": "npm run build && npm run firebase-dev && firebase serve --only functions",
+    "serve-test": "npm run build && npm run firebase-test && firebase serve --only functions",
+    "serve-prod": "npm run build && npm run firebase-prod && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "deploy-dev": "npm run firebase-dev && firebase deploy --only functions",
+    "deploy-test": "npm run firebase-test && firebase deploy --only functions",
+    "deploy-prod": "npm run firebase-prod && firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "read-cofig": "firebase functions:config:get"
   },
   "main": "lib/index.js",
   "dependencies": {

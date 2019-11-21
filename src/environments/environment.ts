@@ -11,6 +11,8 @@ export const environment = {
     projectId: '<your-project-id>',
     storageBucket: '<your-storage-bucket>',
     messagingSenderId: '<your-messaging-sender-id>',
+    appId: '<your-app-id>',
+    measurementId: '<your-measurement-Id>',
   },
   algolia: {
     applicationId: '<your-application-id>',
@@ -19,5 +21,12 @@ export const environment = {
   },
   webPortal: {
     domainURL: '<your-app-domain-url-here>',
+    domainURLEncoded: '<your-app-domain-url-encoded-here>',
+  },
+  sts: {
+    authority: '<auth-authority>',
+    clientId: '<auth-client-id>',
+    apiAudience: '<auth-api-audience>',
+    apiAudienceEncoded: '<auth-api-audience-encoded>',
   },
 };

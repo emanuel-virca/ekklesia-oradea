@@ -32,6 +32,22 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "testing": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -57,14 +73,6 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
-            },
-            "development": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
-                }
-              ]
             }
           }
         },
@@ -74,11 +82,14 @@
             "browserTarget": "ekklesia-oradea:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "ekklesia-oradea:build:production"
-            },
             "development": {
               "browserTarget": "ekklesia-oradea:build:development"
+            },
+            "test": {
+              "browserTarget": "ekklesia-oradea:build:testing"
+            },
+            "production": {
+              "browserTarget": "ekklesia-oradea:build:production"
             }
           }
         },
