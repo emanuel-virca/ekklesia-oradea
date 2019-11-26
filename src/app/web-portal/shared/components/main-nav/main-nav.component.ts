@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-
-import { User } from '@shared/models/user';
+import { User } from 'oidc-client';
 
 @Component({
   selector: 'app-main-nav',

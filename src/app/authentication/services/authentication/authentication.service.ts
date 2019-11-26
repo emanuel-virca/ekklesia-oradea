@@ -26,71 +26,6 @@ export class AuthenticationService {
     );
   }
 
-  // google
-  doGoogleSignIn() {
-    return this.oAuthLogin(this.getGoogleAuthProvider());
-  }
-
-  async linkGoogle() {
-    try {
-      const credential = await this.afAuth.auth.currentUser.linkWithPopup(this.getGoogleAuthProvider());
-      return this.updateUserDataWithCredentials(credential, typeof auth.GoogleAuthProvider);
-    } catch (ex) {
-      if (ex.code !== 'auth/credential-already-in-use') {
-        return;
-      }
-
-      await this.mergeConflictsAsync(ex);
-    }
-  }
-
-  private getGoogleAuthProvider(): auth.GoogleAuthProvider {
-    const provider = new auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-
-    return provider;
-  }
-
-  // facebook
-  doFacebookSignIn() {
-    return this.oAuthLogin(this.getFacebookAuthProvider());
-  }
-
-  async linkFacebook() {
-    try {
-      const credential = await this.afAuth.auth.currentUser.linkWithPopup(this.getFacebookAuthProvider());
-      return this.updateUserDataWithCredentials(credential, typeof auth.FacebookAuthProvider);
-    } catch (ex) {
-      if (ex.code !== 'auth/credential-already-in-use') {
-        return;
-      }
-
-      await this.mergeConflictsAsync(ex);
-    }
-  }
-
-  private getFacebookAuthProvider(): auth.FacebookAuthProvider {
-    const provider = new auth.FacebookAuthProvider();
-    provider.addScope('email');
-    provider.setCustomParameters({
-      auth_type: 'rerequest',
-    });
-
-    return provider;
-  }
-
-  // anonymous
-  public async doAnonymousLogin(): Promise<void> {
-    const credential = await this.afAuth.auth.signInAnonymously();
-    return this.updateUserDataWithCredentials(credential);
-  }
-
-  private async oAuthLogin(provider: auth.AuthProvider): Promise<void> {
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserDataWithCredentials(credential, typeof provider);
-  }
-
   public updateUserDataWithCredentials(userCredential: auth.UserCredential, provider?: any) {
     const data: User = {
       uid: userCredential.user.uid,
@@ -104,22 +39,6 @@ export class AuthenticationService {
     };
 
     return this.userService.update(data);
-  }
-
-  public async mergeConflictsAsync(ex: any) {
-    // Get reference to the currently signed-in user
-    const anonymousUser = this.afAuth.auth.currentUser;
-
-    // Sign in user with new account
-    const currentUser: auth.UserCredential = await this.afAuth.auth.signInWithCredential(ex.credential);
-
-    // Merge prevUser and currentUser data stored in Firebase.
-    await this.userService.upgradeAnnonymous(currentUser.user.uid, anonymousUser.uid);
-
-    // After data is migrated delete the duplicate user
-    await this.userService.delete(anonymousUser.uid);
-
-    await anonymousUser.delete();
   }
 
   private readProfile(userCredential: auth.UserCredential): UserProfile {
@@ -170,9 +89,5 @@ export class AuthenticationService {
       name: profile.name,
       picture: profile.picture,
     };
-  }
-
-  public signOut() {
-    return this.afAuth.auth.signOut();
   }
 }

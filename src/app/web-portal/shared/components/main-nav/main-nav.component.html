@@ -4,9 +4,10 @@
   </button>
   <a class="logo" routerLink="/">Ekklesia</a>
   <span class="example-spacer"></span>
-  <ng-container *ngIf="user && !user.isAnonymous; else showLogin">
+  <ng-container *ngIf="user; else showLogin">
     <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
-      <span class="user-display__initials">{{ (user.profile?.name || user.displayName) | userInitials }}</span>
+      <span *ngIf="!user.profile?.picture" class="user-display__initials">{{ (user.profile?.name || user.displayName) | userInitials: true }}</span>
+      <img *ngIf="user.profile?.picture" class="user-display__picture" [src]="user.profile?.picture" />
     </button>
     <mat-menu #profileMenu="matMenu">
       <button mat-menu-item (click)="signOut()">Logout</button>

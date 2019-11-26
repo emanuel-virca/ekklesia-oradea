@@ -23,6 +23,9 @@ export const environment = {
     domainURL: '<your-app-domain-url-here>',
     domainURLEncoded: '<your-app-domain-url-encoded-here>',
   },
+  api: {
+    url: '<api-url>',
+  },
   sts: {
     authority: '<auth-authority>',
     clientId: '<auth-client-id>',

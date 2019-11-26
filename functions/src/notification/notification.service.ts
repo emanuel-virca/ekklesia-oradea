@@ -20,7 +20,7 @@ export class NotificationService {
           tag: resource.id + resource.type,
         },
         fcmOptions: {
-          link: `${webPortalConfig.domainURL}/resources/${resource.id}`,
+          link: `${webPortalConfig.domainurl}/resources/${resource.id}`,
         },
       },
     };

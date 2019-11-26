@@ -1,57 +1,60 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
-import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
-import { AuthenticationService } from './services/authentication/authentication.service';
-import { SharedModule } from '@shared/shared.module';
+import { NgOidcClientModule } from 'ng-oidc-client';
+import { WebStorageStateStore } from 'oidc-client';
 
-const firebaseUiAuthConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',
-  signInOptions: [
-    {
-      // Google provider must be enabled in Firebase Console to support one-tap
-      // sign-up.
-      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      // Required to enable this provider in one-tap sign-up.
-      authMethod: 'https://accounts.google.com',
-      // Required to enable ID token credentials for this provider.
-      // This can be obtained from the Credentials page of the Google APIs
-      // console.
-      clientId: '256344186138-gr6ik7k0srpl33n05bf890hd0vunu27r.apps.googleusercontent.com',
-    },
-    {
-      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      scopes: ['public_profile', 'email'],
-      customParameters: {
-        auth_type: 'reauthenticate',
-      },
-    },
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    // {
-    //   requireDisplayName: false,
-    //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    // },
-    {
-      provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-      recaptchaParameters: {
-        type: 'image', // 'audio'
-        size: 'normal', // 'invisible' or 'compact'
-        badge: 'bottomleft', // 'bottomright' or 'inline' applies to invisible.
-      },
-      defaultCountry: 'RO',
-    },
-    firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
-  ],
-  autoUpgradeAnonymousUsers: true,
-  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
-};
+import { environment } from '@env/environment';
+import { AuthService } from './services/auth/auth.service';
+import { CanActivateAuthGuard } from './guards/can-activate.auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './services/auth-interceptor/auth-interceptor.service';
+
+export function initializeAuth(authService: AuthService) {
+  return (): Promise<void> => {
+    return authService.init();
+  };
+}
+
+export function getWebStorageStateStore() {
+  return new WebStorageStateStore({ store: window.localStorage });
+}
 
 @NgModule({
-  declarations: [LoginDialogComponent],
-  imports: [CommonModule, FirebaseUIModule.forRoot(firebaseUiAuthConfig), SharedModule],
-  exports: [LoginDialogComponent],
-  entryComponents: [LoginDialogComponent],
-  providers: [AuthenticationService],
+  declarations: [],
+  imports: [
+    CommonModule,
+    NgOidcClientModule.forRoot({
+      // prettier-ignore
+      oidc_config: {
+        authority: environment.sts.authority,
+        client_id: environment.sts.clientId,
+        redirect_uri: `${environment.webPortal.domainURL}oidc-login-redirect-callback.html`,
+        scope: 'openid profile',
+        response_type: 'id_token token',
+        post_logout_redirect_uri: `${environment.webPortal.domainURL}oidc-logout-redirect-callback.html`,
+        silent_redirect_uri: `${environment.webPortal.domainURL}oidc-silent-renew-redirect-callback.html`,
+        accessTokenExpiringNotificationTime: 10,
+        automaticSilentRenew: true,
+        metadata: {
+          authorization_endpoint: `${environment.sts.authority}authorize?audience=${environment.sts.apiAudience}`,
+          userinfo_endpoint: `${environment.sts.authority}userinfo`,
+          issuer: environment.sts.authority,
+          jwks_uri: `${environment.sts.authority}.well-known/jwks.json`,
+          // tslint:disable-next-line:max-line-length
+          end_session_endpoint: `${environment.sts.authority}v2/logout?returnTo=${environment.webPortal.domainURLEncoded + 'oidc-logout-redirect-callback.html'}&client_id=${environment.sts.clientId}`
+        },
+        userStore: getWebStorageStateStore
+      }
+    }),
+  ],
+  providers: [
+    AuthService,
+    CanActivateAuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
 })
 export class AuthenticationModule {}

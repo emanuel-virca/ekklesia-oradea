@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -18,6 +18,13 @@ import { SharedModule } from '@shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from '@core/core.module';
 import { AuthenticationModule } from '@authentication/authentication.module';
+import { AuthService } from '@authentication/services/auth/auth.service';
+
+export function initializeAuth(authService: AuthService) {
+  return (): Promise<void> => {
+    return authService.init();
+  };
+}
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -41,7 +48,14 @@ import { AuthenticationModule } from '@authentication/authentication.module';
     AuthenticationModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAuth,
+      deps: [AuthService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

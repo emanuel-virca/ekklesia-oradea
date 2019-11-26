@@ -1,0 +1,19 @@
+[debug] [2019-11-22T19:52:33.578Z] ----------------------------------------------------------------------
+[debug] [2019-11-22T19:52:33.584Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\emanuel.virca\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions:onResourceUpdated
+[debug] [2019-11-22T19:52:33.584Z] CLI Version:   6.5.0
+[debug] [2019-11-22T19:52:33.584Z] Platform:      win32
+[debug] [2019-11-22T19:52:33.585Z] Node Version:  v12.13.0
+[debug] [2019-11-22T19:52:33.587Z] Time:          Fri Nov 22 2019 21:52:33 GMT+0200 (Eastern European Standard Time)
+[debug] [2019-11-22T19:52:33.587Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-22T19:52:33.608Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-22T19:52:33.608Z] > authorizing via signed-in user
+[debug] [2019-11-22T19:52:33.609Z] [iam] checking project ekklesia-oradea-dev for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-22T19:52:33.612Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ekklesia-oradea-dev:testIamPermissions  
+
+[debug] [2019-11-22T19:52:34.646Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T19:52:37.844Z] TypeError: Cannot read property 'wanted' of undefined
+    at C:\Users\emanuel.virca\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:37:51
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+[error] 
+[error] Error: An unexpected error has occurred.

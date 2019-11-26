@@ -1,5 +1,5 @@
 <div class="web-portal-app" [ngClass]="{'audio-player-visible': isAudioPlayerVisible$ | async}">
-  <app-main-nav class="mat-elevation-z6" [user]="user$ | async" (toggleSidenavEvent)="sidenav.toggle()" (signInEvent)="signIn()" (signOutEvent)="signOut()"></app-main-nav>
+  <app-main-nav class="mat-elevation-z6" [user]="identity$ | async" (toggleSidenavEvent)="sidenav.toggle()" (signInEvent)="signIn()" (signOutEvent)="signOut()"></app-main-nav>
   <mat-sidenav-container>
     <mat-sidenav mode="over" #sidenav autoFocus="false">
       <mat-nav-list>

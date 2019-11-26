@@ -15,7 +15,7 @@ export class LikeButtonShellComponent {
   @Input() resource: ResourceSnippet | Resource;
 
   isLiked$ = this.collectionsFacade.query.likedResources.entityIds$.pipe(
-    map(resourceIds => this.resource != null && resourceIds.includes(this.resource.id))
+    map(resourceIds => this.resource != null && resourceIds != null && resourceIds.includes(this.resource.id))
   );
 
   constructor(private collectionsFacade: CollectionsFacade) {}

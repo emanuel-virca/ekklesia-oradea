@@ -4,7 +4,6 @@
 
 @import '~@angular/material/theming';
 
-@import '~firebaseui/dist/firebaseui.css';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -124,6 +123,11 @@ body {
 // .mat-icon-button {
 //   @include mat-icon-button-size(36px);
 // }
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
 
 @media (max-width: 599px) {
   mat-drawer,

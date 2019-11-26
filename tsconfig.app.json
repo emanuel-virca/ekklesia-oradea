@@ -13,7 +13,8 @@
     "@admin/*": ["app/admin/*"],
     "@web-portal/*": ["app/web-portal/*"],
     "@root-state": ["app/reducers"],
-    "@authentication/*": ["app/authentication/*"]
+    "@authentication/*": ["app/authentication/*"],
+    "@account/*": ["app/account/*"]
   }
   // "angularCompilerOptions": { "enableIvy": true }
 }

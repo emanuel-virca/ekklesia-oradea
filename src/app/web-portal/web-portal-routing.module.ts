@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'libraries',
         loadChildren: () => import('@web-portal/collections/collections.module').then(x => x.CollectionsModule),
       },
+      {
+        path: 'account',
+        loadChildren: () => import('@account/account.module').then(m => m.AccountModule),
+      },
       { path: '', pathMatch: 'full', redirectTo: 'resources' },
     ],
   },

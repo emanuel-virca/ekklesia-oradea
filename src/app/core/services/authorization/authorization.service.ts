@@ -36,7 +36,7 @@ export class AuthorizationService {
 
   // determines if user has matching role
   private checkAuthorization(user: User, allowedRoles: string[]): boolean {
-    if (!user) {
+    if (!user || !user.roles) {
       return false;
     }
 
@@ -45,6 +45,7 @@ export class AuthorizationService {
         return true;
       }
     }
+
     return false;
   }
 }

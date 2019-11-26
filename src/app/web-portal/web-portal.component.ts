@@ -5,11 +5,9 @@ import { filter, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
-import { LoginDialogComponent } from '@authentication/components/login-dialog/login-dialog.component';
-import { User } from '@shared/models/user';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
+import { AuthService } from '@authentication/services/auth/auth.service';
 
 @Component({
   selector: 'app-web-portal',
@@ -34,7 +32,7 @@ export class WebPortalComponent {
       routerLink: '/contact',
     },
   ];
-  user$: Observable<User>;
+  identity$ = this.authService.identity$;
   displayAdmin$: Observable<boolean>;
   isAudioPlayerVisible$: Observable<boolean>;
 
@@ -42,23 +40,21 @@ export class WebPortalComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthenticationService,
+    private authService: AuthService,
     private authorizationService: AuthorizationService,
-    private store: Store<fromAudioPlayer.State>,
-    private dialog: MatDialog
+    private store: Store<fromAudioPlayer.State>
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
-    this.user$ = authService.user$;
     this.isAudioPlayerVisible$ = this.store.pipe(select(fromAudioPlayer.getIsAudioPlayerVisible));
-    this.displayAdmin$ = this.user$.pipe(
-      switchMap(user => {
-        return of(this.authorizationService.canAccessAdmin(user));
-      })
-    );
+    // this.displayAdmin$ = this.authService.firebaseIdentity$.pipe(
+    //   switchMap(user => {
+    //     return of(this.authorizationService.canAccessAdmin(user));
+    //   })
+    // );
   }
 
   signIn() {
-    this.dialog.open(LoginDialogComponent);
+    this.authService.signIn();
   }
 
   async signOut() {

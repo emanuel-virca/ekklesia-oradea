@@ -1,3 +1,3 @@
 export interface WebPortalConfig {
-  domainURL: string;
+  domainurl: string;
 }

@@ -5,8 +5,8 @@ import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MediaObserver } from '@angular/flex-layout';
 
-import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
 import { User } from '@shared/models/user';
+import { AuthService } from '@authentication/services/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -35,8 +35,8 @@ export class AdminComponent {
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
-  constructor(private router: Router, private authService: AuthenticationService, public mediaObserver: MediaObserver) {
-    this.user$ = authService.user$;
+  constructor(private router: Router, private authService: AuthService, public mediaObserver: MediaObserver) {
+    // this.user$ = authService.identity$;
     router.events
       .pipe(filter(a => a instanceof NavigationEnd))
       .subscribe({ next: () => mediaObserver.isActive('xs') && this.sidenav.close() });

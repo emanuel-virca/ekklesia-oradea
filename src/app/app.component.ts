@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
 import { MessagingService } from '@core/services/messaging/messaging.service';
-import { AuthenticationService } from '@authentication/services/authentication/authentication.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +10,41 @@ import { AuthenticationService } from '@authentication/services/authentication/a
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(public messagingService: MessagingService, public auth: AuthenticationService) {}
+  constructor(
+    public messagingService: MessagingService,
+    // public auth: AuthenticationService,
+    private db: AngularFirestore
+  ) {}
 
   ngOnInit() {
-    this.doAnonymousLogin();
-    this.initializeMessaging();
+    // this.initializeMessaging();
+    this.createUser();
   }
 
-  doAnonymousLogin() {
-    this.auth.user$.subscribe(user => {
-      if (!user) {
-        this.auth.doAnonymousLogin();
-      }
-    });
+  async createUser() {
+    try {
+      await this.db.collection('ceva').add({ firstName: 'Emanuel' });
+
+      this.db
+        .collection('case')
+        .get()
+        .subscribe(x => {
+          console.log(x);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  initializeMessaging() {
-    this.auth.user$
-      .pipe(
-        filter(user => !!user),
-        take(1)
-      )
-      .subscribe(user => {
-        this.messagingService.requestPermission(user);
-        this.messagingService.receiveMessage();
-      });
-  }
+  // initializeMessaging() {
+  //   this.auth.user$
+  //     .pipe(
+  //       filter(user => !!user),
+  //       take(1)
+  //     )
+  //     .subscribe(user => {
+  //       this.messagingService.requestPermission(user);
+  //       this.messagingService.receiveMessage();
+  //     });
+  // }
 }
