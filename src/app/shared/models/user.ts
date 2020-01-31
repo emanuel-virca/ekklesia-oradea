@@ -1,26 +1,22 @@
-import { Roles } from './roles';
-
 export interface User {
-  uid: string;
-  displayName: string;
+  id?: string;
+  sub: string;
+  roles?: UserRoles[];
   email: string;
-  roles: Roles;
-  notificationTokens?: string[];
-  isAnonymous: boolean;
-  profile?: UserProfile;
-}
-
-export interface UserProfile {
-  firstName: string;
-  lastName: string;
-  id: string;
-  email: string;
+  email_verified: boolean;
+  name: string;
+  nickname: string;
   picture: string;
   locale?: string;
-  name: string;
 }
 
 export interface UserSnippet {
   id: string;
-  displayName: string;
+  name: string;
+}
+
+export enum UserRoles {
+  Subscriber = 'subscriber',
+  Editor = 'editor',
+  Admin = 'admin',
 }

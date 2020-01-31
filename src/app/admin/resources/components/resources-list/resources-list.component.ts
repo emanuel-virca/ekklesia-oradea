@@ -20,7 +20,7 @@ import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourcesListComponent extends ListBaseComponent<Resource> implements OnInit, OnChanges {
-  displayedColumns: string[] = ['position', 'title', 'author', 'dateTime', 'actions'];
+  displayedColumns: string[] = ['status', 'title', 'author', 'dateTime', 'actions'];
   dataSource = new MatTableDataSource<Resource>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

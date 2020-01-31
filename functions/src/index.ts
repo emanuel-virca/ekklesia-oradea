@@ -9,6 +9,9 @@ import { onUserWriteAsync } from './user-triggers';
 import { onUserLikesWriteAsync } from './user-likes-triggers';
 import { AuthConfig } from './auth.config';
 import { WebPortalConfig } from './web-portal.config';
+import { onMessagingWriteAsync } from './messaging/messaging-triggers';
+import { onFileWriteAsync } from './files-triggers';
+import { User } from './models/user';
 
 const algoliaConfig = {
   applicationId: functions.config().algolia.applicationid,
@@ -58,11 +61,25 @@ exports.onUserUpdated = functions
     await onUserWriteAsync(change, context);
   });
 
+exports.onMessagingUpdated = functions
+  .region('europe-west2')
+  .firestore.document('messagings/{userId}')
+  .onWrite(async (change, context) => {
+    await onMessagingWriteAsync(change, context);
+  });
+
 exports.onUserLikesUpdated = functions
   .region('europe-west2')
   .firestore.document('user-likes/{userId}')
   .onWrite(async (change, context) => {
     await onUserLikesWriteAsync(change, context);
+  });
+
+exports.onFileUploaded = functions
+  .region('europe-west2')
+  .storage.object()
+  .onFinalize(async object => {
+    await onFileWriteAsync(object);
   });
 
 const express = require('express');
@@ -97,12 +114,22 @@ app.use(jwtCheck);
 
 // GET object containing Firebase custom token
 app.get('/firebase', async (req, res) => {
+  console.log('authenticating: ' + req.user.sub);
+
   const { sub: uid } = req.user;
 
+  const userSnapshor = await admin
+    .firestore()
+    .doc('users/' + uid)
+    .get();
+
+  const user = userSnapshor.data() as User;
+
   try {
-    const firebaseToken = await admin.auth().createCustomToken(uid);
+    const firebaseToken = await admin.auth().createCustomToken(uid, { roles: user.roles });
     res.json({ firebaseToken });
   } catch (err) {
+    console.log('Something went wrong acquiring a Firebase token. ', err);
     res.status(500).send({
       message: 'Something went wrong acquiring a Firebase token.',
       error: err,
@@ -111,3 +138,5 @@ app.get('/firebase', async (req, res) => {
 });
 
 exports.auth = functions.region('europe-west2').https.onRequest(app);
+
+// https://medium.com/@jwngr/demystifying-firebase-auth-tokens-e0c533ed330c

@@ -2,6 +2,7 @@ import { Tag } from './tag';
 import { AuthorSnippet } from './author';
 import { Image } from './image';
 import { Album } from './album';
+import { AudioResource } from 'app/audio-player/models/audio-resource';
 
 export interface Resource {
   id?: string;
@@ -58,22 +59,17 @@ export const enum ResourceType {
   Article = 'article',
 }
 
-export class AudioResource {
-  id: string;
-  downloadUrl: string;
-  streamUrl: string;
-  artwork: Image;
-  title: string;
-
-  constructor(resource: Resource | ResourceSnippet) {
-    if (!resource) {
-      return;
-    }
-
-    this.id = resource.id;
-    this.downloadUrl = resource.downloadUrl;
-    this.streamUrl = resource.streamUrl;
-    this.artwork = resource.cover;
-    this.title = resource.title;
+export function convertToAudioResource(resource: Resource | ResourceSnippet): AudioResource {
+  if (!resource) {
+    return;
   }
+
+  return {
+    id: resource.id,
+    title: resource.title,
+    streamUrl: resource.streamUrl,
+    artwork: resource.cover ? resource.cover.url : null,
+    downloadUrl: resource.downloadUrl,
+    author: resource.author.name,
+  };
 }

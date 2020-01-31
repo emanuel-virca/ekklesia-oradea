@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import * as firebase from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
 
-import { User } from '@shared/models/user';
-import { UserService } from '../user/user.service';
+import { AuthenticationService } from '@authentication/services/authentication.service';
 
 @Injectable()
 export class MessagingService {
-  constructor(private angularFireMessaging: AngularFireMessaging, private userService: UserService) {
+  constructor(
+    private angularFireMessaging: AngularFireMessaging,
+    private authenticationService: AuthenticationService,
+    private afs: AngularFirestore
+  ) {
     this.angularFireMessaging.messaging.subscribe(messaging => {
       messaging.onMessage = messaging.onMessage.bind(messaging);
       messaging.onTokenRefresh = messaging.onTokenRefresh.bind(messaging);
@@ -19,27 +25,28 @@ export class MessagingService {
    * @param userId user
    * @param token token
    */
-  async updateTokenAsync(user: User, token: string): Promise<void> {
-    // If token already exists in firestore, update db
-    if (!user || (user.notificationTokens && user.notificationTokens.indexOf(token) !== -1)) {
+  async updateTokenAsync(token: string): Promise<void> {
+    if (!token) {
       return;
     }
 
-    user.notificationTokens = user.notificationTokens || [];
-    user.notificationTokens.push(token);
+    const identity = await this.authenticationService.identity$.pipe(take(1)).toPromise();
 
-    await this.userService.update(user);
+    const userId = identity ? identity.profile.sub : 'auth_generic';
+
+    await this.afs
+      .doc(`messagings/${userId}`)
+      .set({ tokens: firebase.firestore.FieldValue.arrayUnion(token) }, { merge: true });
   }
 
   /**
    * request permission for notification from firebase cloud messaging
    *
-   * @param user user
    */
-  requestPermission(user: User) {
+  requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(
       async token => {
-        await this.updateTokenAsync(user, token);
+        await this.updateTokenAsync(token);
       },
       err => {
         console.error('Unable to get permission to notify.', err);

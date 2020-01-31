@@ -1,10 +1,11 @@
 <button *ngIf="showSearch" class="search-form__button search-form__close" mat-icon-button (click)="stopSearch()" color="primary">
   <mat-icon aria-label="Clear">arrow_back</mat-icon>
 </button>
-<form class="search-form" [class.search-open]="showSearch">
+<form class="search-form" [class.search-active]="showSearch">
   <input
-    class="global-search search-form__input"
+    class="global-search search-form__input hide-clear"
     matInput
+    type="search"
     placeholder="Search"
     aria-label="Search Resources"
     #searchInput
@@ -19,9 +20,23 @@
     </mat-option>
   </mat-autocomplete>
 </form>
-<button *ngIf="searchCtrl.value && showSearch" class="search-form__button" mat-icon-button (click)="clearSearch()" color="primary">
-  <mat-icon aria-label="Search resources">clear</mat-icon>
-</button>
-<button class="search-form__button" mat-icon-button (click)="!showSearch ? startSearch() : search()" [color]="showSearch ? 'primary': null">
+<button
+  *ngIf="!showSearch"
+  class="search-form__button"
+  [class.search-active]="showSearch"
+  mat-icon-button
+  (click)="!showSearch ? startSearch() : search()"
+  [color]="showSearch ? 'primary': null"
+>
   <mat-icon aria-label="Search resources">search</mat-icon>
+</button>
+<button
+  *ngIf="searchCtrl.value && showSearch"
+  class="search-form__button search-form__clear"
+  [class.search-active]="showSearch"
+  mat-icon-button
+  (click)="clearSearch()"
+  color="primary"
+>
+  <mat-icon aria-label="Search resources">clear</mat-icon>
 </button>

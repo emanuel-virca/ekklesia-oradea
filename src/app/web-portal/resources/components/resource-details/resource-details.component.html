@@ -1,24 +1,26 @@
 <div class="container margin-top__default" *ngIf="resource">
   <mat-card class="mat-card-flat">
     <mat-card-header class="">
-      <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
-      <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.displayName | userInitials}}</span>
+      <img loading="lazy" mat-card-avatar [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
+      <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.name | userInitials}}</span>
       <mat-card-title>{{ resource.title }}</mat-card-title>
-      <mat-card-subtitle>{{resource.author?.displayName}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
+      <mat-card-subtitle>{{resource.author?.name}}, {{resource.dateTime?.toDate() | date}}</mat-card-subtitle>
     </mat-card-header>
-    <div *ngIf="resource.tags?.length" class="mat-card-text" align="left">
-      <app-resource-tags [tags]="resource.tags"></app-resource-tags>
-    </div>
     <mat-card-actions>
       <app-like-button-shell [resource]="resource"></app-like-button-shell>
       <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
         <mat-icon aria-label="download">get_app</mat-icon>
       </a>
-      <app-audio-play-button-shell [audioResource]="resource | convertToAudioResource"></app-audio-play-button-shell>
+      <audio-play-button [audioResource]="resource | convertToAudioResource"></audio-play-button>
+      <div fxFlex></div>
     </mat-card-actions>
+    <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height">
+      <img [src]="resource.cover.url" alt="" loading="lazy" />
+      <mat-icon mat-list-icon>photo</mat-icon>
+    </div>
     <mat-card-content *ngIf="resource.description">
       <p>{{resource.description}}</p>
+      <app-resource-tags *ngIf="resource.tags?.length" [tags]="resource.tags"></app-resource-tags>
     </mat-card-content>
-    <img *ngIf="resource.cover.url" mat-card-image [src]="resource.cover.url" />
   </mat-card>
 </div>

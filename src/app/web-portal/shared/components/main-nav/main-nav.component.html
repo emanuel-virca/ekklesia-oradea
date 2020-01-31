@@ -4,13 +4,14 @@
   </button>
   <a class="logo" routerLink="/">Ekklesia</a>
   <span class="example-spacer"></span>
-  <ng-container *ngIf="user; else showLogin">
+  <app-resources-search></app-resources-search>
+  <ng-container *ngIf="identity; else showLogin">
     <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
-      <span *ngIf="!user.profile?.picture" class="user-display__initials">{{ (user.profile?.name || user.displayName) | userInitials: true }}</span>
-      <img *ngIf="user.profile?.picture" class="user-display__picture" [src]="user.profile?.picture" />
+      <span *ngIf="!identity.profile?.picture" class="user-display__initials">{{ identity.profile?.name | userInitials: true }}</span>
+      <img *ngIf="identity.profile?.picture" class="user-display__picture" [src]="identity.profile?.picture" />
     </button>
     <mat-menu #profileMenu="matMenu">
-      <button mat-menu-item (click)="signOut()">Logout</button>
+      <button mat-menu-item (click)="signOut()">Sign out</button>
     </mat-menu>
   </ng-container>
   <ng-template #showLogin>
@@ -18,6 +19,4 @@
       <mat-icon aria-label="Login">person</mat-icon>
     </button>
   </ng-template>
-
-  <app-resources-search></app-resources-search>
 </mat-toolbar>

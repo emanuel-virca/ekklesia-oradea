@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { SearchService } from '@web-portal/core/services/search/search.service';
-import { LoaderService } from '@core/services/loader/loader.service';
 import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-result';
-import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
-import { Resource, AudioResource } from '@shared/models/resource';
-
-import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
-import * as fromAudioPlayerActions from '@web-portal/shared/stores/audio-player-store/audio-player.actions';
 
 @Component({
   selector: 'app-resources-search-results',
@@ -24,13 +17,7 @@ export class ResourcesSearchResultsComponent implements OnInit {
   thereIsMore = true;
   searchQuery = '';
 
-  constructor(
-    private searchService: SearchService,
-    private resourcesService: ResourcesService,
-    private route: ActivatedRoute,
-    private loaderService: LoaderService,
-    private store: Store<fromAudioPlayer.State>
-  ) {
+  constructor(private searchService: SearchService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(x => {
       this.initSearch();
       this.searchQuery = x.get('search_query');
@@ -42,7 +29,6 @@ export class ResourcesSearchResultsComponent implements OnInit {
 
   async getNextResultsAsync() {
     this.loading = true;
-    this.loaderService.show();
 
     try {
       const pagedSearchResult = await this.searchService.searchResourcesAsync(
@@ -53,6 +39,8 @@ export class ResourcesSearchResultsComponent implements OnInit {
 
       this.searchResults = this.searchResults.concat(pagedSearchResult);
 
+      console.log(pagedSearchResult);
+
       if (pagedSearchResult.length < this.pageSize) {
         this.thereIsMore = false;
       }
@@ -61,7 +49,6 @@ export class ResourcesSearchResultsComponent implements OnInit {
     } catch (e) {}
 
     this.loading = false;
-    this.loaderService.hide();
   }
 
   onScroll() {
@@ -70,16 +57,14 @@ export class ResourcesSearchResultsComponent implements OnInit {
     }
   }
 
-  public onResourceClick(resourceSearchResult: ResourceSearchResult) {
-    if (resourceSearchResult == null) {
-      return;
-    }
+  toDateTime(secs) {
+    const t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+    return t;
+  }
 
-    this.resourcesService.getById(resourceSearchResult.id).subscribe((resource: Resource) => {
-      if (resource.streamUrl) {
-        this.store.dispatch(new fromAudioPlayerActions.Select(new AudioResource(resource)));
-      }
-    });
+  get initialLoading() {
+    return this.currentPage === 0;
   }
 
   private initSearch() {

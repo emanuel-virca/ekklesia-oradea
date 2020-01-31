@@ -11,7 +11,7 @@ import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorsListComponent extends ListBaseComponent<Author> implements OnInit, OnChanges {
-  displayedColumns: string[] = ['position', 'avatar', 'firstName', 'lastName', 'actions'];
+  displayedColumns: string[] = ['avatar', 'name', 'actions'];
   dataSource = new MatTableDataSource<Author>();
 
   @Input() authors: Author[];

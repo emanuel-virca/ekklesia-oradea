@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { WebPortalComponent } from './web-portal.component';
 import { ContactComponent } from './contact/contact.component';
+import { CanActivateAuthGuard } from '@authentication/guards/can-activate.auth.guard';
 
 const routes: Routes = [
   {
@@ -17,10 +18,7 @@ const routes: Routes = [
       {
         path: 'libraries',
         loadChildren: () => import('@web-portal/collections/collections.module').then(x => x.CollectionsModule),
-      },
-      {
-        path: 'account',
-        loadChildren: () => import('@account/account.module').then(m => m.AccountModule),
+        canActivate: [CanActivateAuthGuard],
       },
       { path: '', pathMatch: 'full', redirectTo: 'resources' },
     ],

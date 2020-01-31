@@ -9,14 +9,14 @@ import * as fromCollections from '../reducers';
 import { CollectionsActions, CollectionsApiActions } from '../actions';
 import { collectionsQuery } from '../reducers/collections.selectors';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
-import { AuthService } from '@authentication/services/auth/auth.service';
+import { AuthenticationService } from '@authentication/services/authentication.service';
 
 @Injectable()
 export class CollectionEffects {
   constructor(
     private actions$: Actions<CollectionsActions.CollectionsActionsUnion>,
     private collectionsService: CollectionsService,
-    private authService: AuthService,
+    private authenticationService: AuthenticationService,
     private store: Store<fromCollections.State>,
     private notificationService: NotificationsService
   ) {}
@@ -30,7 +30,7 @@ export class CollectionEffects {
     ),
     concatMap(action => of(action).pipe(withLatestFrom(this.store.select(collectionsQuery.getState)))),
     switchMap(async ([{ libraryId }, state]) => {
-      const user = await this.authService.identity$.pipe(take(1)).toPromise();
+      const user = await this.authenticationService.identity$.pipe(take(1)).toPromise();
 
       try {
         const likedResources = await this.collectionsService.getLibraryResources(
@@ -57,11 +57,11 @@ export class CollectionEffects {
     ofType(CollectionsActions.addToLibrary),
     mergeMap(async ({ resource, libraryId }) => {
       try {
-        const user = await this.authService.identity$.pipe(take(1)).toPromise();
+        const user = await this.authenticationService.identity$.pipe(take(1)).toPromise();
 
         await this.collectionsService.addToLibraryAsync(resource.id, user.profile.sub, libraryId);
 
-        this.notificationService.success('Added to your Liked songs!');
+        this.notificationService.success('Added to your Liked collection!');
 
         return CollectionsApiActions.addToLibrarySuccess({ resource, libraryId });
       } catch (error) {
@@ -75,11 +75,11 @@ export class CollectionEffects {
     ofType(CollectionsActions.removeFromLibrary.type),
     mergeMap(async ({ resource, libraryId }) => {
       try {
-        const user = await this.authService.identity$.pipe(take(1)).toPromise();
+        const user = await this.authenticationService.identity$.pipe(take(1)).toPromise();
 
         await this.collectionsService.removeFromLibraryAsync(resource.id, user.profile.sub, libraryId);
 
-        this.notificationService.success('Removed from your Liked songs!');
+        this.notificationService.success('Removed from your Liked collection!');
 
         return CollectionsApiActions.removeFromLibrarySuccess({ resource, libraryId });
       } catch (error) {
@@ -91,7 +91,7 @@ export class CollectionEffects {
   @Effect()
   loadUserLikes$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionsActions.loadUserLikes),
-    concatMap(action => combineLatest([of(action), this.authService.identity$.pipe(filter(x => !!x))])),
+    concatMap(action => combineLatest([of(action), this.authenticationService.identity$.pipe(filter(x => !!x))])),
     switchMap(([, user]) =>
       this.collectionsService.getUserLikes(user.profile.sub).pipe(
         map(userLikes => CollectionsApiActions.loadUserLikesSuccess(userLikes)),

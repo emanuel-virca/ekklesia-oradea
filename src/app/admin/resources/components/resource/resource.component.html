@@ -1,11 +1,18 @@
 <div class="container-fluid">
   <div class="item-viewer--header">
-    <h2>
-      {{resource?.id ? 'Edit': 'Add'}}
-      <small *ngIf="resource?.id && !resource?.published" class="text-danger">
-        (not published)
-      </small>
-    </h2>
+    <div class="item-viewer--title">
+      <h2>
+        {{resource?.id ? 'Edit': 'Add'}}&nbsp;
+      </h2>
+      <span class="status-badge status-badge__success" *ngIf="resource?.id && resource?.published">
+        <mat-icon>visibility</mat-icon>
+        <span>Published</span>
+      </span>
+      <span class="status-badge status-badge__info" *ngIf="resource?.id && !resource?.published">
+        <mat-icon>visibility_off</mat-icon>
+        <span>Not Published</span>
+      </span>
+    </div>
     <div class="item-viewer--actions">
       <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="resource?.id">
         <mat-icon>more_vert</mat-icon>
@@ -42,7 +49,7 @@
     <mat-form-field>
       <mat-select placeholder="Author" formControlName="author" [compareWith]="compareAuthors" required>
         <mat-option *ngFor="let item of authors$ | async" [value]="item">
-          {{item.displayName}}
+          {{item.name}}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="author.errors?.required">Author is required.</mat-error>

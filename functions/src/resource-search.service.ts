@@ -54,6 +54,7 @@ export class ResourceSearchService {
       type: resource.type,
       tags: resource.tags,
       author: resource.author,
+      dateTime: resource.dateTime,
     };
   }
 }

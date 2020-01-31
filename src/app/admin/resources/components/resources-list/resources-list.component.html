@@ -3,11 +3,24 @@
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" matSort>
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
+  <table mat-table [dataSource]="dataSource" matSort ngClass.lt-md="lt-md">
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td class="cursor--pointer" mat-cell *matCellDef="let element" (click)="onSelectItem(element)">
+        <div>
+          <span class="status-badge status-badge__success" *ngIf="element.published; else elseTemplate">
+            <mat-icon>visibility</mat-icon>
+            <span>Published</span>
+          </span>
+          <ng-template #elseTemplate>
+            <span class="status-badge status-badge__info">
+              <mat-icon>visibility_off</mat-icon>
+              <span>Not Published</span>
+            </span>
+          </ng-template>
+        </div>
+      </td>
     </ng-container>
 
     <!-- Title Column -->

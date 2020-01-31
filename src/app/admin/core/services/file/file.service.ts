@@ -17,12 +17,15 @@ export class FileService {
     return await fileRef.delete();
   }
 
-  public async uploadAsync(folder: string, file: any): Promise<string> {
-    const filePath = '/' + folder + '/' + Guid.MakeNew().ToString();
-    const fileRef = this.afStorage.ref(filePath);
+  public async uploadAsync(folder: string, file: File): Promise<string> {
+    const fileName = Guid.MakeNew().ToString() + '__' + file.name;
+    const filePath = '/' + folder + '/' + fileName;
 
-    return await this.afStorage.upload(filePath, file).then(() => {
-      return fileRef.getDownloadURL().toPromise();
-    });
+    await this.afStorage.upload(filePath, file);
+
+    return await this.afStorage
+      .ref(filePath)
+      .getDownloadURL()
+      .toPromise();
   }
 }

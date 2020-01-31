@@ -2,11 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav } from '@angular/material';
 import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { MediaObserver } from '@angular/flex-layout';
 
-import { User } from '@shared/models/user';
-import { AuthService } from '@authentication/services/auth/auth.service';
+import { AuthenticationService } from '@authentication/services/authentication.service';
 
 @Component({
   selector: 'app-admin',
@@ -31,12 +29,16 @@ export class AdminComponent {
       routerLink: '/resources',
     },
   ];
-  user$: Observable<User>;
+
+  identity$ = this.authenticationService.identity$;
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
-  constructor(private router: Router, private authService: AuthService, public mediaObserver: MediaObserver) {
-    // this.user$ = authService.identity$;
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    public mediaObserver: MediaObserver
+  ) {
     router.events
       .pipe(filter(a => a instanceof NavigationEnd))
       .subscribe({ next: () => mediaObserver.isActive('xs') && this.sidenav.close() });
@@ -45,7 +47,7 @@ export class AdminComponent {
   }
 
   async signOut() {
-    await this.authService.signOut();
+    await this.authenticationService.signOut();
 
     this.router.navigateByUrl('');
   }

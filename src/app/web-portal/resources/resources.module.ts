@@ -16,6 +16,7 @@ import { ResourcesEffects } from './effects/resources.effects';
 import { CollectionsModule } from '@web-portal/collections/collections.module';
 import { ResourcesFacade } from './facades/resources.facade';
 import { ResourceDetailsFacade } from './facades/resource-details.facade';
+import { ResourceTagsComponent } from './components/resource-tags/resource-tags.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { ResourceDetailsFacade } from './facades/resource-details.facade';
     ResourcesSearchResultsComponent,
     ResourceDetailsComponent,
     ResourceDetailsShellComponent,
+    ResourceTagsComponent,
   ],
   exports: [],
   providers: [ResourcesFacade, ResourceDetailsFacade],

@@ -9,4 +9,5 @@ export interface ResourceSearchResult {
   type: ResourceType;
   tags: Tag[];
   author: AuthorSnippet;
+  dateTime: any;
 }

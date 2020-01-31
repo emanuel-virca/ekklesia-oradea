@@ -1,0 +1,19 @@
+:host {
+	width: 100%;
+	display: flex;
+}
+
+progress {
+	flex: 1;
+	margin: 0 5px;
+}
+
+progress[value] {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+	border-radius: 2px;
+}

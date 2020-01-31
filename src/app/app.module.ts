@@ -17,12 +17,12 @@ import { AppRouterModule } from './app-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from '@core/core.module';
-import { AuthenticationModule } from '@authentication/authentication.module';
-import { AuthService } from '@authentication/services/auth/auth.service';
+import { AppInitializerService } from '@core/services/app-initializer/app-initializer.service';
+import { AudioPlayerModule } from './audio-player/audio-player.module';
 
-export function initializeAuth(authService: AuthService) {
+export function initializeAuth(appInitializerService: AppInitializerService) {
   return (): Promise<void> => {
-    return authService.init();
+    return appInitializerService.init();
   };
 }
 
@@ -43,16 +43,16 @@ export function initializeAuth(authService: AuthService) {
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    AudioPlayerModule.forRoot(),
     SharedModule,
     CoreModule,
-    AuthenticationModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAuth,
-      deps: [AuthService],
+      deps: [AppInitializerService],
       multi: true,
     },
   ],

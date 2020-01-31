@@ -4,12 +4,10 @@ import { NgOidcClientModule } from 'ng-oidc-client';
 import { WebStorageStateStore } from 'oidc-client';
 
 import { environment } from '@env/environment';
-import { AuthService } from './services/auth/auth.service';
+import { AuthenticationService } from './services/authentication.service';
 import { CanActivateAuthGuard } from './guards/can-activate.auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from './services/auth-interceptor/auth-interceptor.service';
 
-export function initializeAuth(authService: AuthService) {
+export function initializeAuth(authService: AuthenticationService) {
   return (): Promise<void> => {
     return authService.init();
   };
@@ -29,11 +27,11 @@ export function getWebStorageStateStore() {
         authority: environment.sts.authority,
         client_id: environment.sts.clientId,
         redirect_uri: `${environment.webPortal.domainURL}oidc-login-redirect-callback.html`,
-        scope: 'openid profile',
+        scope: 'openid profile email',
         response_type: 'id_token token',
         post_logout_redirect_uri: `${environment.webPortal.domainURL}oidc-logout-redirect-callback.html`,
         silent_redirect_uri: `${environment.webPortal.domainURL}oidc-silent-renew-redirect-callback.html`,
-        accessTokenExpiringNotificationTime: 10,
+        accessTokenExpiringNotificationTime: 60,
         automaticSilentRenew: true,
         metadata: {
           authorization_endpoint: `${environment.sts.authority}authorize?audience=${environment.sts.apiAudience}`,
@@ -47,14 +45,6 @@ export function getWebStorageStateStore() {
       }
     }),
   ],
-  providers: [
-    AuthService,
-    CanActivateAuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
-    },
-  ],
+  providers: [AuthenticationService, CanActivateAuthGuard],
 })
 export class AuthenticationModule {}

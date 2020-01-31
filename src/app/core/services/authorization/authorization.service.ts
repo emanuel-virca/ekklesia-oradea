@@ -1,47 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 
-import { User } from '@shared/models/user';
+import { User, UserRoles } from '@shared/models/user';
+import { UserService } from '../user/user.service';
+import { AuthenticationService } from '@authentication/services/authentication.service';
+import { switchMap, map, filter } from 'rxjs/operators';
+import { Observable, of, combineLatest } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
-  constructor() {}
+  user$ = this.authenticationService.identity$.pipe(
+    filter(x => !!x),
+    switchMap(x => this.userService.get(x.profile.sub))
+  );
 
-  isAdmin(user: User): boolean {
-    const allowed = ['admin', 'editor', 'subscriber'];
-    return this.checkAuthorization(user, allowed);
-  }
+  isAdmin$ = this.user$.pipe(map(user => this.checkAuthorization(user, [UserRoles.Admin])));
+  isEditor$ = this.user$.pipe(map(user => this.checkAuthorization(user, [UserRoles.Editor])));
 
-  isEditor(user: User): boolean {
-    const allowed = ['admin', 'editor'];
-    return this.checkAuthorization(user, allowed);
-  }
+  canAccessAdmin$ = combineLatest([this.isAdmin$, this.isEditor$]).pipe(map(([x, y]) => !!x || !!y));
 
-  canDelete(user: User): boolean {
-    const allowed = ['admin'];
-    return this.checkAuthorization(user, allowed);
-  }
+  constructor(private userService: UserService, private authenticationService: AuthenticationService) {}
 
-  canAccessAdmin(user: User): boolean {
-    const allowed = ['admin', 'editor'];
-    return this.checkAuthorization(user, allowed);
-  }
-
-  canAccessRoute(user: User, route: Route): boolean {
+  canAccessRoute(route: Route): Observable<boolean> {
     if (route.path === 'admin') {
-      return this.canAccessAdmin(user);
+      return this.canAccessAdmin$;
     }
-    return false;
+    return of(false);
   }
 
   // determines if user has matching role
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+  private checkAuthorization(user: User, allowedRoles: UserRoles[]): boolean {
     if (!user || !user.roles) {
       return false;
     }
 
     for (const role of allowedRoles) {
-      if (user.roles[role]) {
+      if (user.roles.includes(role)) {
         return true;
       }
     }

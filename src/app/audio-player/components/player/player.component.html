@@ -1,0 +1,29 @@
+<div class="audio-player-content" *ngIf="trackInfo.audioResource | async as audioResource">
+  <div class="audio-player-artwork" *ngIf="audioResource?.artwork">
+    <img [src]="audioResource.artwork" />
+  </div>
+  <div class="audio-player-controls">
+    <div class="audio-player-header">
+      <audio-play-button [audioResource]="audioResource"></audio-play-button>
+      <span class="track-info-title">
+        {{audioResource.title}}
+        <span>&#8228;</span>
+        {{audioResource.author}}
+      </span>
+      <button mat-icon-button [matMenuTriggerFor]="audioPlayerMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #audioPlayerMenu="matMenu">
+        <a mat-menu-item [href]="audioResource.downloadUrl" *ngIf="audioResource.downloadUrl" download="!audioResource.downloadUrl">
+          <mat-icon aria-label="download">get_app</mat-icon>
+          <span>Download</span>
+        </a>
+      </mat-menu>
+    </div>
+    <div class="audio-player-waveform">
+      <small class="progress-time">{{trackInfo.currentTime | async | secondsToTime}}</small>
+      <audio-waveform style="width:100%"></audio-waveform>
+      <small class="progress-time">{{trackInfo.duration | async | secondsToTime}}</small>
+    </div>
+  </div>
+</div>

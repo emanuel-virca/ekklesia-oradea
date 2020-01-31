@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
@@ -12,7 +12,7 @@ import { ResourceSearchResult } from '@web-portal/shared/models/resource-search-
   templateUrl: './resources-search.component.html',
   styleUrls: ['./resources-search.component.scss'],
 })
-export class ResourcesSearchComponent implements OnInit, AfterViewInit {
+export class ResourcesSearchComponent implements OnInit {
   searchCtrl: FormControl = new FormControl();
   searchResults: Array<ResourceSearchResult>;
   showAutocompletePanel: boolean;
@@ -20,7 +20,9 @@ export class ResourcesSearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatAutocompleteTrigger, { static: true })
   matAutocompleteTrigger: MatAutocompleteTrigger;
-  @ViewChild('searchInput', { static: true }) searchInput: ElementRef<HTMLInputElement>;
+
+  @ViewChild('searchInput', { static: true })
+  searchInput: ElementRef<HTMLInputElement>;
 
   constructor(private searchService: SearchService, private router: Router) {}
 
@@ -29,8 +31,6 @@ export class ResourcesSearchComponent implements OnInit, AfterViewInit {
       this.searchResults = await this.searchService.searchResourcesAsync(x, 0, 5);
     });
   }
-
-  ngAfterViewInit(): void {}
 
   optionSelected($event: MatAutocompleteSelectedEvent) {
     this.router.navigate(['../resources/results', { search_query: $event.option.value }]);

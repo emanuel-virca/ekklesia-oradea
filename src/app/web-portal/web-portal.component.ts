@@ -1,13 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MatSidenav, MatDialog } from '@angular/material';
-import { filter, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { MatSidenav } from '@angular/material';
+import { filter, map } from 'rxjs/operators';
 
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
-import * as fromAudioPlayer from '@web-portal/shared/stores/audio-player-store';
-import { AuthService } from '@authentication/services/auth/auth.service';
+import { AuthenticationService } from '@authentication/services/authentication.service';
+import { AudioPlayerService } from 'app/audio-player/services/audio-player.service';
 
 @Component({
   selector: 'app-web-portal',
@@ -32,33 +30,27 @@ export class WebPortalComponent {
       routerLink: '/contact',
     },
   ];
-  identity$ = this.authService.identity$;
-  displayAdmin$: Observable<boolean>;
-  isAudioPlayerVisible$: Observable<boolean>;
+  identity$ = this.authenticationService.identity$;
+  canAccessAdmin$ = this.authorizationService.canAccessAdmin$;
+  isAudioPlayerVisible$ = this.audioPlayerService.trackInfo.audioResource.pipe(map(x => !!x));
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authenticationService: AuthenticationService,
     private authorizationService: AuthorizationService,
-    private store: Store<fromAudioPlayer.State>
+    private audioPlayerService: AudioPlayerService
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
-    this.isAudioPlayerVisible$ = this.store.pipe(select(fromAudioPlayer.getIsAudioPlayerVisible));
-    // this.displayAdmin$ = this.authService.firebaseIdentity$.pipe(
-    //   switchMap(user => {
-    //     return of(this.authorizationService.canAccessAdmin(user));
-    //   })
-    // );
   }
 
   signIn() {
-    this.authService.signIn();
+    this.authenticationService.signIn();
   }
 
   async signOut() {
-    await this.authService.signOut();
+    await this.authenticationService.signOut();
 
     this.router.navigateByUrl('');
   }

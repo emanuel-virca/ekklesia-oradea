@@ -1,5 +1,5 @@
 <div class="web-portal-app" [ngClass]="{'audio-player-visible': isAudioPlayerVisible$ | async}">
-  <app-main-nav class="mat-elevation-z6" [user]="identity$ | async" (toggleSidenavEvent)="sidenav.toggle()" (signInEvent)="signIn()" (signOutEvent)="signOut()"></app-main-nav>
+  <app-main-nav class="mat-elevation-z6" [identity]="identity$ | async" (toggleSidenavEvent)="sidenav.toggle()" (signInEvent)="signIn()" (signOutEvent)="signOut()"></app-main-nav>
   <mat-sidenav-container>
     <mat-sidenav mode="over" #sidenav autoFocus="false">
       <mat-nav-list>
@@ -7,7 +7,7 @@
           <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
           <span matLine>{{item.name}}</span>
         </a>
-        <a mat-list-item *ngIf="displayAdmin$ | async" routerLinkActive="active-list-item" [routerLink]="['/admin']">
+        <a mat-list-item *ngIf="canAccessAdmin$ | async" routerLinkActive="active-list-item" [routerLink]="['/admin']">
           <mat-icon mat-list-icon>settings</mat-icon>
           <span matLine>Admin Portal</span>
         </a>

@@ -57,3 +57,5 @@ export function convertToResourceSnippet(resource: Resource): ResourceSnippet {
     album: resource.album || null,
   };
 }
+
+export const RESOURCES_STORAGE_FOLDER = 'resources';

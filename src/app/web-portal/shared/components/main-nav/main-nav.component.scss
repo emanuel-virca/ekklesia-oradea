@@ -1,43 +1,43 @@
 @import '~styles-variables.scss';
 
 .example-spacer {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .logo {
-  color: white;
+	color: white;
 }
 
 .header {
-  &__button {
-    width: $topAppBarHeight;
-    height: $topAppBarHeight;
-  }
+	&__button {
+		width: $topAppBarHeight;
+		height: $topAppBarHeight;
+	}
 }
 
 @media (max-width: 599px) {
-  .header__button {
-    height: $topAppBarButtonSizeSm;
-    width: $topAppBarButtonSizeSm;
-  }
+	.header__button {
+		height: $topAppBarHeightSm;
+		width: $topAppBarHeightSm;
+	}
 }
 
 .mat-toolbar-single-row {
-  padding: 0;
+	padding: 0;
 }
 
 .user-display {
-  ::ng-deep .mat-button-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	::ng-deep .mat-button-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-  &__initials,
-  &__picture {
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-  }
+	&__initials,
+	&__picture {
+		border-radius: 50%;
+		height: 40px;
+		width: 40px;
+		line-height: 40px;
+	}
 }

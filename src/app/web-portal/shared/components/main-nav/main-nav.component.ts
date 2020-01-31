@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-import { User } from 'oidc-client';
+
+import { Identity } from '@authentication/models/identity';
 
 @Component({
   selector: 'app-main-nav',
@@ -8,7 +9,7 @@ import { User } from 'oidc-client';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainNavComponent {
-  @Input() user: User;
+  @Input() identity: Identity;
   @Output() toggleSidenavEvent = new EventEmitter();
   @Output() signInEvent = new EventEmitter();
   @Output() signOutEvent = new EventEmitter();

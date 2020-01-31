@@ -1,0 +1,78 @@
+@import '~styles-variables.scss';
+
+.audio-player-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	height: $audioPlayerHeight;
+
+	.audio-player-artwork {
+		margin-right: 10px;
+
+		img {
+			height: 56px;
+			vertical-align: baseline;
+		}
+	}
+
+	.audio-player-controls {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: flex-start;
+		overflow: hidden;
+
+		.audio-player-header {
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+
+			.track-info-title {
+				flex: 1;
+				margin-left: 5px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.seeking {
+				width: 40px;
+				height: 40px;
+				display: flex;
+				align-items: center;
+
+				.mat-progress-spinner {
+					margin: 0 auto;
+				}
+			}
+		}
+
+		.audio-player-waveform {
+			display: flex;
+			flex-flow: row;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			.progress-time {
+				width: 40px;
+				text-align: center;
+			}
+		}
+	}
+}
+
+/* XSmall */
+
+@media (max-width: 599px) {
+	.audio-player-content {
+		.audio-player-artwork {
+			display: none;
+		}
+
+		.audio-player-header {
+			flex-flow: row-reverse !important;
+		}
+	}
+}

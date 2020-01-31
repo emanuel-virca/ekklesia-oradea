@@ -3,13 +3,14 @@ import * as probeImageSize from 'probe-image-size';
 
 import { AlgoliaConfig } from './algolia.config';
 import { WebPortalConfig } from './web-portal.config';
-import { Resource } from './models/resource';
+import { Resource, RESOURCES_STORAGE_FOLDER } from './models/resource';
 import { Image } from './models/image';
 import { ResourceSearchService } from './resource-search.service';
-import { NotificationService } from './notification/notification.service';
+import { MessagingService } from './messaging/messaging.service';
 import { ResourceSnippetService } from './resource-snippet.service';
 import { LibraryService } from './library.service';
 import { UserLikesService } from './user-likes.service';
+import { THUMB_PREFIX } from './storage.service';
 
 export async function onResourceCreateAsync(
   snap: FirebaseFirestore.DocumentSnapshot,
@@ -20,7 +21,7 @@ export async function onResourceCreateAsync(
 
   resource.id = snap.id;
 
-  await computeImageDimensions(snap.ref, resource.cover);
+  await processCoverImage(snap.ref, resource.cover);
 
   const tasks = [];
 
@@ -53,7 +54,7 @@ export async function onResourceUpdateAsync(
   const newImageUrl = after.cover ? after.cover.url : null;
 
   if (newImageUrl !== oldImageUrl) {
-    await computeImageDimensions(change.after.ref, after.cover);
+    await processCoverImage(change.after.ref, after.cover);
   }
 
   const tasks = [];
@@ -70,7 +71,7 @@ export async function onResourceUpdateAsync(
   tasks.push(updateSearchService(algoliaConfig, after, before));
 
   // notifications
-  const notificationService = new NotificationService();
+  const notificationService = new MessagingService();
   if (!before.published && after.published) {
     tasks.push(notificationService.sendResourceNotificationAsync(after, webPortalConfig));
   }
@@ -98,37 +99,50 @@ export async function onResourceDeleteAsync(
   await Promise.all(taks);
 }
 
-async function computeImageDimensions(ref: FirebaseFirestore.DocumentReference, image: Image): Promise<void> {
-  if (!image || !image.url) return;
+async function processCoverImage(ref: FirebaseFirestore.DocumentReference, cover: Image): Promise<void> {
+  if (!cover || !cover.url) return;
 
-  const dimensions = await probeImageSize(image.url);
+  const dimensions = await probeImageSize(cover.url);
 
   if (!dimensions) return;
 
-  const resource: Partial<Resource> = { cover: { width: dimensions.width, height: dimensions.height, url: image.url } };
+  const slashEncode = encodeURIComponent('/');
+
+  const resource: Partial<Resource> = {
+    cover: {
+      ...cover,
+      width: dimensions.width,
+      height: dimensions.height,
+      thumbnailUrl: cover.url
+        .replace(
+          `/${RESOURCES_STORAGE_FOLDER}${slashEncode}`,
+          `/${RESOURCES_STORAGE_FOLDER}${slashEncode}${THUMB_PREFIX}`
+        )
+        .split('&')[0],
+    },
+  };
 
   await ref.set(resource, { merge: true });
 }
 
 async function updateSearchService(algoliaConfig: AlgoliaConfig, after: Resource, before: Resource = null) {
-  const publish = !(before && before.published) && after.published;
-  const unpublish = before && before.published && !after.published;
-
   const resourceSearchService = new ResourceSearchService(algoliaConfig);
 
-  const tasks = [];
-
-  if (publish) {
-    tasks.push(resourceSearchService.addAsync(after));
+  // resource is published
+  if (before && !before.published && after.published) {
+    await resourceSearchService.addAsync(after);
+    return;
   }
 
-  if (unpublish) {
-    tasks.push(resourceSearchService.deleteAsync(after.id));
+  // resource is unpublished
+  if (before && before.published && !after.published) {
+    await resourceSearchService.deleteAsync(after.id);
+    return;
   }
 
-  if (!unpublish && !publish) {
-    tasks.push(resourceSearchService.updateAsync(after));
+  // resource is newly created
+  if (before && before.published && after.published) {
+    await resourceSearchService.updateAsync(after);
+    return;
   }
-
-  await Promise.all(tasks);
 }

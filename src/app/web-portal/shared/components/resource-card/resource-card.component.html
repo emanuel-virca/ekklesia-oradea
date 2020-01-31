@@ -1,14 +1,14 @@
 <mat-card class="resource-card">
   <mat-card-header [routerLink]="['/resources', resource.id ]">
-    <img mat-card-avatar class="example-header-image" [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
-    <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.displayName | userInitials}}</span>
+    <img loading="lazy" mat-card-avatar [src]="resource.author?.avatar" alt="" *ngIf="resource.author?.avatar" />
+    <span mat-card-avatar *ngIf="!resource.author?.avatar">{{resource.author?.name | userInitials}}</span>
     <mat-card-title>{{ resource.title }}</mat-card-title>
     <mat-card-subtitle>
-      {{resource.author?.displayName}}, {{resource.dateTime?.toDate() | date}}
+      {{resource.author?.name}}, {{resource.dateTime?.toDate() | date}}
     </mat-card-subtitle>
   </mat-card-header>
   <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height" [routerLink]="['/resources', resource.id ]">
-    <img [src]="resource.cover.url" alt="" />
+    <img [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" width="{{witdh}}" height="{{height}}" />
     <mat-icon mat-list-icon>photo</mat-icon>
   </div>
   <mat-card-actions align="end">
@@ -20,6 +20,6 @@
     <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
       <mat-icon aria-label="download">get_app</mat-icon>
     </a>
-    <app-audio-play-button-shell [audioResource]="resource | convertToAudioResource"></app-audio-play-button-shell>
+    <audio-play-button [audioResource]="resource | convertToAudioResource"></audio-play-button>
   </mat-card-actions>
 </mat-card>

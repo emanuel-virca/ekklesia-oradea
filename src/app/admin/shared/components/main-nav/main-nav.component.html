@@ -4,12 +4,11 @@
   </button>
   <a class="logo" routerLink="/">Ekklesia Admin</a>
   <span class="example-spacer"></span>
-  <ng-container *ngIf="user">
-    <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
-      <span class="user-display__initials">{{ (user.profile?.name || user.displayName) | userInitials }}</span>
-    </button>
-    <mat-menu #profileMenu="matMenu">
-      <button mat-menu-item (click)="signOut()">Logout</button>
-    </mat-menu>
-  </ng-container>
+  <button mat-icon-button class="header__button user-display" [matMenuTriggerFor]="profileMenu" color="primary">
+    <span *ngIf="!identity.profile?.picture" class="user-display__initials">{{ identity.profile?.name | userInitials: true }}</span>
+    <img *ngIf="identity.profile?.picture" class="user-display__picture" [src]="identity.profile?.picture" />
+  </button>
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item (click)="signOut()">Sign out</button>
+  </mat-menu>
 </mat-toolbar>

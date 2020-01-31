@@ -8,7 +8,7 @@ export interface Author {
 
 export interface AuthorSnippet {
   id?: string;
-  displayName: string;
+  name: string;
   avatar?: string;
 }
 
@@ -17,5 +17,5 @@ export function convertToAuthorSnippet(author: Author): AuthorSnippet {
     return null;
   }
 
-  return { id: author.id, displayName: `${author.firstName} ${author.lastName}`.trim(), avatar: author.avatar };
+  return { id: author.id, name: `${author.firstName} ${author.lastName}`.trim(), avatar: author.avatar };
 }

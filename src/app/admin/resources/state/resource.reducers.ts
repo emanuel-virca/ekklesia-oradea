@@ -29,10 +29,16 @@ export function resourceReducer(state = initialState, action: resourceActions.Ac
 
     case resourceActions.CREATE_RESOURCE_SUCCESS:
     case resourceActions.UPDATE_RESOURCE_SUCCESS:
-    case resourceActions.DELETE_RESOURCE_SUCCESS:
-    case resourceActions.PUBLISH_RESOURCE_SUCCESS:
-    case resourceActions.UNPUBLISH_RESOURCE_SUCCESS: {
+    case resourceActions.DELETE_RESOURCE_SUCCESS: {
       return { ...state, errorMessage: '', currentResource: null };
+    }
+
+    case resourceActions.PUBLISH_RESOURCE_SUCCESS: {
+      return { ...state, errorMessage: '', currentResource: { ...state.currentResource, published: true } };
+    }
+
+    case resourceActions.UNPUBLISH_RESOURCE_SUCCESS: {
+      return { ...state, errorMessage: '', currentResource: { ...state.currentResource, published: false } };
     }
 
     case resourceActions.CREATE_RESOURCE_FAIL:

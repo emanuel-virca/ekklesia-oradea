@@ -4,15 +4,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'userInitials',
 })
 export class UserInitialsPipe implements PipeTransform {
-  transform(displayName: string, firstOnly: null): any {
-    if (!displayName) {
+  transform(name: string, firstOnly: null): any {
+    if (!name) {
       return null;
     }
 
     if (firstOnly) {
-      return displayName[0].toUpperCase();
+      return name[0].toUpperCase();
     }
 
-    return displayName.split(' ').reduce((acc, x) => acc + (x[0] || '').toUpperCase(), '');
+    return name.split(' ').reduce((acc, x) => acc + (x[0] || '').toUpperCase(), '');
   }
 }

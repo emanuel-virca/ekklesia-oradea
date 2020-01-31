@@ -1,0 +1,23 @@
+rules_version = '2';
+service firebase.storage {
+
+	function hasAny(actual, expected){
+  	return actual != null && actual.hasAny(expected);
+  }
+
+	function hasAnyRoles(expected, request) {
+  	return request.auth.uid != null &&
+      		 hasAny(request.auth.token.roles, expected)
+  }
+
+  function hasRole(expected, request) {
+  	return hasAnyRoles([expected], request);
+  }
+
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read;
+      allow update, create, delete: if hasAnyRoles(['editor', 'admin'], request);
+    }
+  }
+}

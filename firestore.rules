@@ -1,0 +1,105 @@
+rules_version = '2';
+
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    function hasAny(actual, expected){
+    	return actual != null && actual.hasAny(expected);
+    }
+
+    function hasAnyRoles(expected, request) {
+      return request.auth.uid != null &&
+      			 hasAny(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles, expected)
+    }
+
+    function hasRole(expected, request) {
+      return hasAnyRoles([expected], request);
+    }
+
+    match /users/{userId} {
+
+      function canCreate() {
+      	return request.auth.uid == userId &&
+               hasAny(request.resource.data.roles, ['admin', 'editor']) == false;
+      }
+
+      function canUpdate() {
+      	return hasRole('admin', request) ||
+        			 (request.auth.uid == userId && request.resource.data.roles == resource.data.roles);
+      }
+
+      function canRead() {
+      	return hasRole('admin', request) || request.auth.uid == userId;
+      }
+
+      function canDelete() {
+      	return hasRole('admin', request) || request.auth.uid == userId;
+      }
+
+      allow create: if canCreate();
+      allow update: if canUpdate();
+      allow read: if canRead();
+      allow delete: if canDelete();
+    }
+
+    match /messagings/{userId} {
+      allow create, update: if request.auth.uid == userId || userId == 'auth_generic';
+
+    }
+
+    match /resources/{document=**} {
+
+      allow read;
+      allow update, create, delete: if hasAnyRoles(['editor', 'admin'], request);
+    }
+
+    match /resource-snippets/{document=**} {
+
+      allow read;
+      allow update, create, delete: if false;
+    }
+
+    match /authors/{document=**} {
+
+      allow read;
+      allow update, create, delete: if hasAnyRoles(['editor', 'admin'], request);
+    }
+
+    match /libraries/{libraryId} {
+
+    	function canCreateLibrary() {
+      	return hasRole('admin', request) ||
+        			 (request.auth.uid != null && request.resource.data.createdBy == request.auth.uid);
+      }
+
+      function canUpdateLibray() {
+      	return hasRole('admin', request) ||
+        			 (request.auth.uid != null &&
+                request.resource.data.createdBy == request.auth.uid &&
+                request.resource.data.createdBy == resource.data.createdBy);
+      }
+
+      function candDeleteLibrary() {
+      	return hasRole('admin', request) || request.auth.uid == resource.createdBy.id;
+      }
+
+      allow read;
+      allow create: if canCreateLibrary();
+      allow update: if canUpdateLibray();
+      allow delete: if candDeleteLibrary();
+    }
+
+    match /{path=**}/library-resources/{id} {
+
+        allow read, write;
+    }
+
+    match /user-likes/{userId} {
+
+      allow read;
+      allow create, update, delete: if request.auth.uid != null && request.auth.uid == userId;
+    }
+
+  }
+}
