@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { FileService } from '@admin/core/services/file/file.service';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-image-uploader',

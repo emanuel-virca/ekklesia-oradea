@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { Author } from '@shared/models/author';
+import { Author, AuthorSnippet } from '@shared/models/author';
 
 @Component({
   selector: 'app-author-signature',
@@ -9,7 +9,7 @@ import { Author } from '@shared/models/author';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorSignatureComponent implements OnInit {
-  @Input() author: Author;
+  @Input() author: AuthorSnippet;
   @Input() onlyAvatar: boolean;
 
   constructor() {}

@@ -1,5 +1,5 @@
 import { Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { IListItemBaseModel } from '@admin/shared/models/list-item-base.model';
 import { ListItemDialogDataModel } from '../models/list-item-dialog-data.model';

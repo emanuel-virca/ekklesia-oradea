@@ -6,7 +6,7 @@
     <ngx-masonry [options]="masonryOptions" [updateLayout]="updateMasonryLayout" [useImagesLoaded]="false" *ngIf="viewInitalized">
       <div class="masonry-item-sizer"></div>
       <div class="gutter-sizer"></div>
-      <div ngxMasonryItem class="masonry-item" *ngFor="let resource of resources; trackBy: resource?.id">
+      <div ngxMasonryItem class="masonry-item" *ngFor="let resource of resources; trackBy: trackByFn">
         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: resource, masonryColumnWidth: masonryColumnWidth}"></ng-container>
       </div>
     </ngx-masonry>

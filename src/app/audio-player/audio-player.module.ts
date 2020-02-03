@@ -1,11 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatMenuModule, MatButtonModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AudioPlayButtonComponent } from './components/play-button/play-button.component';
 import { AudioPlayerComponent } from './components/player/player.component';
 import { AudioWaveformComponent } from './components/waveform/waveform.component';
-
 import { SecondsToTimePipe } from './pipes/seconds-to-time/seconds-to-time.pipe';
 import { AudioPlayerService } from './services/audio-player.service';
 

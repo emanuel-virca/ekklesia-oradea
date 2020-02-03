@@ -1,11 +1,11 @@
 <div *ngIf="!url">
   <input type="file" *ngIf="!uploading" (change)="uploadAsync($event)" accept=".png,.jpg, .jpeg" />
-  <mat-progress-bar *ngIf="uploading" [color]="primary" [mode]="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="uploading" color="primary" mode="indeterminate"></mat-progress-bar>
 </div>
 
 <div *ngIf="url" class="image-container">
   <button type="button" color="primary" mat-raised-button (click)="deleteAsync()" class="delete">
     <mat-icon>delete</mat-icon>
   </button>
-  <img [src]="url" alt="">
+  <img [src]="url" alt="" />
 </div>

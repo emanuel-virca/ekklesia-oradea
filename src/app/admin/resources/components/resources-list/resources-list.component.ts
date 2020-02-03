@@ -8,7 +8,9 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Resource } from '@shared/models/resource';
 import { ListBaseComponent } from '@admin/shared/helpers/list-base.component';

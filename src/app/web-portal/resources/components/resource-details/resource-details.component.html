@@ -14,7 +14,7 @@
       <audio-play-button [audioResource]="resource | convertToAudioResource"></audio-play-button>
       <div fxFlex></div>
     </mat-card-actions>
-    <div class="mat-card-image" *ngIf="resource.cover?.url" [style.height.px]="height">
+    <div class="mat-card-image" *ngIf="resource.cover?.url">
       <img [src]="resource.cover.url" alt="" loading="lazy" />
       <mat-icon mat-list-icon>photo</mat-icon>
     </div>

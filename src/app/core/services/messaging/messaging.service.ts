@@ -13,10 +13,10 @@ export class MessagingService {
     private authenticationService: AuthenticationService,
     private afs: AngularFirestore
   ) {
-    this.angularFireMessaging.messaging.subscribe(messaging => {
-      messaging.onMessage = messaging.onMessage.bind(messaging);
-      messaging.onTokenRefresh = messaging.onTokenRefresh.bind(messaging);
-    });
+    // this.angularFireMessaging.messaging.subscribe(messaging => {
+    //   messaging.onMessage = messaging.onMessage.bind(messaging);
+    //   messaging.onTokenRefresh = messaging.onTokenRefresh.bind(messaging);
+    // });
   }
 
   /**

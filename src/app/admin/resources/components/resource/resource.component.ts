@@ -8,9 +8,11 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialog, MatChipInputEvent } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { map } from 'rxjs/operators';
 
 import { Resource, ResourceType } from '@shared/models/resource';
 import { Tag } from '@shared/models/tag';
@@ -18,7 +20,6 @@ import { Author, AuthorSnippet, convertToAuthorSnippet } from '@shared/models/au
 import { AuthorService } from '@admin/core/services/author/author.service';
 import { ListItemBaseComponent } from '@admin/shared/helpers/list-item-base.component';
 import { SelectOption } from '@admin/shared/models/select-option';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-resource',

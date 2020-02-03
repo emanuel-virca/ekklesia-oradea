@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { filter, map } from 'rxjs/operators';
 
 import { AuthorizationService } from '@core/services/authorization/authorization.service';

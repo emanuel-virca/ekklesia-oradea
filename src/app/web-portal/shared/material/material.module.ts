@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatMenuModule,
-  MatRippleModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatListModule,
-  MatInputModule,
-  MatTabsModule,
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   exports: [
@@ -22,7 +19,6 @@ import {
     MatCardModule,
     MatIconModule,
     MatMenuModule,
-    MatRippleModule,
     MatSidenavModule,
     MatToolbarModule,
     MatProgressSpinnerModule,

@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 
 import { Debounce } from '@core/decorators/debounce';
-import { Resource } from '@shared/models/resource';
+import { Resource, ResourceSnippet } from '@shared/models/resource';
 
 @Component({
   selector: 'app-resources-masonry',
@@ -73,6 +73,10 @@ export class ResourcesMasonryComponent implements OnInit, AfterViewInit, OnChang
 
   ngOnDestroy(): void {
     (document.querySelector(this.scrollContainer) as HTMLElement).style.overflowY = 'auto';
+  }
+
+  trackByFn(index: number, resource: ResourceSnippet) {
+    return resource.id;
   }
 
   private computeMasonry() {
