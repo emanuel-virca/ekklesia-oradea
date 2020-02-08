@@ -13,6 +13,10 @@ export function initializeAuth(authService: AuthenticationService) {
   };
 }
 
+export function getStore() {
+  return new WebStorageStateStore({ store: window.localStorage });
+}
+
 @NgModule({
   declarations: [],
   imports: [
@@ -37,7 +41,7 @@ export function initializeAuth(authService: AuthenticationService) {
           // tslint:disable-next-line:max-line-length
           end_session_endpoint: `${environment.sts.authority}v2/logout?returnTo=${environment.webPortal.domainURLEncoded + 'oidc-logout-redirect-callback.html'}&client_id=${environment.sts.clientId}`
         },
-        userStore: () => {return new WebStorageStateStore({ store: window.localStorage });}
+        userStore: getStore,
       }
     }),
   ],

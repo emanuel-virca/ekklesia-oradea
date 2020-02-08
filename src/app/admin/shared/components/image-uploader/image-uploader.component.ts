@@ -26,21 +26,25 @@ export class ImageUploaderComponent implements OnInit {
       return;
     }
 
-    if (!this.isFirebaseStorageFile()) {
-      this.url = null;
-      this.urlChanged.emit(this.url);
-      return;
-    }
+    this.urlChanged.emit(this.url);
 
-    try {
-      const fileRef = this.afStorage.storage.refFromURL(this.url);
-      await fileRef.delete();
-      this.url = null;
-      this.urlChanged.emit(this.url);
-    } catch (ex) {
-      this.snackBar.open('Unable to delete file!');
-      console.log(ex);
-    }
+    // soft delete
+
+    // if (!this.isFirebaseStorageFile()) {
+    //   this.url = null;
+    //   this.urlChanged.emit(this.url);
+    //   return;
+    // }
+
+    // try {
+    //   const fileRef = this.afStorage.storage.refFromURL(this.url);
+    //   await fileRef.delete();
+    //   this.url = null;
+    //   this.urlChanged.emit(this.url);
+    // } catch (ex) {
+    //   this.snackBar.open('Unable to delete file!');
+    //   console.log(ex);
+    // }
   }
 
   public async uploadAsync(event) {

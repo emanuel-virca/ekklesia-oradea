@@ -39,11 +39,7 @@ export class AdminComponent {
     private authenticationService: AuthenticationService,
     public mediaObserver: MediaObserver
   ) {
-    router.events
-      .pipe(filter(a => a instanceof NavigationEnd))
-      .subscribe({ next: () => mediaObserver.isActive('xs') && this.sidenav.close() });
-    // https://github.com/angular/flex-layout/issues/1025
-    this.mediaObserver.media$.subscribe();
+    router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
   }
 
   async signOut() {

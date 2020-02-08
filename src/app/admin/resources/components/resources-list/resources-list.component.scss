@@ -1,34 +1,30 @@
 .mat-column-status {
-	width: 135px;
+  width: 135px;
 }
 
 .mat-column-actions {
-	width: 40px;
-	text-align: center;
+  width: 40px;
+  text-align: center;
 }
 
 .mat-column-dateTime {
-	width: 85px;
+  width: 85px;
 }
 
 .mat-column-author {
-	width: 140px;
+  width: 140px;
 }
 
 .filter-field {
-	width: 100%;
+  width: 100%;
 }
 
 .lt-md {
-	.mat-column-author {
-		width: 30px;
-	}
+  .mat-column-status {
+    width: 44px;
 
-	.mat-column-status {
-		width: 44px;
-
-		.status-badge span {
-			display: none;
-		}
-	}
+    .status-badge span {
+      display: none;
+    }
+  }
 }

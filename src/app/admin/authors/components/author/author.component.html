@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mb-2">
   <div class="item-viewer--header">
     <h2>{{author?.id ? 'Edit': 'Add'}}</h2>
     <div class="item-viewer--actions">
@@ -18,15 +18,15 @@
   </div>
   <form class="form-horrizontal" [formGroup]="authorForm">
     <mat-form-field>
-      <input matInput placeholder="First Name" formControlName="firstName" required>
-      <mat-error *ngIf="firstName.errors?.required"> First Name is required.</mat-error>
+      <input matInput placeholder="First Name" formControlName="firstName" required />
+      <mat-error *ngIf="firstName.errors?.required">First Name is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Last Name" formControlName="lastName" required>
-      <mat-error *ngIf="lastName.errors?.required"> Last Name is required.</mat-error>
+      <input matInput placeholder="Last Name" formControlName="lastName" required />
+      <mat-error *ngIf="lastName.errors?.required">Last Name is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="url" placeholder="Image Url" formControlName="avatar">
+      <input matInput type="url" placeholder="Image Url" formControlName="avatar" />
     </mat-form-field>
     <app-image-uploader [url]="avatar.value" [folder]="imageUploadFolder" (urlChanged)="imageSrcChanged($event)"></app-image-uploader>
 

@@ -1,6 +1,6 @@
 <div class="web-portal-app" [ngClass]="{'audio-player-visible': isAudioPlayerVisible$ | async}">
   <app-main-nav class="mat-elevation-z6" [identity]="identity$ | async" (toggleSidenavEvent)="sidenav.toggle()" (signInEvent)="signIn()" (signOutEvent)="signOut()"></app-main-nav>
-  <mat-sidenav-container>
+  <mat-sidenav-container fullscreen hasBackdrop="false">
     <mat-sidenav mode="over" #sidenav autoFocus="false">
       <mat-nav-list>
         <a mat-list-item *ngFor="let item of navigationItems" routerLinkActive="active-list-item" [routerLink]="[item.routerLink]" (click)="sidenav.close()">

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1>Resources</h1>
+  <h2>Resources</h2>
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
   </mat-form-field>
@@ -33,16 +33,16 @@
 
     <!-- Author Column -->
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Author</th>
+      <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm>
         <app-author-signature [author]="element.author"></app-author-signature>
       </td>
     </ng-container>
 
     <!-- DateTime Column -->
     <ng-container matColumnDef="dateTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Time</th>
-      <td mat-cell *matCellDef="let element">{{element.dateTime?.toDate() | date}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Date Time</th>
+      <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm>{{element.dateTime?.toDate() | date}}</td>
     </ng-container>
 
     <!-- Actions Column -->
