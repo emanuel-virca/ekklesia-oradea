@@ -6,6 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { AuthorizationService } from '@core/services/authorization/authorization.service';
 import { AuthenticationService } from '@authentication/services/authentication.service';
 import { AudioPlayerService } from 'app/audio-player/services/audio-player.service';
+import { UserHistoryService } from './core/services/user-history/user-history.service';
 
 @Component({
   selector: 'app-web-portal',
@@ -45,9 +46,11 @@ export class WebPortalComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private authorizationService: AuthorizationService,
-    private audioPlayerService: AudioPlayerService
+    private audioPlayerService: AudioPlayerService,
+    private userHistoryService: UserHistoryService
   ) {
     router.events.pipe(filter(a => a instanceof NavigationEnd)).subscribe({ next: () => this.sidenav.close() });
+    this.listenToAudioPlayerChanges();
   }
 
   signIn() {
@@ -58,5 +61,11 @@ export class WebPortalComponent {
     await this.authenticationService.signOut();
 
     this.router.navigateByUrl('');
+  }
+
+  private listenToAudioPlayerChanges() {
+    this.audioPlayerService.trackInfo.audioResource.pipe(filter(x => !!x)).subscribe(async audioResource => {
+      await this.userHistoryService.add(audioResource.id);
+    });
   }
 }

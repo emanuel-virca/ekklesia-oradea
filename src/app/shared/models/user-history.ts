@@ -1,5 +1,6 @@
+import { ResourceSnippet } from './resource';
+
 export interface UserHistory {
-  resourceId: string;
-  datetime: any;
-  progress: any;
+  resource: ResourceSnippet;
+  dateTime: any;
 }

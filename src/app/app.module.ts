@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 
 import { AppComponent } from './app.component';
 import { environment } from '@env/environment';
@@ -36,6 +37,7 @@ export function initializeAuth(appInitializerService: AppInitializerService) {
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireMessagingModule,
+    AngularFireFunctionsModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
@@ -55,6 +57,7 @@ export function initializeAuth(appInitializerService: AppInitializerService) {
       deps: [AppInitializerService],
       multi: true,
     },
+    { provide: REGION, useValue: 'europe-west2' },
   ],
   bootstrap: [AppComponent],
 })

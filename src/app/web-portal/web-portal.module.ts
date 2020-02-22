@@ -7,9 +7,10 @@ import { WebPortalComponent } from './web-portal.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { ResourcesModule } from './resources/resources.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [WebPortalComponent, ContactComponent, HomeComponent],
-  imports: [CoreModule, SharedModule, WebPortalRoutingModule, ResourcesModule],
+  imports: [CoreModule, SharedModule, WebPortalRoutingModule, ResourcesModule, UserModule],
 })
 export class WebPortalModule {}

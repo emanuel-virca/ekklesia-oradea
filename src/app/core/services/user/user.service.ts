@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { User } from '@shared/models/user';
+import { AuthenticationService } from '@authentication/services/authentication.service';
+import { mapItemWithId } from '@core/rxjs/pipes';
 
 @Injectable()
 export class UserService {
-  constructor(private afs: AngularFirestore) {}
+  currentUser$: Observable<User> = this.authenticationService.identity$.pipe(
+    switchMap(user => (user ? this.get(user.profile.sub) : of(null)))
+  );
+
+  constructor(private afs: AngularFirestore, private authenticationService: AuthenticationService) {}
 
   public delete(userId: string): Promise<void> {
     return this.afs.doc(`users/${userId}`).delete();
@@ -21,7 +27,7 @@ export class UserService {
   public get(userId: string): Observable<User> {
     return this.afs
       .doc<User>(`users/${userId}`)
-      .valueChanges()
-      .pipe(shareReplay());
+      .snapshotChanges()
+      .pipe(shareReplay(), mapItemWithId);
   }
 }

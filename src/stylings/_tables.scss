@@ -1,5 +1,11 @@
 table {
   width: 100%;
+
+  td.mat-cell:not(:first-of-type):not(:last-of-type),
+  th.mat-header-cell:not(:first-of-type):not(:last-of-type) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 th.mat-header-cell:first-of-type,

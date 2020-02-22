@@ -5,7 +5,7 @@ import * as cors from 'cors';
 
 import { onResourceCreateAsync, onResourceDeleteAsync, onResourceUpdateAsync } from './resources-triggers';
 import { onAuthorUpdateAsync } from './authors-triggers';
-import { onUserWriteAsync } from './user-triggers';
+import { onUserWriteAsync, onAddHistoryAsync } from './user-triggers';
 import { onUserLikesWriteAsync } from './user-likes-triggers';
 import { AuthConfig } from './auth.config';
 import { WebPortalConfig } from './web-portal.config';
@@ -81,6 +81,10 @@ exports.onFileUploaded = functions
   .onFinalize(async object => {
     await onFileWriteAsync(object);
   });
+
+exports.addHistory = functions.region('europe-west2').https.onCall(async (data, context) => {
+  await onAddHistoryAsync(context.auth.uid, data.resourceId);
+});
 
 const express = require('express');
 const app = express();

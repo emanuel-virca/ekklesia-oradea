@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { ResourceDetailsFacade } from '@web-portal/resources/facades/resource-details.facade';
 import { CollectionsFacade } from '@web-portal/collections/facades/collections.facade';
+import { UserHistoryService } from '@web-portal/core/services/user-history/user-history.service';
 
 @Component({
   selector: 'app-resource-details-shell',
@@ -18,10 +19,18 @@ export class ResourceDetailsShellComponent implements OnDestroy, OnInit {
 
   constructor(
     route: ActivatedRoute,
+    userHistoryService: UserHistoryService,
     private resourceDetailsFacades: ResourceDetailsFacade,
     private collectionsFacade: CollectionsFacade
   ) {
-    this.actionsSubscription = route.params.pipe(tap(params => resourceDetailsFacades.load(params.id))).subscribe();
+    this.actionsSubscription = route.params
+      .pipe(
+        tap(params => {
+          resourceDetailsFacades.load(params.id);
+          userHistoryService.add(params.id);
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit() {

@@ -43,6 +43,10 @@ service cloud.firestore {
       allow delete: if canDelete();
     }
 
+    match /users/{userId}/history/{document=**}{
+      allow create, update, read: if request.auth.uid == userId
+    }
+
     match /messagings/{userId} {
       allow create, update: if request.auth.uid == userId || userId == 'auth_generic';
 
