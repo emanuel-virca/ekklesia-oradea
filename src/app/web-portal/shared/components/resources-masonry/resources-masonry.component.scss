@@ -13,8 +13,7 @@
     width: $gutterSize;
   }
 
-  .masonry-item,
-  .masonry-item-sizer {
+  .masonry-item {
     margin-bottom: $gutterSize;
   }
 
@@ -26,15 +25,15 @@
 }
 
 .masonry {
-  @include masonryGrid(5, 25px);
+  @include masonryGrid(5, 15px);
 }
 
 .masonry-lg {
-  @include masonryGrid(4, 25px);
+  @include masonryGrid(4, 15px);
 }
 
 .masonry-md {
-  @include masonryGrid(3, 25px);
+  @include masonryGrid(3, 15px);
 }
 
 .masonry-sm {

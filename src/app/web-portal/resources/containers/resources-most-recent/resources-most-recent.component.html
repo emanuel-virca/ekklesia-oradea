@@ -1,0 +1,4 @@
+<ng-template #resourceCard let-item let-masonryColumnWidth="masonryColumnWidth">
+  <app-resource-card [resource]="item" [width]="masonryColumnWidth"></app-resource-card>
+</ng-template>
+<app-resources-masonry [resources]="mostRecentResources$ | async" [scrollContainer]="'mat-sidenav-content'" [itemTemplate]="resourceCard"></app-resources-masonry>

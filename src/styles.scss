@@ -46,43 +46,6 @@
   @include custom-components-theme($ekklesia-theme);
 }
 
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  width: 100%;
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-
-.container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .form-horrizontal {
   display: flex;
   flex-direction: column;
@@ -98,10 +61,6 @@
 
 .text-center {
   text-align: center;
-}
-
-.margin-top__default {
-  margin-top: 20px;
 }
 
 .loading {
@@ -150,16 +109,6 @@ svg {
   mat-drawer,
   mat-sidenav {
     width: 100vw !important;
-  }
-}
-
-table {
-  width: 100%;
-
-  td.mat-cell:not(:first-of-type):not(:last-of-type),
-  th.mat-header-cell:not(:first-of-type):not(:last-of-type) {
-    padding-left: 10px;
-    padding-right: 10px;
   }
 }
 

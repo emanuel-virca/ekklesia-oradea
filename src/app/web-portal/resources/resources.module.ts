@@ -17,6 +17,7 @@ import { CollectionsModule } from '@web-portal/collections/collections.module';
 import { ResourcesFacade } from './facades/resources.facade';
 import { ResourceDetailsFacade } from './facades/resource-details.facade';
 import { ResourceTagsComponent } from './components/resource-tags/resource-tags.component';
+import { ResourcesMostRecentComponent } from './containers/resources-most-recent/resources-most-recent.component';
 
 @NgModule({
   imports: [
@@ -32,8 +33,9 @@ import { ResourceTagsComponent } from './components/resource-tags/resource-tags.
     ResourceDetailsComponent,
     ResourceDetailsShellComponent,
     ResourceTagsComponent,
+    ResourcesMostRecentComponent,
   ],
-  exports: [],
+  exports: [ResourcesMostRecentComponent],
   providers: [ResourcesFacade, ResourceDetailsFacade],
 })
 export class ResourcesModule {}

@@ -1,5 +1,5 @@
-<div class="container-fluid margin-top__default">
-  <div class="resources__filters">
+<div class="container-fluid mt-1">
+  <div class="resources__filters mb-1">
     <button mat-button [matMenuTriggerFor]="orderByMenu">{{selectedOrderedBy?.viewValue}}</button>
     <mat-menu #orderByMenu="matMenu" xPosition="before">
       <button mat-menu-item *ngFor="let item of orderByOptions" (click)="onOrderByChanged(item)">{{item.viewValue}}</button>

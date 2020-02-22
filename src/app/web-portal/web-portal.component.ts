@@ -15,6 +15,11 @@ import { AudioPlayerService } from 'app/audio-player/services/audio-player.servi
 export class WebPortalComponent {
   navigationItems: { icon: string; name: string; routerLink: string }[] = [
     {
+      name: 'Home',
+      icon: 'home',
+      routerLink: '/',
+    },
+    {
       name: 'Resources',
       icon: 'dashboard',
       routerLink: '/resources',

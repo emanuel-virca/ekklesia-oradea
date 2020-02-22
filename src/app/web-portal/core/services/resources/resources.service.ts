@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 
-import { mapItemWithId } from '@core/rxjs/pipes';
-import { Resource } from '@shared/models/resource';
+import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
+import { Resource, ResourceSnippet } from '@shared/models/resource';
 
 @Injectable()
 export class ResourcesService {
@@ -15,9 +15,9 @@ export class ResourcesService {
     startAfter?: any,
     orderBy?: string,
     orderByDirection?: firebase.firestore.OrderByDirection
-  ): Promise<Resource[]> {
+  ): Promise<ResourceSnippet[]> {
     let query = this.db
-      .collection<Resource>('resource-snippets')
+      .collection<ResourceSnippet>('resource-snippets')
       .ref.where('published', '==', true)
       .orderBy(orderBy, orderByDirection)
       .limit(pageSize);
@@ -42,7 +42,19 @@ export class ResourcesService {
       .pipe(mapItemWithId);
   }
 
-  public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): Resource[] {
-    return snapshotChanges.docs.map<Resource>(x => ({ id: x.id, ...(x.data() as Resource) }));
+  public mapQuerySnapshotToResource(snapshotChanges: firebase.firestore.QuerySnapshot): ResourceSnippet[] {
+    return snapshotChanges.docs.map<ResourceSnippet>(x => ({ id: x.id, ...(x.data() as ResourceSnippet) }));
+  }
+
+  public getMostRecent() {
+    return this.db
+      .collection<ResourceSnippet>('resource-snippets', ref =>
+        ref
+          .where('published', '==', true)
+          .orderBy('dateTime', 'desc')
+          .limit(5)
+      )
+      .snapshotChanges()
+      .pipe(mapArrayWithId);
   }
 }

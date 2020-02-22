@@ -36,12 +36,12 @@ export class AuthenticationService {
             if (identity && identity.expired) {
               try {
                 await this.renewIdentity();
-
-                resolve();
               } catch (error) {
                 console.log('error while authenticating user: ', error);
 
                 this.oidcFacade.removeOidcUser();
+              } finally {
+                resolve();
               }
               return;
             }
