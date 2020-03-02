@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase/app';
 
 import { mapItemWithId, mapArrayWithId } from '@core/rxjs/pipes';
 import { Resource, ResourceSnippet } from '@shared/models/resource';
+import { tap, shareReplay } from 'rxjs/operators';
 
 @Injectable()
 export class ResourcesService {
+  private loadingMostRecent = new BehaviorSubject(true);
+  loadingMostRecent$ = this.loadingMostRecent.asObservable();
+  mostRecentResources$;
+
   constructor(private db: AngularFirestore) {}
 
   public async get(
@@ -47,14 +52,26 @@ export class ResourcesService {
   }
 
   public getMostRecent() {
-    return this.db
+    if (this.mostRecentResources$) {
+      return this.mostRecentResources$;
+    }
+
+    this.mostRecentResources$ = this.db
       .collection<ResourceSnippet>('resource-snippets', ref =>
         ref
           .where('published', '==', true)
           .orderBy('dateTime', 'desc')
-          .limit(5)
+          .limit(10)
       )
       .snapshotChanges()
-      .pipe(mapArrayWithId);
+      .pipe(
+        mapArrayWithId,
+        tap(() => {
+          this.loadingMostRecent.next(false);
+        }),
+        shareReplay()
+      );
+
+    return this.mostRecentResources$;
   }
 }

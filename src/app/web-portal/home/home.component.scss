@@ -1,0 +1,13 @@
+.main-header {
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+}

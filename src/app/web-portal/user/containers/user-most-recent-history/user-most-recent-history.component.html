@@ -1,4 +1,14 @@
-<ng-template #resourceCard let-item let-masonryColumnWidth="masonryColumnWidth">
-  <app-resource-card [resource]="item" [width]="masonryColumnWidth"></app-resource-card>
+<div class="header-with-action">
+  <h2>Last resources viewed...</h2>
+</div>
+
+<ng-container *ngIf="loggedIn$ | async; else login">
+  <app-resources-horizontal [resources]="mostRecentHistory$ | async" [loading]="loading$ | async"></app-resources-horizontal>
+</ng-container>
+
+<ng-template #login>
+  <mat-card (click)="signIn()">
+    <div class="mat-subheading-1">Login</div>
+    <mat-card-subtitle>By logging in you will be able to view your latest views</mat-card-subtitle>
+  </mat-card>
 </ng-template>
-<app-resources-masonry [resources]="mostRecentHistory$ | async" [scrollContainer]="'mat-sidenav-content'" [itemTemplate]="resourceCard"></app-resources-masonry>

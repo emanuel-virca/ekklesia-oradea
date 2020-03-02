@@ -1,0 +1,20 @@
+.image-with-placeholder {
+  background-color: #f5f5f5;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+
+  img {
+    z-index: 1;
+    height: inherit;
+    width: inherit;
+  }
+
+  mat-icon {
+    position: absolute;
+    transform: scale(2.5);
+    color: rgba(0, 0, 0, 0.26);
+  }
+}

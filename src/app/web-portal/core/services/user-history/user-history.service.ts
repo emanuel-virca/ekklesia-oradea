@@ -1,25 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { switchMap, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, tap, shareReplay } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 import { UserHistory } from '@shared/models/user-history';
 import { UserService } from '@core/services/user/user.service';
 import { mapArrayWithId } from '@core/rxjs/pipes';
 import { User } from '@shared/models/user';
-import { ResourceSnippet } from '@shared/models/resource';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserHistoryService {
+  private loadingMostRecent = new BehaviorSubject(true);
+  private mostRecent$: Observable<UserHistory[]>;
+
+  loadingMostRecent$ = this.loadingMostRecent.asObservable();
+
   constructor(private db: AngularFirestore, private fns: AngularFireFunctions, private userService: UserService) {}
 
   public getMostRecent(): Observable<UserHistory[]> {
-    return this.userService.currentUser$.pipe(
-      switchMap(user => (user ? this.getAuthenticatedMostRecent(user) : this.getNotAuthenticatedMostRecent()))
+    if (this.mostRecent$) {
+      return this.mostRecent$;
+    }
+
+    this.mostRecent$ = this.userService.currentUser$.pipe(
+      switchMap(user => (user ? this.getAuthenticatedMostRecent(user) : this.getNotAuthenticatedMostRecent())),
+      tap(() => this.loadingMostRecent.next(false)),
+      shareReplay()
     );
+
+    return this.mostRecent$;
   }
 
   public async add(resourceId) {
@@ -36,6 +48,6 @@ export class UserHistoryService {
   }
 
   private getNotAuthenticatedMostRecent(): Observable<UserHistory[]> {
-    throw new Error('Method not implemented.');
+    return of([]);
   }
 }

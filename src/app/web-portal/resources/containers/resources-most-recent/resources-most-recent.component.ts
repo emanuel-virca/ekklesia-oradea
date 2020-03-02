@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ResourcesService } from '@web-portal/core/services/resources/resources.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-resources-most-recent',
@@ -9,9 +10,11 @@ import { ResourcesService } from '@web-portal/core/services/resources/resources.
 })
 export class ResourcesMostRecentComponent implements OnInit {
   mostRecentResources$;
+  loading$: Observable<boolean>;
 
   constructor(private resourcesService: ResourcesService) {
     this.mostRecentResources$ = this.resourcesService.getMostRecent();
+    this.loading$ = this.resourcesService.loadingMostRecent$;
   }
 
   ngOnInit() {}

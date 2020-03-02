@@ -23,7 +23,9 @@
 // Layout
 @import 'stylings/layout';
 
-// Web-portal stykes
+// Images
+@import 'stylings/images';
+
 @import 'styles-web-portal.scss';
 
 // Include theme styles for core and each component used in your app.
@@ -35,6 +37,7 @@
 
 @mixin custom-components-theme($theme) {
   @include ekklesia-styles-reset-theme($theme);
+  @include ekklesia-text-theme($theme);
   @include ekklesia-app-component-theme($theme);
   @include ekklesia-app-resource-search-theme($theme);
   @include ekklesia-app-main-nav-theme($theme);

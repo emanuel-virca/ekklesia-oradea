@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { UserHistoryService } from '@web-portal/core/services/user-history/user-history.service';
 import { ResourceSnippet } from '@shared/models/resource';
+import { AuthenticationService } from '@authentication/services/authentication.service';
 
 @Component({
   selector: 'app-user-most-recent-history',
@@ -13,11 +14,19 @@ import { ResourceSnippet } from '@shared/models/resource';
 })
 export class UserMostRecentHistoryComponent implements OnInit {
   mostRecentHistory$: Observable<ResourceSnippet[]> = of([]);
+  loading$: Observable<boolean>;
+  loggedIn$: Observable<boolean>;
 
-  constructor(private userHistoryService: UserHistoryService) {
+  constructor(private userHistoryService: UserHistoryService, private authenticationService: AuthenticationService) {
     this.mostRecentHistory$ = this.userHistoryService
       .getMostRecent()
       .pipe(map(userHistory => (userHistory ? userHistory.map(x => x.resource) : [])));
+    this.loading$ = this.userHistoryService.loadingMostRecent$;
+    this.loggedIn$ = this.authenticationService.loggedIn$;
+  }
+
+  signIn() {
+    this.authenticationService.signIn();
   }
 
   ngOnInit() {}

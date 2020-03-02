@@ -1,0 +1,24 @@
+<div class="container-horizontal">
+  <div class="horizontal_item" *ngFor="let resource of resources" [routerLink]="['/resources', resource.id ]">
+    <div class="image-with-placeholder" [style.height.px]="height" [style.width.px]="computeWidth(resource)">
+      <img *ngIf="resource.cover?.thumbnailUrl" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" />
+      <mat-icon mat-list-icon>mic</mat-icon>
+    </div>
+    <span class="title" [style.width.px]="computeWidth(resource)" title="{{resource.title}}">{{resource.title}}</span>
+    <span class="subtitle secondary-text" [style.width.px]="computeWidth(resource)" title="{{resource.title}}">
+      {{resource.author.name}}, {{resource.dateTime?.toDate() | date}}
+    </span>
+  </div>
+  <ng-container *ngIf="loading">
+    <div class="horizontal_item" *ngFor="let resource of [1,2,3,4,5]" [routerLink]="['/resources', resource.id ]">
+      <div class="image-with-placeholder" [style.height.px]="height" [style.width.px]="getRandomWidth()">
+        <mat-icon mat-list-icon>mic</mat-icon>
+      </div>
+      <span class="title">&nbsp;</span>
+      <span class="subtitle">&nbsp;</span>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!loading && !resources?.length">
+    it's empty here :)
+  </ng-container>
+</div>

@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+
+@mixin ekklesia-text-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .secondary-text {
+    color: mat-color($foreground, secondary-text);
+  }
+}

@@ -20,7 +20,7 @@ export class ResourceCardComponent implements OnInit, OnChanges {
 
   computeHeight() {
     if (!this.resource || !this.resource.cover) {
-      return 0;
+      return 220;
     }
 
     return (this.resource.cover.height / this.resource.cover.width) * this.width;

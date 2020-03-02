@@ -14,6 +14,7 @@ import { ResourcesMasonryComponent } from './components/resources-masonry/resour
 
 import { LikeButtonShellComponent } from './containers/like-button-shell/like-button-shell.component';
 import { AudioPlayerModule } from 'app/audio-player/audio-player.module';
+import { ResourcesHorizontalComponent } from './components/resources-horizontal/resources-horizontal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AudioPlayerModule } from 'app/audio-player/audio-player.module';
     ResourceCardComponent,
     ResourcesMasonryComponent,
     LikeButtonShellComponent,
+    ResourcesHorizontalComponent,
   ],
   imports: [CoreSharedModule, MaterialModule, NgxMasonryModule, AudioPlayerModule],
   exports: [
@@ -36,6 +38,7 @@ import { AudioPlayerModule } from 'app/audio-player/audio-player.module';
     ConvertToAudioResourcePipe,
     ResourceCardComponent,
     ResourcesMasonryComponent,
+    ResourcesHorizontalComponent,
     LikeButtonShellComponent,
     AudioPlayerModule,
   ],
