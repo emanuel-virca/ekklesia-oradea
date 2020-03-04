@@ -128,9 +128,11 @@ app.get('/firebase', async (req, res) => {
     .get();
 
   const user = userSnapshor.data() as User;
+  const claims = user ? { roles: user.roles || [] } : { roles: ['subscriber'] };
 
   try {
-    const firebaseToken = await admin.auth().createCustomToken(uid, { roles: user.roles });
+    const firebaseToken = await admin.auth().createCustomToken(uid, claims);
+
     res.json({ firebaseToken });
   } catch (err) {
     console.log('Something went wrong acquiring a Firebase token. ', err);
