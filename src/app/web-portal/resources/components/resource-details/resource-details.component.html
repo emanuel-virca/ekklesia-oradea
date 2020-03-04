@@ -8,10 +8,10 @@
     </mat-card-header>
     <mat-card-actions>
       <app-like-button-shell [resource]="resource"></app-like-button-shell>
-      <a [href]="resource.downloadUrl" download mat-icon-button [disabled]="!resource.downloadUrl">
+      <a [href]="resource.downloadUrl" download mat-icon-button *ngIf="resource.downloadUrl">
         <mat-icon aria-label="download">get_app</mat-icon>
       </a>
-      <audio-play-button [audioResource]="resource | convertToAudioResource"></audio-play-button>
+      <audio-play-button *ngIf="resource.streamUrl" [audioResource]="resource | convertToAudioResource"></audio-play-button>
       <div fxFlex></div>
     </mat-card-actions>
     <div class="mat-card-image" *ngIf="resource.cover?.url">
