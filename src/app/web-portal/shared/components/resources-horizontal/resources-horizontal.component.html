@@ -1,24 +1,28 @@
-<div class="container-horizontal">
-  <div class="horizontal_item" *ngFor="let resource of resources" [routerLink]="['/resources', resource.id ]">
-    <div class="image-with-placeholder" [style.height.px]="height" [style.width.px]="computeWidth(resource)">
-      <img *ngIf="resource.cover?.thumbnailUrl" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" />
-      <mat-icon mat-list-icon>mic</mat-icon>
-    </div>
-    <span class="title" [style.width.px]="computeWidth(resource)" title="{{resource.title}}">{{resource.title}}</span>
-    <span class="subtitle secondary-text" [style.width.px]="computeWidth(resource)" title="{{resource.title}}">
-      {{resource.author.name}}, {{resource.dateTime?.toDate() | date}}
-    </span>
-  </div>
-  <ng-container *ngIf="loading">
-    <div class="horizontal_item" *ngFor="let resource of [1,2,3,4,5]" [routerLink]="['/resources', resource.id ]">
-      <div class="image-with-placeholder" [style.height.px]="height" [style.width.px]="getRandomWidth()">
-        <mat-icon mat-list-icon>mic</mat-icon>
-      </div>
-      <span class="title">&nbsp;</span>
-      <span class="subtitle">&nbsp;</span>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!loading && !resources?.length">
-    it's empty here :)
-  </ng-container>
+<div class="horizontal-slider">
+  <app-resource-slider-card
+    *ngFor="let resource of resources"
+    [resource]="resource"
+    [width]="computeWidth(resource)"
+    [routerLink]="['/resources', resource.id ]"
+  ></app-resource-slider-card>
 </div>
+<ng-container *ngIf="loading || !resources?.length">
+  <div class="banner-container">
+    <div class="banner-wrapper" *ngIf="!resources?.length && !loading">
+      <div class="banner">
+        <div class="banner-section">
+          Nothing to display
+          <div class="secondary-text">It's empty here...</div>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-slider">
+      <app-resource-slider-card
+        *ngFor="let resource of [1,2,3,4,5,6,7,8,9]"
+        [resource]="resource"
+        [width]="getRandomWidth()"
+        [routerLink]="['/resources', resource.id ]"
+      ></app-resource-slider-card>
+    </div>
+  </div>
+</ng-container>

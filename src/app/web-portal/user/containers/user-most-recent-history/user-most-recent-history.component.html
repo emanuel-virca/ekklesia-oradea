@@ -7,8 +7,16 @@
 </ng-container>
 
 <ng-template #login>
-  <mat-card (click)="signIn()">
-    <div class="mat-subheading-1">Login</div>
-    <mat-card-subtitle>By logging in you will be able to view your latest views</mat-card-subtitle>
-  </mat-card>
+  <div class="banner-container">
+    <div class="banner-wrapper">
+      <div class="banner">
+        <div class="banner-section">
+          Nothing to display
+          <div class="secondary-text">By logging in you will be able to view your latest views</div>
+        </div>
+        <button mat-button (click)="signIn()" color="primary">Login</button>
+      </div>
+    </div>
+    <app-resources-horizontal loading="true"></app-resources-horizontal>
+  </div>
 </ng-template>

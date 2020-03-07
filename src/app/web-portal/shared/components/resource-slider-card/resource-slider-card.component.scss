@@ -1,0 +1,21 @@
+@import '~stylings/text';
+
+.slider_item {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+  cursor: pointer;
+
+  .image-with-placeholder {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .title {
+    @extend .text-elipsis;
+    padding-top: 0.5em;
+  }
+
+  .subtitle {
+    @extend .text-elipsis;
+  }
+}

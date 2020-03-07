@@ -15,6 +15,7 @@ import { ResourcesMasonryComponent } from './components/resources-masonry/resour
 import { LikeButtonShellComponent } from './containers/like-button-shell/like-button-shell.component';
 import { AudioPlayerModule } from 'app/audio-player/audio-player.module';
 import { ResourcesHorizontalComponent } from './components/resources-horizontal/resources-horizontal.component';
+import { ResourceSliderCardComponent } from './components/resource-slider-card/resource-slider-card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ResourcesHorizontalComponent } from './components/resources-horizontal/
     ResourcesMasonryComponent,
     LikeButtonShellComponent,
     ResourcesHorizontalComponent,
+    ResourceSliderCardComponent,
   ],
   imports: [CoreSharedModule, MaterialModule, NgxMasonryModule, AudioPlayerModule],
   exports: [

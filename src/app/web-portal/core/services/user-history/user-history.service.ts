@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { switchMap, tap, shareReplay } from 'rxjs/operators';
+import { switchMap, tap, shareReplay, take } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
@@ -8,6 +8,7 @@ import { UserHistory } from '@shared/models/user-history';
 import { UserService } from '@core/services/user/user.service';
 import { mapArrayWithId } from '@core/rxjs/pipes';
 import { User } from '@shared/models/user';
+import { AuthenticationService } from '@authentication/services/authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,12 @@ export class UserHistoryService {
 
   loadingMostRecent$ = this.loadingMostRecent.asObservable();
 
-  constructor(private db: AngularFirestore, private fns: AngularFireFunctions, private userService: UserService) {}
+  constructor(
+    private db: AngularFirestore,
+    private fns: AngularFireFunctions,
+    private userService: UserService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   public getMostRecent(): Observable<UserHistory[]> {
     if (this.mostRecent$) {
@@ -36,6 +42,12 @@ export class UserHistoryService {
 
   public async add(resourceId) {
     const callable = this.fns.httpsCallable('addHistory');
+
+    const loggedIn = await this.authenticationService.loggedIn$.pipe(take(1)).toPromise();
+
+    if (!loggedIn) {
+      return;
+    }
 
     await callable({ resourceId }).toPromise();
   }
