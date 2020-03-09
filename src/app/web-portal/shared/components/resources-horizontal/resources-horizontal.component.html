@@ -11,13 +11,14 @@
     <div class="banner-wrapper" *ngIf="!resources?.length && !loading">
       <div class="banner">
         <div class="banner-section">
-          Nothing to display
+          <span class="mat-subheading-1">Nothing to display</span>
           <div class="secondary-text">It's empty here...</div>
         </div>
       </div>
     </div>
     <div class="horizontal-slider">
       <app-resource-slider-card
+        style="filter: blur(2px);"
         *ngFor="let resource of [1,2,3,4,5,6,7,8,9]"
         [resource]="resource"
         [width]="getRandomWidth()"
