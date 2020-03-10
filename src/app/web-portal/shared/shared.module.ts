@@ -16,6 +16,7 @@ import { LikeButtonShellComponent } from './containers/like-button-shell/like-bu
 import { AudioPlayerModule } from 'app/audio-player/audio-player.module';
 import { ResourcesHorizontalComponent } from './components/resources-horizontal/resources-horizontal.component';
 import { ResourceSliderCardComponent } from './components/resource-slider-card/resource-slider-card.component';
+import { MessagingRequestPermissionComponent } from './containers/messaging-request-permission/messaging-request-permission.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ResourceSliderCardComponent } from './components/resource-slider-card/r
     LikeButtonShellComponent,
     ResourcesHorizontalComponent,
     ResourceSliderCardComponent,
+    MessagingRequestPermissionComponent,
   ],
   imports: [CoreSharedModule, MaterialModule, NgxMasonryModule, AudioPlayerModule],
   exports: [
@@ -43,6 +45,7 @@ import { ResourceSliderCardComponent } from './components/resource-slider-card/r
     ResourcesHorizontalComponent,
     LikeButtonShellComponent,
     AudioPlayerModule,
+    MessagingRequestPermissionComponent,
   ],
 })
 export class SharedModule {}

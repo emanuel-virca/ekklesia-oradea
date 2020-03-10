@@ -1,0 +1,7 @@
+<div class="banner" *ngIf="(requestGranted$ | async) === false">
+  <div class="banner-section">
+    <span class="mat-subheading-1">Be notified</span>
+    <div class="secondary-text">Be notified whenever a new resource is available</div>
+  </div>
+  <button mat-button (click)="requestPermission()" color="primary">Notify me</button>
+</div>
