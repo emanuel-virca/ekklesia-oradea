@@ -44,6 +44,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     dateTime: new FormControl(),
     description: new FormControl(),
     hearthisId: new FormControl(),
+    videoId: new FormControl(),
     type: new FormControl(),
     author: new FormControl(),
   });
@@ -85,6 +86,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
         description: resource.description,
         hearthisId: resource.hearthisId,
+        videoId: resource.videoId,
         type: resource.type,
         author: resource.author,
       });

@@ -61,12 +61,6 @@
       <mat-error *ngIf="dateTime.errors?.required">Date is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Type" formControlName="type" required>
-        <mat-option *ngFor="let option of resourceTypes" [value]="option.value">{{option.text}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="type.errors?.required">Type is required.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
       <textarea matInput placeholder="Description" formControlName="description"></textarea>
     </mat-form-field>
     <mat-form-field>
@@ -84,6 +78,17 @@
         />
       </mat-chip-list>
     </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Type" formControlName="type" required>
+        <mat-option *ngFor="let option of resourceTypes" [value]="option.value">{{option.text}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="type.errors?.required">Type is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [class.hidden]="type.value !== 'video'">
+      <input matInput placeholder="Youtube Video Id" formControlName="videoId" />
+    </mat-form-field>
+
     <mat-form-field>
       <input matInput placeholder="Hearthis Id" formControlName="hearthisId" />
     </mat-form-field>

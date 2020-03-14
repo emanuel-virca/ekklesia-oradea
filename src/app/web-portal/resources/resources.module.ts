@@ -18,12 +18,14 @@ import { ResourcesFacade } from './facades/resources.facade';
 import { ResourceDetailsFacade } from './facades/resource-details.facade';
 import { ResourceTagsComponent } from './components/resource-tags/resource-tags.component';
 import { ResourcesMostRecentComponent } from './containers/resources-most-recent/resources-most-recent.component';
+import { VideoPlayerModule } from 'app/video-player/video-player.module';
 
 @NgModule({
   imports: [
     ResourcesRoutingModule,
     SharedModule,
     CollectionsModule,
+    VideoPlayerModule,
     StoreModule.forFeature(featureKey, reducers),
     EffectsModule.forFeature([ResourceDetailsEffects, ResourcesEffects]),
   ],

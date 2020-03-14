@@ -14,6 +14,7 @@ export interface Resource {
   hearthisId?: string;
   downloadUrl?: string;
   streamUrl?: string;
+  videoId?: string;
   cover?: Image;
   tags?: Tag[];
   album?: Album;
@@ -28,7 +29,7 @@ export interface ResourceSnippet {
   author: AuthorSnippet;
   downloadUrl?: string;
   streamUrl?: string;
-  // TODO rename to cover
+  videoId?: string;
   cover?: Image;
   album?: Album;
 }
@@ -53,6 +54,7 @@ export function convertToResourceSnippet(resource: Resource): ResourceSnippet {
     dateTime: resource.dateTime,
     downloadUrl: resource.downloadUrl || null,
     streamUrl: resource.streamUrl || null,
+    videoId: resource.videoId || null,
     cover: resource.cover || null,
     album: resource.album || null,
   };

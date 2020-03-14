@@ -23,7 +23,7 @@ export class ResourceCardComponent implements OnInit, OnChanges {
       return 220;
     }
 
-    return (this.resource.cover.height / this.resource.cover.width) * this.width;
+    return (this.resource.cover.height / this.resource.cover.width) * this.width || 220;
   }
 
   ngOnChanges(): void {

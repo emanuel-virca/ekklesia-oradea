@@ -8,8 +8,8 @@
     </mat-card-subtitle>
   </mat-card-header>
   <div class="mat-card-image image-with-placeholder" [routerLink]="['/resources', resource.id ]" [style.height.px]="height" [style.width.px]="width">
-    <img *ngIf="resource.cover?.thumbnailUrl" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" />
-    <mat-icon mat-list-icon>mic</mat-icon>
+    <img *ngIf="resource.cover?.thumbnailUrl" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" [height]="height" [width]="width" />
+    <mat-icon mat-list-icon>{{resource.type | resourceIcon}}</mat-icon>
   </div>
   <mat-card-actions align="end">
     <!-- <button mat-icon-button>

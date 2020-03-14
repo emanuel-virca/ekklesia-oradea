@@ -1,7 +1,7 @@
 <div class="slider_item" [routerLink]="['/resources', resource.id ]">
   <div class="image-with-placeholder" [style.height.px]="height" [style.width.px]="width">
-    <img *ngIf="resource?.cover?.thumbnailUrl" [src]="resource?.cover?.thumbnailUrl" alt="" loading="lazy" />
-    <mat-icon mat-list-icon>mic</mat-icon>
+    <img *ngIf="resource?.cover?.thumbnailUrl" [src]="resource?.cover?.thumbnailUrl" alt="" loading="lazy" [height]="height" [width]="width" />
+    <mat-icon mat-list-icon>{{resource.type | resourceIcon}}</mat-icon>
   </div>
   <span class="title" [style.width.px]="width" title="{{resource?.title}}">{{resource?.title}}</span>
   <span class="subtitle secondary-text" [style.width.px]="width" title="{{resource?.title}}">
