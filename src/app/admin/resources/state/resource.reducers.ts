@@ -34,11 +34,19 @@ export function resourceReducer(state = initialState, action: resourceActions.Ac
     }
 
     case resourceActions.PUBLISH_RESOURCE_SUCCESS: {
-      return { ...state, errorMessage: '', currentResource: { ...state.currentResource, published: true } };
+      return {
+        ...state,
+        errorMessage: '',
+        currentResource: state.currentResource ? { ...state.currentResource, published: true } : null,
+      };
     }
 
     case resourceActions.UNPUBLISH_RESOURCE_SUCCESS: {
-      return { ...state, errorMessage: '', currentResource: { ...state.currentResource, published: false } };
+      return {
+        ...state,
+        errorMessage: '',
+        currentResource: state.currentResource ? { ...state.currentResource, published: false } : null,
+      };
     }
 
     case resourceActions.CREATE_RESOURCE_FAIL:

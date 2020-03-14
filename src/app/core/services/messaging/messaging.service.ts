@@ -1,22 +1,76 @@
 import { Injectable } from '@angular/core';
-import { AngularFireMessaging } from '@angular/fire/messaging';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/messaging';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthenticationService } from '@authentication/services/authentication.service';
+import { SwPush } from '@angular/service-worker';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class MessagingService {
+  private subscribed = new BehaviorSubject<boolean>(true);
+  subscribed$ = this.subscribed.asObservable();
+
   constructor(
-    private angularFireMessaging: AngularFireMessaging,
     private authenticationService: AuthenticationService,
-    private afs: AngularFirestore
-  ) {
-    // this.angularFireMessaging.messaging.subscribe(messaging => {
-    //   messaging.onMessage = messaging.onMessage.bind(messaging);
-    //   messaging.onTokenRefresh = messaging.onTokenRefresh.bind(messaging);
-    // });
+    private notificationService: NotificationsService,
+    private afs: AngularFirestore,
+    private swPush: SwPush
+  ) {}
+
+  async intializeAsync() {
+    await this.registerServiceWorkerAsync();
+
+    this.swPush.messages.subscribe(msg => console.log('push message', msg));
+    this.swPush.notificationClicks.subscribe(event => {
+      console.log('Received notification: ', event);
+    });
+
+    if (Notification.permission === 'default') {
+      this.subscribed.next(false);
+    }
+
+    if (Notification.permission === 'granted') {
+      const messaging = firebase.messaging();
+
+      // Get Instance ID token. Initially this makes a network call, once retrieved
+      // subsequent calls to getToken will return from cache.
+      try {
+        const currentToken = await messaging.getToken();
+        console.log('token', currentToken);
+        await this.saveTokenAsync(currentToken);
+      } catch (err) {
+        console.log('Unable to retrieve token. ', err);
+      }
+
+      // Callback fired if Instance ID token is updated.
+      messaging.onTokenRefresh(async () => {
+        try {
+          const currentToken = await messaging.getToken();
+          console.log('refreshed token ', currentToken);
+          await this.saveTokenAsync(currentToken);
+          this.subscribed.next(true);
+        } catch (err) {
+          console.log('Unable to retrieve refreshed token. ', err);
+        }
+      });
+    }
+  }
+
+  async registerServiceWorkerAsync() {
+    await navigator.serviceWorker.ready;
+
+    const swr = await navigator.serviceWorker.getRegistration();
+
+    if (!swr) {
+      console.log('No service worker registered');
+      return;
+    }
+
+    firebase.messaging().useServiceWorker(swr);
   }
 
   /**
@@ -25,7 +79,7 @@ export class MessagingService {
    * @param userId user
    * @param token token
    */
-  async updateTokenAsync(token: string): Promise<void> {
+  async saveTokenAsync(token: string): Promise<void> {
     if (!token) {
       return;
     }
@@ -43,23 +97,21 @@ export class MessagingService {
    * request permission for notification from firebase cloud messaging
    *
    */
-  requestPermission() {
-    this.angularFireMessaging.requestToken.subscribe(
-      async token => {
-        await this.updateTokenAsync(token);
-      },
-      err => {
-        console.error('Unable to get permission to notify.', err);
-      }
-    );
-  }
+  async requestPermissionAsync() {
+    try {
+      const messaging = firebase.messaging();
 
-  /**
-   * hook method when new notification received in foreground
-   */
-  receiveMessage() {
-    this.angularFireMessaging.messages.subscribe(payload => {
-      console.log('new message received. ', payload);
-    });
+      await messaging.requestPermission();
+
+      const token = await messaging.getToken();
+
+      this.notificationService.success('Thanks for subscribing!');
+
+      await this.saveTokenAsync(token);
+
+      this.subscribed.next(true);
+    } catch (err) {
+      console.log('Unable to get permission to notify.', err);
+    }
   }
 }

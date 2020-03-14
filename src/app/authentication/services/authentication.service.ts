@@ -71,7 +71,7 @@ export class AuthenticationService {
 
   public async signOut() {
     // signout from firebase
-    await this.afAuth.signOut();
+    await this.afAuth.auth.signOut();
 
     // signout from auth0
     this.oidcFacade.signoutRedirect();
@@ -99,7 +99,7 @@ export class AuthenticationService {
       return;
     }
 
-    await this.afAuth.signInWithCustomToken(firebaseToken);
+    await this.afAuth.auth.signInWithCustomToken(firebaseToken);
 
     await this.updateFirebaseUser(identity);
   }

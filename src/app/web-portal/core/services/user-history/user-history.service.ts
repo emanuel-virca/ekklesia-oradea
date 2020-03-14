@@ -41,14 +41,13 @@ export class UserHistoryService {
   }
 
   public async add(resourceId) {
-    const callable = this.fns.httpsCallable('addHistory');
-
     const loggedIn = await this.authenticationService.loggedIn$.pipe(take(1)).toPromise();
 
     if (!loggedIn) {
       return;
     }
 
+    const callable = this.fns.httpsCallable('addHistory');
     await callable({ resourceId }).toPromise();
   }
 

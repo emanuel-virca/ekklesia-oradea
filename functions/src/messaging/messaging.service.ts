@@ -14,10 +14,11 @@ export class MessagingService {
       },
       webpush: {
         notification: {
-          icon: '/assets/icons/icon-192x192.png',
-          badge: '/assets/icons/icon-badge-192x192.png',
+          icon: '/assets/icons/icon-badge.png',
+          badge: '/assets/icons/icon-badge.png',
           image: resource.cover ? resource.cover.url : null,
           tag: resource.id + resource.type,
+          data: { url: `${webPortalConfig.domainurl}/resources/${resource.id}` },
         },
         fcmOptions: {
           link: `${webPortalConfig.domainurl}/resources/${resource.id}`,

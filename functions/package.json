@@ -15,7 +15,8 @@
     "deploy-test": "npm run firebase-test && firebase deploy --only functions",
     "deploy-prod": "npm run firebase-prod && firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "read-config": "firebase functions:config:get"
+    "read-config": "firebase functions:config:get",
+    "log-config": "firebase functions:config:get > .runtimeconfig.json"
   },
   "main": "lib/index.js",
   "dependencies": {

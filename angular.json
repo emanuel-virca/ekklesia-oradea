@@ -28,7 +28,6 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/firebase-messaging-sw.js",
               {
                 "glob": "**/*",
                 "input": "src/static",
@@ -40,13 +39,9 @@
                 "output": "/"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/stylings"
-              ]
+              "includePaths": ["src/stylings"]
             },
             "scripts": []
           },
@@ -65,7 +60,9 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.test.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             },
             "production": {
               "fileReplacements": [
@@ -125,33 +122,19 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/stylings"
-              ]
+              "includePaths": ["src/stylings"]
             },
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ]
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
