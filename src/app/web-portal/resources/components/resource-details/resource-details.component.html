@@ -10,15 +10,15 @@
       </mat-card-header>
       <mat-card-content *ngIf="resource.description">
         <p>{{resource.description}}</p>
-        <app-resource-tags *ngIf="resource.tags?.length" [tags]="resource.tags"></app-resource-tags>
       </mat-card-content>
-      <mat-card-actions align="end">
+      <mat-card-actions>
+        <app-resource-tags *ngIf="resource.tags?.length" [tags]="resource.tags"></app-resource-tags>
+        <div fxFlex></div>
         <app-like-button-shell [resource]="resource"></app-like-button-shell>
         <a [href]="resource.downloadUrl" download mat-icon-button *ngIf="resource.downloadUrl">
           <mat-icon aria-label="download">get_app</mat-icon>
         </a>
         <audio-play-button *ngIf="resource.streamUrl" [audioResource]="resource | convertToAudioResource"></audio-play-button>
-        <!-- <div fxFlex></div> -->
       </mat-card-actions>
       <div class="mat-card-image image-with-placeholder" [style.height.px]="height" [style.width.px]="width">
         <img *ngIf="resource.cover?.url && !resource?.videoId" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" [height]="height" [width]="width" />
