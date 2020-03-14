@@ -55,7 +55,7 @@ export function initializeAuth(appInitializerService: AppInitializerService) {
       deps: [AppInitializerService],
       multi: true,
     },
-    { provide: REGION, useValue: 'europe-west2' },
+    { provide: REGION, useValue: 'europe-west1' },
   ],
   bootstrap: [AppComponent],
 })
