@@ -4,10 +4,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(66, 66, 66, 0.2)),
+    url('../../../assets/turnul-primariei-oradea.jpg');
+  background-size: cover;
+  background-position: top;
+  //quick fix
+  margin-left: -15px;
+  margin-right: -15px;
 
   svg {
     height: auto;
     max-height: 100%;
     max-width: 100%;
+
+    animation: moveInBottom 0.2s ease-out 0.75s;
+    animation-fill-mode: backwards;
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
   }
 }
