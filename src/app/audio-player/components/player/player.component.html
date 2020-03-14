@@ -1,11 +1,11 @@
 <div class="audio-player-content" *ngIf="trackInfo.audioResource | async as audioResource">
-  <div class="audio-player-artwork" *ngIf="audioResource?.artwork">
+  <div class="audio-player-artwork" *ngIf="audioResource?.artwork" (click)="onShowDetails(audioResource.id)">
     <img [src]="audioResource.artwork" />
   </div>
   <div class="audio-player-controls">
     <div class="audio-player-header">
       <audio-play-button [audioResource]="audioResource"></audio-play-button>
-      <span class="track-info-title">
+      <span class="track-info-title" (click)="onShowDetails(audioResource.id)">
         {{audioResource.title}}
         <span>&#8228;</span>
         {{audioResource.author}}

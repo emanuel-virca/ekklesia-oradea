@@ -9,6 +9,7 @@
 
   .audio-player-artwork {
     margin-right: 10px;
+    cursor: pointer;
 
     img {
       height: 56px;
@@ -34,6 +35,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        cursor: pointer;
       }
 
       .seeking {
@@ -55,6 +57,7 @@
       justify-content: space-between;
       width: 100%;
       flex: 1;
+      cursor: pointer;
 
       .progress-time {
         width: 40px;
