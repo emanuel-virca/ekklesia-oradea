@@ -105,7 +105,7 @@ export class MessagingService {
 
       const token = await messaging.getToken();
 
-      this.notificationService.success('Thanks for subscribing!');
+      this.notificationService.success('Mulțumim pentru abonare!');
 
       await this.saveTokenAsync(token);
 

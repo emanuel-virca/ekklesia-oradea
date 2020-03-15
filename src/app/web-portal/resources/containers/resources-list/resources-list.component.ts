@@ -23,11 +23,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   orderByOptions: OrderByProp[] = [
     {
       value: 'dateTime',
-      viewValue: 'Published Date',
+      viewValue: 'Data publicării',
     },
     {
       value: 'title',
-      viewValue: 'Name',
+      viewValue: 'Titlu',
     },
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];

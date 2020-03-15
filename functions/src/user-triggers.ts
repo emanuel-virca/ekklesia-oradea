@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 
-import * as admin from 'firebase-admin';
+import { UserService } from './user.service';
+import { ResourceService } from './resource.service';
 
 export async function onUserWriteAsync(
   change: functions.Change<FirebaseFirestore.DocumentSnapshot>,
@@ -10,12 +11,9 @@ export async function onUserWriteAsync(
 }
 
 export async function onAddHistoryAsync(userId, resourceId) {
-  const db = admin.firestore();
+  const userService = new UserService();
+  await userService.addHistoryAsync(userId, resourceId);
 
-  const resourceSnippetDocumentSnapp = await db.doc(`resource-snippets/${resourceId}`).get();
-
-  await db
-    .collection(`users/${userId}/history`)
-    .doc(resourceId)
-    .set({ resource: resourceSnippetDocumentSnapp.data(), dateTime: new Date() });
+  const resourceService = new ResourceService();
+  await resourceService.incrementViewsAsync(resourceId);
 }

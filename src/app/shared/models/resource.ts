@@ -19,6 +19,7 @@ export interface Resource {
   cover?: Image;
   tags?: Tag[];
   album?: Album;
+  views?: number;
 }
 
 export interface ResourceSnippet {

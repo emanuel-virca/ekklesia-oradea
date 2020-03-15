@@ -1,5 +1,5 @@
 <div class="header-with-action">
-  <h2>Last resources viewed...</h2>
+  <h2>Ultimele resurse vizualizate...</h2>
 </div>
 
 <ng-container *ngIf="loggedIn$ | async; else login">
@@ -11,8 +11,8 @@
     <div class="banner-wrapper">
       <div class="banner">
         <div class="banner-section">
-          <span class="mat-subheading-1">Nothing to display</span>
-          <div class="secondary-text">By logging in you will be able to view your latest views</div>
+          <span class="mat-subheading-1">Nimic de afișat</span>
+          <div class="secondary-text">Loghează-te pentru a vedea utlimele tale accesări</div>
         </div>
         <button mat-button (click)="signIn()" color="primary">Login</button>
       </div>

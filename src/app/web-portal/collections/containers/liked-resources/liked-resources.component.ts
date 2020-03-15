@@ -33,15 +33,15 @@ export class LikedResourcesComponent implements OnInit, OnDestroy {
   orderByOptions: OrderByProp[] = [
     {
       value: 'sortNo',
-      viewValue: 'Liked Date',
+      viewValue: 'Data adăugării',
     },
     {
       value: 'resource.dateTime',
-      viewValue: 'Published Date',
+      viewValue: 'Data publicării',
     },
     {
       value: 'resource.title',
-      viewValue: 'Name',
+      viewValue: 'Nume',
     },
   ];
   selectedOrderedBy: OrderByProp = this.orderByOptions[0];

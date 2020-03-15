@@ -21,4 +21,10 @@ export class ResourceService {
       await batch.commit();
     }
   }
+
+  public async incrementViewsAsync(resourceId: string) {
+    const increment = admin.firestore.FieldValue.increment(1);
+    const resource = this.db.doc(`resources/${resourceId}`);
+    await resource.update({ views: increment });
+  }
 }

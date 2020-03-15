@@ -86,7 +86,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
         description: resource.description,
         hearthisId: resource.hearthisId,
-        videoId: resource.videoId,
+        videoId: resource.videoId || null,
         type: resource.type,
         author: resource.author,
       });
@@ -125,6 +125,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     const resource: Resource = {
       ...this.resource,
       ...this.resourceForm.value,
+      viwes: this.resource.views || 0,
     };
 
     if (this.resourceForm.controls.hearthisId.value) {

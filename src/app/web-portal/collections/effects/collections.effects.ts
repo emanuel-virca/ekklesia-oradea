@@ -61,7 +61,7 @@ export class CollectionEffects {
 
         await this.collectionsService.addToLibraryAsync(resource.id, user.profile.sub, libraryId);
 
-        this.notificationService.success('Added to your Liked collection!');
+        this.notificationService.success('Adăugată în colecția ta de favorite!');
 
         return CollectionsApiActions.addToLibrarySuccess({ resource, libraryId });
       } catch (error) {
@@ -79,7 +79,7 @@ export class CollectionEffects {
 
         await this.collectionsService.removeFromLibraryAsync(resource.id, user.profile.sub, libraryId);
 
-        this.notificationService.success('Removed from your Liked collection!');
+        this.notificationService.success('Ștearsă din colecția ta de favorite!');
 
         return CollectionsApiActions.removeFromLibrarySuccess({ resource, libraryId });
       } catch (error) {

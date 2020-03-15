@@ -47,8 +47,12 @@ export class UserHistoryService {
       return;
     }
 
-    const callable = this.fns.httpsCallable('addHistory');
-    await callable({ resourceId }).toPromise();
+    try {
+      const callable = this.fns.httpsCallable('addHistory');
+      await callable({ resourceId }).toPromise();
+    } catch (ex) {
+      console.log('unable to save history: ', ex);
+    }
   }
 
   private getAuthenticatedMostRecent(user: User): Observable<UserHistory[]> {

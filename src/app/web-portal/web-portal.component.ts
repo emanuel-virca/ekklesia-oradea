@@ -21,12 +21,12 @@ export class WebPortalComponent {
       routerLink: '/',
     },
     {
-      name: 'Resources',
+      name: 'Resurse',
       icon: 'dashboard',
       routerLink: '/resources',
     },
     {
-      name: 'Your Library',
+      name: 'Colecția ta',
       icon: 'folder',
       routerLink: '/libraries',
     },
