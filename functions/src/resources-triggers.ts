@@ -141,6 +141,12 @@ async function updateSearchService(algoliaConfig: AlgoliaConfig, after: Resource
   }
 
   // resource is newly created
+  if (!before && before.published && after.published) {
+    await resourceSearchService.addAsync(after);
+    return;
+  }
+
+  // resource is updated
   if (before && before.published && after.published) {
     await resourceSearchService.updateAsync(after);
     return;
