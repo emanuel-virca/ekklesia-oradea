@@ -21,7 +21,7 @@
         <audio-play-button *ngIf="resource.streamUrl" [audioResource]="resource | convertToAudioResource"></audio-play-button>
       </mat-card-actions>
       <div class="mat-card-image image-with-placeholder" [style.height.px]="height" [style.width.px]="width">
-        <img *ngIf="resource.cover?.url && !resource?.videoId" [src]="resource.cover.thumbnailUrl" alt="" loading="lazy" [height]="height" [width]="width" />
+        <img *ngIf="resource.cover?.url && !resource?.videoId" [src]="resource.cover.url" alt="" loading="lazy" [height]="height" [width]="width" />
         <app-video-player *ngIf="viewInitalized && resource?.videoId" [videoId]="resource?.videoId" [height]="height" [width]="width"></app-video-player>
         <mat-icon mat-list-icon>{{resource.type | resourceIcon}}</mat-icon>
       </div>
