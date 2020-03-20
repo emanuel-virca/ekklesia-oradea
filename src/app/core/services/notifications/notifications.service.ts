@@ -8,4 +8,8 @@ export class NotificationsService {
   success(message: string) {
     this.snackBar.open(message);
   }
+
+  error(message: string) {
+    this.snackBar.open(message);
+  }
 }

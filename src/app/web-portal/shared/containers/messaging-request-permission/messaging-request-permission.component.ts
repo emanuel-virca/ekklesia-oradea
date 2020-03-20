@@ -9,6 +9,7 @@ import { MessagingService } from '@core/services/messaging/messaging.service';
 })
 export class MessagingRequestPermissionComponent {
   requestGranted$ = this.messagingService.subscribed$;
+  requestGranting$ = this.messagingService.subscribing$;
 
   constructor(private messagingService: MessagingService) {}
 

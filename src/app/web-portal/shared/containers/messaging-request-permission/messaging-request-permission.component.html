@@ -1,7 +1,8 @@
+<mat-progress-bar *ngIf="(requestGranting$ | async) === true" mode="indeterminate"></mat-progress-bar>
 <div class="banner" *ngIf="(requestGranted$ | async) === false">
   <div class="banner-section">
-    <span class="mat-subheading-1">Be notified</span>
-    <div class="secondary-text">Be notified whenever a new resource is available</div>
+    <span class="mat-subheading-1">Fii la curent!</span>
+    <div class="secondary-text">Vei primi o notificare atunci când o nouă resursă este publicată.</div>
   </div>
-  <button mat-button (click)="requestPermission()" color="primary">Notify me</button>
+  <button mat-button (click)="requestPermission()" [disabled]="(requestGranting$ | async) === true" color="primary">Notifică!</button>
 </div>

@@ -14,6 +14,9 @@ export class MessagingService {
   private subscribed = new BehaviorSubject<boolean>(true);
   subscribed$ = this.subscribed.asObservable();
 
+  private subscribing = new BehaviorSubject<boolean>(false);
+  subscribing$ = this.subscribing.asObservable();
+
   constructor(
     private authenticationService: AuthenticationService,
     private notificationService: NotificationsService,
@@ -99,11 +102,15 @@ export class MessagingService {
    */
   async requestPermissionAsync() {
     try {
+      this.subscribing.next(true);
+
       const messaging = firebase.messaging();
 
       await messaging.requestPermission();
 
       const token = await messaging.getToken();
+
+      this.subscribing.next(false);
 
       this.notificationService.success('Mulțumim pentru abonare!');
 
@@ -111,7 +118,9 @@ export class MessagingService {
 
       this.subscribed.next(true);
     } catch (err) {
-      console.log('Unable to get permission to notify.', err);
+      this.notificationService.error('Abonarea la notificari nu s-a putut realiza!');
+    } finally {
+      this.subscribing.next(false);
     }
   }
 }
