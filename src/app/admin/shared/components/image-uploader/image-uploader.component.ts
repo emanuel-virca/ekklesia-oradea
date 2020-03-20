@@ -26,7 +26,7 @@ export class ImageUploaderComponent implements OnInit {
       return;
     }
 
-    this.urlChanged.emit(this.url);
+    this.urlChanged.emit(null);
 
     // soft delete
 
