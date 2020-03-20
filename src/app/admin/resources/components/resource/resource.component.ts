@@ -125,7 +125,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     const resource: Resource = {
       ...this.resource,
       ...this.resourceForm.value,
-      viwes: this.resource.views || 0,
+      views: this.resource.views || 0,
     };
 
     if (this.resourceForm.controls.hearthisId.value) {
