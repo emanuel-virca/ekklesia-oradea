@@ -1,6 +1,6 @@
-<div class="container-fluid mb-2">
-  <div class="item-viewer--header">
-    <h2>{{author?.id ? 'Edit': 'Add'}}</h2>
+<div class="container-fluid mb-2 mt-1">
+  <div class="item-viewer--header mat-headline">
+    <div class="item-viewer--title">{{author?.id ? 'Edit': 'Add'}}</div>
     <div class="item-viewer--actions">
       <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="author?.id">
         <mat-icon>more_vert</mat-icon>

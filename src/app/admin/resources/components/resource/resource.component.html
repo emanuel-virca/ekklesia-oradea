@@ -1,9 +1,7 @@
-<div class="container-fluid mb-2">
-  <div class="item-viewer--header">
-    <div class="item-viewer--title">
-      <h2>
-        {{resource?.id ? 'Edit': 'Add'}}&nbsp;
-      </h2>
+<div class="container-fluid mb-2 mt-1">
+  <div class="item-viewer--header mat-headline">
+    <div class="item-viewer--title">{{resource?.id ? 'Edit': 'Add'}}</div>
+    <div class="item-viewer--actions">
       <span class="status-badge status-badge__success" *ngIf="resource?.id && resource?.published">
         <mat-icon>visibility</mat-icon>
         <span>Published</span>
@@ -12,12 +10,14 @@
         <mat-icon>visibility_off</mat-icon>
         <span>Not Published</span>
       </span>
-    </div>
-    <div class="item-viewer--actions">
       <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="resource?.id">
-        <mat-icon>more_vert</mat-icon>
+        <mat-icon>more_horiz</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
+        <button title="preview" mat-menu-item target="_blank" [routerLink]="['/resources', resource.id]">
+          <mat-icon aria-label="preview">launch</mat-icon>
+          <span>Preview</span>
+        </button>
         <a [href]="resource.downloadUrl" download mat-menu-item [disabled]="!resource.downloadUrl">
           <mat-icon aria-label="Download">get_app</mat-icon>
           <span>Download</span>

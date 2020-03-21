@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <h2>Resources</h2>
+<div class="container-fluid mt-1">
+  <h1>Resources</h1>
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
   </mat-form-field>
@@ -56,6 +56,10 @@
           <button mat-menu-item (click)="onSelectItem(element)">
             <mat-icon aria-label="Edit">edit</mat-icon>
             <span>Edit</span>
+          </button>
+          <button title="preview" mat-menu-item target="_blank" [routerLink]="['/resources', element.id]">
+            <mat-icon aria-label="preview">launch</mat-icon>
+            <span>Preview</span>
           </button>
           <a [href]="element.downloadUrl" mat-menu-item [disabled]="!element.downloadUrl">
             <mat-icon aria-label="Download">get_app</mat-icon>
