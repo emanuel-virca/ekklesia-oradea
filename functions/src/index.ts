@@ -8,7 +8,7 @@ import { onUserLikesWriteAsync } from './user-likes-triggers';
 import { WebPortalConfig } from './web-portal.config';
 import { onMessagingWriteAsync } from './messaging/messaging-triggers';
 import { onFileWriteAsync } from './files-triggers';
-import authModdleware from './authentication.middleware';
+import authMiddleware from './authentication.middleware';
 
 const algoliaConfig = {
   applicationId: functions.config().algolia.applicationid,
@@ -83,6 +83,6 @@ exports.addHistory = functions.region('europe-west1').https.onCall(async (data, 
   await onAddHistoryAsync(context.auth.uid, data.resourceId);
 });
 
-exports.auth = functions.region('europe-west1').https.onRequest(authModdleware);
+exports.auth = functions.region('europe-west1').https.onRequest(authMiddleware);
 
 // https://medium.com/@jwngr/demystifying-firebase-auth-tokens-e0c533ed330c

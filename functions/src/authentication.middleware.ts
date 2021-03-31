@@ -9,16 +9,16 @@ const express = require('express');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
-const authModdleware = express();
+const authMiddleware = express();
 
 const authConfig: AuthConfig = functions.config().auth;
 
 // Automatically allow cross-origin requests
-authModdleware.use(cors({ origin: true }));
+authMiddleware.use(cors({ origin: true }));
 
 // Json Parser
-authModdleware.use(bodyParser.json());
-authModdleware.use(bodyParser.urlencoded({ extended: false }));
+authMiddleware.use(bodyParser.json());
+authMiddleware.use(bodyParser.urlencoded({ extended: false }));
 
 // Add middleware to authenticate requests
 const jwtCheck = jwt({
@@ -33,10 +33,10 @@ const jwtCheck = jwt({
   algorithm: 'RS256',
 });
 
-authModdleware.use(jwtCheck);
+authMiddleware.use(jwtCheck);
 
 // GET object containing Firebase custom token
-authModdleware.get('/firebase', async (req, res) => {
+authMiddleware.get('/firebase', async (req, res) => {
   AuthenticationService;
   console.log('authenticating: ' + req.user.sub);
 
@@ -57,4 +57,4 @@ authModdleware.get('/firebase', async (req, res) => {
   }
 });
 
-export default authModdleware;
+export default authMiddleware;

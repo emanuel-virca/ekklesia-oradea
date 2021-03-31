@@ -18,19 +18,19 @@
     <mat-list>
       <mat-list-item>
         <mat-icon mat-list-icon>access_time</mat-icon>
-        <p mat-line>În fiecare Duminică, ora 10:00</p>
+        <p mat-line>În fiecare Duminică, ora 10:00 - ONLINE</p>
       </mat-list-item>
       <mat-list-item>
         <mat-icon mat-list-icon>location_on</mat-icon>
-        <p mat-line>Casa de Cultură</p>
-        <p mat-line>Piaţa 1 Decembrie nr. 1, Oradea</p>
+        <p mat-line>Str. Theidor Pallady Nr 5</p>
+        <p mat-line>Bihor, Oradea, Romania</p>
       </mat-list-item>
       <mat-list-item>
-        <a mat-list-icon href="tel:+40744899007">
+        <a mat-list-icon href="tel:+40730782141">
           <mat-icon>call</mat-icon>
         </a>
         <p mat-line>
-          <a href="tel:+40744899007">(+40) 744 899 007</a>
+          <a href="tel:+40744899007">(+40) 730 782 141</a>
         </p>
       </mat-list-item>
       <mat-list-item>
@@ -38,18 +38,34 @@
           <mat-icon>mail_outline</mat-icon>
         </a>
         <p mat-line>
-          <a href="mailto:bisericaekklesia@outlook.com">bisericaekklesia@outlook.com</a>
+          <a href="mailto:ekklesiaoradea@outlook.com">ekklesiaoradea@outlook.com</a>
         </p>
       </mat-list-item>
       <mat-list-item>
         <mat-icon mat-list-icon>account_balance</mat-icon>
-        <p mat-line>Donație</p>
-        <p mat-line>
-          LEI - R089 RZBR 0000 0600 1237 5312
+        <p mat-line class="pointer" title="Copiaza contul">
+          LEI
+          <button mat-button (click)="copyIban($event, lei)">Copiaza</button>
           <br />
-          EURO - R002 RZBR 0000 0600 1808 9984
+          {{lei}}
+        </p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>account_balance</mat-icon>
+        <p mat-line class="pointer" title="Copiaza contul">
+          EURO
+          <button mat-button (click)="copyIban($event, euro)">Copiaza</button>
           <br />
-          USD - R074 RZBR 0000 0600 1678 1807
+          {{euro}}
+        </p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>account_balance</mat-icon>
+        <p mat-line class="pointer" title="Copiaza contul">
+          USD
+          <button mat-button (click)="copyIban($event, euro)">Copiaza</button>
+          <br />
+          {{usd}}
         </p>
       </mat-list-item>
     </mat-list>

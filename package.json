@@ -26,7 +26,9 @@
     "deploy-functions-test": "npm run firebase-test && firebase deploy --only functions",
     "deploy-functions-prod": "npm run firebase-prod && firebase deploy --only functions",
     "stats": "webpack-bundle-analyzer dist/ekklesia-oradea/stats.json",
-    "build-stats": "ng build --configuration=production --prod --stats-json && npm run stats"
+    "build-stats": "ng build --configuration=production --prod --stats-json && npm run stats",
+    "read-config": "firebase functions:config:get",
+    "log-config": "firebase functions:config:get > .runtimeconfig.json"
   },
   "husky": {
     "hooks": {

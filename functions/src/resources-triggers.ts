@@ -128,26 +128,32 @@ async function processCoverImage(ref: FirebaseFirestore.DocumentReference, cover
 async function updateSearchService(algoliaConfig: AlgoliaConfig, after: Resource, before: Resource = null) {
   const resourceSearchService = new ResourceSearchService(algoliaConfig);
 
+  // resource is newly created as published
+  if (!before && after && after.published) {
+    await resourceSearchService.addAsync(after);
+    return;
+  }
+
   // resource is published
-  if (before && !before.published && after.published) {
+  if (before && !before.published && after && after.published) {
     await resourceSearchService.addAsync(after);
     return;
   }
 
   // resource is unpublished
-  if (before && before.published && !after.published) {
+  if (before && before.published && after && !after.published) {
     await resourceSearchService.deleteAsync(after.id);
     return;
   }
 
-  // resource is newly created
-  if (!before && before.published && after.published) {
-    await resourceSearchService.addAsync(after);
+  // resource is deleted
+  if (before && before.published && !after) {
+    await resourceSearchService.deleteAsync(before.id);
     return;
   }
 
   // resource is updated
-  if (before && before.published && after.published) {
+  if (before && before.published && after && after.published) {
     await resourceSearchService.updateAsync(after);
     return;
   }
