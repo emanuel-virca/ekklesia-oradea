@@ -101,7 +101,7 @@ export class AuthenticationService {
 
     await this.afAuth.auth.signInWithCustomToken(firebaseToken);
 
-    await this.updateFirebaseUser(identity);
+    this.updateFirebaseUser(identity);
   }
 
   private async getFirebaseToken(accessToken) {

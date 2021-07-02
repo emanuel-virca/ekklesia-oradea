@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ekklesia-oradea-705d6",
+  "private_key_id": "089c3363fbe844896d2ae7889d5ccf9300251c9d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCmK6GTseWiA8CE\nIbm/uF1xJnKhDWQYL6fq0O2UvTbYMAhviqAQ/lqtlr0du0Ip0VZglq9ujyPTgZ1M\nQWgm621r93cMvj71HK+pvzPxeYeG9xJTSNHAmBcUCf3ihc1vYUeBtPJBjFAmZq13\nfEKkxgymH2J7t229Ue063gVO/8UAXEh4aStXctOFI9oqH3c8G+VP+bQv6QQPLeLN\nHYdLgj+3FV2oxQZB3b5F8GHBhdaiKCLnXkigeg6NtAp/KqIIjkJvXsvhavNpyjgL\nXqoIhSLrKcZ6dYc74+0hUQARMLtpz8Cwh0qZNcluDXiUWM8czNGqH/O/jX+RIavQ\nMt9kdlurAgMBAAECggEAMjB6eIQiYhl1A9O16VDTtFHTDI7hXSbDtnpNUAAIeSqk\n2Z/KsedJVyXwz/KXzM6kIr9QlHmabg83hek5fovcPGB9rjUmCd2UtxX/p983jo3A\nlLQpWlz1l4FfFBSq1InS0bvn8eFh8f9QRIcdD+ybtG9FTS29cRG2L/IQM2iwRWec\n5ZTdgSElLIRFcSUMTssBLRdSGllnkR65JfRYYaaHkQFbPq5W1u2dhXo4dXGas/Sg\nwy7pKu8JLXSJQvywo9SiKxMmcwha3F/JLawvlRaQrSHyYGvmjbAWAUkZbM0a7u/z\nFo9QvNdZUCa+ghS8xc/LDgDke+hfmhmQFZJUBuq03QKBgQDkTj1lu0orG+y8hq7g\nAkhnhFm1zClHuRj+h9hF7MLiARrQa92khMq4bbvYmdB834Z6vvaS2BkcYBTKLlAX\nGTPRnqFo55jywVqdfJzaYHtA9duhm5FU6WK5mdvh2TqON0JzUDSl9akfLSkPly/F\nVDYQ/o1MVHgnWNueVuY4Y0pu/wKBgQC6U9tUCJEZk/98SfHCLzyNVUG8gDh6asHu\nItY44TWLQOlGz7eEVKEALcJ0oozz7rPUyqpSpdAb85iOP8UcfOTKTUKMvYD+CuRh\na7KhkQdyphb44zu2txACmw5ReriFv5Yq27d7wzBL4DE6uUkMi0lBCB8MDTmM0x3w\nXDOZn1F/VQKBgQC7nRAXabGpe2kwA/3xV+7oInsWSpAhwJopkLjJvabo0r+WRw39\nBKMSrBqSBNSvyYBZnlRCmBMKnmp3O1fVo4BR4moCK1AlLX+pq526V07yMxgp1g24\nGZJns2heUIUuGXsiB+c7+oTgedwkU7mOD4XesVCsST30F7FijUbjT7T7QQKBgDv1\nOhHLg+2oK0FyhgJHswOD2Nhwpjv2WJtpyGebSOCbrbVkqBhEJ17oWreviw3/1Qx3\nfuGDi/lCpOe5a5NkOTdEL1MctAKLvLwArQXCppPlEGVcsd11AQjlnnDnvbMEWK1H\n8L45rDPuW8ka0H/h3lu34k29f7RqRysOcGhR1SbVAoGAF4s94nDkVWvnTKNR5E8m\nZAA8rbkVfI5DLU41yxYIPBlPqPX111IeBkdRMg8/K5/X2ZsGurdmTmAct2NIrdm4\nk5oaG+wty5lTkttFo37GQPAqS/ufBNNY3vmGh5yefbd/KzK0ONo5qMWm7DRZfOYK\nxxYOCVTnJCD8OU6isQgTTlg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ekklesia-oradea-705d6@appspot.gserviceaccount.com",
+  "client_id": "113176285877195670930",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ekklesia-oradea-705d6%40appspot.gserviceaccount.com"
+}
