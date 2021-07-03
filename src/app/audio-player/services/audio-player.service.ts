@@ -28,14 +28,15 @@ export class AudioPlayerService implements OnDestroy {
       return;
     }
 
-    if (!this.audioElement) {
-      this.createAudio();
-    }
+    // if (!this.audioElement) {
+    //   this.createAudio();
+    // }
 
     this.trackInfo.audioResource.next(audioResource);
     this.trackInfo.progress.next(0);
-    this.audioElement.src = audioResource.streamUrl;
-    this.audioElement.play();
+
+    //this.audioElement.src = audioResource.streamUrl;
+    //this.audioElement.play();
   }
 
   public clean() {
@@ -52,17 +53,16 @@ export class AudioPlayerService implements OnDestroy {
   }
 
   public play(): void {
-    this.audioElement.play();
+    //this.audioElement.play();
   }
 
   public pause() {
-    this.audioElement.pause();
+    //this.audioElement.pause();
   }
 
   public seek(percent: number): void {
-    this.audioElement.currentTime = percent * this.audioElement.duration;
-
-    this.computeProgress();
+    //this.audioElement.currentTime = percent * this.audioElement.duration;
+    //this.computeProgress();
   }
 
   private createAudio(): void {

@@ -31,3 +31,7 @@ app-main-nav {
 .mat-sidenav-container {
   flex: 1;
 }
+
+app-bottom-nav {
+  z-index: 2;
+}

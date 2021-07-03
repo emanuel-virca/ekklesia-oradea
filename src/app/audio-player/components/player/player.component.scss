@@ -6,10 +6,12 @@
   justify-content: flex-start;
   align-items: center;
   height: $audioPlayerHeight;
+  z-index: 2;
 
   .audio-player-artwork {
     margin-right: 10px;
     cursor: pointer;
+    display: flex;
 
     img {
       height: 56px;
@@ -50,22 +52,15 @@
       }
     }
 
-    .audio-player-waveform {
-      display: flex;
-      flex-flow: row;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
+    .audio-player-progress {
       flex: 1;
-      cursor: pointer;
       padding-bottom: 5px;
-
-      .progress-time {
-        width: 40px;
-        text-align: center;
-      }
     }
   }
+}
+
+.plyr__controls {
+  padding: 0px !important;
 }
 
 /* XSmall */

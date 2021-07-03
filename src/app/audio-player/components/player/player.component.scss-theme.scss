@@ -1,32 +1,36 @@
 @import '~@angular/material/theming';
 
 @mixin ekklesia-app-audio-player-component-theme($theme) {
-	$primary: map-get($theme, primary);
-	$accent: map-get($theme, accent);
-	$warn: map-get($theme, warn);
-	$background: map-get($theme, background);
-	$foreground: map-get($theme, foreground);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
 
-	audio-player {
-		progress[value] {
-			background-color: mat-color($accent);
-		}
+  audio-player {
+    .plyr--audio .plyr__controls {
+      //--plyr-range-fill-background: rgb(0,0,0);
+      --plyr-color-main: rgb(0, 0, 0);
+    }
+    // progress[value], input {
+    // 	background-color: mat-color($accent);
+    // }
 
-		progress[value]::-webkit-progress-bar {
-			background-color: mat-color($background, status-bar);
-			color: mat-color($accent);
-		}
+    // progress[value]::-webkit-progress-bar {
+    // 	background-color: mat-color($background, status-bar);
+    // 	color: mat-color($accent);
+    // }
 
-		progress::-webkit-progress-value {
-			background-color: mat-color($foreground, base);
-		}
+    // progress::-webkit-progress-value {
+    // 	background-color: mat-color($foreground, base);
+    // }
 
-		.seeking circle {
-			stroke: rgba(0, 0, 0, $mat-ripple-color-opacity) !important;
-		}
+    // .seeking circle {
+    // 	stroke: rgba(0, 0, 0, $mat-ripple-color-opacity) !important;
+    // }
 
-		.progress-time {
-			color: $dark-secondary-text;
-		}
-	}
+    // .progress-time {
+    // 	color: $dark-secondary-text;
+    // }
+  }
 }

@@ -1,29 +1,46 @@
-<div class="audio-player-content" *ngIf="trackInfo.audioResource | async as audioResource">
-  <div class="audio-player-artwork" *ngIf="audioResource?.artwork" (click)="onShowDetails(audioResource.id)">
-    <img [src]="audioResource.artwork" />
-  </div>
-  <div class="audio-player-controls">
-    <div class="audio-player-header">
-      <audio-play-button [audioResource]="audioResource"></audio-play-button>
-      <span class="track-info-title" (click)="onShowDetails(audioResource.id)">
-        {{audioResource.title}}
-        <span>&#8228;</span>
-        {{audioResource.author}}
-      </span>
-      <button mat-icon-button [matMenuTriggerFor]="audioPlayerMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #audioPlayerMenu="matMenu">
-        <a mat-menu-item [href]="audioResource.downloadUrl" *ngIf="audioResource.downloadUrl" download="!audioResource.downloadUrl">
-          <mat-icon aria-label="download">get_app</mat-icon>
-          <span>Descarcă</span>
-        </a>
-      </mat-menu>
+<ng-container *ngIf="trackInfo.audioResource | async as audioResource">
+  <div #playerControls>
+    <div class="audio-player-content">
+      <div class="audio-player-artwork" *ngIf="audioResource?.artwork" (click)="onShowDetails(audioResource.id)">
+        <img [src]="audioResource.artwork" />
+      </div>
+      <div class="audio-player-controls">
+        <div class="audio-player-header">
+          <div class="plyr__controls">
+            <button type="button" class="plyr__control" aria-label="Play, {title}" data-plyr="play">
+              <svg class="icon--pressed" role="presentation"><use xlink:href="#plyr-pause"></use></svg>
+              <svg class="icon--not-pressed" role="presentation"><use xlink:href="#plyr-play"></use></svg>
+            </button>
+          </div>
+          <span class="track-info-title" (click)="onShowDetails(audioResource.id)">
+            {{audioResource.title}}
+            <span>&#8228;</span>
+            {{audioResource.author}}
+          </span>
+          <button mat-icon-button [matMenuTriggerFor]="audioPlayerMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #audioPlayerMenu="matMenu">
+            <a mat-menu-item [href]="audioResource.downloadUrl" *ngIf="audioResource.downloadUrl" download="!audioResource.downloadUrl">
+              <mat-icon aria-label="download">get_app</mat-icon>
+              <span>Descarcă</span>
+            </a>
+          </mat-menu>
+        </div>
+        <div class="audio-player-progress plyr__controls">
+          <small class="plyr__time plyr__time--current plyr__controls__item" aria-label="Current time">00:00</small>
+          <div class="plyr__progress__container">
+            <div class="plyr__progress">
+              <input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek" />
+              <progress class="plyr__progress__buffer" min="0" max="100" value="0" color="primary">% buffered</progress>
+              <span role="tooltip" class="plyr__tooltip">00:00</span>
+            </div>
+          </div>
+          <small class="plyr__time plyr__time--duration plyr__controls__item" aria-label="Duration">00:00</small>
+        </div>
+      </div>
     </div>
-    <div class="audio-player-waveform">
-      <small class="progress-time">{{trackInfo.currentTime | async | secondsToTime}}</small>
-      <audio-waveform style="width:100%"></audio-waveform>
-      <small class="progress-time">{{trackInfo.duration | async | secondsToTime}}</small>
-    </div>
   </div>
-</div>
+  <audio #player preload="true" id="player" controls style="display: none;"></audio>
+</ng-container>
+

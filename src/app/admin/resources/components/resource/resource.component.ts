@@ -43,7 +43,8 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     title: new FormControl(),
     dateTime: new FormControl(),
     description: new FormControl(),
-    hearthisId: new FormControl(),
+    downloadUrl: new FormControl(),
+    streamUrl: new FormControl(),
     videoId: new FormControl(),
     type: new FormControl(),
     author: new FormControl(),
@@ -85,7 +86,8 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         title: resource.title,
         dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
         description: resource.description,
-        hearthisId: resource.hearthisId,
+        streamUrl: resource.streamUrl,
+        downloadUrl: resource.downloadUrl,
         videoId: resource.videoId || null,
         type: resource.type,
         author: resource.author,
@@ -127,11 +129,6 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
       ...this.resourceForm.value,
       views: this.resource.views || 0,
     };
-
-    if (this.resourceForm.controls.hearthisId.value) {
-      resource.downloadUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/download`;
-      resource.streamUrl = `https://hearthis.at/ekklesia/${this.resourceForm.controls.hearthisId.value}/listen`;
-    }
 
     if (!resource.id) {
       this.createItem(resource);

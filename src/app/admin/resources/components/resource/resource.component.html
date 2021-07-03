@@ -84,16 +84,16 @@
       </mat-select>
       <mat-error *ngIf="type.errors?.required">Type is required.</mat-error>
     </mat-form-field>
-
     <mat-form-field [class.hidden]="type.value !== 'video'">
       <input matInput placeholder="Youtube Video Id" formControlName="videoId" />
     </mat-form-field>
-
     <mat-form-field>
-      <input matInput placeholder="Hearthis Id" formControlName="hearthisId" />
+      <input matInput placeholder="Audio Stream Url" formControlName="streamUrl" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Audio Download Url" formControlName="downloadUrl" />
     </mat-form-field>
     <app-image-uploader [url]="resource?.cover?.url" [folder]="imageUploadFolder" (urlChanged)="imageChanged($event)"></app-image-uploader>
-
     <app-save-button (save)="save()" [formGroup]="resourceForm"></app-save-button>
   </form>
 </div>
