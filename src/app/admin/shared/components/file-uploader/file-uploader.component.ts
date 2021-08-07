@@ -22,7 +22,7 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  public async deleteAsync() {
+  public async delete() {
     if (!this.url) {
       return;
     }
@@ -37,18 +37,18 @@ export class FileUploaderComponent implements OnInit {
     //   return;
     // }
 
-    try {
-      const fileRef = this.afStorage.storage.refFromURL(this.url);
-      await fileRef.delete();
-      this.url = null;
-      this.urlChanged.emit(this.url);
-    } catch (ex) {
-      this.snackBar.open('Unable to delete file!');
-      console.log(ex);
-    }
+    // try {
+    //   const fileRef = this.afStorage.storage.refFromURL(this.url);
+    //   await fileRef.delete();
+    //   this.url = null;
+    //   this.urlChanged.emit(this.url);
+    // } catch (ex) {
+    //   this.snackBar.open('Unable to delete file!');
+    //   console.log(ex);
+    // }
   }
 
-  public async uploadAsync(event) {
+  public async upload(event) {
     this.uploading = true;
 
     const file = event.target.files[0];

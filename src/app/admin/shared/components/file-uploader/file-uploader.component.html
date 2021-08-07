@@ -1,4 +1,4 @@
 <div>
-  <input type="file" *ngIf="!uploading" (change)="uploadAsync($event)" accept="{{accept}}" />
+  <input type="file" *ngIf="!uploading" (change)="upload($event)" accept="{{accept}}" />
   <mat-progress-bar *ngIf="uploading" color="primary" mode="indeterminate"></mat-progress-bar>
 </div>

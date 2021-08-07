@@ -98,11 +98,11 @@
     <mat-form-field>
       <input matInput placeholder="Audio Url" formControlName="audioUrl" />
     </mat-form-field>
-    <mat-form-field [class.hidden]="!streamUrl.value">
-      <input matInput placeholder="Audio Stream Url" formControlName="streamUrl" />
-    </mat-form-field>
-    <mat-form-field [class.hidden]="!downloadUrl.value">
+    <mat-form-field>
       <input matInput placeholder="Audio Download Url" formControlName="downloadUrl" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Audio Stream Url" formControlName="streamUrl" />
     </mat-form-field>
     <mat-label>Cover Image</mat-label>
     <app-image-uploader [url]="resource?.cover?.url" [folder]="imageUploadFolder" (urlChanged)="imageChanged($event)"></app-image-uploader>
