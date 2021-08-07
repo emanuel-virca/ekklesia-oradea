@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { AuthorSignatureComponent } from './components/author-signature/author-signature.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MainNavComponent } from './components/main-nav/main-nav.component';
     ConfirmDialogComponent,
     AuthorSignatureComponent,
     MainNavComponent,
+    FileUploaderComponent,
   ],
   imports: [CoreSharedModule, MaterialModule],
   exports: [
@@ -26,6 +28,7 @@ import { MainNavComponent } from './components/main-nav/main-nav.component';
     ConfirmDialogComponent,
     AuthorSignatureComponent,
     MainNavComponent,
+    FileUploaderComponent,
   ],
   entryComponents: [ConfirmDialogComponent],
   providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }],

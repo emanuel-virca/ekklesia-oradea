@@ -14,10 +14,10 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button title="preview" mat-menu-item target="_blank" [routerLink]="['/resources', resource.id]">
+        <a title="preview" mat-menu-item target="_blank" [routerLink]="['/resources', resource.id]">
           <mat-icon aria-label="preview">launch</mat-icon>
           <span>Preview</span>
-        </button>
+        </a>
         <a [href]="resource.downloadUrl" download mat-menu-item [disabled]="!resource.downloadUrl">
           <mat-icon aria-label="Download">get_app</mat-icon>
           <span>Download</span>
@@ -87,12 +87,24 @@
     <mat-form-field [class.hidden]="type.value !== 'video'">
       <input matInput placeholder="Youtube Video Id" formControlName="videoId" />
     </mat-form-field>
+
+    <mat-label>Audio</mat-label>
+    <div class="mat-form-field">
+      <div class="mat-form-field-wrapper">
+        <app-file-uploader (urlChanged)="audioUploaded($event)"></app-file-uploader>
+      </div>
+    </div>
+
     <mat-form-field>
+      <input matInput placeholder="Audio Url" formControlName="audioUrl" />
+    </mat-form-field>
+    <mat-form-field [class.hidden]="!streamUrl.value">
       <input matInput placeholder="Audio Stream Url" formControlName="streamUrl" />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field [class.hidden]="!downloadUrl.value">
       <input matInput placeholder="Audio Download Url" formControlName="downloadUrl" />
     </mat-form-field>
+    <mat-label>Cover Image</mat-label>
     <app-image-uploader [url]="resource?.cover?.url" [folder]="imageUploadFolder" (urlChanged)="imageChanged($event)"></app-image-uploader>
     <app-save-button (save)="save()" [formGroup]="resourceForm"></app-save-button>
   </form>

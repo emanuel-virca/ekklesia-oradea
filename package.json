@@ -10,7 +10,7 @@
     "build-dev-prod": "ng build --configuration=development-prod --prod && npm run copy-service-worker",
     "build-test": "ng build --configuration=testing --prod && npm run copy-service-worker",
     "build-prod": "ng build --configuration=production --prod  && npm run copy-service-worker",
-    "copy-service-worker": "cp-cli ./src/ngsw-worker-custom-9.0.0.js ./dist/ekklesia-oradea/ngsw-worker.js",
+    "copy-service-worker": "cpy ./src/ngsw-worker-custom-9.0.0.js ./dist/ekklesia-oradea --rename='ngsw-worker.js'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

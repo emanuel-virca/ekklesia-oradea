@@ -14,13 +14,13 @@ export class ResourceSearchService {
   }
 
   public async addAsync(resource: Resource): Promise<algoliasearchProxy.Task> {
-    console.log('search: adding ' + resource.title + ': ', resource);
+    console.log('search: adding ' + resource.title + ': ', JSON.stringify(resource));
 
     return await this.algoliaIndex.addObject(this.mapResourceToResourceSearchResult(resource));
   }
 
   public async updateAsync(resource: Resource): Promise<algoliasearchProxy.Task> {
-    console.log('search: updating ' + resource.title + ': ', resource);
+    console.log('search: updating ' + resource.title + ': ', JSON.stringify(resource));
 
     return await this.algoliaIndex.saveObject(this.mapResourceToResourceSearchResult(resource));
   }

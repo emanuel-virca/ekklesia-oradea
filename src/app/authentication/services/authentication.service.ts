@@ -66,7 +66,7 @@ export class AuthenticationService {
   }
 
   public signIn() {
-    this.oidcFacade.signinRedirect();
+    this.oidcFacade.signinRedirect({ ui_locales: 'ro' });
   }
 
   public async signOut() {

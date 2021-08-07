@@ -43,6 +43,7 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     title: new FormControl(),
     dateTime: new FormControl(),
     description: new FormControl(),
+    audioUrl: new FormControl(),
     downloadUrl: new FormControl(),
     streamUrl: new FormControl(),
     videoId: new FormControl(),
@@ -86,8 +87,9 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
         title: resource.title,
         dateTime: resource.dateTime ? resource.dateTime.toDate() : null,
         description: resource.description,
-        streamUrl: resource.streamUrl,
-        downloadUrl: resource.downloadUrl,
+        streamUrl: resource.streamUrl || null,
+        audioUrl: resource.audioUrl || null,
+        downloadUrl: resource.downloadUrl || null,
         videoId: resource.videoId || null,
         type: resource.type,
         author: resource.author,
@@ -171,6 +173,13 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
     }
   }
 
+  audioUploaded(url: string) {
+    this.audioUrl.setValue(url);
+    this.downloadUrl.setValue(url);
+
+    this.resourceForm.markAsDirty();
+  }
+
   get title() {
     return this.resourceForm.controls.title;
   }
@@ -182,5 +191,14 @@ export class ResourceComponent extends ListItemBaseComponent<Resource> implement
   }
   get type() {
     return this.resourceForm.controls.type;
+  }
+  get audioUrl() {
+    return this.resourceForm.controls.audioUrl;
+  }
+  get streamUrl() {
+    return this.resourceForm.controls.streamUrl;
+  }
+  get downloadUrl() {
+    return this.resourceForm.controls.downloadUrl;
   }
 }

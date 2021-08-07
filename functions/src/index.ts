@@ -9,13 +9,22 @@ import { WebPortalConfig } from './web-portal.config';
 import { onMessagingWriteAsync } from './messaging/messaging-triggers';
 import { onFileWriteAsync } from './files-triggers';
 import authMiddleware from './authentication.middleware';
+import { MuxConfig } from './mux.config';
+import { AlgoliaConfig } from './algolia.config';
 
-const algoliaConfig = {
+const algoliaConfig: AlgoliaConfig = {
   applicationId: functions.config().algolia.applicationid,
   apiKey: functions.config().algolia.apikey,
   adminApiKey: functions.config().algolia.adminapikey,
   resourceIndex: functions.config().algolia.resourceindex,
 };
+
+const muxConfig: MuxConfig = {
+  accesstoken: functions.config().mux.accesstoken,
+  secret: functions.config().mux.secret,
+};
+
+console.log("muxConfig: " + JSON.stringify(muxConfig));
 
 const webportalConfig: WebPortalConfig = functions.config().webportal;
 
@@ -27,14 +36,14 @@ exports.onResourceCreated = functions
   .region('europe-west1')
   .firestore.document('resources/{resourceId}')
   .onCreate(async (snap, context) => {
-    await onResourceCreateAsync(snap, context, algoliaConfig);
+    await onResourceCreateAsync(snap, context, algoliaConfig, muxConfig);
   });
 
 exports.onResourceUpdated = functions
   .region('europe-west1')
   .firestore.document('resources/{resourceId}')
   .onUpdate(async (change, context) => {
-    await onResourceUpdateAsync(change, context, algoliaConfig, webportalConfig);
+    await onResourceUpdateAsync(change, context, algoliaConfig, webportalConfig, muxConfig);
   });
 
 exports.onResourceDeleted = functions

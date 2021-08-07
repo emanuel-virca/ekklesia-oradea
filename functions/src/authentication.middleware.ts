@@ -48,7 +48,7 @@ authMiddleware.get('/firebase', async (req, res) => {
     const firebaseToken = await authenticationService.authenticateAsync(uid);
     res.json({ firebaseToken });
   } catch (err) {
-    console.log('Something went wrong acquiring a Firebase token. ', err);
+    console.log('Something went wrong acquiring a Firebase token. ', JSON.stringify(err));
 
     res.status(500).send({
       message: 'Something went wrong acquiring a Firebase token.',

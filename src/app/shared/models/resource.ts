@@ -15,6 +15,7 @@ export interface Resource {
   hearthisId?: string;
   downloadUrl?: string;
   streamUrl?: string;
+  audioUrl?: string;
   videoId?: string;
   cover?: Image;
   tags?: Tag[];

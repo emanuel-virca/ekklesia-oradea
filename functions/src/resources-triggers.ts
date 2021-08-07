@@ -11,17 +11,33 @@ import { ResourceSnippetService } from './resource-snippet.service';
 import { LibraryService } from './library.service';
 import { UserLikesService } from './user-likes.service';
 import { THUMB_PREFIX } from './storage.service';
+import { MuxConfig } from './mux.config';
+import { AudioProcessorService } from './audio-processor.service';
 
 export async function onResourceCreateAsync(
   snap: FirebaseFirestore.DocumentSnapshot,
   context: functions.EventContext,
-  algoliaConfig: AlgoliaConfig
+  algoliaConfig: AlgoliaConfig,
+  muxConfig: MuxConfig
 ): Promise<void> {
   const resource = snap.data() as Resource;
 
   resource.id = snap.id;
 
   await processCoverImage(snap.ref, resource.cover);
+
+  // audio processing
+  if (resource.audioUrl) {
+    var muxService = new AudioProcessorService(muxConfig);
+
+    const streamUrl = await muxService.createStreamAsync(resource.audioUrl);
+
+    if (streamUrl) {
+      await snap.ref.set({ streamUrl }, { merge: true });
+
+      resource.streamUrl = streamUrl;
+    }
+  }
 
   const tasks = [];
 
@@ -31,7 +47,6 @@ export async function onResourceCreateAsync(
   // resource snippets
   const resourceSnippetService = new ResourceSnippetService();
   const snippetTask = resourceSnippetService.addAsync(resource);
-
   tasks.push(snippetTask);
 
   await Promise.all(tasks);
@@ -41,20 +56,32 @@ export async function onResourceUpdateAsync(
   change: functions.Change<FirebaseFirestore.DocumentSnapshot>,
   context: functions.EventContext,
   algoliaConfig: AlgoliaConfig,
-  webPortalConfig: WebPortalConfig
+  webPortalConfig: WebPortalConfig,
+  muxConfig: MuxConfig
 ): Promise<void> {
   const before = change.before.data() as Resource;
   const after = change.after.data() as Resource;
 
   after.id = change.after.id;
 
-  // image dimensions
-
   const oldImageUrl = before.cover ? before.cover.url : null;
   const newImageUrl = after.cover ? after.cover.url : null;
 
   if (newImageUrl !== oldImageUrl) {
     await processCoverImage(change.after.ref, after.cover);
+  }
+
+  // audio processing
+  if (before.audioUrl !== after.audioUrl) {
+    var muxService = new AudioProcessorService(muxConfig);
+
+    const streamUrl = await muxService.createStreamAsync(after.audioUrl);
+
+    if (streamUrl) {
+      await change.after.ref.set({ streamUrl }, { merge: true });
+
+      after.streamUrl = streamUrl;
+    }
   }
 
   const tasks = [];

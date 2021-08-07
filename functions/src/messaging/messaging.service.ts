@@ -36,10 +36,10 @@ export class MessagingService {
       .messaging()
       .subscribeToTopic(notificationTokens, subscriptionTopic)
       .then(function(response) {
-        console.log('Successfully subscribed to topic:', response);
+        console.log('Successfully subscribed to topic:', JSON.stringify(response));
       })
       .catch(function(error) {
-        console.log('Error subscribing to topic:', error);
+        console.log('Error subscribing to topic:', JSON.stringify(error));
       });
   }
 }
